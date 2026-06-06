@@ -24,8 +24,8 @@ header:
           href: /contact
     - text: Resources
       links:
-        - text: News
-          href: /news
+        - text: Blog
+          href: /blog
         - text: Latest Article
           href: /blog/get-started-website-with-astro-tailwind-css
         - text: Categories
