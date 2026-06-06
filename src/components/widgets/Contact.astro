@@ -3,6 +3,31 @@ import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import Button from '~/components/ui/Button.astro';
 
+interface FieldOption {
+  value: string;
+  label: string;
+}
+
+interface Field {
+  name: string;
+  label: string;
+  row: number;
+  type?: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+  withCountryCode?: boolean;
+  rows?: number;
+  placeholder?: string;
+  optionsKey?: string;
+  options?: FieldOption[];
+}
+
+interface ConsentConfig {
+  required?: boolean;
+  text?: string;
+  link_text?: string;
+  link_href?: string;
+  error_message?: string;
+}
+
 interface Props {
   id?: string;
   title?: string;
@@ -12,18 +37,13 @@ interface Props {
   submitButton?: string;
   successMessage?: string;
   errorMessage?: string;
-  fields?: Array<{
-    name: string;
-    label: string;
-    row: number;
-    type?: 'text' | 'email' | 'tel' | 'textarea';
-    withCountryCode?: boolean;
-    rows?: number;
-  }>;
+  fields?: Field[];
+  consent?: ConsentConfig;
   captcha?: { label: string };
   captchaQuestion?: string;
   defaultCountryCode?: string;
   countryCodes?: Array<{ code: string; label: string }>;
+  countries?: FieldOption[];
   isDark?: boolean;
   classes?: { container?: string };
   bg?: any;
@@ -39,16 +59,30 @@ const {
   successMessage = 'Thanks! Your message has landed in our inbox.',
   errorMessage = 'Something went wrong. Please try again.',
   fields = [],
+  consent,
   captcha = { label: 'Anti-spam: please solve the following' },
   captchaQuestion = '',
   defaultCountryCode = '+1',
   countryCodes = [],
+  countries = [],
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
 
-const grouped: Record<number, typeof fields> = {};
+const consentRequired = consent?.required === true;
+const consentText = consent?.text || 'I agree to the processing of my personal data in accordance with the';
+const consentLinkText = consent?.link_text || 'Privacy Policy';
+const consentLinkHref = consent?.link_href || '/privacy';
+const consentError = consent?.error_message || 'Please confirm that you accept the Privacy Policy before submitting.';
+
+const resolveOptions = (f: Field): FieldOption[] => {
+  if (Array.isArray(f.options) && f.options.length > 0) return f.options;
+  if (f.optionsKey === 'countries' && countries.length > 0) return countries;
+  return [];
+};
+
+const grouped: Record<number, Field[]> = {};
 for (const f of fields) {
   if (!grouped[f.row]) grouped[f.row] = [];
   grouped[f.row].push(f);
@@ -90,6 +124,7 @@ const rows = Object.keys(grouped)
                     id={`${id}-${f.name}`}
                     name={f.name}
                     rows={f.rows ?? 6}
+                    placeholder={f.placeholder}
                     class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
                   ></textarea>
                 </div>
@@ -100,8 +135,9 @@ const rows = Object.keys(grouped)
                 <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
                 <input
                   id={`${id}-${f.name}`}
-                  type={f.type ?? 'text'}
+                  type={(f.type === 'select' ? 'text' : (f.type ?? 'text')) as any}
                   name={f.name}
+                  placeholder={f.placeholder}
                   class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
                 />
               </div>
@@ -131,10 +167,28 @@ const rows = Object.keys(grouped)
                           name={f.name}
                           inputmode="numeric"
                           pattern="[0-9 ()+\\-]{6,}"
-                          placeholder="555 123 4567"
+                          placeholder={f.placeholder ?? '555 123 4567'}
                           class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
                         />
                       </div>
+                    </div>
+                  );
+                }
+                if (f.type === 'select') {
+                  const opts = resolveOptions(f);
+                  return (
+                    <div>
+                      <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
+                      <select
+                        id={`${id}-${f.name}`}
+                        name={f.name}
+                        class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                        required
+                      >
+                        {opts.map((o) => (
+                          <option value={o.value}>{o.label}</option>
+                        ))}
+                      </select>
                     </div>
                   );
                 }
@@ -145,6 +199,7 @@ const rows = Object.keys(grouped)
                       id={`${id}-${f.name}`}
                       type={(f.type === 'email' ? 'email' : f.type === 'tel' ? 'tel' : 'text') as any}
                       name={f.name}
+                      placeholder={f.placeholder}
                       class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
                     />
                   </div>
@@ -170,8 +225,33 @@ const rows = Object.keys(grouped)
         </div>
       </div>
 
+      {consent && (
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <label class="flex items-start gap-3 text-sm text-muted dark:text-slate-300 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              name="consent"
+              data-consent
+              data-consent-error={consentError}
+              required={consentRequired}
+              class="mt-1 h-4 w-4 shrink-0 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary cursor-pointer"
+            />
+            <span class="leading-relaxed">
+              {consentText}{' '}
+              <a
+                href={consentLinkHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary underline underline-offset-2 hover:text-secondary dark:text-blue-400"
+              >{consentLinkText}</a>.
+            </span>
+          </label>
+          <p data-consent-error class="hidden mt-1 text-xs text-red-600 dark:text-red-400"></p>
+        </div>
+      )}
+
       <div class="pt-2">
-        <Button type="submit" variant="primary">{submitButton}</Button>
+        <Button type="submit" variant="primary" data-submit-button>{submitButton}</Button>
       </div>
 
       <div data-form-status class="hidden text-sm"></div>
@@ -189,11 +269,23 @@ const rows = Object.keys(grouped)
       const errorMsg = formEl.dataset.errorMessage || 'Something went wrong.';
       const questionEl = formEl.querySelector('[data-captcha-question]');
       const originalQuestion = questionEl ? questionEl.textContent || '' : '';
+      const consentEl = formEl.querySelector('[data-consent]');
+      const consentErrorEl = formEl.querySelector('[data-consent-error]');
 
       formEl.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!(formEl instanceof HTMLFormElement)) return;
-        const submitBtn = formEl.querySelector('button[type="submit"]');
+        if (consentErrorEl) { consentErrorEl.classList.add('hidden'); consentErrorEl.textContent = ''; }
+        if (consentEl instanceof HTMLInputElement && consentEl.required && !consentEl.checked) {
+          if (consentErrorEl) {
+            consentErrorEl.textContent = consentEl.dataset.consentError || 'Please confirm that you accept the Privacy Policy before submitting.';
+            consentErrorEl.classList.remove('hidden');
+          }
+          consentEl.focus();
+          return;
+        }
+        const submitBtn = formEl.querySelector('[data-submit-button]');
+        const submitLabel = submitBtn ? submitBtn.textContent || 'Send message' : 'Send message';
         if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
         const fd = new FormData(formEl);
@@ -204,6 +296,7 @@ const rows = Object.keys(grouped)
         const cc = data.tel_countryCode || '';
         if (data.tel) data.tel = `${cc} ${data.tel}`.trim();
         delete data.tel_countryCode;
+        if (consentEl instanceof HTMLInputElement) data.consent = consentEl.checked ? 'true' : 'false';
 
         try {
           const res = await fetch('/api/contact', {
@@ -219,16 +312,16 @@ const rows = Object.keys(grouped)
             } else if (result.reload) {
               setTimeout(() => window.location.reload(), 1200);
             }
-            if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+            if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
             return;
           }
           showStatus(statusEl, successMsg, 'success');
           formEl.reset();
-          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
           if (questionEl) questionEl.textContent = originalQuestion;
         } catch {
           showStatus(statusEl, 'Network error', 'error');
-          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
         }
       });
     });

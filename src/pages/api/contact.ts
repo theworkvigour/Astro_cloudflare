@@ -33,6 +33,7 @@ interface IncomingPayload {
   email_to?: string;
   captcha_answer?: string;
   email_confirm?: string;
+  consent?: string | boolean;
 }
 
 interface BrandingEmailConfig {
@@ -234,7 +235,13 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
   }
 
   const body = await readJson(request);
-  if (!body) return err('请求格式错误', 400);
+  if (!body) return err('Invalid request format.', 400);
+
+  const consentValue = body.consent;
+  const consentAccepted = consentValue === true || consentValue === 'true' || consentValue === 'on' || consentValue === '1';
+  if (!consentAccepted) {
+    return err('Please confirm that you accept the Privacy Policy before submitting.', 400);
+  }
 
   if (body.email_confirm && body.email_confirm.trim() !== '') {
     return ok({ id: '00000000-0000-0000-0000-000000000000', receivedAt: new Date().toISOString(), email: { attempted: false, sent: false } });

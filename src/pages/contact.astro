@@ -46,10 +46,12 @@ const metadata = {
     successMessage={form.success_message}
     errorMessage={form.error_message}
     fields={form.fields ?? []}
+    consent={form.consent}
     captcha={form.captcha ?? { label: 'Anti-spam' }}
     captchaQuestion={challenge.question}
     defaultCountryCode={form.default_country_code ?? '+1'}
     countryCodes={form.country_codes ?? []}
+    countries={form.countries ?? []}
   />
 
   <Features2

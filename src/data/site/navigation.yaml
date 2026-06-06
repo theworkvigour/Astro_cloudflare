@@ -1,4 +1,13 @@
 header:
+  topBar:
+    - text: Find a Store
+      href: /store-locator
+    - text: Help
+      href: /help
+    - text: Join Us
+      href: /join
+    - text: Sign In
+      href: /login
   links:
     - text: Products
       links:
@@ -18,26 +27,24 @@ header:
           href: /services
         - text: Pricing
           href: /pricing
-        - text: About
-          href: /about
-        - text: Contact
-          href: /contact
     - text: Resources
       links:
-        - text: News
-          href: /news
+        - text: Blog
+          href: /blog
         - text: Latest Article
-          href: /news/get-started-website-with-astro-tailwind-css
+          href: /blog/get-started-website-with-astro-tailwind-css
         - text: Categories
           href: /category/tutorials
         - text: Tags
           href: /tag/astro
-    - text: Legal
+    - text: Support
       links:
-        - text: Terms
-          href: /terms
-        - text: Privacy
-          href: /privacy
+        - text: News
+          href: /blog
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
   actions:
     - text: Get a quote
       href: /contact
@@ -62,28 +69,20 @@ footer:
           href: /services
         - text: Pricing
           href: /pricing
-        - text: About
-          href: /about
-        - text: Contact
-          href: /contact
     - title: Resources
       links:
-        - text: News
-          href: /news
+        - text: Blog
+          href: /blog
         - text: Login
           href: /login
-    - title: Company
+    - title: Support
       links:
-        - text: About
-          href: /about
+        - text: News
+          href: /blog
         - text: Contact
           href: /contact
-        - text: News
-          href: /news
-        - text: Terms
-          href: /terms
-        - text: Privacy
-          href: /privacy
+        - text: About
+          href: /about
   secondaryLinks:
     - text: Terms
       href: /terms

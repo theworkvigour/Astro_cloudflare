@@ -32,7 +32,7 @@ features3_what_we_build:
       icon: tabler:ship
     - title: Inflatable boats
       description: PVC and Hypalon inflatable dinghies from 2.4 m to 4.2 m. Light, tough and easy to stow.
-      icon: tabler:boat
+      icon: tabler:speedboat
     - title: Superyacht tenders
       description: Compact, high-spec RIBs custom-built to match the look of your mothership.
       icon: tabler:crown

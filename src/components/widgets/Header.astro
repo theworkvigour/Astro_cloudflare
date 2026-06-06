@@ -31,6 +31,7 @@ export interface Props {
   showRssFeed?: boolean;
   showSearch?: boolean;
   showTopBar?: boolean;
+  topBarLinks?: Array<{ text?: string; href?: string }>;
   position?: string;
 }
 
@@ -45,6 +46,7 @@ const {
   showRssFeed = false,
   showSearch = true,
   showTopBar = false,
+  topBarLinks = [],
   position = 'center',
 } = Astro.props;
 
@@ -68,14 +70,18 @@ const langs = [
   {...isSticky ? { 'data-aw-sticky-header': true, 'data-auto-hide': 'true' } : {}}
   {...id ? { id } : {}}
 >
-  {showTopBar && (
-    <div class="bg-black text-white text-xs">
-      <div class="max-w-7xl mx-auto px-3 md:px-6 py-1.5 flex items-center">
-        <a
-          href="/login"
-          class="font-medium hover:underline hover:text-white"
-          data-i18n="topbar.login"
-        >Login</a>
+  {showTopBar && topBarLinks.length > 0 && (
+    <div class="bg-gray-900 text-white text-[11px] leading-none">
+      <div class="max-w-7xl mx-auto px-3 md:px-6 py-2 flex items-center justify-end gap-0">
+        {topBarLinks.map((link, i) => (
+          <>
+            {i > 0 && <span class="text-gray-500 mx-2 select-none">|</span>}
+            <a
+              href={link.href || '#'}
+              class="hover:text-gray-300 transition-colors"
+            >{link.text}</a>
+          </>
+        ))}
       </div>
     </div>
   )}
@@ -499,6 +505,17 @@ Type a keyword to start searching
       if (e.target === dialog) close();
     });
     input.addEventListener('input', function () { render(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var first = list && list.querySelector('a');
+        if (first) {
+          close();
+          window.location.href = first.getAttribute('href') || '/';
+        }
+        return false;
+      }
+    });
     list.addEventListener('click', function (e) {
       const a = e.target instanceof Element ? e.target.closest('a') : null;
       if (a) close();

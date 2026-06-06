@@ -5,6 +5,7 @@ import navData from '~/data/site/navigation.yaml';
 const PRODUCT_LIST = '/products';
 
 const headerData = {
+  topBarLinks: navData?.header?.topBar ?? [],
   links:
     navData?.header?.links?.map((entry) => ({
       text: entry?.text,

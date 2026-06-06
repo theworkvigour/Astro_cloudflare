@@ -28,6 +28,7 @@ try {
 }
 
 const header = data?.header ?? {};
+const topBar = header?.topBar ?? [];
 const footer = data?.footer ?? {};
 ---
 <AdminLayout title="Navigation & Footer" active="navigation" username={verified?.username}>
@@ -52,8 +53,41 @@ const footer = data?.footer ?? {};
     <details open class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
       <summary class="px-5 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
         <div>
-        <div class="text-sm font-semibold">Header Navigation</div>
-        <div class="text-xs text-gray-500 font-mono mt-0.5">header.links / header.actions</div>
+          <div class="text-sm font-semibold">Top Bar</div>
+          <div class="text-xs text-gray-500 font-mono mt-0.5">header.topBar — thin utility bar above nav</div>
+        </div>
+      </summary>
+      <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Top Bar Links (e.g. Find a Store | Help | Join Us | Sign In)</label>
+            <button type="button" data-add-topbar-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Link</button>
+          </div>
+          <div data-topbar-list class="space-y-2">
+            {(topBar ?? []).map((l: any) => (
+              <div data-topbar-row class="flex gap-2">
+                <input type="text" name="topbarText" value={l.text ?? ''} placeholder="Link Text" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="topbarHref" value={l.href ?? ''} placeholder="/url" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <button type="button" data-remove-topbar-link class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+              </div>
+            ))}
+          </div>
+          <template data-topbar-template>
+            <div data-topbar-row class="flex gap-2">
+              <input type="text" name="topbarText" placeholder="Link Text" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+              <input type="text" name="topbarHref" placeholder="/url" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+              <button type="button" data-remove-topbar-link class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </details>
+
+    <details open class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
+      <summary class="px-5 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
+        <div>
+          <div class="text-sm font-semibold">Header Navigation</div>
+          <div class="text-xs text-gray-500 font-mono mt-0.5">header.links / header.actions</div>
         </div>
       </summary>
       <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
@@ -354,6 +388,12 @@ const footer = data?.footer ?? {};
             pairs.push({ scope: 'secondary', text: d.secondaryText ?? '', href: d.secondaryHref ?? '' });
           }
         });
+        form.querySelectorAll('[data-topbar-row]').forEach((row) => {
+          const d = readRow(row);
+          if (d.topbarText || d.topbarHref) {
+            pairs.push({ scope: 'topbar', text: d.topbarText ?? '', href: d.topbarHref ?? '' });
+          }
+        });
         return pairs;
       }
 
@@ -572,6 +612,21 @@ const footer = data?.footer ?? {};
           if (row) row.remove();
           return;
         }
+        const addTopbarLink = findBtn('add-topbar-link');
+        if (addTopbarLink) {
+          e.preventDefault();
+          const tpl = form.querySelector('template[data-topbar-template]');
+          const list = form.querySelector('[data-topbar-list]');
+          if (tpl && list) list.appendChild(tpl.content.cloneNode(true));
+          return;
+        }
+        const removeTopbarLink = findBtn('remove-topbar-link');
+        if (removeTopbarLink) {
+          e.preventDefault();
+          const row = removeTopbarLink.closest('[data-topbar-row]');
+          if (row) row.remove();
+          return;
+        }
       });
 
       form.addEventListener('submit', async (e) => {
@@ -637,8 +692,16 @@ const footer = data?.footer ?? {};
         const footNoteEl = form.querySelector('[name="footNote"]');
         const footNote = footNoteEl instanceof HTMLTextAreaElement ? footNoteEl.value : '';
 
+        const topBarLinks = [];
+        form.querySelectorAll('[data-topbar-row]').forEach((row) => {
+          const d = readRow(row);
+          if (d.topbarText || d.topbarHref) {
+            topBarLinks.push({ text: d.topbarText ?? '', href: d.topbarHref ?? '' });
+          }
+        });
+
         const payload = {
-          header: { links: headerGroups, actions: headerActions },
+          header: { topBar: topBarLinks, links: headerGroups, actions: headerActions },
           footer: { links: footerGroups, secondaryLinks, socialLinks, footNote },
         };
 
