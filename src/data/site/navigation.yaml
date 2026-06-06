@@ -24,8 +24,8 @@ header:
           href: /contact
     - text: Resources
       links:
-        - text: Blog
-          href: /blog
+        - text: News
+          href: /news
         - text: Latest Article
           href: /blog/get-started-website-with-astro-tailwind-css
         - text: Categories
@@ -42,7 +42,6 @@ header:
     - text: Get a quote
       href: /contact
       variant: primary
-
 footer:
   links:
     - title: Products
@@ -109,4 +108,4 @@ footer:
     - ariaLabel: GitHub
       icon: tabler:brand-github
       href: https://github.com/theworkvigour
-  footNote: '© 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.'
+  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
