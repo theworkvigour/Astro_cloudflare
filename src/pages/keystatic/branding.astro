@@ -38,7 +38,7 @@ const year = new Date().getFullYear();
 <AdminLayout title="品牌与 LOGO" active="branding" username={verified?.username}>
   <div class="mb-6">
     <h1 class="text-2xl font-semibold">品牌与 LOGO</h1>
-    <p class="mt-1 text-sm text-gray-500">编辑网站名称、LOGO 图片、版权信息。文件: <code class="font-mono">{file}</code>。版权文本中可使用 <code class="font-mono">{'{year}'}</code> 占位符,会自动替换为当前年份 (现在是 {year})。</p>
+    <p class="mt-1 text-sm text-gray-500">编辑网站名称、LOGO 图片、版权信息。文件: <code class="font-mono">{file}</code>。版权文本中可使用 <code class="font-mono">{'{year}'}</code> 和 <code class="font-mono">{'{site_name}'}</code> 占位符,会自动替换 (当前年份 {year}, 当前 site_name "{data.site_name}")。</p>
   </div>
 
   {loadError && (
@@ -138,7 +138,10 @@ const year = new Date().getFullYear();
 
       function refreshCopyright() {
         if (copyrightEl instanceof HTMLTextAreaElement && previewEl) {
-          previewEl.textContent = (copyrightEl.value || '').replace(/\\{year\\}/gi, String(year));
+          const name = siteNameEl instanceof HTMLInputElement ? (siteNameEl.value || 'Vectoflare').trim() || 'Vectoflare' : 'Vectoflare';
+          previewEl.textContent = (copyrightEl.value || '')
+            .replace(/\\{year\\}/gi, String(year))
+            .replace(/\\{site_name\\}/gi, name);
         }
       }
       function refreshName() {

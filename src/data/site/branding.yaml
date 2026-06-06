@@ -1,4 +1,4 @@
 site_name: Vectoflare
 logo_image: ''
 logo_alt: Vectoflare logo
-copyright: '© {year} Vectoflare · All rights reserved.'
+copyright: '© {year} {site_name} · All rights reserved.'
