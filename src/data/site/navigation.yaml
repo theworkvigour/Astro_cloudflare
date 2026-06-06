@@ -71,8 +71,8 @@ footer:
       links:
         - text: Blog
           href: /blog
-        - text: Admin / CMS
-          href: /keystatic
+        - text: Login
+          href: /login
     - title: Company
       links:
         - text: About

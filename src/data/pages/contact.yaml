@@ -6,21 +6,69 @@ contact_form:
   id: form
   title: Send us a message
   subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
-  inputs:
-    - type: text
-      name: name
-      label: Name
-    - type: email
-      name: email
-      label: Email
-    - type: text
-      name: subject
-      label: Subject
-  textarea:
-    label: Message
-  disclaimer:
-    label: By submitting this form, you agree to be contacted about your enquiry. We will not use your details for marketing.
-  description: Mon–Fri, 09:00–18:00 (local time). We respond within one business day.
+  email_to: hello@vectoflare.example
+  submit_button: Send message
+  success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
+  error_message: Something went wrong sending your message. Please try again or email us directly.
+  fields:
+    - { name: firstName, label: First Name, row: 1 }
+    - { name: lastName, label: Last Name, row: 1 }
+    - { name: companyName, label: Company Name, row: 2 }
+    - { name: address, label: Address, row: 3 }
+    - { name: zip, label: Zip, row: 4 }
+    - { name: country, label: Country, row: 4 }
+    - { name: email, label: E-mail, row: 5, type: email }
+    - { name: tel, label: TEL, row: 5, type: tel, withCountryCode: true }
+    - { name: subject, label: Subject, row: 6 }
+    - { name: message, label: Message, row: 7, type: textarea, rows: 6 }
+  captcha:
+    label: 'Anti-spam: please solve the following'
+  default_country_code: '+1'
+  country_codes:
+    - { code: '+1', label: 'United States (+1)' }
+    - { code: '+1', label: 'Canada (+1)' }
+    - { code: '+44', label: 'United Kingdom (+44)' }
+    - { code: '+33', label: 'France (+33)' }
+    - { code: '+49', label: 'Germany (+49)' }
+    - { code: '+34', label: 'Spain (+34)' }
+    - { code: '+39', label: 'Italy (+39)' }
+    - { code: '+31', label: 'Netherlands (+31)' }
+    - { code: '+32', label: 'Belgium (+32)' }
+    - { code: '+41', label: 'Switzerland (+41)' }
+    - { code: '+43', label: 'Austria (+43)' }
+    - { code: '+46', label: 'Sweden (+46)' }
+    - { code: '+47', label: 'Norway (+47)' }
+    - { code: '+45', label: 'Denmark (+45)' }
+    - { code: '+358', label: 'Finland (+358)' }
+    - { code: '+351', label: 'Portugal (+351)' }
+    - { code: '+353', label: 'Ireland (+353)' }
+    - { code: '+61', label: 'Australia (+61)' }
+    - { code: '+64', label: 'New Zealand (+64)' }
+    - { code: '+81', label: 'Japan (+81)' }
+    - { code: '+82', label: 'South Korea (+82)' }
+    - { code: '+86', label: 'China (+86)' }
+    - { code: '+852', label: 'Hong Kong (+852)' }
+    - { code: '+853', label: 'Macau (+853)' }
+    - { code: '+886', label: 'Taiwan (+886)' }
+    - { code: '+65', label: 'Singapore (+65)' }
+    - { code: '+60', label: 'Malaysia (+60)' }
+    - { code: '+66', label: 'Thailand (+66)' }
+    - { code: '+62', label: 'Indonesia (+62)' }
+    - { code: '+91', label: 'India (+91)' }
+    - { code: '+971', label: 'United Arab Emirates (+971)' }
+    - { code: '+966', label: 'Saudi Arabia (+966)' }
+    - { code: '+972', label: 'Israel (+972)' }
+    - { code: '+90', label: 'Türkiye (+90)' }
+    - { code: '+7', label: 'Russia (+7)' }
+    - { code: '+55', label: 'Brazil (+55)' }
+    - { code: '+52', label: 'Mexico (+52)' }
+    - { code: '+54', label: 'Argentina (+54)' }
+    - { code: '+56', label: 'Chile (+56)' }
+    - { code: '+57', label: 'Colombia (+57)' }
+    - { code: '+27', label: 'South Africa (+27)' }
+    - { code: '+234', label: 'Nigeria (+234)' }
+    - { code: '+20', label: 'Egypt (+20)' }
+    - { code: '+212', label: 'Morocco (+212)' }
 
 features2_other_ways:
   title: Other ways to reach us

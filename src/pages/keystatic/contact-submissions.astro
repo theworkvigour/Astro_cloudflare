@@ -1,0 +1,170 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
+import { decryptJson, readSubmissionsFile, getSubmissionsPath, type DecryptedSubmission } from '~/lib/contact-crypto';
+import yaml from 'js-yaml';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+const token = readTokenFromCookies(Astro.cookies);
+if (!token) return Astro.redirect('/keystatic/github-token');
+
+const file = getSubmissionsPath();
+
+let submissions: DecryptedSubmission[] = [];
+let fileSha = '';
+let loadError: string | null = null;
+let notFound = false;
+
+try {
+  const client = new GitHubClient(token);
+  const f = await client.readFile(file);
+  fileSha = f.sha;
+  const parsed = yaml.load(f.content);
+  const file2 = readSubmissionsFile(parsed);
+  for (const rec of file2.submissions) {
+    try {
+      const data = decryptJson<Record<string, string>>(rec.blob);
+      submissions.push({
+        id: rec.id,
+        receivedAt: rec.receivedAt,
+        ip: rec.ip,
+        userAgent: rec.userAgent,
+        data,
+      });
+    } catch {
+      submissions.push({
+        id: rec.id,
+        receivedAt: rec.receivedAt,
+        ip: rec.ip,
+        userAgent: rec.userAgent,
+        data: { _error: 'Decryption failed — encryption key may have changed' },
+      });
+    }
+  }
+} catch (e) {
+  const status = (e as { status?: number }).status;
+  if (status === 404) {
+    notFound = true;
+  } else {
+    loadError = e instanceof Error ? e.message : 'Failed to read';
+  }
+}
+
+const total = submissions.length;
+const recent = submissions.slice(0, 50);
+const fieldLabels: Record<string, string> = {
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  companyName: 'Company Name',
+  address: 'Address',
+  zip: 'Zip',
+  country: 'Country',
+  email: 'E-mail',
+  tel: 'TEL',
+  subject: 'Subject',
+  message: 'Message',
+};
+const orderedFields = ['firstName', 'lastName', 'companyName', 'address', 'zip', 'country', 'email', 'tel', 'subject', 'message'];
+
+function fmt(d: string): string {
+  try { return new Date(d).toLocaleString(); } catch { return d; }
+}
+function snippet(s: string | undefined, n = 80): string {
+  if (!s) return '';
+  const t = s.replace(/\s+/g, ' ').trim();
+  return t.length <= n ? t : t.slice(0, n - 1) + '…';
+}
+---
+
+<AdminLayout title="Contact Submissions" active="submissions" username={verified?.username}>
+  <div class="mb-6">
+    <a href="/keystatic" class="text-sm text-gray-500 hover:underline">← Back to Dashboard</a>
+    <h1 class="mt-2 text-2xl font-semibold">Contact Form Submissions</h1>
+    <p class="mt-1 text-sm text-gray-500">
+      File: <code class="font-mono">{file}</code> · <span data-total>{total}</span> records total
+      {total > 50 && <span class="text-amber-600 dark:text-amber-400">(showing latest 50 only)</span>}
+    </p>
+    <p class="mt-1 text-xs text-gray-500">
+      Content is encrypted with <strong>AES-256-GCM</strong> and stored in the GitHub repository. Key derived from the <code class="font-mono">SESSION_SECRET</code> environment variable (or fallback if not set). This file is <strong>not</strong> indexed by the search index.
+    </p>
+  </div>
+
+  {loadError && (
+    <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
+      Failed to read: {loadError}
+    </div>
+  )}
+
+  {notFound && (
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-12 text-center">
+      <div class="text-base text-gray-500">No submissions yet</div>
+      <p class="mt-2 text-sm text-gray-400">When the public submits the form at <a class="text-blue-600 hover:underline" href="/contact" target="_blank" rel="noopener">/contact</a>, encrypted records will appear here.</p>
+      <p class="mt-2 text-xs text-gray-400">File <code class="font-mono">{file}</code> will be auto-created on the first submission.</p>
+    </div>
+  )}
+
+  {submissions.length > 0 && (
+    <div class="space-y-3" data-submissions-list>
+      {recent.map((s) => {
+        const name = [s.data.firstName, s.data.lastName].filter(Boolean).join(' ') || '(name not provided)';
+        return (
+          <details class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
+            <summary class="px-5 py-4 cursor-pointer flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50 dark:hover:bg-gray-900">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-medium text-sm">{name}</span>
+                  {s.data.email && <a class="text-xs text-blue-600 dark:text-blue-400 hover:underline" href={`mailto:${s.data.email}`}>{s.data.email}</a>}
+                  {s.data.tel && <span class="text-xs text-gray-500 font-mono">{s.data.tel}</span>}
+                </div>
+                <div class="mt-1 text-sm text-gray-700 dark:text-gray-300 truncate">{snippet(s.data.subject) || '(no subject)'}</div>
+                <div class="mt-0.5 text-xs text-gray-500 truncate">{snippet(s.data.message, 120)}</div>
+              </div>
+              <div class="text-xs text-gray-500 whitespace-nowrap">
+                <div>{fmt(s.receivedAt)}</div>
+                <div class="font-mono text-[10px] text-gray-400">{s.id.slice(0, 8)}</div>
+              </div>
+            </summary>
+            <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-2 text-sm">
+              <table class="w-full">
+                <tbody>
+                  {orderedFields.map((k) => {
+                    const v = s.data[k];
+                    if (!v) return null;
+                    return (
+                      <tr class="border-b border-gray-100 dark:border-gray-800 last:border-0">
+                        <td class="py-2 pr-3 text-xs font-medium text-gray-500 w-32 align-top">{fieldLabels[k]}</td>
+                        <td class="py-2 text-sm whitespace-pre-wrap break-words">{v}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {s.data._error && (
+                <div class="rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-2 text-xs text-red-700 dark:text-red-300">{s.data._error}</div>
+              )}
+              <div class="pt-2 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 space-y-1">
+                <div>ID: <code class="font-mono">{s.id}</code></div>
+                <div>Received: {fmt(s.receivedAt)}</div>
+                {s.ip && <div>IP: <code class="font-mono">{s.ip}</code></div>}
+                {s.userAgent && <div class="truncate">User-Agent: {s.userAgent}</div>}
+              </div>
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  )}
+
+  {submissions.length > 0 && (
+    <div class="mt-8 text-xs text-gray-500">
+      <p>Storage cap: 1000 records (oldest dropped automatically). To archive, download <code class="font-mono">{file}</code> and decrypt offline. Key derivation rules in <code class="font-mono">src/lib/contact-crypto.ts</code>.</p>
+    </div>
+  )}
+
+  <div class="mt-4 text-xs text-gray-500" data-file-info>SHA: <code class="font-mono">{fileSha || '(not loaded)'}</code></div>
+</AdminLayout>

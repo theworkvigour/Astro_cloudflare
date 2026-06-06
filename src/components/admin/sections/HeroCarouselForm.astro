@@ -20,7 +20,7 @@ const slides = Array.isArray(d.slides) ? d.slides : [];
 ---
 <div class="space-y-4" data-section-type="hero_carousel" data-prefix={prefix}>
   <div>
-    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">自动播放间隔 (毫秒, 0 关闭)</label>
+    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Auto-play interval (ms, 0 to disable)</label>
     <input
       type="number"
       name="autoplay_interval"
@@ -33,67 +33,67 @@ const slides = Array.isArray(d.slides) ? d.slides : [];
 
   <div>
     <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">幻灯片 (默认显示 3 张)</label>
-      <button type="button" data-add-slide class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加幻灯片</button>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Slides (3 shown by default)</label>
+      <button type="button" data-add-slide class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add slide</button>
     </div>
     <div data-slides-list class="space-y-4">
       {slides.map((s, i) => (
         <div data-slide-row data-slide-index={i} class="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-3 bg-gray-50 dark:bg-gray-900/50">
           <div class="flex items-center justify-between">
-            <div class="text-sm font-semibold text-gray-700 dark:text-gray-300">幻灯片 {i + 1}</div>
-            <button type="button" data-remove-slide class="text-xs text-red-600 dark:text-red-400 hover:underline">删除整张</button>
+            <div class="text-sm font-semibold text-gray-700 dark:text-gray-300">Slide {i + 1}</div>
+<button type="button" data-remove-slide class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete slide</button>
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">背景图 URL</label>
+<label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Background image URL</label>
             <input type="text" name="slideImageSrc" value={s.image?.src ?? ''} placeholder="https://..." class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">图片 alt</label>
-            <input type="text" name="slideImageAlt" value={s.image?.alt ?? ''} placeholder="图片描述" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+<label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Image alt text</label>
+            <input type="text" name="slideImageAlt" value={s.image?.alt ?? ''} placeholder="Image description" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tagline (小字)</label>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tagline (small text)</label>
             <input type="text" name="slideTagline" value={s.tagline ?? ''} class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Title (大标题, 支持 HTML)</label>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Title (large, supports HTML)</label>
             <textarea name="slideTitle" rows="2" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{s.title ?? ''}</textarea>
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Subtitle (副标题, 支持 HTML)</label>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Subtitle (supports HTML)</label>
             <textarea name="slideSubtitle" rows="2" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{s.subtitle ?? ''}</textarea>
           </div>
           <div>
             <div class="flex items-center justify-between mb-1">
-              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400">按钮 (Actions)</label>
-              <button type="button" data-add-slide-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加按钮</button>
+<label class="block text-xs font-medium text-gray-600 dark:text-gray-400">Buttons (Actions)</label>
+<button type="button" data-add-slide-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add button</button>
             </div>
             <div data-slide-actions-list class="space-y-2">
               {(s.actions ?? []).map((a) => (
                 <div data-slide-action-row class="grid grid-cols-4 gap-2">
-                  <input type="text" name="slideActionText" value={a.text ?? ''} placeholder="按钮文字" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <input type="text" name="slideActionText" value={a.text ?? ''} placeholder="Button text" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                   <input type="text" name="slideActionHref" value={a.href ?? ''} placeholder="/url" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                   <select name="slideActionVariant" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-                    <option value="" selected={!a.variant}>默认</option>
+                    <option value="" selected={!a.variant}>Default</option>
                     <option value="primary" selected={a.variant === 'primary'}>primary</option>
                     <option value="secondary" selected={a.variant === 'secondary'}>secondary</option>
                     <option value="tertiary" selected={a.variant === 'tertiary'}>tertiary</option>
                   </select>
-                  <button type="button" data-remove-slide-action class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+<button type="button" data-remove-slide-action class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
                 </div>
               ))}
             </div>
             <template data-slide-action-template>
               <div data-slide-action-row class="grid grid-cols-4 gap-2">
-                <input type="text" name="slideActionText" placeholder="按钮文字" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="slideActionText" placeholder="Button text" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                 <input type="text" name="slideActionHref" placeholder="/url" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                 <select name="slideActionVariant" class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-                  <option value="">默认</option>
+                  <option value="">Default</option>
                   <option value="primary">primary</option>
                   <option value="secondary">secondary</option>
                   <option value="tertiary">tertiary</option>
                 </select>
-                <button type="button" data-remove-slide-action class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+                <button type="button" data-remove-slide-action class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
               </div>
             </template>
           </div>
@@ -103,33 +103,33 @@ const slides = Array.isArray(d.slides) ? d.slides : [];
     <template data-slide-template>
       <div data-slide-row data-slide-index="__INDEX__" class="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-3 bg-gray-50 dark:bg-gray-900/50">
         <div class="flex items-center justify-between">
-          <div class="text-sm font-semibold text-gray-700 dark:text-gray-300">新幻灯片</div>
-          <button type="button" data-remove-slide class="text-xs text-red-600 dark:text-red-400 hover:underline">删除整张</button>
+          <div class="text-sm font-semibold text-gray-700 dark:text-gray-300">New slide</div>
+          <button type="button" data-remove-slide class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete slide</button>
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">背景图 URL</label>
+          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Background image URL</label>
           <input type="text" name="slideImageSrc" placeholder="https://..." class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">图片 alt</label>
-          <input type="text" name="slideImageAlt" placeholder="图片描述" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Image alt text</label>
+          <input type="text" name="slideImageAlt" placeholder="Image description" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tagline (小字)</label>
+          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tagline (small text)</label>
           <input type="text" name="slideTagline" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Title (大标题, 支持 HTML)</label>
+          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Title (large, supports HTML)</label>
           <textarea name="slideTitle" rows="2" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"></textarea>
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Subtitle (副标题, 支持 HTML)</label>
+          <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Subtitle (supports HTML)</label>
           <textarea name="slideSubtitle" rows="2" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"></textarea>
         </div>
         <div>
           <div class="flex items-center justify-between mb-1">
-            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400">按钮 (Actions)</label>
-            <button type="button" data-add-slide-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加按钮</button>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-400">Buttons (Actions)</label>
+            <button type="button" data-add-slide-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add button</button>
           </div>
           <div data-slide-actions-list class="space-y-2"></div>
         </div>

@@ -18,19 +18,19 @@ const cols = d.columns ?? 3;
 <div class="space-y-4" data-section-type="features" data-prefix={prefix}>
   <div class="grid grid-cols-3 gap-2">
     <div>
-      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">ID (锚点)</label>
+      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">ID (Anchor)</label>
       <input type="text" name="id" value={d.id ?? ''} placeholder="features" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
     </div>
     <div>
       <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Columns</label>
       <select name="columns" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-        <option value="2" selected={cols === 2}>2 列</option>
-        <option value="3" selected={cols === 3}>3 列</option>
-        <option value="4" selected={cols === 4}>4 列</option>
+        <option value="2" selected={cols === 2}>2 columns</option>
+        <option value="3" selected={cols === 3}>3 columns</option>
+        <option value="4" selected={cols === 4}>4 columns</option>
       </select>
     </div>
     <div>
-      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">默认图标 (留空用 tabler:check)</label>
+      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Default icon (leave empty for tabler:check)</label>
       <input type="text" name="defaultIcon" value={d.defaultIcon ?? ''} placeholder="tabler:check" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
     </div>
   </div>
@@ -39,38 +39,38 @@ const cols = d.columns ?? 3;
     <input type="text" name="tagline" value={d.tagline ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title <span class="text-xs text-gray-500">(支持 HTML)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title <span class="text-xs text-gray-500">(supports HTML)</span></label>
     <textarea name="title" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.title ?? ''}</textarea>
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(支持 HTML)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(supports HTML)</span></label>
     <textarea name="subtitle" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.subtitle ?? ''}</textarea>
   </div>
   <div>
     <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Items (条目)</label>
-      <button type="button" data-add-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加条目</button>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Items</label>
+      <button type="button" data-add-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add item</button>
     </div>
     <div data-items-list class="space-y-3">
       {(d.items ?? []).map((it) => (
         <div data-item-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
           <div class="flex gap-2">
-            <input type="text" name="itemTitle" value={it.title ?? ''} placeholder="标题" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="itemIcon" value={it.icon ?? ''} placeholder="图标 (tabler:xxx)" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+            <input type="text" name="itemTitle" value={it.title ?? ''} placeholder="Title" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="itemIcon" value={it.icon ?? ''} placeholder="Icon (tabler:xxx)" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
           </div>
-          <textarea name="itemDescription" rows="2" placeholder="描述 (支持 HTML)" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{it.description ?? ''}</textarea>
+          <textarea name="itemDescription" rows="2" placeholder="Description (supports HTML)" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{it.description ?? ''}</textarea>
         </div>
       ))}
     </div>
     <template data-item-template>
       <div data-item-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
         <div class="flex gap-2">
-          <input type="text" name="itemTitle" placeholder="标题" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="itemIcon" placeholder="图标 (tabler:xxx)" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+          <input type="text" name="itemTitle" placeholder="Title" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="itemIcon" placeholder="Icon (tabler:xxx)" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
         </div>
-        <textarea name="itemDescription" rows="2" placeholder="描述 (支持 HTML)" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"></textarea>
+        <textarea name="itemDescription" rows="2" placeholder="Description (supports HTML)" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"></textarea>
       </div>
     </template>
   </div>

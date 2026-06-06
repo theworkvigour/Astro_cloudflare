@@ -90,6 +90,22 @@ export class GitHubClient {
     return Array.isArray(items) ? items.filter((i) => i.type === 'file') : [];
   }
 
+  async getRecursiveTree(): Promise<Array<{ path: string; sha: string; size: number; type: string }>> {
+    interface TreeResp {
+      sha: string;
+      url: string;
+      tree: Array<{ path: string; mode: string; type: string; sha: string; size?: number }>;
+      truncated: boolean;
+    }
+    const res = await this.request<TreeResp>(
+      'GET',
+      `/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${DEFAULT_BRANCH}?recursive=1`,
+    );
+    return res.tree
+      .filter((t) => t.type === 'blob' && typeof t.size === 'number')
+      .map((t) => ({ path: t.path, sha: t.sha, size: t.size as number, type: t.type }));
+  }
+
   async readFile(filePath: string): Promise<{ sha: string; content: string; downloadUrl: string }> {
     const normalized = filePath.replace(/^\/+/, '');
     const item = await this.request<GitHubContentFile>(

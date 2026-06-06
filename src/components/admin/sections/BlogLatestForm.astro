@@ -15,8 +15,8 @@ const d = data ?? {};
     <input type="text" name="title" value={d.title ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Information <span class="text-xs text-gray-500">(支持 HTML 标签)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Information <span class="text-xs text-gray-500">(supports HTML tags)</span></label>
     <textarea name="information" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.information ?? ''}</textarea>
   </div>
-  <p class="text-xs text-gray-500">博客文章本身来自 <code>src/data/post/</code>(在 Posts 管理),此区块只控制展示标题和说明文字。</p>
+  <p class="text-xs text-gray-500">Blog posts come from <code>src/data/post/</code> (managed in Posts), this block only controls the header title and description.</p>
 </div>

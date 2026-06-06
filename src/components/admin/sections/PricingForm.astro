@@ -30,51 +30,51 @@ const d = data ?? {};
   </div>
   <div>
     <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tiers (价格档位)</label>
-      <button type="button" data-add-tier class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加档位</button>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tiers</label>
+      <button type="button" data-add-tier class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add tier</button>
     </div>
     <div data-tiers-list class="space-y-3">
       {(d.prices ?? []).map((p, i) => (
         <div data-tier-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
           <div class="grid grid-cols-3 gap-2">
-            <input type="text" name="tierTitle" value={p.title ?? ''} placeholder="档位名 (小写)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="tierSubtitle" value={p.subtitle ?? ''} placeholder="档位副标题" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <button type="button" data-remove-tier class="text-xs text-red-600 dark:text-red-400 hover:underline text-right">删除</button>
+            <input type="text" name="tierTitle" value={p.title ?? ''} placeholder="Tier name (lowercase)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierSubtitle" value={p.subtitle ?? ''} placeholder="Tier subtitle" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+<button type="button" data-remove-tier class="text-xs text-red-600 dark:text-red-400 hover:underline text-right">Delete</button>
           </div>
           <div class="grid grid-cols-2 gap-2">
-            <input type="text" name="tierPrice" value={p.price ?? ''} placeholder="价格 (如 4,800 或 POA)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="tierPeriod" value={p.period ?? ''} placeholder="周期 (one-time/project-based)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierPrice" value={p.price ?? ''} placeholder="Price (e.g. 4,800 or POA)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierPeriod" value={p.period ?? ''} placeholder="Period (one-time/project-based)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
           <div class="grid grid-cols-2 gap-2 items-center">
             <label class="flex items-center gap-2 text-sm">
               <input type="checkbox" name="tierHasRibbon" checked={!!p.hasRibbon} data-tier-index={i} class="rounded" />
-              <span class="text-gray-700 dark:text-gray-300">显示 ribbon</span>
+              <span class="text-gray-700 dark:text-gray-300">Show ribbon</span>
             </label>
-            <input type="text" name="tierRibbonTitle" value={p.ribbonTitle ?? ''} placeholder="ribbon 文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierRibbonTitle" value={p.ribbonTitle ?? ''} placeholder="Ribbon text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
           <div class="space-y-1">
-            <label class="text-xs text-gray-500">CTA 按钮</label>
+            <label class="text-xs text-gray-500">CTA Button</label>
             <div class="grid grid-cols-2 gap-2">
-              <input type="text" name="tierCtaText" value={p.callToAction?.text ?? ''} placeholder="按钮文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <input type="text" name="tierCtaHref" value={p.callToAction?.href ?? ''} placeholder="链接" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+              <input type="text" name="tierCtaText" value={p.callToAction?.text ?? ''} placeholder="Button text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+              <input type="text" name="tierCtaHref" value={p.callToAction?.href ?? ''} placeholder="Link" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
             </div>
           </div>
           <div class="space-y-1">
             <div class="flex items-center justify-between">
-              <label class="text-xs text-gray-500">特性列表</label>
-              <button type="button" data-add-tier-item data-tier-index={i} class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加</button>
+              <label class="text-xs text-gray-500">Features list</label>
+              <button type="button" data-add-tier-item data-tier-index={i} class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add</button>
             </div>
             <div data-tier-items-list data-tier-index={i} class="space-y-1.5">
               {(p.items ?? []).map((it) => (
                 <div data-tier-item-row class="flex gap-1">
-                  <input type="text" name="tierItemDesc" value={it.description ?? ''} placeholder="特性描述" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <input type="text" name="tierItemDesc" value={it.description ?? ''} placeholder="Feature description" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                   <button type="button" data-remove-tier-item class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
                 </div>
               ))}
             </div>
             <template data-tier-item-template>
               <div data-tier-item-row class="flex gap-1">
-                <input type="text" name="tierItemDesc" placeholder="特性描述" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="tierItemDesc" placeholder="Feature description" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                 <button type="button" data-remove-tier-item class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
               </div>
             </template>
@@ -85,32 +85,32 @@ const d = data ?? {};
     <template data-tier-template>
       <div data-tier-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
         <div class="grid grid-cols-3 gap-2">
-          <input type="text" name="tierTitle" placeholder="档位名" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="tierSubtitle" placeholder="档位副标题" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-remove-tier class="text-xs text-red-600 dark:text-red-400 hover:underline text-right">删除</button>
+          <input type="text" name="tierTitle" placeholder="Tier name" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="tierSubtitle" placeholder="Tier subtitle" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-remove-tier class="text-xs text-red-600 dark:text-red-400 hover:underline text-right">Delete</button>
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <input type="text" name="tierPrice" placeholder="价格" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="tierPeriod" placeholder="周期" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="tierPrice" placeholder="Price" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="tierPeriod" placeholder="Period" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
         </div>
         <div class="grid grid-cols-2 gap-2 items-center">
           <label class="flex items-center gap-2 text-sm">
             <input type="checkbox" name="tierHasRibbon" class="rounded" />
-            <span class="text-gray-700 dark:text-gray-300">显示 ribbon</span>
+            <span class="text-gray-700 dark:text-gray-300">Show ribbon</span>
           </label>
-          <input type="text" name="tierRibbonTitle" placeholder="ribbon 文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="tierRibbonTitle" placeholder="Ribbon text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
         </div>
         <div class="space-y-1">
-          <label class="text-xs text-gray-500">CTA 按钮</label>
+          <label class="text-xs text-gray-500">CTA Button</label>
           <div class="grid grid-cols-2 gap-2">
-            <input type="text" name="tierCtaText" placeholder="按钮文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="tierCtaHref" placeholder="链接" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierCtaText" placeholder="Button text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="tierCtaHref" placeholder="Link" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           </div>
         </div>
         <div class="space-y-1">
           <div class="flex items-center justify-between">
-            <label class="text-xs text-gray-500">特性列表</label>
-            <button type="button" data-add-tier-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加</button>
+            <label class="text-xs text-gray-500">Features list</label>
+            <button type="button" data-add-tier-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add</button>
           </div>
           <div data-tier-items-list class="space-y-1.5"></div>
         </div>

@@ -19,7 +19,7 @@ let data: Record<string, any> = {
   logo_alt: 'Vectoflare logo',
   copyright: '© {year} Vectoflare · All rights reserved.',
   whatsapp_number: '',
-  whatsapp_default_message: '你好,我想咨询一下产品。',
+  whatsapp_default_message: 'Hello, I would like to inquire about your products.',
 };
 let sha = '';
 let loadError: string | null = null;
@@ -32,27 +32,27 @@ try {
   if (parsed && typeof parsed === 'object') data = { ...data, ...parsed };
   sha = f.sha;
 } catch (err) {
-  loadError = err instanceof Error ? err.message : '读取失败';
+  loadError = err instanceof Error ? err.message : 'Failed to read';
 }
 
 const year = new Date().getFullYear();
 ---
-<AdminLayout title="品牌与 LOGO" active="branding" username={verified?.username}>
+<AdminLayout title="Branding & Logo" active="branding" username={verified?.username}>
   <div class="mb-6">
-    <h1 class="text-2xl font-semibold">品牌与 LOGO</h1>
-    <p class="mt-1 text-sm text-gray-500">编辑网站名称、LOGO 图片、版权信息。文件: <code class="font-mono">{file}</code>。版权文本中可使用 <code class="font-mono">{'{year}'}</code> 和 <code class="font-mono">{'{site_name}'}</code> 占位符,会自动替换 (当前年份 {year}, 当前 site_name "{data.site_name}")。</p>
+    <h1 class="text-2xl font-semibold">Branding & Logo</h1>
+    <p class="mt-1 text-sm text-gray-500">Edit site name, logo image, and copyright. File: <code class="font-mono">{file}</code>. You can use <code class="font-mono">{'{year}'}</code> and <code class="font-mono">{'{site_name}'}</code> placeholders in the copyright text, which will be auto-replaced (current year {year}, current site_name "{data.site_name}").</p>
   </div>
 
   {loadError && (
     <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
-      读取失败: {loadError}
+      Failed to read: {loadError}
     </div>
   )}
 
   <form id="branding-form" class="space-y-6 pb-32" data-file={file} data-sha={sha}>
     <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">网站名称 (LOGO 文字)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Site Name (Logo Text)</label>
         <input
           type="text"
           name="site_name"
@@ -60,11 +60,11 @@ const year = new Date().getFullYear();
           placeholder="Vectoflare"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
         />
-        <p class="mt-1 text-xs text-gray-500">显示在右上角 LOGO、右下角页脚 LOGO 以及版权中。修改后请保持一致。</p>
+        <p class="mt-1 text-xs text-gray-500">Displayed in the top-right logo, bottom footer logo, and copyright. Keep consistent after changes.</p>
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LOGO 图片 URL (可选)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Logo Image URL (optional)</label>
         <input
           type="text"
           name="logo_image"
@@ -72,11 +72,11 @@ const year = new Date().getFullYear();
           placeholder="https://example.com/logo.png"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         />
-        <p class="mt-1 text-xs text-gray-500">留空则使用首字母占位符。推荐 PNG/SVG,方形 1:1。</p>
+        <p class="mt-1 text-xs text-gray-500">Leave empty to use the first letter as a placeholder. Recommended PNG/SVG, square 1:1.</p>
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LOGO 图片替代文本 (alt)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Logo Image Alt Text</label>
         <input
           type="text"
           name="logo_alt"
@@ -87,31 +87,31 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">版权信息 (支持 HTML 标签,如 <code class="font-mono">&lt;a class="text-blue-600 underline"&gt;</code>)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Copyright (supports HTML tags, e.g. <code class="font-mono">&lt;a class="text-blue-600 underline"&gt;</code>)</label>
         <textarea
           name="copyright"
           rows="3"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         >{data.copyright ?? ''}</textarea>
-        <p class="mt-1 text-xs text-gray-500">预览 (实时替换 <code class="font-mono">{'{year}'}</code>): <span class="font-mono" data-copyright-preview></span></p>
+        <p class="mt-1 text-xs text-gray-500">Preview (live replacement of <code class="font-mono">{'{year}'}</code>): <span class="font-mono" data-copyright-preview></span></p>
       </div>
     </div>
 
     <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
-      <h2 class="text-base font-semibold">WhatsApp 浮动聊天</h2>
-      <p class="text-xs text-gray-500">右下角的 WhatsApp 聊天按钮。号码留空则不显示。</p>
+      <h2 class="text-base font-semibold">WhatsApp Floating Chat</h2>
+      <p class="text-xs text-gray-500">WhatsApp chat button in the bottom-right corner. Leave the number empty to hide it.</p>
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">WhatsApp 号码</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">WhatsApp Number</label>
         <input
           type="text"
           name="whatsapp_number"
           value={data.whatsapp_number ?? ''}
-          placeholder="8613800000000 (带国家代码, 不带 + 号)"
+          placeholder="8613800000000 (with country code, without +)"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         />
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">默认消息</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Default Message</label>
         <textarea
           name="whatsapp_default_message"
           rows="2"
@@ -120,8 +120,93 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
+    <div class="rounded-xl border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-6 space-y-5">
+      <div>
+        <h2 class="text-base font-semibold text-amber-900 dark:text-amber-200">Contact Form Storage + Email</h2>
+        <p class="mt-1 text-xs text-amber-800 dark:text-amber-300">
+          <strong>Warning: These fields will be stored in the public repository. Please use a dedicated service account / Fine-grained PAT with Contents: Read and write permission scoped to a single repository.</strong> After configuration, submissions from <code class="font-mono">/contact</code> will be encrypted with AES-256-GCM and written to
+          <code class="font-mono">src/data/contact/submissions.enc.json</code> (this file is not indexed by search), and can be viewed at <a class="underline" href="/keystatic/contact-submissions">/keystatic/contact-submissions</a>; email notifications can also be sent via Resend (Reply-to set to the form submitter).
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Recipient Email (Contact email — To)</label>
+        <input
+          type="email"
+          name="contact_email_to"
+          value={data.contact_email_to ?? ''}
+          placeholder="admin@your-domain.com"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-gray-500">All contact form submissions will be sent to this email (via Resend). Can also be overridden individually in contact.yaml's contact_form.email_to.</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Email (Contact — From)</label>
+        <input
+          type="email"
+          name="contact_from_email"
+          value={data.contact_from_email ?? ''}
+          placeholder="noreply@your-domain.com"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-gray-500">SPF/DKIM must be configured on your domain (Cloudflare DNS), otherwise emails will be marked as spam. Recommended: Use Cloudflare Email Routing to route <code class="font-mono">noreply@your-domain.com</code> to your real email, then verify <code class="font-mono">your-domain.com</code> in Resend's Domain settings.</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Display Name (From name)</label>
+        <input
+          type="text"
+          name="contact_from_name"
+          value={data.contact_from_name ?? ''}
+          placeholder="Vectoflare Contact"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Service Provider</label>
+        <select
+          name="contact_email_provider"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+        >
+          <option value="none" selected={!data.contact_email_provider || data.contact_email_provider === 'none'}>Do not send email (only store to GitHub)</option>
+          <option value="resend" selected={data.contact_email_provider === 'resend'}>Resend (Recommended · Free 100/day · Cloudflare compatible)</option>
+        </select>
+        <p class="mt-1 text-xs text-gray-500">Cloudflare Email Workers can only handle <strong>inbound</strong> emails, not send arbitrary outbound mail. Resend is a Cloudflare Pages-compatible sending service. If you want to use SMTP instead, you can replace <code class="font-mono">sendEmailViaResend</code> in <code class="font-mono">src/pages/api/contact.ts</code>.</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Resend API Key</label>
+        <input
+          type="password"
+          name="contact_resend_api_key"
+          value={data.contact_resend_api_key ?? ''}
+          placeholder="re_xxx"
+          autocomplete="off"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-gray-500">Create at <a class="underline" href="https://resend.com/api-keys" target="_blank" rel="noopener">resend.com/api-keys</a>. Full access permission is sufficient.</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">GitHub PAT (for writing encrypted storage, service account)</label>
+        <input
+          type="password"
+          name="contact_submissions_pat"
+          value={data.contact_submissions_pat ?? ''}
+          placeholder="github_pat_xxx or ghp_xxx"
+          autocomplete="off"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-amber-800 dark:text-amber-300">
+          <strong>Fine-grained PAT required</strong> (create at GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens), only check <strong>Contents: Read and write</strong> permission for the <code class="font-mono">theworkvigour/astro_Tina-CMS</code> repository. Classic PATs have full repository permissions, and the consequences of leakage are more severe.
+        </p>
+      </div>
+    </div>
+
     <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 p-4">
-      <div class="text-xs text-gray-500 mb-2">当前 LOGO 预览 (实时)</div>
+      <div class="text-xs text-gray-500 mb-2">Current Logo Preview (live)</div>
       <div class="flex items-center gap-2" data-logo-preview>
         {data.logo_image ? (
           <img src={data.logo_image} alt={data.logo_alt} class="h-9 w-9 rounded-lg object-cover shadow-sm" data-preview-img />
@@ -130,15 +215,15 @@ const year = new Date().getFullYear();
         )}
         <span class="self-center text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white tracking-tight" data-preview-name>{data.site_name}</span>
       </div>
-      <p class="mt-2 text-xs text-gray-500">底部页脚 LOGO 文字会显示相同的 site_name。</p>
+      <p class="mt-2 text-xs text-gray-500">The footer logo text will display the same site_name.</p>
     </div>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 z-40">
       <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-        <div class="text-xs text-gray-500" data-file-info>文件: <code class="font-mono">{file}</code></div>
+        <div class="text-xs text-gray-500" data-fileInfo>File: <code class="font-mono">{file}</code></div>
         <div class="flex gap-2">
-          <a href="/keystatic" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">取消</a>
-          <button id="submit-btn" type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">保存并推送</button>
+          <a href="/keystatic" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">Cancel</a>
+          <button id="submit-btn" type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">Save & Push</button>
         </div>
       </div>
     </div>
@@ -207,7 +292,7 @@ const year = new Date().getFullYear();
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '推送中...'; }
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Pushing...'; }
 
         const fd = new FormData(form);
         const data = {
@@ -217,6 +302,12 @@ const year = new Date().getFullYear();
           copyright: String(fd.get('copyright') || ''),
           whatsapp_number: String(fd.get('whatsapp_number') || '').trim(),
           whatsapp_default_message: String(fd.get('whatsapp_default_message') || ''),
+          contact_email_to: String(fd.get('contact_email_to') || '').trim(),
+          contact_email_provider: String(fd.get('contact_email_provider') || 'none'),
+          contact_from_email: String(fd.get('contact_from_email') || '').trim(),
+          contact_from_name: String(fd.get('contact_from_name') || '').trim(),
+          contact_resend_api_key: String(fd.get('contact_resend_api_key') || '').trim(),
+          contact_submissions_pat: String(fd.get('contact_submissions_pat') || '').trim(),
         };
 
         try {
@@ -233,15 +324,15 @@ const year = new Date().getFullYear();
           });
           const result = await res.json();
           if (!res.ok || !result.success) {
-            window.__adminToast?.(result.error || '保存失败', 'error');
-            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+            window.__adminToast?.(result.error || 'Save failed', 'error');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
             return;
           }
-          window.__adminToast?.('已保存,Cloudflare 正在重新部署...', 'success');
+          window.__adminToast?.('Saved, Cloudflare is redeploying...', 'success');
           setTimeout(() => { window.location.reload(); }, 800);
         } catch {
-          window.__adminToast?.('网络错误', 'error');
-          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+          window.__adminToast?.('Network error', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
         }
       });
     })();

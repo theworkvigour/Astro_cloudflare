@@ -21,7 +21,7 @@ const d = data ?? {};
   <div class="grid grid-cols-3 gap-2">
     <label class="flex items-center gap-2 text-sm">
       <input type="checkbox" name="isReversed" checked={!!d.isReversed} class="rounded" />
-      <span class="text-gray-700 dark:text-gray-300">图片在右 (isReversed)</span>
+      <span class="text-gray-700 dark:text-gray-300">Image on right (isReversed)</span>
     </label>
     <label class="flex items-center gap-2 text-sm">
       <input type="checkbox" name="isAfterContent" checked={!!d.isAfterContent} class="rounded" />
@@ -30,7 +30,7 @@ const d = data ?? {};
     <div>
       <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Columns</label>
       <select name="columns" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-        <option value="" selected={!d.columns}>默认</option>
+        <option value="" selected={!d.columns}>Default</option>
         <option value="2" selected={d.columns === 2}>2</option>
         <option value="3" selected={d.columns === 3}>3</option>
         <option value="4" selected={d.columns === 4}>4</option>
@@ -42,56 +42,56 @@ const d = data ?? {};
     <input type="text" name="tagline" value={d.tagline ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title <span class="text-xs text-gray-500">(支持 HTML)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title <span class="text-xs text-gray-500">(supports HTML)</span></label>
     <textarea name="title" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.title ?? ''}</textarea>
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(支持 HTML)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(supports HTML)</span></label>
     <textarea name="subtitle" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.subtitle ?? ''}</textarea>
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Content <span class="text-xs text-gray-500">(可选, 支持 HTML, 显示在 items 上方)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Content <span class="text-xs text-gray-500">(optional, supports HTML, displayed above items)</span></label>
     <textarea name="content" rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.content ?? ''}</textarea>
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CallToAction (可选, 显示在内容下方)</label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CallToAction (optional, displayed below content)</label>
     <div class="grid grid-cols-3 gap-2">
-      <input type="text" name="ctaText" value={d.callToAction?.text ?? ''} placeholder="按钮文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-      <input type="text" name="ctaHref" value={d.callToAction?.href ?? ''} placeholder="链接 URL" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      <input type="text" name="ctaText" value={d.callToAction?.text ?? ''} placeholder="Button text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      <input type="text" name="ctaHref" value={d.callToAction?.href ?? ''} placeholder="Link URL" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
       <input type="text" name="ctaVariant" value={d.callToAction?.variant ?? ''} placeholder="variant" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
     </div>
   </div>
   <div>
     <div class="flex items-center justify-between mb-2">
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Items</label>
-      <button type="button" data-add-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加条目</button>
+      <button type="button" data-add-item class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add item</button>
     </div>
     <div data-items-list class="space-y-3">
       {(d.items ?? []).map((it) => (
         <div data-item-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
           <div class="flex gap-2">
-            <input type="text" name="itemTitle" value={it.title ?? ''} placeholder="标题" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="itemIcon" value={it.icon ?? ''} placeholder="图标" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+            <input type="text" name="itemTitle" value={it.title ?? ''} placeholder="Title" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="itemIcon" value={it.icon ?? ''} placeholder="Icon" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
           </div>
-          <textarea name="itemDescription" rows="2" placeholder="描述" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">{it.description ?? ''}</textarea>
+          <textarea name="itemDescription" rows="2" placeholder="Description" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">{it.description ?? ''}</textarea>
         </div>
       ))}
     </div>
     <template data-item-template>
       <div data-item-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
         <div class="flex gap-2">
-          <input type="text" name="itemTitle" placeholder="标题" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="itemIcon" placeholder="图标" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+          <input type="text" name="itemTitle" placeholder="Title" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="itemIcon" placeholder="Icon" class="w-48 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-remove-item class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
         </div>
-        <textarea name="itemDescription" rows="2" placeholder="描述" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"></textarea>
+        <textarea name="itemDescription" rows="2" placeholder="Description" class="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"></textarea>
       </div>
     </template>
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image (主图)</label>
-    <input type="text" name="imageSrc" value={d.image?.src ?? ''} placeholder="图片 URL" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-    <input type="text" name="imageAlt" value={d.image?.alt ?? ''} placeholder="alt 描述" class="mt-2 w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image (main)</label>
+    <input type="text" name="imageSrc" value={d.image?.src ?? ''} placeholder="Image URL" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    <input type="text" name="imageAlt" value={d.image?.alt ?? ''} placeholder="Alt description" class="mt-2 w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
   </div>
 </div>

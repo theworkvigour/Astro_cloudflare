@@ -63,14 +63,14 @@ try {
   );
   rows = enriched.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 } catch (err) {
-  loadError = err instanceof Error ? err.message : '加载失败';
+  loadError = err instanceof Error ? err.message : 'Failed to load';
 }
 ---
-<AdminLayout title="博客文章" active="posts" username={verified?.username}>
+<AdminLayout title="Posts" active="posts" username={verified?.username}>
   <div class="flex items-center justify-between mb-6">
     <div>
-      <h1 class="text-2xl font-semibold">博客文章 / Posts</h1>
-      <p class="mt-1 text-sm text-gray-500">共 {rows.length} 篇</p>
+      <h1 class="text-2xl font-semibold">Posts</h1>
+      <p class="mt-1 text-sm text-gray-500">{rows.length} posts total</p>
     </div>
     <a
       href="/keystatic/posts/new"
@@ -80,7 +80,7 @@ try {
 
   {loadError && (
     <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
-      加载失败: {loadError} — 请检查 Token 是否还有仓库访问权限
+      Failed to load: {loadError} — Please check if the token still has repository access
     </div>
   )}
 
@@ -97,7 +97,7 @@ try {
       </thead>
       <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
         {rows.length === 0 && !loadError && (
-          <tr><td colspan="5" class="px-4 py-12 text-center text-gray-500">还没有文章,点右上角 + New Post 创建第一篇</td></tr>
+          <tr><td colspan="5" class="px-4 py-12 text-center text-gray-500">No posts yet. Click + New Post to create the first one.</td></tr>
         )}
         {rows.map((row) => (
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50">
@@ -136,9 +136,9 @@ try {
       if (!target) return;
       e.preventDefault();
       const { name, path, sha } = target.dataset;
-      if (!confirm(`确定删除 "${name}" 吗?\n这会作为 commit 推送到 GitHub 主分支。`)) return;
+      if (!confirm(`Are you sure you want to delete "${name}"?\nThis will be committed and pushed to the GitHub main branch.`)) return;
       const original = target.textContent;
-      target.textContent = '删除中...';
+      target.textContent = 'Deleting...';
       target.setAttribute('disabled', 'true');
       try {
         const res = await fetch('/api/admin/delete', {
@@ -148,15 +148,15 @@ try {
         });
         const data = await res.json();
         if (!res.ok || !data.success) {
-          window.__adminToast?.(data.error || '删除失败', 'error');
+          window.__adminToast?.(data.error || 'Delete failed', 'error');
           target.textContent = original;
           target.removeAttribute('disabled');
         } else {
-          window.__adminToast?.('已删除,正在刷新列表...', 'success');
+          window.__adminToast?.('Deleted, refreshing list...', 'success');
           setTimeout(() => window.location.reload(), 600);
         }
       } catch {
-        window.__adminToast?.('网络错误', 'error');
+        window.__adminToast?.('Network error', 'error');
         target.textContent = original;
         target.removeAttribute('disabled');
       }

@@ -10,29 +10,29 @@ if (!verified) return Astro.redirect('/login');
 
 const token = readTokenFromCookies(Astro.cookies);
 ---
-<AdminLayout title="关联 GitHub" active="dashboard" username={verified?.username}>
+<AdminLayout title="Link GitHub" active="dashboard" username={verified?.username}>
   <div class="max-w-xl">
     <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
-      <h1 class="text-xl font-semibold">关联 GitHub Personal Access Token</h1>
+      <h1 class="text-xl font-semibold">Link GitHub Personal Access Token</h1>
       <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
-        用于向 <code class="font-mono">theworkvigour/astro_Tina-CMS</code> 推送内容改动。
-        不会持久化到任何文件或数据库,只会加密保存在你的浏览器 cookie 中。
+        Used to push content changes to <code class="font-mono">theworkvigour/astro_Tina-CMS</code>.
+        Not persisted to any file or database — only encrypted and saved in your browser cookie.
       </p>
 
       <div class="mt-4 rounded-md bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-3 text-sm">
-        <div class="font-medium mb-1">如何生成 Token</div>
+        <div class="font-medium mb-1">How to Generate a Token</div>
         <ol class="list-decimal list-inside space-y-1 text-gray-600 dark:text-gray-400">
-          <li>访问 <a href="https://github.com/settings/tokens" target="_blank" rel="noopener" class="text-blue-600 hover:underline">github.com/settings/tokens</a></li>
-          <li>点 <strong>Generate new token</strong> → 选 <strong>Fine-grained token</strong></li>
-          <li>Resource owner 选 <code class="font-mono">theworkvigour</code></li>
+          <li>Visit <a href="https://github.com/settings/tokens" target="_blank" rel="noopener" class="text-blue-600 hover:underline">github.com/settings/tokens</a></li>
+          <li>Click <strong>Generate new token</strong> → Select <strong>Fine-grained token</strong></li>
+          <li>Resource owner: <code class="font-mono">theworkvigour</code></li>
           <li>Repository access → Only select repositories → <code class="font-mono">astro_Tina-CMS</code></li>
           <li>Permissions → Repository permissions:
             <ul class="list-disc list-inside ml-5">
               <li><strong>Contents</strong>: Read and write</li>
-              <li><strong>Metadata</strong>: Read-only (默认)</li>
+              <li><strong>Metadata</strong>: Read-only (default)</li>
             </ul>
           </li>
-          <li>点 <strong>Generate token</strong>,复制(只显示一次)</li>
+          <li>Click <strong>Generate token</strong>, copy it (only shown once)</li>
         </ol>
       </div>
 
@@ -44,7 +44,7 @@ const token = readTokenFromCookies(Astro.cookies);
             id="token"
             name="token"
             required
-            placeholder="github_pat_xxx 或 ghp_xxx"
+            placeholder="github_pat_xxx or ghp_xxx"
             autocomplete="off"
             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
           />
@@ -55,15 +55,15 @@ const token = readTokenFromCookies(Astro.cookies);
             type="submit"
             id="submit-btn"
             class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md disabled:opacity-50"
-          >验证并保存</button>
+          >Verify & Save</button>
           {token && (
             <button
               type="button"
               id="clear-btn"
               class="px-4 py-2 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-md text-red-600 dark:text-red-400"
-            >清除已保存的 Token</button>
+            >Clear Saved Token</button>
           )}
-          <a href="/keystatic" class="text-sm text-gray-500 hover:underline">返回 Dashboard</a>
+          <a href="/keystatic" class="text-sm text-gray-500 hover:underline">Back to Dashboard</a>
         </div>
       </form>
     </div>
@@ -91,11 +91,11 @@ const token = readTokenFromCookies(Astro.cookies);
       e.preventDefault();
       const token = document.getElementById('token').value.trim();
       if (!token) {
-        showMessage('请输入 Token', 'error');
+        showMessage('Please enter a Token', 'error');
         return;
       }
       btn.disabled = true;
-      btn.textContent = '验证中...';
+      btn.textContent = 'Verifying...';
       msg.classList.add('hidden');
       try {
         const res = await fetch('/api/admin/save-token', {
@@ -105,22 +105,22 @@ const token = readTokenFromCookies(Astro.cookies);
         });
         const data = await res.json();
         if (!res.ok || !data.success) {
-          showMessage(data.error || '验证失败', 'error');
+          showMessage(data.error || 'Verification failed', 'error');
           return;
         }
-        showMessage('Token 已保存,正在跳转...', 'success');
+        showMessage('Token saved, redirecting...', 'success');
         setTimeout(() => { window.location.href = '/keystatic'; }, 600);
       } catch (err) {
-        showMessage('网络错误,请重试', 'error');
+        showMessage('Network error, please retry', 'error');
       } finally {
         btn.disabled = false;
-        btn.textContent = '验证并保存';
+        btn.textContent = 'Verify & Save';
       }
     });
 
     if (clearBtn) {
       clearBtn.addEventListener('click', async () => {
-        if (!confirm('确定清除已保存的 Token?清除后访问 /keystatic/posts 等页面会要求重新输入。')) return;
+        if (!confirm('Are you sure you want to clear the saved Token? Pages like /keystatic/posts will require re-entering it.')) return;
         clearBtn.disabled = true;
         try {
           const res = await fetch('/api/admin/save-token', {
@@ -132,11 +132,11 @@ const token = readTokenFromCookies(Astro.cookies);
           if (data.success) {
             window.location.reload();
           } else {
-            showMessage(data.error || '清除失败', 'error');
+            showMessage(data.error || 'Clear failed', 'error');
             clearBtn.disabled = false;
           }
         } catch {
-          showMessage('网络错误', 'error');
+          showMessage('Network error', 'error');
           clearBtn.disabled = false;
         }
       });

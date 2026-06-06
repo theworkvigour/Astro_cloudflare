@@ -1,40 +1,243 @@
 ---
-import FormContainer from '~/components/ui/Form.astro';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import type { Contact as Props } from '~/types';
+import Button from '~/components/ui/Button.astro';
+
+interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  emailTo?: string;
+  submitButton?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  fields?: Array<{
+    name: string;
+    label: string;
+    row: number;
+    type?: 'text' | 'email' | 'tel' | 'textarea';
+    withCountryCode?: boolean;
+    rows?: number;
+  }>;
+  captcha?: { label: string };
+  captchaQuestion?: string;
+  defaultCountryCode?: string;
+  countryCodes?: Array<{ code: string; label: string }>;
+  isDark?: boolean;
+  classes?: { container?: string };
+  bg?: any;
+}
 
 const {
+  id = 'form',
   title = await Astro.slots.render('title'),
   subtitle = await Astro.slots.render('subtitle'),
   tagline = await Astro.slots.render('tagline'),
-  inputs,
-  textarea,
-  disclaimer,
-  button,
-  description,
-
-  id,
+  emailTo = '',
+  submitButton = 'Send message',
+  successMessage = 'Thanks! Your message has landed in our inbox.',
+  errorMessage = 'Something went wrong. Please try again.',
+  fields = [],
+  captcha = { label: 'Anti-spam: please solve the following' },
+  captchaQuestion = '',
+  defaultCountryCode = '+1',
+  countryCodes = [],
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
+
+const grouped: Record<number, typeof fields> = {};
+for (const f of fields) {
+  if (!grouped[f.row]) grouped[f.row] = [];
+  grouped[f.row].push(f);
+}
+const rows = Object.keys(grouped)
+  .map((k) => Number(k))
+  .sort((a, b) => a - b);
 ---
 
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
 
-  {
-    inputs && (
-      <div class="flex flex-col max-w-xl mx-auto rounded-lg backdrop-blur border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full">
-        <FormContainer
-          inputs={inputs}
-          textarea={textarea}
-          disclaimer={disclaimer}
-          button={button}
-          description={description}
-        />
+  <div class="flex flex-col max-w-2xl mx-auto rounded-lg backdrop-blur border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full">
+    <form
+      id={id}
+      method="POST"
+      action="/api/contact"
+      class="space-y-5"
+      data-contact-form
+      data-success-message={successMessage}
+      data-error-message={errorMessage}
+    >
+      <input type="hidden" name="email_to" value={emailTo} />
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
+        <label for={`${id}-email-confirm`}>Do not fill this</label>
+        <input id={`${id}-email-confirm`} type="text" name="email_confirm" tabindex="-1" autocomplete="off" />
       </div>
-    )
-  }
+      <div data-form-fields>
+        {rows.map((rowIdx) => {
+          const row = grouped[rowIdx];
+          const isWide = row.length === 1 && (row[0].type === 'textarea' || row[0].type === 'text' || row[0].type === 'email');
+          if (isWide) {
+            const f = row[0];
+            if (f.type === 'textarea') {
+              return (
+                <div>
+                  <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
+                  <textarea
+                    id={`${id}-${f.name}`}
+                    name={f.name}
+                    rows={f.rows ?? 6}
+                    class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                  ></textarea>
+                </div>
+              );
+            }
+            return (
+              <div>
+                <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
+                <input
+                  id={`${id}-${f.name}`}
+                  type={f.type ?? 'text'}
+                  name={f.name}
+                  class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                />
+              </div>
+            );
+          }
+          return (
+            <div class={`grid grid-cols-1 sm:grid-cols-${row.length} gap-4`}>
+              {row.map((f) => {
+                if (f.withCountryCode) {
+                  return (
+                    <div>
+                      <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
+                      <div class="flex gap-2">
+                        <select
+                          name={`${f.name}_countryCode`}
+                          data-tel-country
+                          class="py-3 px-2 block w-32 text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                          aria-label="Country code"
+                        >
+                          {countryCodes.map((c) => (
+                            <option value={c.code} selected={c.code === defaultCountryCode}>{c.label}</option>
+                          ))}
+                        </select>
+                        <input
+                          id={`${id}-${f.name}`}
+                          type="tel"
+                          name={f.name}
+                          inputmode="numeric"
+                          pattern="[0-9 ()+\\-]{6,}"
+                          placeholder="555 123 4567"
+                          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <div>
+                    <label for={`${id}-${f.name}`} class="block text-sm font-medium mb-1">{f.label}</label>
+                    <input
+                      id={`${id}-${f.name}`}
+                      type={(f.type === 'email' ? 'email' : f.type === 'tel' ? 'tel' : 'text') as any}
+                      name={f.name}
+                      class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <label for={`${id}-captcha`} class="block text-sm font-medium mb-1">
+            {captcha.label} <span class="font-mono text-base text-blue-600 dark:text-blue-400" data-captcha-question>{captchaQuestion}</span>
+          </label>
+          <input
+            id={`${id}-captcha`}
+            type="text"
+            name="captcha_answer"
+            inputmode="numeric"
+            autocomplete="off"
+            required
+            class="py-3 px-4 block w-32 text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          />
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <Button type="submit" variant="primary">{submitButton}</Button>
+      </div>
+
+      <div data-form-status class="hidden text-sm"></div>
+    </form>
+  </div>
 </WidgetWrapper>
+
+<script is:inline>
+  (function () {
+    const forms = document.querySelectorAll('form[data-contact-form]');
+    forms.forEach((formEl) => {
+      if (!(formEl instanceof HTMLFormElement)) return;
+      const statusEl = formEl.querySelector('[data-form-status]');
+      const successMsg = formEl.dataset.successMessage || 'Thanks!';
+      const errorMsg = formEl.dataset.errorMessage || 'Something went wrong.';
+      const questionEl = formEl.querySelector('[data-captcha-question]');
+      const originalQuestion = questionEl ? questionEl.textContent || '' : '';
+
+      formEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!(formEl instanceof HTMLFormElement)) return;
+        const submitBtn = formEl.querySelector('button[type="submit"]');
+        if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+        const fd = new FormData(formEl);
+        const data = {};
+        for (const [k, v] of fd.entries()) {
+          if (typeof v === 'string') data[k] = v.trim();
+        }
+        const cc = data.tel_countryCode || '';
+        if (data.tel) data.tel = `${cc} ${data.tel}`.trim();
+        delete data.tel_countryCode;
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const result = await res.json().catch(() => ({}));
+          if (!res.ok || !result.success) {
+            showStatus(statusEl, result.error || errorMsg, 'error');
+            if (questionEl && result.captcha) {
+              questionEl.textContent = result.captcha;
+            } else if (result.reload) {
+              setTimeout(() => window.location.reload(), 1200);
+            }
+            if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+            return;
+          }
+          showStatus(statusEl, successMsg, 'success');
+          formEl.reset();
+          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+          if (questionEl) questionEl.textContent = originalQuestion;
+        } catch {
+          showStatus(statusEl, 'Network error', 'error');
+          if (submitBtn instanceof HTMLButtonElement) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+        }
+      });
+    });
+
+    function showStatus(el, msg, kind) {
+      if (!el) return;
+      el.classList.remove('hidden', 'text-green-600', 'text-red-600', 'dark:text-green-400', 'dark:text-red-400');
+      el.classList.add(kind === 'success' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400');
+      el.textContent = msg;
+    }
+  })();
+</script>

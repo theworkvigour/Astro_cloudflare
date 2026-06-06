@@ -90,7 +90,7 @@ const {
         <button
           type="button"
           data-carousel-prev
-          aria-label="上一张"
+          aria-label="Previous slide"
           class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -98,7 +98,7 @@ const {
         <button
           type="button"
           data-carousel-next
-          aria-label="下一张"
+          aria-label="Next slide"
           class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -109,7 +109,7 @@ const {
               type="button"
               data-carousel-dot
               data-dot-index={i}
-              aria-label={`跳到第 ${i + 1} 张`}
+              aria-label={`Jump to slide ${i + 1}`}
               class:list={['w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition', i === 0 ? 'bg-white' : 'bg-white/40 hover:bg-white/70']}
             />
           ))}

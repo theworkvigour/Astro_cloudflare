@@ -23,18 +23,18 @@ const d = data ?? {};
   </div>
   <div>
     <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Stats (统计项)</label>
-      <button type="button" data-add-stat class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加统计</button>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Stats</label>
+      <button type="button" data-add-stat class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add stat</button>
     </div>
     <div data-stats-list class="space-y-3">
       {(d.stats ?? []).map((s) => (
         <div data-stat-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
           <div class="grid grid-cols-3 gap-2">
-            <input type="text" name="statAmount" value={s.amount ?? ''} placeholder="数字 (如 2,400+)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="statTitle" value={s.title ?? ''} placeholder="标签" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="statAmount" value={s.amount ?? ''} placeholder="Number (e.g. 2,400+)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <input type="text" name="statTitle" value={s.title ?? ''} placeholder="Label" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
             <div class="flex gap-2">
-              <input type="text" name="statIcon" value={s.icon ?? ''} placeholder="图标 (可选)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <button type="button" data-remove-stat class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+              <input type="text" name="statIcon" value={s.icon ?? ''} placeholder="Icon (optional)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+              <button type="button" data-remove-stat class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
             </div>
           </div>
         </div>
@@ -43,11 +43,11 @@ const d = data ?? {};
     <template data-stat-template>
       <div data-stat-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
         <div class="grid grid-cols-3 gap-2">
-          <input type="text" name="statAmount" placeholder="数字 (如 2,400+)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="statTitle" placeholder="标签" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="statAmount" placeholder="Number (e.g. 2,400+)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="statTitle" placeholder="Label" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
           <div class="flex gap-2">
-            <input type="text" name="statIcon" placeholder="图标 (可选)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <button type="button" data-remove-stat class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+            <input type="text" name="statIcon" placeholder="Icon (optional)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+            <button type="button" data-remove-stat class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
           </div>
         </div>
       </div>

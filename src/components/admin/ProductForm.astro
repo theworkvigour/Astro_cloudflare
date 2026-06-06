@@ -30,129 +30,129 @@ const category = (fm.category as string) ?? 'inflatable';
   <input type="hidden" name="_filename" value={filename ?? ''} />
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
-    <h2 class="text-lg font-semibold">基础信息</h2>
+    <h2 class="text-lg font-semibold">Basic Info</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label class="block text-sm font-medium mb-1" for="title">产品名称 <span class="text-red-500">*</span></label>
+        <label class="block text-sm font-medium mb-1" for="title">Product Name <span class="text-red-500">*</span></label>
         <input id="title" name="title" type="text" required value={(fm.title as string) ?? ''}
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
       </div>
       <div>
-        <label class="block text-sm font-medium mb-1" for="sku">SKU / 产品编号</label>
+        <label class="block text-sm font-medium mb-1" for="sku">SKU / Product Code</label>
         <input id="sku" name="sku" type="text" value={(fm.sku as string) ?? ''}
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none font-mono text-sm" />
       </div>
     </div>
     <div>
-      <label class="block text-sm font-medium mb-1" for="summary">一句话简介</label>
+      <label class="block text-sm font-medium mb-1" for="summary">One-line Summary</label>
       <textarea id="summary" name="summary" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{(fm.summary as string) ?? ''}</textarea>
     </div>
     <div>
-      <label class="block text-sm font-medium mb-1" for="description">详细描述</label>
+      <label class="block text-sm font-medium mb-1" for="description">Description</label>
       <textarea id="description" name="description" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{(fm.description as string) ?? ''}</textarea>
     </div>
     <div>
-      <label class="block text-sm font-medium mb-1" for="image">主图 URL</label>
+      <label class="block text-sm font-medium mb-1" for="image">Main Image URL</label>
       <input id="image" name="image" type="url" value={(fm.image as string) ?? ''}
         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div>
-        <label class="block text-sm font-medium mb-1" for="product-category">分类</label>
+        <label class="block text-sm font-medium mb-1" for="product-category">Category</label>
         <select id="product-category" name="category" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
-          <option value="rib" selected={category === 'rib'}>RIB 动力艇</option>
-          <option value="inflatable" selected={category === 'inflatable'}>充气艇</option>
-          <option value="accessory" selected={category === 'accessory'}>配件</option>
-          <option value="service" selected={category === 'service'}>服务</option>
+          <option value="rib" selected={category === 'rib'}>RIB Powerboat</option>
+          <option value="inflatable" selected={category === 'inflatable'}>Inflatable</option>
+          <option value="accessory" selected={category === 'accessory'}>Accessory</option>
+          <option value="service" selected={category === 'service'}>Service</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium mb-1" for="publishDate">上架日期</label>
+        <label class="block text-sm font-medium mb-1" for="publishDate">Publish Date</label>
         <input id="publishDate" name="publishDate" type="date" value={(fm.publishDate as string) ?? ''}
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
       </div>
       <div class="flex items-end gap-4">
         <label class="flex items-center gap-2 text-sm">
           <input type="checkbox" name="inStock" value="true" checked={fm.inStock !== false} class="rounded" />
-          现货
+          In Stock
         </label>
         <label class="flex items-center gap-2 text-sm">
           <input type="checkbox" name="featured" value="true" checked={fm.featured === true} class="rounded" />
-          首页推荐
+          Featured on Home
         </label>
         <label class="flex items-center gap-2 text-sm">
           <input type="checkbox" name="draft" value="true" checked={fm.draft === true} class="rounded" />
-          草稿
+          Draft
         </label>
       </div>
     </div>
   </div>
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
-    <h2 class="text-lg font-semibold">图册 / Gallery</h2>
-    <p class="text-sm text-gray-500">每张图:URL + Alt 文字说明</p>
+    <h2 class="text-lg font-semibold">Gallery</h2>
+    <p class="text-sm text-gray-500">Each image: URL + Alt text</p>
     <div id="gallery-list" class="space-y-3">
       {gallery.map((g, i) => (
         <div class="flex items-center gap-2" data-gallery-row>
-          <input type="url" name="galleryUrl" value={g.url} placeholder="图片 URL" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs" />
-          <input type="text" name="galleryAlt" value={g.alt ?? ''} placeholder="图片说明" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">删除</button>
+          <input type="url" name="galleryUrl" value={g.url} placeholder="Image URL" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs" />
+          <input type="text" name="galleryAlt" value={g.alt ?? ''} placeholder="Alt Text" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">Delete</button>
         </div>
       ))}
     </div>
-    <button type="button" data-repeater-add="gallery-list" data-template="gallery" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加图片</button>
+    <button type="button" data-repeater-add="gallery-list" data-template="gallery" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ Add Image</button>
   </div>
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
-    <h2 class="text-lg font-semibold">价格 / Price</h2>
+    <h2 class="text-lg font-semibold">Price</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div>
-        <label class="block text-sm font-medium mb-1" for="price-amount">金额</label>
+        <label class="block text-sm font-medium mb-1" for="price-amount">Amount</label>
         <input id="price-amount" name="priceAmount" type="text" value={(price.amount as string) ?? ''} placeholder="1299" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
       </div>
       <div>
-        <label class="block text-sm font-medium mb-1" for="price-currency">货币</label>
+        <label class="block text-sm font-medium mb-1" for="price-currency">Currency</label>
         <input id="price-currency" name="priceCurrency" type="text" value={(price.currency as string) ?? 'USD'} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
       </div>
       <div>
-        <label class="block text-sm font-medium mb-1" for="price-note">说明</label>
-        <input id="price-note" name="priceNote" type="text" value={(price.note as string) ?? ''} placeholder="不含运费" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+        <label class="block text-sm font-medium mb-1" for="price-note">Note</label>
+        <input id="price-note" name="priceNote" type="text" value={(price.note as string) ?? ''} placeholder="Excludes shipping" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
       </div>
     </div>
   </div>
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
-    <h2 class="text-lg font-semibold">技术规格 / Specifications</h2>
+    <h2 class="text-lg font-semibold">Specifications</h2>
     <div id="specs-list" class="space-y-3">
       {specs.map((s, i) => (
         <div class="flex items-center gap-2" data-specs-row>
-          <input type="text" name="specLabel" value={s.label} placeholder="规格名 (如:长度)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="specValue" value={s.value} placeholder="规格值 (如:3.3m)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">删除</button>
+          <input type="text" name="specLabel" value={s.label} placeholder="Label (e.g. Length)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="specValue" value={s.value} placeholder="Value (e.g. 3.3m)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">Delete</button>
         </div>
       ))}
     </div>
-    <button type="button" data-repeater-add="specs-list" data-template="specs" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加规格</button>
+    <button type="button" data-repeater-add="specs-list" data-template="specs" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ Add Spec</button>
   </div>
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
-    <h2 class="text-lg font-semibold">标签 / Tags</h2>
+    <h2 class="text-lg font-semibold">Tags</h2>
     <div id="tags-list" class="space-y-2">
       {tags.map((t, i) => (
         <div class="flex items-center gap-2" data-repeater-row>
           <input type="text" name="tags" value={t} class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs">删除</button>
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs">Delete</button>
         </div>
       ))}
     </div>
-    <button type="button" data-repeater-add="tags-list" data-template="tag" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加标签</button>
+    <button type="button" data-repeater-add="tags-list" data-template="tag" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ Add Tag</button>
   </div>
 
   <details class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 group">
     <summary class="text-lg font-semibold cursor-pointer list-none flex items-center justify-between">
-      <span>SEO / 元数据</span>
-      <span class="text-sm text-gray-400 group-open:hidden">点击展开</span>
-      <span class="text-sm text-gray-400 hidden group-open:inline">点击折叠</span>
+      <span>SEO / Metadata</span>
+      <span class="text-sm text-gray-400 group-open:hidden">Click to expand</span>
+      <span class="text-sm text-gray-400 hidden group-open:inline">Click to collapse</span>
     </summary>
     <div class="mt-4 space-y-4">
       <div>
@@ -170,7 +170,7 @@ const category = (fm.category as string) ?? 'inflatable';
       <div class="flex items-center gap-6 text-sm">
         <label class="flex items-center gap-2"><input type="checkbox" name="seoRobotIndex" value="true" checked={seoRobots.index !== false} class="rounded" /> Index</label>
         <label class="flex items-center gap-2"><input type="checkbox" name="seoRobotFollow" value="true" checked={seoRobots.follow !== false} class="rounded" /> Follow</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="seoIgnoreTitleTemplate" value="true" checked={seo.ignoreTitleTemplate === true} class="rounded" /> 忽略标题模板</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="seoIgnoreTitleTemplate" value="true" checked={seo.ignoreTitleTemplate === true} class="rounded" /> Ignore Title Template</label>
       </div>
       <div class="border-t border-gray-200 dark:border-gray-800 pt-4">
         <div class="text-sm font-medium mb-2">Open Graph</div>
@@ -194,16 +194,16 @@ const category = (fm.category as string) ?? 'inflatable';
 
   <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
     <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium" for="body">产品详情 / Details (Markdown,支持 MDX)</label>
-      <span class="text-xs text-gray-400" id="body-stats">0 字符</span>
+      <label class="block text-sm font-medium" for="body">Product Details (Markdown, MDX supported)</label>
+      <span class="text-xs text-gray-400" id="body-stats">0 characters</span>
     </div>
     <textarea id="body" name="body" rows="22" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{initial.body}</textarea>
   </div>
 
   <div class="sticky bottom-0 -mx-6 px-6 py-4 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-end gap-3">
-    <a href="/keystatic/products" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">取消</a>
+    <a href="/keystatic/products" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">Cancel</a>
     <button type="submit" id="submit-btn" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md disabled:opacity-50">
-      {mode === 'create' ? '创建并推送' : '保存并推送'}
+      {mode === 'create' ? 'Create & Push' : 'Save & Push'}
     </button>
   </div>
 </form>
@@ -215,7 +215,7 @@ const category = (fm.category as string) ?? 'inflatable';
     const body = document.getElementById('body');
     const stats = document.getElementById('body-stats');
     if (body && stats) {
-      const update = () => { stats.textContent = (body.value.length).toLocaleString() + ' 字符'; };
+      const update = () => { stats.textContent = (body.value.length).toLocaleString() + ' characters'; };
       body.addEventListener('input', update);
       update();
     }
@@ -244,17 +244,17 @@ const category = (fm.category as string) ?? 'inflatable';
         if (template === 'tag') {
           row.appendChild(makeInput('tags', '', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
         } else if (template === 'gallery') {
-          row.appendChild(makeInput('galleryUrl', '图片 URL', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs'));
-          row.appendChild(makeInput('galleryAlt', '图片说明', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+          row.appendChild(makeInput('galleryUrl', 'Image URL', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs'));
+          row.appendChild(makeInput('galleryAlt', 'Alt Text', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
         } else if (template === 'specs') {
-          row.appendChild(makeInput('specLabel', '规格名', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
-          row.appendChild(makeInput('specValue', '规格值', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+          row.appendChild(makeInput('specLabel', 'Label', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+          row.appendChild(makeInput('specValue', 'Value', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
         }
         const remove = document.createElement('button');
         remove.type = 'button';
         remove.setAttribute('data-repeater-remove', '');
         remove.className = 'text-red-500 hover:underline text-xs whitespace-nowrap';
-        remove.textContent = '删除';
+        remove.textContent = 'Delete';
         row.appendChild(remove);
         list.appendChild(row);
       });

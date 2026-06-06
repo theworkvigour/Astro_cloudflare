@@ -66,21 +66,21 @@ try {
   );
   rows = enriched.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 } catch (err) {
-  loadError = err instanceof Error ? err.message : '加载失败';
+  loadError = err instanceof Error ? err.message : 'Failed to load';
 }
 
 const categoryLabel: Record<string, string> = {
   rib: 'RIB',
-  inflatable: '充气艇',
-  accessory: '配件',
-  service: '服务',
+  inflatable: 'Inflatable',
+  accessory: 'Accessory',
+  service: 'Service',
 };
 ---
-<AdminLayout title="产品" active="products" username={verified?.username}>
+<AdminLayout title="Products" active="products" username={verified?.username}>
   <div class="flex items-center justify-between mb-6">
     <div>
-      <h1 class="text-2xl font-semibold">产品 / Products</h1>
-      <p class="mt-1 text-sm text-gray-500">共 {rows.length} 件</p>
+      <h1 class="text-2xl font-semibold">Products</h1>
+      <p class="mt-1 text-sm text-gray-500">{rows.length} products total</p>
     </div>
     <a
       href="/keystatic/products/new"
@@ -90,7 +90,7 @@ const categoryLabel: Record<string, string> = {
 
   {loadError && (
     <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
-      加载失败: {loadError} — 请检查 Token 是否还有仓库访问权限
+      Failed to load: {loadError} — Please check if the token still has repository access
     </div>
   )}
 
@@ -108,7 +108,7 @@ const categoryLabel: Record<string, string> = {
       </thead>
       <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
         {rows.length === 0 && !loadError && (
-          <tr><td colspan="6" class="px-4 py-12 text-center text-gray-500">还没有产品,点右上角 + New Product 创建第一件</td></tr>
+          <tr><td colspan="6" class="px-4 py-12 text-center text-gray-500">No products yet. Click + New Product to create the first one.</td></tr>
         )}
         {rows.map((row) => (
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50">
@@ -148,9 +148,9 @@ const categoryLabel: Record<string, string> = {
       if (!target) return;
       e.preventDefault();
       const { name, path, sha } = target.dataset;
-      if (!confirm(`确定删除 "${name}" 吗?\n这会作为 commit 推送到 GitHub 主分支。`)) return;
+      if (!confirm(`Are you sure you want to delete "${name}"?\nThis will be committed and pushed to the GitHub main branch.`)) return;
       const original = target.textContent;
-      target.textContent = '删除中...';
+      target.textContent = 'Deleting...';
       target.setAttribute('disabled', 'true');
       try {
         const res = await fetch('/api/admin/delete', {
@@ -160,15 +160,15 @@ const categoryLabel: Record<string, string> = {
         });
         const data = await res.json();
         if (!res.ok || !data.success) {
-          window.__adminToast?.(data.error || '删除失败', 'error');
+          window.__adminToast?.(data.error || 'Delete failed', 'error');
           target.textContent = original;
           target.removeAttribute('disabled');
         } else {
-          window.__adminToast?.('已删除,正在刷新列表...', 'success');
+          window.__adminToast?.('Deleted, refreshing list...', 'success');
           setTimeout(() => window.location.reload(), 600);
         }
       } catch {
-        window.__adminToast?.('网络错误', 'error');
+        window.__adminToast?.('Network error', 'error');
         target.textContent = original;
         target.removeAttribute('disabled');
       }

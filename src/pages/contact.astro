@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
@@ -6,10 +7,26 @@ import Features2 from '~/components/widgets/Features2.astro';
 import { SITE } from 'astrowind:config';
 
 import data from '~/data/pages/contact.yaml';
+import branding from '~/data/site/branding.yaml';
+import { generateChallenge, buildCookieValue, cookieName, cookieTtlSeconds } from '~/lib/contact-captcha';
 
 const ht = data.hero_text ?? {};
 const form = data.contact_form ?? {};
 const other = data.features2_other_ways ?? {};
+
+const challenge = generateChallenge();
+const cookie = buildCookieValue(challenge);
+Astro.cookies.set(cookieName(), cookie.value, {
+  httpOnly: true,
+  secure: import.meta.env.PROD,
+  sameSite: 'lax',
+  path: '/',
+  expires: cookie.expires,
+  maxAge: cookieTtlSeconds(),
+});
+
+const brandingData: any = branding ?? {};
+const resolvedEmailTo = (form.email_to && String(form.email_to).trim()) || (brandingData.contact_email_to as string) || '';
 
 const metadata = {
   title: `Contact ${SITE.name}`,
@@ -21,13 +38,18 @@ const metadata = {
   <HeroText tagline={ht.tagline} title={ht.title} />
 
   <ContactUs
-    id={form.id}
+    id={form.id ?? 'form'}
     title={form.title}
     subtitle={form.subtitle}
-    inputs={form.inputs}
-    textarea={form.textarea}
-    disclaimer={form.disclaimer}
-    description={form.description}
+    emailTo={resolvedEmailTo}
+    submitButton={form.submit_button}
+    successMessage={form.success_message}
+    errorMessage={form.error_message}
+    fields={form.fields ?? []}
+    captcha={form.captcha ?? { label: 'Anti-spam' }}
+    captchaQuestion={challenge.question}
+    defaultCountryCode={form.default_country_code ?? '+1'}
+    countryCodes={form.country_codes ?? []}
   />
 
   <Features2

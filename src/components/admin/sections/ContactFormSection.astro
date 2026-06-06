@@ -1,4 +1,12 @@
 ---
+interface FieldDef {
+  name: string;
+  label: string;
+  row: number;
+  type?: string;
+  withCountryCode?: boolean;
+  rows?: number;
+}
 interface Props {
   prefix: string;
   data?: {
@@ -6,70 +14,111 @@ interface Props {
     title?: string;
     subtitle?: string;
     tagline?: string;
-    inputs?: Array<{ type?: string; name?: string; label?: string }>;
-    textarea?: { label?: string; name?: string; rows?: number; placeholder?: string };
-    disclaimer?: { label?: string };
-    description?: string;
-    button?: string;
+    email_to?: string;
+    submit_button?: string;
+    success_message?: string;
+    error_message?: string;
+    default_country_code?: string;
+    captcha?: { label?: string };
+    fields?: FieldDef[];
   };
 }
 const { prefix, data = {} } = Astro.props;
 const d = data ?? {};
+
+const defaults: FieldDef[] = [
+  { name: 'firstName', label: 'First Name', row: 1 },
+  { name: 'lastName', label: 'Last Name', row: 1 },
+  { name: 'companyName', label: 'Company Name', row: 2 },
+  { name: 'address', label: 'Address', row: 3 },
+  { name: 'zip', label: 'Zip', row: 4 },
+  { name: 'country', label: 'Country', row: 4 },
+  { name: 'email', label: 'E-mail', row: 5, type: 'email' },
+  { name: 'tel', label: 'TEL', row: 5, type: 'tel', withCountryCode: true },
+  { name: 'subject', label: 'Subject', row: 6 },
+  { name: 'message', label: 'Message', row: 7, type: 'textarea', rows: 6 },
+];
+
+function findField(fields: FieldDef[] | undefined, name: string): FieldDef | undefined {
+  return (fields ?? []).find((f) => f && f.name === name);
+}
+function labelOf(name: string, fallback: string): string {
+  const f = findField(d.fields, name);
+  return f?.label ?? fallback;
+}
 ---
 <div class="space-y-4" data-section-type="contact" data-prefix={prefix}>
-  <div>
-    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">ID (锚点)</label>
-    <input type="text" name="id" value={d.id ?? ''} placeholder="form" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">ID (Anchor)</label>
+      <input type="text" name="id" value={d.id ?? ''} placeholder="form" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Recipient email (email_to, can also be set in branding)</label>
+      <input type="email" name="email_to" value={d.email_to ?? ''} placeholder="admin@your-domain.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono" />
+    </div>
   </div>
   <div>
     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
     <input type="text" name="title" value={d.title ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
   </div>
   <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(支持 HTML)</span></label>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle <span class="text-xs text-gray-500">(supports HTML)</span></label>
     <textarea name="subtitle" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{d.subtitle ?? ''}</textarea>
   </div>
-  <div>
-    <div class="flex items-center justify-between mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Inputs (输入字段)</label>
-      <button type="button" data-add-input class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加字段</button>
-    </div>
-    <div data-inputs-list class="space-y-3">
-      {(d.inputs ?? []).map((inp) => (
-        <div data-input-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
-          <div class="grid grid-cols-4 gap-2">
-            <input type="text" name="inputType" value={inp.type ?? 'text'} placeholder="type" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="inputName" value={inp.name ?? ''} placeholder="name" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <input type="text" name="inputLabel" value={inp.label ?? ''} placeholder="label" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-            <button type="button" data-remove-input class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-          </div>
+
+  <div class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
+    <div class="text-xs font-semibold text-gray-600 dark:text-gray-300">8 form fields (Field labels — structure is fixed, only labels can be changed)</div>
+    <div class="text-xs text-gray-500">Which fields to show per row is hardcoded in widget; you only need to modify the displayed text for each field.</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      {defaults.map((def) => (
+        <div>
+          <label class="block text-xs text-gray-500 mb-0.5">
+            Row {def.row} · {def.name} {def.withCountryCode ? '(+ country code)' : ''}
+          </label>
+          <input
+            type="text"
+            name={`fieldLabel__${def.name}`}
+            value={labelOf(def.name, def.label)}
+            placeholder={def.label}
+            class="w-full px-2 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+          />
         </div>
       ))}
     </div>
-    <template data-input-template>
-      <div data-input-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
-        <div class="grid grid-cols-4 gap-2">
-          <input type="text" name="inputType" value="text" placeholder="type" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="inputName" placeholder="name" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <input type="text" name="inputLabel" placeholder="label" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-          <button type="button" data-remove-input class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-        </div>
-      </div>
-    </template>
   </div>
-  <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Textarea (多行文本)</label>
-    <div class="grid grid-cols-2 gap-2">
-      <input type="text" name="textareaLabel" value={d.textarea?.label ?? ''} placeholder="label" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-      <input type="text" name="textareaName" value={d.textarea?.name ?? ''} placeholder="name" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Default country code</label>
+      <input type="text" name="default_country_code" value={d.default_country_code ?? '+1'} placeholder="+1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono" />
+      <p class="mt-1 text-xs text-gray-500">Suggested: +1 (US/CA) · +44 (UK) · +86 (CN) etc.</p>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Captcha label</label>
+      <input
+        type="text"
+        name="captchaLabel"
+        value={d.captcha?.label ?? 'Anti-spam: please solve the following'}
+        placeholder="Anti-spam: please solve the following"
+        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+      />
+      <p class="mt-1 text-xs text-gray-500">Will be shown on row 8, followed by a simple a + b or a - b math problem.</p>
     </div>
   </div>
-  <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Disclaimer (协议说明)</label>
-    <textarea name="disclaimer" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">{d.disclaimer?.label ?? ''}</textarea>
-  </div>
-  <div>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description (提交下方说明)</label>
-    <textarea name="description" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">{d.description ?? ''}</textarea>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Submit button text</label>
+      <input type="text" name="submit_button" value={d.submit_button ?? 'Send message'} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Success message (shown after submission)</label>
+      <input type="text" name="success_message" value={d.success_message ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Failure message</label>
+      <input type="text" name="error_message" value={d.error_message ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+    </div>
   </div>
 </div>

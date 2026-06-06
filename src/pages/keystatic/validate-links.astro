@@ -1,0 +1,118 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import { verifySessionToken } from '~/lib/auth';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+---
+
+<AdminLayout title="Link Validation" active="links" username={verified?.username}>
+  <div class="mb-6">
+    <a href="/keystatic/link-refactor" class="text-sm text-gray-500 hover:underline">← Link Refactoring Tool</a>
+    <h1 class="mt-2 text-2xl font-semibold">Link Validation</h1>
+    <p class="mt-1 text-sm text-gray-500">
+      Scans all data files under <code class="font-mono">src/data/</code>, extracts <code class="font-mono">href</code> / <code class="font-mono">url</code> / <code class="font-mono">linkUrl</code> / Markdown links / HTML links, compares against <strong>known routes</strong> (pages + blog/product/configuration defined pathnames), reports references to non-existent routes.
+      <strong>External links</strong> are listed but not checked. <strong>Query strings</strong> are ignored (<code class="font-mono">/blog?page=2</code> treated as <code class="font-mono">/blog</code>).
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <div class="flex items-center gap-3">
+      <button id="scan-btn" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">Scan All References</button>
+      <span id="status" class="text-sm text-gray-500"></span>
+    </div>
+  </div>
+
+  <div id="results" class="mt-6 space-y-6"></div>
+
+  <script is:inline>
+    (function () {
+      const scanBtn = document.getElementById('scan-btn');
+      const status = document.getElementById('status');
+      const results = document.getElementById('results');
+
+      function setStatus(msg, kind) {
+        if (!status) return;
+        status.textContent = msg || '';
+        status.className = 'text-sm ' + (kind === 'error' ? 'text-red-600' : kind === 'success' ? 'text-green-600' : 'text-gray-500');
+      }
+
+      function escHtml(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      async function scan() {
+        setStatus('Scanning...');
+        if (scanBtn instanceof HTMLButtonElement) scanBtn.disabled = true;
+        try {
+          const res = await fetch('/api/admin/validate-links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+          const data = await res.json();
+          if (!res.ok || !data.success) { setStatus(data.error || 'Scan failed', 'error'); return; }
+          render(data);
+        } catch (e) { setStatus('Network error', 'error'); }
+        finally { if (scanBtn instanceof HTMLButtonElement) scanBtn.disabled = false; }
+      }
+
+      function render(data) {
+        if (!results) return;
+        const summary = (
+          '<div class="grid grid-cols-1 md:grid-cols-4 gap-3">' +
+          card('Files scanned', data.scannedFiles, 'gray') +
+          card('Total references', data.totalUrls, 'gray') +
+          card('Known internal URLs', data.known.length, 'green') +
+          card('Broken references', data.broken.length, data.broken.length === 0 ? 'green' : 'red') +
+          '</div>'
+        );
+        const brokenSection = data.broken.length === 0
+          ? '<div class="rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800 p-4 text-sm text-green-800 dark:text-green-300">✅ All internal references point to known routes.</div>'
+          : (
+            '<div class="rounded-xl border border-red-200 dark:border-red-800 bg-white dark:bg-gray-950 overflow-hidden">' +
+            '<div class="px-5 py-3 bg-red-50 dark:bg-red-950/30 text-sm font-semibold text-red-900 dark:text-red-200">Broken internal references (' + data.broken.length + ')</div>' +
+            '<table class="w-full text-sm">' +
+            data.broken.map((b) => (
+              '<tr class="border-t border-gray-100 dark:border-gray-800">' +
+              '<td class="px-3 py-2 font-mono text-xs text-red-600 dark:text-red-400 whitespace-nowrap">' + escHtml(b.url) + '</td>' +
+              '<td class="px-3 py-2 text-xs text-gray-500"><code class="font-mono">' + escHtml(b.path) + '</code></td>' +
+              '</tr>'
+            )).join('') +
+            '</table></div>'
+          );
+        const knownSection = (
+          '<details class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">' +
+          '<summary class="px-5 py-3 cursor-pointer text-sm font-semibold">Known routes (' + data.known.length + ')</summary>' +
+          '<div class="px-5 py-3 border-t border-gray-200 dark:border-gray-800 text-xs grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-mono">' +
+          data.known.map((u) => '<a class="text-blue-600 hover:underline truncate" href="' + escHtml(u) + '" target="_blank" rel="noopener">' + escHtml(u) + '</a>').join('') +
+          '</div></details>'
+        );
+        const extSection = data.external.length === 0 ? '' : (
+          '<details class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">' +
+          '<summary class="px-5 py-3 cursor-pointer text-sm font-semibold">External links (reference only, ' + data.external.length + ')</summary>' +
+          '<table class="w-full text-xs border-t border-gray-200 dark:border-gray-800">' +
+          data.external.slice(0, 200).map((e) => (
+            '<tr class="border-b border-gray-100 dark:border-gray-800">' +
+            '<td class="px-3 py-1 font-mono text-blue-600 truncate max-w-xs"><a href="' + escHtml(e.url) + '" target="_blank" rel="noopener">' + escHtml(e.url) + '</a></td>' +
+            '<td class="px-3 py-1 text-gray-500"><code class="font-mono">' + escHtml(e.path) + '</code></td>' +
+            '</tr>'
+          )).join('') +
+          (data.external.length > 200 ? '<tr><td colspan="2" class="px-3 py-2 text-xs text-gray-500 text-center">… Showing first 200 only</td></tr>' : '') +
+          '</table></details>'
+        );
+        results.innerHTML = summary + brokenSection + knownSection + extSection;
+        setStatus('Scan complete', 'success');
+      }
+
+      function card(title, n, kind) {
+        const palette = kind === 'red' ? 'border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-800 text-red-900 dark:text-red-200'
+          : kind === 'green' ? 'border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800 text-green-900 dark:text-green-200'
+          : 'border-gray-200 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100';
+        return '<div class="rounded-xl border p-4 ' + palette + '"><div class="text-xs uppercase tracking-wide opacity-70">' + title + '</div><div class="mt-1 text-3xl font-semibold">' + n + '</div></div>';
+      }
+
+      if (scanBtn) scanBtn.addEventListener('click', scan);
+    })();
+  </script>
+</AdminLayout>

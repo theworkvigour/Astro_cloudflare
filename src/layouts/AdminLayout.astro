@@ -3,7 +3,7 @@ import '~/assets/styles/tailwind.css';
 
 interface Props {
   title: string;
-  active: 'dashboard' | 'posts' | 'products' | 'pages' | 'navigation' | 'branding' | 'settings';
+  active: 'dashboard' | 'posts' | 'products' | 'pages' | 'navigation' | 'branding' | 'submissions' | 'links' | 'settings';
   username?: string;
 }
 
@@ -11,11 +11,13 @@ const { title, active, username } = Astro.props;
 
 const tabs = [
   { id: 'dashboard', href: '/keystatic', label: 'Dashboard' },
-  { id: 'posts', href: '/keystatic/posts', label: '博客文章 / Posts' },
-  { id: 'products', href: '/keystatic/products', label: '产品 / Products' },
-  { id: 'pages', href: '/keystatic/pages', label: '网页内容 / Pages' },
-  { id: 'navigation', href: '/keystatic/navigation', label: '导航 / Nav' },
-  { id: 'branding', href: '/keystatic/branding', label: '品牌 / Branding' },
+  { id: 'posts', href: '/keystatic/posts', label: 'Posts' },
+  { id: 'products', href: '/keystatic/products', label: 'Products' },
+  { id: 'pages', href: '/keystatic/pages', label: 'Pages' },
+  { id: 'navigation', href: '/keystatic/navigation', label: 'Navigation' },
+  { id: 'branding', href: '/keystatic/branding', label: 'Branding' },
+  { id: 'submissions', href: '/keystatic/contact-submissions', label: 'Submissions' },
+  { id: 'links', href: '/keystatic/link-refactor', label: 'Links' },
 ] as const;
 ---
 <!doctype html>
@@ -44,8 +46,8 @@ const tabs = [
         </nav>
         <div class="flex items-center gap-3 text-sm">
           {username && <span class="text-gray-500 dark:text-gray-400">{username}</span>}
-          <a href="/login/change-password" class="text-gray-600 dark:text-gray-300 hover:underline">修改密码</a>
-          <a href="/api/auth/logout" class="text-red-600 dark:text-red-400 hover:underline">退出登录</a>
+          <a href="/login/change-password" class="text-gray-600 dark:text-gray-300 hover:underline">Change Password</a>
+          <a href="/api/auth/logout" class="text-red-600 dark:text-red-400 hover:underline">Log Out</a>
         </div>
       </div>
     </header>

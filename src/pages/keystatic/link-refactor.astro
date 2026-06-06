@@ -1,0 +1,200 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+import { verifySessionToken } from '~/lib/auth';
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+---
+
+<AdminLayout title="URL / Name Refactoring" active="links" username={verified?.username}>
+  <div class="mb-6">
+    <h1 class="text-2xl font-semibold">Batch URL / Name Refactoring</h1>
+    <p class="mt-1 text-sm text-gray-500">
+      Scans all <code class="font-mono">.md</code> / <code class="font-mono">.mdx</code> / <code class="font-mono">.yaml</code> / <code class="font-mono">.json</code> files under <code class="font-mono">src/data/</code> (excluding encrypted
+      <code class="font-mono">submissions.enc.json</code>), replacing oldUrl / oldName with newUrl / newName.
+      Matching rules: URLs use <code class="font-mono">(?&lt;![A-Za-z0-9_-])URL(?![A-Za-z0-9_-])</code> (to avoid false matches like <code class="font-mono">/blog-post</code>); names match whole words (to avoid <code class="font-mono">Blog</code> incorrectly modifying <code class="font-mono">Blogpost</code>).
+      Content inside code blocks (``` ... ```) will not be modified. Each apply generates a separate commit per modified file.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">oldUrl <span class="text-xs text-gray-500">(e.g. /blog)</span></label>
+        <input id="oldUrl" type="text" placeholder="/blog" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">newUrl <span class="text-xs text-gray-500">(e.g. /news)</span></label>
+        <input id="newUrl" type="text" placeholder="/news" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">oldName <span class="text-xs text-gray-500">(e.g. Blog · whole word)</span></label>
+        <input id="oldName" type="text" placeholder="Blog" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">newName <span class="text-xs text-gray-500">(e.g. News)</span></label>
+        <input id="newName" type="text" placeholder="News" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button id="scan-btn" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">Scan Entire Site</button>
+      <button id="apply-btn" type="button" disabled class="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm font-medium rounded-md">Apply Changes</button>
+      <span id="status" class="self-center text-sm text-gray-500"></span>
+    </div>
+  </div>
+
+  <div id="results" class="mt-6 space-y-3 hidden"></div>
+
+  <script is:inline>
+    (function () {
+      const scanBtn = document.getElementById('scan-btn');
+      const applyBtn = document.getElementById('apply-btn');
+      const status = document.getElementById('status');
+      const results = document.getElementById('results');
+      const oldUrlEl = document.getElementById('oldUrl');
+      const newUrlEl = document.getElementById('newUrl');
+      const oldNameEl = document.getElementById('oldName');
+      const newNameEl = document.getElementById('newName');
+      let lastScan = null;
+
+      const params = new URLSearchParams(location.search);
+      const prefOldUrl = params.get('oldUrl');
+      const prefNewUrl = params.get('newUrl');
+      const prefOldName = params.get('oldName');
+      const prefNewName = params.get('newName');
+      if (prefOldUrl && oldUrlEl instanceof HTMLInputElement) oldUrlEl.value = prefOldUrl;
+      if (prefNewUrl && newUrlEl instanceof HTMLInputElement) newUrlEl.value = prefNewUrl;
+      if (prefOldName && oldNameEl instanceof HTMLInputElement) oldNameEl.value = prefOldName;
+      if (prefNewName && newNameEl instanceof HTMLInputElement) newNameEl.value = prefNewName;
+
+      function setStatus(msg, kind) {
+        if (!status) return;
+        status.textContent = msg || '';
+        status.className = 'self-center text-sm ' + (kind === 'error' ? 'text-red-600' : kind === 'success' ? 'text-green-600' : 'text-gray-500');
+      }
+
+      async function scan() {
+        const oldUrl = (oldUrlEl instanceof HTMLInputElement ? oldUrlEl.value : '').trim();
+        const newUrl = (newUrlEl instanceof HTMLInputElement ? newUrlEl.value : '').trim();
+        const oldName = (oldNameEl instanceof HTMLInputElement ? oldNameEl.value : '').trim();
+        const newName = (newNameEl instanceof HTMLInputElement ? newNameEl.value : '').trim();
+        if (!oldUrl && !oldName) { setStatus('Please fill in at least one of oldUrl or oldName', 'error'); return; }
+        if (oldUrl && !newUrl) { setStatus('oldUrl is filled but newUrl is empty', 'error'); return; }
+        if (oldName && !newName) { setStatus('oldName is filled but newName is empty', 'error'); return; }
+        if (oldUrl && oldUrl.length < 2) { setStatus('oldUrl is too short (recommend ≥ 2 chars), avoid false matches', 'error'); return; }
+        if (oldName && oldName.length < 2) { setStatus('oldName is too short (recommend ≥ 2 chars), avoid false matches', 'error'); return; }
+        setStatus('Scanning...');
+        if (scanBtn) scanBtn.disabled = true;
+        try {
+          const res = await fetch('/api/admin/refactor/scan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ oldUrl: oldUrl || undefined, newUrl: newUrl || undefined, oldName: oldName || undefined, newName: newName || undefined }),
+          });
+          const data = await res.json();
+          if (!res.ok || !data.success) { setStatus(data.error || 'Scan failed', 'error'); return; }
+          lastScan = data;
+          renderResults(data);
+        } catch (e) { setStatus('Network error: ' + (e && e.message || e), 'error'); }
+        finally { if (scanBtn) scanBtn.disabled = false; }
+      }
+
+      function renderResults(data) {
+        if (!results) return;
+        if (!data.files || data.files.length === 0) {
+          results.classList.remove('hidden');
+          results.innerHTML = '<div class="rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 text-sm text-gray-500">No matches found, no changes needed.</div>';
+          if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = true;
+          setStatus('Done, 0 matches found', 'success');
+          return;
+        }
+        if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = false;
+        const head = '<div class="text-sm text-gray-700 dark:text-gray-300"><strong>' + data.totalOccurrences + '</strong> matches found across <strong>' + data.fileCount + '</strong> files. Uncheck to exclude a file.</div>';
+        const cards = data.files.map((f, idx) => {
+          const diffHtml = f.diff
+            .filter((d) => d.kind !== 'ctx' || (d.before && d.before.trim() !== ''))
+            .slice(0, 200)
+            .map((d) => {
+              if (d.kind === 'ctx') return '<div class="text-gray-500 text-xs font-mono whitespace-pre-wrap"><span class="inline-block w-8 text-right pr-2 opacity-50">' + d.line + '</span> ' + escHtml(d.before) + '</div>';
+              const cls = d.kind === 'url' ? 'bg-blue-50 dark:bg-blue-950/30 border-l-2 border-blue-500' : d.kind === 'name' ? 'bg-amber-50 dark:bg-amber-950/30 border-l-2 border-amber-500' : 'bg-gray-50 dark:bg-gray-900/40';
+              return (
+                '<div class="' + cls + ' text-xs font-mono">' +
+                '<div class="whitespace-pre-wrap"><span class="inline-block w-8 text-right pr-2 opacity-50 text-red-600">-</span> <span class="line-through opacity-70">' + escHtml(d.before) + '</span></div>' +
+                '<div class="whitespace-pre-wrap"><span class="inline-block w-8 text-right pr-2 opacity-50 text-green-600">+</span> ' + escHtml(d.after) + '</div>' +
+                '</div>'
+              );
+            }).join('');
+          return (
+            '<details class="rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden" open>' +
+            '<summary class="px-4 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+            '<label class="flex items-center gap-2 text-sm cursor-pointer" onclick="event.stopPropagation()">' +
+            '<input type="checkbox" data-file-apply="' + idx + '" checked class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />' +
+            '<code class="font-mono text-xs truncate">' + escHtml(f.path) + '</code>' +
+            '</label>' +
+            '</div>' +
+            '<span class="text-xs text-gray-500 whitespace-nowrap">' + f.occurrences + ' matches</span>' +
+            '</summary>' +
+            '<div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 max-h-96 overflow-auto">' +
+            (diffHtml || '<div class="p-3 text-xs text-gray-500">No diff preview</div>') +
+            '</div>' +
+            '</details>'
+          );
+        }).join('');
+        results.classList.remove('hidden');
+        results.innerHTML = head + '<div class="space-y-2">' + cards + '</div>';
+        setStatus('Done, ' + data.totalOccurrences + ' matches (' + data.fileCount + ' files)', 'success');
+      }
+
+      async function apply() {
+        if (!lastScan) return;
+        const checked = Array.from(document.querySelectorAll('input[data-file-apply]')).map((el) => el instanceof HTMLInputElement && el.checked);
+        const files = lastScan.files.filter((_, i) => checked[i]);
+        if (files.length === 0) { setStatus('No files selected', 'error'); return; }
+        if (!confirm('About to generate commits for ' + files.length + ' files, continue?')) return;
+        setStatus('Pushing...');
+        if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = true;
+        try {
+          const changes = files.map((f) => {
+            const rule = lastScan.rule || {};
+            return {
+              path: f.path,
+              sha: f.sha,
+              oldUrl: rule.oldUrl,
+              newUrl: rule.newUrl,
+              oldName: rule.oldName,
+              newName: rule.newName,
+            };
+          });
+          const res = await fetch('/api/admin/refactor/apply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ changes, commitMessage: 'Refactor link/name' }),
+          });
+          const data = await res.json();
+          if (!res.ok || !data.success) { setStatus(data.error || 'Push failed', 'error'); if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = false; return; }
+          const ok = (data.results || []).filter((r) => r.ok).length;
+          const fail = (data.results || []).filter((r) => !r.ok).length;
+          setStatus('Pushed ' + ok + ' files' + (fail ? ' · failed ' + fail : '') + ' · Cloudflare redeploying...', fail ? 'error' : 'success');
+          window.__adminToast?.('Link refactoring complete: ' + ok + ' files pushed', 'success');
+          if (fail === 0) setTimeout(() => window.location.reload(), 1500);
+          else if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = false;
+        } catch (e) { setStatus('Network error: ' + (e && e.message || e), 'error'); if (applyBtn instanceof HTMLButtonElement) applyBtn.disabled = false; }
+      }
+
+      function escHtml(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      if (scanBtn) scanBtn.addEventListener('click', scan);
+      if (applyBtn) applyBtn.addEventListener('click', apply);
+    })();
+  </script>
+</AdminLayout>

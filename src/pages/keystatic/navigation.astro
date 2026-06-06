@@ -24,120 +24,126 @@ try {
   data = (yamlMod.load(f.content) as Record<string, any>) ?? {};
   sha = f.sha;
 } catch (err) {
-  loadError = err instanceof Error ? err.message : '读取失败';
+  loadError = err instanceof Error ? err.message : 'Load failed';
 }
 
 const header = data?.header ?? {};
 const footer = data?.footer ?? {};
 ---
-<AdminLayout title="导航与页脚" active="navigation" username={verified?.username}>
+<AdminLayout title="Navigation & Footer" active="navigation" username={verified?.username}>
   <div class="mb-6">
-    <h1 class="text-2xl font-semibold">导航与页脚</h1>
-    <p class="mt-1 text-sm text-gray-500">编辑顶部菜单、页脚分类链接、社交媒体图标。文件: <code class="font-mono">src/data/site/navigation.yaml</code></p>
+    <h1 class="text-2xl font-semibold">Navigation & Footer</h1>
+    <p class="mt-1 text-sm text-gray-500">Edit header menu, footer link groups, social icons. File: <code class="font-mono">src/data/site/navigation.yaml</code></p>
+    <p class="mt-2 text-xs text-amber-700 dark:text-amber-400">
+      ⚠️ If you rename a menu item (e.g. <code class="font-mono">Blog</code> → <code class="font-mono">News</code>) or change a link (e.g. <code class="font-mono">/blog</code> → <code class="font-mono">/news</code>),
+      page content in <code class="font-mono">home.yaml</code> / <code class="font-mono">about.yaml</code> may still reference the old URL. Use the
+      <a class="font-medium underline" href="/keystatic/link-refactor">Link Refactor Tool</a>
+      to batch update. A banner will appear below after saving.
+    </p>
   </div>
 
   {loadError && (
     <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
-      读取失败: {loadError}
+      Load failed: {loadError}
     </div>
   )}
 
-  <form id="nav-form" class="space-y-6 pb-32" data-file={file} data-sha={sha}>
+  <form id="nav-form" class="space-y-6 pb-40" data-file={file} data-sha={sha}>
     <details open class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
       <summary class="px-5 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
         <div>
-          <div class="text-sm font-semibold">Header 顶部导航</div>
-          <div class="text-xs text-gray-500 font-mono mt-0.5">header.links / header.actions</div>
+        <div class="text-sm font-semibold">Header Navigation</div>
+        <div class="text-xs text-gray-500 font-mono mt-0.5">header.links / header.actions</div>
         </div>
       </summary>
       <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">导航菜单组 (有子菜单的下拉)</label>
-            <button type="button" data-add-header-group class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加菜单组</button>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Navigation Groups (Dropdown Menus)</label>
+            <button type="button" data-add-header-group class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Group</button>
           </div>
           <div data-header-groups class="space-y-3">
             {(header.links ?? []).map((g: any) => (
               <div data-header-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
                 <div class="flex gap-2">
-                  <input type="text" name="headerGroupText" value={g.text ?? ''} placeholder="菜单组名 (如 Products)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                  <button type="button" data-remove-header-group class="text-xs text-red-600 dark:text-red-400 hover:underline">删除组</button>
+                  <input type="text" name="headerGroupText" value={g.text ?? ''} placeholder="Group Name (e.g. Products)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <button type="button" data-remove-header-group class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete Group</button>
                 </div>
                 <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs text-gray-500">子链接</label>
-                    <button type="button" data-add-header-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加链接</button>
+                    <label class="text-xs text-gray-500">Sub Links</label>
+                    <button type="button" data-add-header-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Link</button>
                   </div>
                   <div data-header-links-list class="space-y-1.5">
                     {(g.links ?? []).map((l: any) => (
                       <div data-header-link-row class="flex gap-1">
-                        <input type="text" name="headerLinkText" value={l.text ?? ''} placeholder="链接文字" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                        <input type="text" name="headerLinkText" value={l.text ?? ''} placeholder="Link Text" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                         <input type="text" name="headerLinkHref" value={l.href ?? ''} placeholder="/url" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                         <button type="button" data-remove-header-link class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
                       </div>
                     ))}
                   </div>
-                  <template data-header-link-template>
-                    <div data-header-link-row class="flex gap-1">
-                      <input type="text" name="headerLinkText" placeholder="链接文字" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                      <input type="text" name="headerLinkHref" placeholder="/url" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                      <button type="button" data-remove-header-link class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
-                    </div>
-                  </template>
+                    <template data-header-link-template>
+                      <div data-header-link-row class="flex gap-1">
+                        <input type="text" name="headerLinkText" placeholder="Link Text" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                        <input type="text" name="headerLinkHref" placeholder="/url" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                        <button type="button" data-remove-header-link class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
+                      </div>
+                    </template>
                 </div>
               </div>
             ))}
           </div>
-          <template data-header-group-template>
-            <div data-header-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
-              <div class="flex gap-2">
-                <input type="text" name="headerGroupText" placeholder="菜单组名" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <button type="button" data-remove-header-group class="text-xs text-red-600 dark:text-red-400 hover:underline">删除组</button>
-              </div>
-              <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
-                <div class="flex items-center justify-between">
-                  <label class="text-xs text-gray-500">子链接</label>
-                  <button type="button" data-add-header-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加链接</button>
+              <template data-header-group-template>
+                <div data-header-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
+                  <div class="flex gap-2">
+                    <input type="text" name="headerGroupText" placeholder="Group Name" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                    <button type="button" data-remove-header-group class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete Group</button>
+                  </div>
+                  <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <label class="text-xs text-gray-500">Sub Links</label>
+                      <button type="button" data-add-header-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Link</button>
+                    </div>
+                    <div data-header-links-list class="space-y-1.5"></div>
+                  </div>
                 </div>
-                <div data-header-links-list class="space-y-1.5"></div>
-              </div>
-            </div>
-          </template>
+              </template>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">右侧按钮 (Actions)</label>
-            <button type="button" data-add-header-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加按钮</button>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Right Buttons (Actions)</label>
+            <button type="button" data-add-header-action class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Button</button>
           </div>
           <div data-header-actions-list class="space-y-2">
             {(header.actions ?? []).map((a: any) => (
-              <div data-header-action-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
-                <input type="text" name="headerActionText" value={a.text ?? ''} placeholder="按钮文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <input type="text" name="headerActionHref" value={a.href ?? ''} placeholder="/url" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <select name="headerActionVariant" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-                  <option value="" selected={!a.variant}>默认</option>
-                  <option value="primary" selected={a.variant === 'primary'}>primary</option>
-                  <option value="secondary" selected={a.variant === 'secondary'}>secondary</option>
-                  <option value="tertiary" selected={a.variant === 'tertiary'}>tertiary</option>
-                </select>
-                <button type="button" data-remove-header-action class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-              </div>
+                <div data-header-action-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
+                  <input type="text" name="headerActionText" value={a.text ?? ''} placeholder="Button Text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <input type="text" name="headerActionHref" value={a.href ?? ''} placeholder="/url" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <select name="headerActionVariant" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
+                    <option value="" selected={!a.variant}>Default</option>
+                    <option value="primary" selected={a.variant === 'primary'}>primary</option>
+                    <option value="secondary" selected={a.variant === 'secondary'}>secondary</option>
+                    <option value="tertiary" selected={a.variant === 'tertiary'}>tertiary</option>
+                  </select>
+                  <button type="button" data-remove-header-action class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                </div>
             ))}
           </div>
-          <template data-header-action-template>
-            <div data-header-action-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
-              <input type="text" name="headerActionText" placeholder="按钮文字" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <input type="text" name="headerActionHref" placeholder="/url" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <select name="headerActionVariant" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
-                <option value="">默认</option>
-                <option value="primary">primary</option>
-                <option value="secondary">secondary</option>
-                <option value="tertiary">tertiary</option>
-              </select>
-              <button type="button" data-remove-header-action class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-            </div>
-          </template>
+              <template data-header-action-template>
+                <div data-header-action-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
+                  <input type="text" name="headerActionText" placeholder="Button Text" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <input type="text" name="headerActionHref" placeholder="/url" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <select name="headerActionVariant" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">
+                    <option value="">Default</option>
+                    <option value="primary">primary</option>
+                    <option value="secondary">secondary</option>
+                    <option value="tertiary">tertiary</option>
+                  </select>
+                  <button type="button" data-remove-header-action class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                </div>
+              </template>
         </div>
       </div>
     </details>
@@ -145,32 +151,32 @@ const footer = data?.footer ?? {};
     <details open class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
       <summary class="px-5 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
         <div>
-          <div class="text-sm font-semibold">Footer 页脚分类链接</div>
+          <div class="text-sm font-semibold">Footer Link Groups</div>
           <div class="text-xs text-gray-500 font-mono mt-0.5">footer.links</div>
         </div>
       </summary>
       <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">页脚分类</label>
-            <button type="button" data-add-footer-group class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加分类</button>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Footer Categories</label>
+            <button type="button" data-add-footer-group class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Category</button>
           </div>
           <div data-footer-groups class="space-y-3">
             {(footer.links ?? []).map((g: any) => (
               <div data-footer-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
                 <div class="flex gap-2">
-                  <input type="text" name="footerGroupTitle" value={g.title ?? ''} placeholder="分类标题 (如 Products)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                  <button type="button" data-remove-footer-group class="text-xs text-red-600 dark:text-red-400 hover:underline">删除分类</button>
+                  <input type="text" name="footerGroupTitle" value={g.title ?? ''} placeholder="Category Title (e.g. Products)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <button type="button" data-remove-footer-group class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete Category</button>
                 </div>
                 <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs text-gray-500">链接</label>
-                    <button type="button" data-add-footer-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加链接</button>
+                    <label class="text-xs text-gray-500">Links</label>
+                    <button type="button" data-add-footer-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Link</button>
                   </div>
                   <div data-footer-links-list class="space-y-1.5">
                     {(g.links ?? []).map((l: any) => (
                       <div data-footer-link-row class="flex gap-1">
-                        <input type="text" name="footerLinkText" value={l.text ?? ''} placeholder="链接文字" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                        <input type="text" name="footerLinkText" value={l.text ?? ''} placeholder="Link Text" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                         <input type="text" name="footerLinkHref" value={l.href ?? ''} placeholder="/url" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                         <button type="button" data-remove-footer-link class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
                       </div>
@@ -178,7 +184,7 @@ const footer = data?.footer ?? {};
                   </div>
                   <template data-footer-link-template>
                     <div data-footer-link-row class="flex gap-1">
-                      <input type="text" name="footerLinkText" placeholder="链接文字" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                      <input type="text" name="footerLinkText" placeholder="Link Text" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                       <input type="text" name="footerLinkHref" placeholder="/url" class="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                       <button type="button" data-remove-footer-link class="text-xs text-red-600 dark:text-red-400 hover:underline px-1">×</button>
                     </div>
@@ -187,21 +193,21 @@ const footer = data?.footer ?? {};
               </div>
             ))}
           </div>
-          <template data-footer-group-template>
-            <div data-footer-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
-              <div class="flex gap-2">
-                <input type="text" name="footerGroupTitle" placeholder="分类标题" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <button type="button" data-remove-footer-group class="text-xs text-red-600 dark:text-red-400 hover:underline">删除分类</button>
-              </div>
-              <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
-                <div class="flex items-center justify-between">
-                  <label class="text-xs text-gray-500">链接</label>
-                  <button type="button" data-add-footer-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加链接</button>
+            <template data-footer-group-template>
+              <div data-footer-group-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 space-y-2 bg-gray-50 dark:bg-gray-900/50">
+                <div class="flex gap-2">
+                  <input type="text" name="footerGroupTitle" placeholder="Category Title" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                  <button type="button" data-remove-footer-group class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete Category</button>
                 </div>
-                <div data-footer-links-list class="space-y-1.5"></div>
+                <div class="pl-4 border-l-2 border-gray-200 dark:border-gray-700 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-500">Links</label>
+                    <button type="button" data-add-footer-link class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add Link</button>
+                  </div>
+                  <div data-footer-links-list class="space-y-1.5"></div>
+                </div>
               </div>
-            </div>
-          </template>
+            </template>
         </div>
       </div>
     </details>
@@ -209,84 +215,236 @@ const footer = data?.footer ?? {};
     <details open class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
       <summary class="px-5 py-3 cursor-pointer flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
         <div>
-          <div class="text-sm font-semibold">Footer 次要链接 + 版权 + 社交媒体</div>
+          <div class="text-sm font-semibold">Footer Secondary Links + Copyright + Social</div>
           <div class="text-xs text-gray-500 font-mono mt-0.5">footer.secondaryLinks / footNote / socialLinks</div>
         </div>
       </summary>
       <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">次要链接 (左下角,以 · 分隔)</label>
-            <button type="button" data-add-secondary class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加</button>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Secondary Links (Bottom-Left, · Separated)</label>
+            <button type="button" data-add-secondary class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add</button>
           </div>
           <div data-secondary-list class="space-y-2">
             {(footer.secondaryLinks ?? []).map((l: any) => (
               <div data-secondary-row class="flex gap-2">
-                <input type="text" name="secondaryText" value={l.text ?? ''} placeholder="链接文字" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="secondaryText" value={l.text ?? ''} placeholder="Link Text" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                 <input type="text" name="secondaryHref" value={l.href ?? ''} placeholder="/url" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <button type="button" data-remove-secondary class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+                <button type="button" data-remove-secondary class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
               </div>
             ))}
           </div>
-          <template data-secondary-template>
-            <div data-secondary-row class="flex gap-2">
-              <input type="text" name="secondaryText" placeholder="链接文字" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <input type="text" name="secondaryHref" placeholder="/url" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <button type="button" data-remove-secondary class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-            </div>
-          </template>
+            <template data-secondary-template>
+              <div data-secondary-row class="flex gap-2">
+                <input type="text" name="secondaryText" placeholder="Link Text" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="secondaryHref" placeholder="/url" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <button type="button" data-remove-secondary class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+              </div>
+            </template>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">版权信息 (footNote, 支持 HTML)</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Copyright (footNote, HTML supported)</label>
           <textarea name="footNote" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono">{footer.footNote ?? ''}</textarea>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">社交媒体图标</label>
-            <button type="button" data-add-social class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ 添加</button>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Social Media Icons</label>
+            <button type="button" data-add-social class="text-xs text-blue-600 dark:text-blue-400 hover:underline">+ Add</button>
           </div>
           <div data-social-list class="space-y-2">
             {(footer.socialLinks ?? []).map((s: any) => (
               <div data-social-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
-                <input type="text" name="socialAria" value={s.ariaLabel ?? ''} placeholder="ariaLabel (X, Instagram)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <input type="text" name="socialIcon" value={s.icon ?? ''} placeholder="图标 (tabler:brand-x)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="socialAria" value={s.ariaLabel ?? ''} placeholder="ariaLabel (e.g. X, Instagram)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="socialIcon" value={s.icon ?? ''} placeholder="Icon (e.g. tabler:brand-x)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
                 <input type="text" name="socialHref" value={s.href ?? ''} placeholder="URL" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-                <button type="button" data-remove-social class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
+                <button type="button" data-remove-social class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
               </div>
             ))}
           </div>
-          <template data-social-template>
-            <div data-social-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
-              <input type="text" name="socialAria" placeholder="ariaLabel" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <input type="text" name="socialIcon" placeholder="图标 (tabler:brand-x)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <input type="text" name="socialHref" placeholder="URL" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
-              <button type="button" data-remove-social class="text-xs text-red-600 dark:text-red-400 hover:underline">删除</button>
-            </div>
-          </template>
+            <template data-social-template>
+              <div data-social-row class="rounded-md border border-gray-200 dark:border-gray-700 p-3 grid grid-cols-4 gap-2 bg-gray-50 dark:bg-gray-900/50">
+                <input type="text" name="socialAria" placeholder="ariaLabel (e.g. X, Instagram)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="socialIcon" placeholder="Icon (e.g. tabler:brand-x)" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <input type="text" name="socialHref" placeholder="URL" class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+                <button type="button" data-remove-social class="text-xs text-red-600 dark:text-red-400 hover:underline">Delete</button>
+              </div>
+            </template>
         </div>
       </div>
     </details>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 z-40">
       <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-        <div class="text-xs text-gray-500" data-file-info>文件: <code class="font-mono">{file}</code></div>
+        <div class="text-xs text-gray-500" data-file-info>File: <code class="font-mono">{file}</code></div>
         <div class="flex gap-2">
-          <a href="/keystatic" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">取消</a>
-          <button id="submit-btn" type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">保存并推送</button>
+          <a href="/keystatic" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">Cancel</a>
+          <button id="submit-btn" type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">Save & Push</button>
         </div>
       </div>
     </div>
   </form>
+
+  <div id="change-banner" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 z-50 max-w-3xl w-[calc(100%-3rem)] rounded-xl border-2 border-amber-400 bg-amber-50 dark:bg-amber-950/60 dark:border-amber-600 shadow-lg p-4 text-sm">
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div class="font-semibold text-amber-900 dark:text-amber-200">
+        Detected <span data-change-count>0</span> changes
+      </div>
+      <div class="flex gap-1">
+        <button type="button" data-banner-reload class="text-xs px-2 py-1 rounded border border-amber-400 dark:border-amber-700 hover:bg-amber-100 dark:hover:bg-amber-900/40">Reload</button>
+        <button type="button" data-banner-dismiss class="text-xs px-2 py-1 rounded border border-amber-400 dark:border-amber-700 hover:bg-amber-100 dark:hover:bg-amber-900/40">Dismiss</button>
+      </div>
+    </div>
+    <p class="text-xs text-amber-800 dark:text-amber-300 mb-3">
+      Other files (home.yaml / about.yaml / posts / products, etc.) may still reference the old URL or text. Click the "Rename" buttons below to pre-fill the
+      <a href="/keystatic/link-refactor" class="font-medium underline">Link Refactor Tool</a> with these changes.
+    </p>
+    <ul data-change-list class="space-y-2 max-h-80 overflow-y-auto pr-1"></ul>
+  </div>
 
   <script is:inline>
     (function () {
       const form = document.getElementById('nav-form');
       if (!form) return;
       const file = form.dataset.file;
-      const sha = form.dataset.sha;
+      let sha = form.dataset.sha;
       const submitBtn = document.getElementById('submit-btn');
+      const banner = document.getElementById('change-banner');
+      const bannerList = banner?.querySelector('[data-change-list]');
+      const bannerCount = banner?.querySelector('[data-change-count]');
+      const bannerDismiss = banner?.querySelector('[data-banner-dismiss]');
+      const bannerReload = banner?.querySelector('[data-banner-reload]');
+
+      function snapshotNavForm() {
+        const pairs = [];
+        form.querySelectorAll('[data-header-group-row]').forEach((row) => {
+          const g = readRow(row);
+          if (g.headerGroupText) {
+            pairs.push({ scope: 'header group', text: g.headerGroupText, href: '' });
+          }
+          row.querySelectorAll('[data-header-link-row]').forEach((lr) => {
+            const ld = readRow(lr);
+            if (ld.headerLinkText || ld.headerLinkHref) {
+              pairs.push({ scope: 'header link', text: ld.headerLinkText ?? '', href: ld.headerLinkHref ?? '' });
+            }
+          });
+        });
+        form.querySelectorAll('[data-header-action-row]').forEach((row) => {
+          const d = readRow(row);
+          if (d.headerActionText || d.headerActionHref) {
+            pairs.push({ scope: 'header action', text: d.headerActionText ?? '', href: d.headerActionHref ?? '' });
+          }
+        });
+        form.querySelectorAll('[data-footer-group-row]').forEach((row) => {
+          const g = readRow(row);
+          if (g.footerGroupTitle) {
+            pairs.push({ scope: 'footer group', text: g.footerGroupTitle, href: '' });
+          }
+          row.querySelectorAll('[data-footer-link-row]').forEach((lr) => {
+            const ld = readRow(lr);
+            if (ld.footerLinkText || ld.footerLinkHref) {
+              pairs.push({ scope: 'footer link', text: ld.footerLinkText ?? '', href: ld.footerLinkHref ?? '' });
+            }
+          });
+        });
+        form.querySelectorAll('[data-secondary-row]').forEach((row) => {
+          const d = readRow(row);
+          if (d.secondaryText || d.secondaryHref) {
+            pairs.push({ scope: 'secondary', text: d.secondaryText ?? '', href: d.secondaryHref ?? '' });
+          }
+        });
+        return pairs;
+      }
+
+      const originalPairs = snapshotNavForm();
+      window.__navOriginalPairs = originalPairs;
+
+      function buildChangeBanner(currentPairs) {
+        if (!banner || !bannerList || !bannerCount) return;
+        const changes = [];
+        const max = Math.max(originalPairs.length, currentPairs.length);
+        for (let i = 0; i < max; i++) {
+          const a = originalPairs[i];
+          const b = currentPairs[i];
+          if (!a || !b) continue;
+          const textChanged = (a.text ?? '').trim() !== (b.text ?? '').trim() && a.text && b.text;
+          const hrefChanged = (a.href ?? '').trim() !== (b.href ?? '').trim() && a.href && b.href;
+          if (textChanged || hrefChanged) {
+            changes.push({
+              scope: b.scope,
+              oldText: a.text,
+              newText: b.text,
+              oldHref: a.href,
+              newHref: b.href,
+              textChanged,
+              hrefChanged,
+            });
+          }
+        }
+        if (!changes.length) {
+          banner.classList.add('hidden');
+          return;
+        }
+        bannerCount.textContent = String(changes.length);
+        bannerList.innerHTML = '';
+        changes.forEach((c) => {
+          const li = document.createElement('li');
+          li.className = 'rounded-md border border-amber-300 dark:border-amber-700 bg-white/60 dark:bg-gray-900/40 p-2';
+          const title = document.createElement('div');
+          title.className = 'text-xs text-gray-600 dark:text-gray-400 mb-1';
+          title.textContent = `${c.scope}:`;
+          li.appendChild(title);
+          if (c.hrefChanged) {
+            const urlDiv = document.createElement('div');
+            urlDiv.className = 'flex items-center gap-2 text-xs';
+            const code = document.createElement('code');
+            code.className = 'font-mono text-red-700 dark:text-red-400';
+            code.textContent = c.oldHref;
+            const arrow = document.createElement('span');
+            arrow.textContent = '→';
+            arrow.className = 'text-gray-400';
+            const code2 = document.createElement('code');
+            code2.className = 'font-mono text-green-700 dark:text-green-400';
+            code2.textContent = c.newHref;
+            const btn = document.createElement('a');
+            btn.href = `/keystatic/link-refactor?${new URLSearchParams({ oldUrl: c.oldHref, newUrl: c.newHref })}`;
+            btn.target = '_blank';
+            btn.rel = 'noopener';
+            btn.className = 'ml-auto text-xs px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-white font-medium';
+            btn.textContent = 'Rename URL →';
+            urlDiv.append(code, arrow, code2, btn);
+            li.appendChild(urlDiv);
+          }
+          if (c.textChanged) {
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'flex items-center gap-2 text-xs mt-1';
+            const code = document.createElement('code');
+            code.className = 'font-mono text-red-700 dark:text-red-400';
+            code.textContent = c.oldText;
+            const arrow = document.createElement('span');
+            arrow.textContent = '→';
+            arrow.className = 'text-gray-400';
+            const code2 = document.createElement('code');
+            code2.className = 'font-mono text-green-700 dark:text-green-400';
+            code2.textContent = c.newText;
+            const btn = document.createElement('a');
+            btn.href = `/keystatic/link-refactor?${new URLSearchParams({ oldName: c.oldText, newName: c.newText })}`;
+            btn.target = '_blank';
+            btn.rel = 'noopener';
+            btn.className = 'ml-auto text-xs px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-white font-medium';
+            btn.textContent = 'Rename Text →';
+            nameDiv.append(code, arrow, code2, btn);
+            li.appendChild(nameDiv);
+          }
+          bannerList.appendChild(li);
+        });
+        banner.classList.remove('hidden');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+
+      bannerDismiss?.addEventListener('click', () => banner?.classList.add('hidden'));
+      bannerReload?.addEventListener('click', () => window.location.reload());
 
       function readRow(row) {
         const out = {};
@@ -418,7 +576,7 @@ const footer = data?.footer ?? {};
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '推送中...'; }
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Pushing...'; }
 
         const headerGroups = [];
         form.querySelectorAll('[data-header-group-row]').forEach((row) => {
@@ -498,15 +656,21 @@ const footer = data?.footer ?? {};
           });
           const result = await res.json();
           if (!res.ok || !result.success) {
-            window.__adminToast?.(result.error || '保存失败', 'error');
-            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+            window.__adminToast?.(result.error || 'Save failed', 'error');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
             return;
           }
-          window.__adminToast?.('已保存,Cloudflare 正在重新部署...', 'success');
-          setTimeout(() => { window.location.reload(); }, 800);
+          if (result?.sha && typeof result.sha === 'string') {
+            sha = result.sha;
+            form.dataset.sha = sha;
+          }
+          window.__adminToast?.('Saved, Cloudflare is rebuilding...', 'success');
+          const currentPairs = snapshotNavForm();
+          buildChangeBanner(currentPairs);
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
         } catch {
-          window.__adminToast?.('网络错误', 'error');
-          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+          window.__adminToast?.('Network error', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
         }
       });
     })();

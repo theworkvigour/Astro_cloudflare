@@ -11,10 +11,10 @@ if (!verified) return Astro.redirect('/login');
 const token = readTokenFromCookies(Astro.cookies);
 if (!token) return Astro.redirect('/keystatic/github-token');
 ---
-<AdminLayout title="网页内容 / Pages" active="pages" username={verified?.username}>
+<AdminLayout title="Page Content / Pages" active="pages" username={verified?.username}>
   <div class="mb-6">
-    <h1 class="text-2xl font-semibold">网页内容管理</h1>
-    <p class="mt-1 text-sm text-gray-500">编辑首页、关于、服务、价格、联系五大页面的所有 widget 区块(全功能)。所有改动会提交到 GitHub 仓库的 <code class="font-mono">src/data/pages/</code> 目录。</p>
+    <h1 class="text-2xl font-semibold">Page Content Manager</h1>
+    <p class="mt-1 text-sm text-gray-500">Edit all widget blocks on the 5 main pages (Home, About, Services, Pricing, Contact). All changes are committed to <code class="font-mono">src/data/pages/</code> in the GitHub repository.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -35,7 +35,7 @@ if (!token) return Astro.redirect('/keystatic/github-token');
             <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">{s.label}</span>
           ))}
         </div>
-        <div class="mt-4 text-sm text-blue-600 dark:text-blue-400">编辑此页面 →</div>
+        <div class="mt-4 text-sm text-blue-600 dark:text-blue-400">Edit this page →</div>
       </a>
     ))}
   </div>

@@ -72,7 +72,7 @@ const langs = [
     <div class="bg-black text-white text-xs">
       <div class="max-w-7xl mx-auto px-3 md:px-6 py-1.5 flex items-center">
         <a
-          href="/keystatic"
+          href="/login"
           class="font-medium hover:underline hover:text-white"
           data-i18n="topbar.login"
         >Login</a>
@@ -246,7 +246,7 @@ const langs = [
         <input
           type="text"
           data-search-input
-          placeholder="搜索文章、产品、页面…"
+          placeholder="Search posts, products, pages..."
           class="flex-1 bg-transparent outline-none text-base text-gray-900 dark:text-gray-100 placeholder-gray-400"
           autocomplete="off"
         />
@@ -254,7 +254,7 @@ const langs = [
       </div>
       <div data-search-results class="max-h-[60vh] overflow-y-auto p-2">
         <div class="px-3 py-6 text-center text-sm text-gray-500" data-search-empty>
-          输入关键词开始搜索
+Type a keyword to start searching
         </div>
         <ul data-search-list class="space-y-1 hidden"></ul>
       </div>
@@ -389,7 +389,7 @@ const langs = [
       q = (q || '').trim().toLowerCase();
       if (!q) {
         list.classList.add('hidden');
-        if (empty) { empty.textContent = '输入关键词开始搜索'; empty.classList.remove('hidden'); }
+        if (empty) { empty.textContent = 'Type a keyword to start searching'; empty.classList.remove('hidden'); }
         return;
       }
       const data = index || [];
@@ -400,7 +400,7 @@ const langs = [
       }).slice(0, 20);
       if (matches.length === 0) {
         list.classList.add('hidden');
-        if (empty) { empty.textContent = '没有匹配结果'; empty.classList.remove('hidden'); }
+        if (empty) { empty.textContent = 'No matches found'; empty.classList.remove('hidden'); }
         return;
       }
       if (empty) empty.classList.add('hidden');
