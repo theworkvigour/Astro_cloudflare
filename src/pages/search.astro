@@ -1,0 +1,78 @@
+---
+export const prerender = false;
+
+import Layout from '~/layouts/PageLayout.astro';
+
+const q = Astro.url.searchParams.get('q') || '';
+---
+
+<Layout metadata={{ title: q ? `Search: ${q}` : 'Search' }}>
+  <section class="max-w-5xl mx-auto px-4 py-12 md:py-20">
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">Search Results</h1>
+      <form method="get" action="/search" class="flex gap-2">
+        <input
+          type="text"
+          name="q"
+          value={q}
+          placeholder="Type to search..."
+          class="flex-1 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+        />
+        <button
+          type="submit"
+          class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
+        >Search</button>
+      </form>
+    </div>
+    <div id="search-results" class="space-y-4">
+      {q && (
+        <p class="text-gray-500 dark:text-gray-400" id="loading">Searching...</p>
+      )}
+      {!q && (
+        <p class="text-gray-500 dark:text-gray-400">Enter a keyword to search.</p>
+      )}
+    </div>
+  </section>
+
+  {q && (
+    <script>
+      (async function () {
+        const q = new URLSearchParams(location.search).get('q') || '';
+        const res = await fetch('/search-index.json');
+        if (!res.ok) return;
+        const index = await res.json();
+        const lower = q.toLowerCase();
+        const matches = index.filter(function (it) {
+          return (it.title || '').toLowerCase().includes(lower) ||
+                 (it.excerpt || '').toLowerCase().includes(lower) ||
+                 (it.tags || []).some(function (t) { return String(t).toLowerCase().includes(lower); });
+        });
+
+        const container = document.getElementById('search-results');
+        if (!container) return;
+        document.getElementById('loading')?.remove();
+
+        if (matches.length === 0) {
+          container.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No results found for <strong>' + escapeHtml(q) + '</strong>.</p>';
+          return;
+        }
+
+        container.innerHTML = '<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">' + matches.length + ' result' + (matches.length > 1 ? 's' : '') + ' for <strong>' + escapeHtml(q) + '</strong></p>'
+          + matches.map(function (m) {
+            var tag = m.type ? '<span class="text-[10px] uppercase tracking-wider text-gray-400 font-mono">' + escapeHtml(m.type) + '</span>' : '';
+            return '<a href="' + escapeAttr(m.url) + '" class="block p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 transition">'
+              + '<div class="flex items-center gap-2 mb-1">' + tag + '<h2 class="text-lg font-semibold text-gray-900 dark:text-white">' + escapeHtml(m.title) + '</h2></div>'
+              + (m.excerpt ? '<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">' + escapeHtml(m.excerpt) + '</p>' : '')
+              + '</a>';
+          }).join('');
+
+        function escapeHtml(s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&#39;', "'": '&#39;' })[c];
+          });
+        }
+        function escapeAttr(s) { return escapeHtml(s); }
+      })();
+    </script>
+  )}
+</Layout>

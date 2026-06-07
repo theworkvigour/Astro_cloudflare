@@ -309,7 +309,7 @@ Type a keyword to start searching
   </div>
 </div>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     const KEY = 'vf_lang';
 
@@ -508,12 +508,18 @@ Type a keyword to start searching
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        render(input.value);
+        var q = input.value.trim();
+        if (q) {
+          close();
+          window.location.href = '/search?q=' + encodeURIComponent(q);
+        }
       }
     });
     list.addEventListener('click', function (e) {
-      const a = e.target instanceof Element ? e.target.closest('a') : null;
-      if (a) close();
+      var a = e.target instanceof Element ? e.target.closest('a') : null;
+      if (a) {
+        close();
+      }
     });
   })();
 </script>
