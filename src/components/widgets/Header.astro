@@ -508,12 +508,7 @@ Type a keyword to start searching
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        var first = list && list.querySelector('a');
-        if (first) {
-          close();
-          window.location.href = first.getAttribute('href') || '/';
-        }
-        return false;
+        render(input.value);
       }
     });
     list.addEventListener('click', function (e) {
