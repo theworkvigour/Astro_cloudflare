@@ -4,44 +4,44 @@ import { SITE } from 'astrowind:config';
 
 const metadata = {
   title: `R&D Center — ${SITE.name}`,
-  description: 'Research & Development Center — Innovation is our Faith. Hot forging, CNC machining, mold design, and more.',
+  description: `${SITE.name} Research & Development — PVC fabric testing, hull engineering, RF welding, hydrodynamic testing, and quality control for inflatable boats and RIBs.`,
 };
 
 const labs = [
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_ad3747db80cd4ca98ad13bbc8237281e~mv2.jpg',
-    title: 'Forge Lab',
-    description: 'Concentrate on hot die forging and related heat treatment.',
+    image: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'PVC Fabric Lab',
+    description: 'Continuous research and testing of PVC and Hypalon tube fabrics for tensile strength, UV resistance, abrasion, and low-temperature flexibility to ensure long-term reliability in marine environments.',
     href: '#',
   },
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_18b99234a97544129268c144ceeda516~mv2.jpg',
-    title: 'Mold Design',
-    description: 'Mold design for metal working industry.',
+    image: 'https://images.unsplash.com/photo-1554473675-d7f78c36b253?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'Hull Engineering Studio',
+    description: 'CAD-driven design and finite element analysis of HDPE, aluminum, and fiberglass hulls. Every hull is digitally simulated for stress distribution and impact resistance before the first prototype is built.',
     href: '#',
   },
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_b970990257ab462390be32fbb4b5e782~mv2.jpg',
-    title: 'Product Design',
-    description: 'Product shape, dimension design based on product actual application.',
+    image: 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'RF Welding Center',
+    description: 'Dedicated radio-frequency welding facility with precision temperature and pressure control, producing high-strength, airtight seams that exceed ISO 6185 standards for inflatable craft.',
     href: '#',
   },
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_2dafc0053c124c18a6c75b1b9dddd8fe~mv2.png',
-    title: 'CNC Center',
-    description: 'Horizontal and vertical machining centers in a variety of sizes and configurations to meet different manufacturing needs.',
+    image: 'https://images.unsplash.com/photo-1544642899-2e0e7d452d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'Hydrodynamic Test Tank',
+    description: 'Scale-model testing in our in-house test tank to optimize hull form, planing performance, stability, and fuel efficiency across a range of load and sea conditions.',
     href: '#',
   },
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_2e13e227ea5b4b7494b73b4e439a0689~mv2.jpg',
-    title: 'Cast Lab',
-    description: 'Provides research and production in casting processing of metals and alloys.',
+    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'Prototype Workshop',
+    description: 'Full-scale prototyping and rigging facility where new models are built, fitted, and sea-trialed. Every prototype undergoes a minimum 20-hour in-water test programme before production approval.',
     href: '#',
   },
   {
-    image: 'https://static.wixstatic.com/media/e4fcb4_9e604628c83747dfbb33d30404ab5b73~mv2.png',
-    title: 'Automated Welding',
-    description: 'Provides professional manual welding and robotic welding work.',
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80',
+    title: 'Quality & Inspection Lab',
+    description: 'Dedicated quality assurance lab performing tensile testing, air-retention cycling, seam peel tests, and material certification to ensure every boat leaving the workshop meets our published specifications.',
     href: '#',
   },
 ];
@@ -49,22 +49,22 @@ const labs = [
 
 <Layout metadata={metadata}>
   <section class="px-6 sm:px-6 py-16 sm:py-20 lg:py-24 mx-auto max-w-5xl text-center">
-    <p class="text-sm font-semibold text-primary uppercase tracking-wider">XLOY</p>
+    <p class="text-sm font-semibold text-primary uppercase tracking-wider">{SITE.name}</p>
     <h1 class="mt-3 text-4xl md:text-5xl font-bold">Research & Development Center</h1>
-    <p class="mt-3 text-lg text-muted">Innovation is our Faith</p>
+    <p class="mt-3 text-lg text-muted">Engineering the next generation of inflatable craft</p>
   </section>
 
   <section class="px-6 sm:px-6 pb-16 mx-auto max-w-4xl">
     <p class="text-muted leading-relaxed">
-      We work in a wide variety of manufacturing techniques, including punching, hot-forging, CNC machining,
-      laser cutting, heat treatment, etc., providing bespoke parts for a variety of industrial and commercial
-      uses, from design and development right through to product completion.
+      Our R&D facility brings together material scientists, naval architects, and production engineers
+      under one roof. From fabric formulation and hull simulation to welding process development and
+      full-scale sea trials, every stage of product development is driven by data and validated by testing.
     </p>
     <p class="text-muted leading-relaxed mt-6">
-      It is also our goal to preserve and improve our leading position in the future. Our R&D work significantly
-      increases our chances of achieving this goal, so we are constantly developing and testing products from
-      every imaginable application, such as tensile machines, low temperature impact machines, metallographic
-      structure analysis, and so on, for the necessary static and dynamic tests.
+      We invest continuously in research to improve the strength-to-weight ratio of our tubes, the
+      hydrodynamics of our hulls, and the durability of our assemblies. Our goal is to deliver inflatable
+      boats and RIBs that perform reliably in the world's toughest marine environments — from tropical
+      heat to sub-zero operations.
     </p>
   </section>
 
@@ -83,12 +83,6 @@ const labs = [
           <div class="p-5">
             <h3 class="text-lg font-bold">{lab.title}</h3>
             <p class="mt-2 text-sm text-muted">{lab.description}</p>
-            <a
-              href={lab.href}
-              class="mt-3 inline-flex items-center text-sm font-semibold text-primary hover:underline"
-            >
-              View More &rarr;
-            </a>
           </div>
         </div>
       ))}
