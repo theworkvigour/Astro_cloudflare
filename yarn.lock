@@ -2027,22 +2027,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@keystatic/astro@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "@keystatic/astro@npm:5.1.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.18.3"
-    "@types/react": "npm:^19.0.8"
-    set-cookie-parser: "npm:^2.5.1"
-  peerDependencies:
-    "@keystatic/core": "*"
-    astro: 2 || 3 || 4 || 5 || 6
-    react: ^18.2.0 || ^19.0.0
-    react-dom: ^18.2.0 || ^19.0.0
-  checksum: 10c0/eba05588c8d60c6bfcbecaf595b971cb9df9b64f2f0d4991dbf8e39e83c75e439e7ac15478f8e067ea7e32375201d8f5b3431a1ed2ba416f45ff75d78d768761
-  languageName: node
-  linkType: hard
-
 "@keystatic/core@npm:^0.5.50":
   version: 0.5.50
   resolution: "@keystatic/core@npm:0.5.50"
@@ -4349,16 +4333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19":
-  version: 19.2.3
-  resolution: "@types/react-dom@npm:19.2.3"
-  peerDependencies:
-    "@types/react": ^19.2.0
-  checksum: 10c0/b486ebe0f4e2fb35e2e108df1d8fc0927ca5d6002d5771e8a739de11239fe62d0e207c50886185253c99eb9dedfeeb956ea7429e5ba17f6693c7acb4c02f8cd1
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^19, @types/react@npm:^19.0.8":
+"@types/react@npm:^19.0.8":
   version: 19.2.17
   resolution: "@types/react@npm:19.2.17"
   dependencies:
@@ -9061,17 +9036,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.2.7":
-  version: 19.2.7
-  resolution: "react-dom@npm:19.2.7"
-  dependencies:
-    scheduler: "npm:^0.27.0"
-  peerDependencies:
-    react: ^19.2.7
-  checksum: 10c0/970ff600f6e80d47d39e2f226f12f226173b3cba3382efc97c5f0cd663de9af38c7a4c11c213fb936094faeac83060d660247accaa96b752180d5b951b9cfecb
-  languageName: node
-  linkType: hard
-
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -9107,13 +9071,6 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 10c0/2ba754ba748faefa15f87c96dfa700d5525054a0141de8c75763aae6734af0740e77e11261a1e8f4ffc08fd9ab78510122e05c21c2d79066c38bb6861a886c82
-  languageName: node
-  linkType: hard
-
-"react@npm:^19.2.7":
-  version: 19.2.7
-  resolution: "react@npm:19.2.7"
-  checksum: 10c0/0bd0e2f1bbd4ba97561c6597bf8a5fec05e6476fe61e165c1065598d16668efc6715205599c94d3ddd49d36cb0f21cbf1b9bcc18ee840b805ce222c3e8d558ac
   languageName: node
   linkType: hard
 
@@ -9613,13 +9570,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.27.0":
-  version: 0.27.0
-  resolution: "scheduler@npm:0.27.0"
-  checksum: 10c0/4f03048cb05a3c8fddc45813052251eca00688f413a3cee236d984a161da28db28ba71bd11e7a3dd02f7af84ab28d39fb311431d3b3772fed557945beb00c452
-  languageName: node
-  linkType: hard
-
 "scroll-into-view-if-needed@npm:^2.2.20":
   version: 2.2.31
   resolution: "scroll-into-view-if-needed@npm:2.2.31"
@@ -9653,13 +9603,6 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/92d6871d6347e1f99d0ba396a70f2545ccf2a032cda3d378fa0699edf7506b5c6d266aed55c8b88e72bd91a30d2351e4f39db479375374430fcdc4b58f4e3c1a
-  languageName: node
-  linkType: hard
-
-"set-cookie-parser@npm:^2.5.1":
-  version: 2.7.2
-  resolution: "set-cookie-parser@npm:2.7.2"
-  checksum: 10c0/4381a9eb7ee951dfe393fe7aacf76b9a3b4e93a684d2162ab35594fa4053cc82a4d7d7582bf397718012c9adcf839b8cd8f57c6c42901ea9effe33c752da4a45
   languageName: node
   linkType: hard
 
@@ -10607,15 +10550,12 @@ __metadata:
     "@fontsource-variable/inter": "npm:^5.2.8"
     "@iconify-json/flat-color-icons": "npm:^1.2.3"
     "@iconify-json/tabler": "npm:^1.2.35"
-    "@keystatic/astro": "npm:^5.1.0"
     "@keystatic/core": "npm:^0.5.50"
     "@tailwindcss/postcss": "npm:^4.3.0"
     "@tailwindcss/typography": "npm:^0.5.19"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/lodash.merge": "npm:^4.6.9"
     "@types/mdx": "npm:^2.0.13"
-    "@types/react": "npm:^19"
-    "@types/react-dom": "npm:^19"
     "@typescript-eslint/eslint-plugin": "npm:^8.60.0"
     "@typescript-eslint/parser": "npm:^8.60.0"
     astro: "npm:^6.4.2"
@@ -10633,8 +10573,6 @@ __metadata:
     mdast-util-to-string: "npm:^4.0.0"
     prettier: "npm:^3.8.3"
     prettier-plugin-astro: "npm:^0.14.1"
-    react: "npm:^19.2.7"
-    react-dom: "npm:^19.2.7"
     reading-time: "npm:^1.5.0"
     sharp: "npm:0.34.5"
     tailwind-merge: "npm:^3.6.0"

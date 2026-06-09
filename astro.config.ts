@@ -15,8 +15,6 @@ import icon from 'astro-icon';
 import compress from 'astro-compress';
 import cloudflare from '@astrojs/cloudflare';
 import type { AstroIntegration } from 'astro';
-import keystatic from '@keystatic/astro';
-
 import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
@@ -56,8 +54,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !/\/(keystatic|admin|login|api|404|500)(?:\/|$)/.test(page) &&
-        !/^\/keystatic(?:\/|$)/.test(page),
+        !/\/(keystatic|admin|login|api|404|500)(?:\/|$)/.test(page),
     }),
     mdx(),
     icon({
@@ -99,8 +96,6 @@ export default defineConfig({
     astrowind({
       config: configFile,
     }),
-
-    keystatic(),
   ],
 
   image: {
@@ -123,7 +118,7 @@ export default defineConfig({
     },
 
     optimizeDeps: {
-      exclude: ['@keystatic/astro', '@keystatic/core'],
+      exclude: ['@keystatic/core'],
     },
 
     resolve: {
