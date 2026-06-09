@@ -70,6 +70,37 @@ if (token) {
     </div>
   )}
 
+  <div class="mb-8 rounded-xl border-2 border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-base font-semibold text-blue-900 dark:text-blue-200">Keystatic CMS — Multilingual Content Editor</h2>
+        <p class="mt-1 text-sm text-blue-700 dark:text-blue-300">
+          Edit all 6 languages at once. Each page shows fields for EN / FR / DE / ES / PT / ZH.
+        </p>
+      </div>
+      <a href="/keystatic/singleton/homepage" class="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition">
+        Open Content Editor →
+      </a>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <a href="/keystatic/singleton/homepage" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Homepage</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/about" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">About</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/services" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Services</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/pricing" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Pricing</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/contact" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Contact</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/news" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">News Page</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/navigation" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Navigation</a>
+      <span class="text-blue-300 dark:text-blue-700">|</span>
+      <a href="/keystatic/singleton/global" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Global Settings</a>
+    </div>
+  </div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <a href="/keystatic/posts" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 hover:border-blue-400 transition">
       <div class="text-sm uppercase tracking-wide text-gray-500">Posts</div>
@@ -114,7 +145,9 @@ if (token) {
       <li>All changes are pushed via GitHub API to the <code class="font-mono">main</code> branch; Cloudflare auto-triggers rebuild</li>
       <li>Blog and product pages update immediately after deploy (typically 1-2 minutes)</li>
       <li>History & rollback: check the <a class="text-blue-600 hover:underline" href="https://github.com/theworkvigour/astro_Tina-CMS/commits/main/src/data" target="_blank" rel="noopener">commit history</a> in GitHub</li>
+      <li>Multilingual editing: use <strong>Keystatic CMS</strong> (blue section above) — edits go to <code class="font-mono">src/content/*/index.json</code></li>
       <li>Global site settings (SEO defaults, organization info) live in <code class="font-mono">src/config.yaml</code> in the repo</li>
+      <li>Per-locale builds: set <code class="font-mono">SITE_LOCALE</code> env var (en/fr/de/es/pt/zh) to generate locale-specific output</li>
     </ul>
   </div>
 </AdminLayout>

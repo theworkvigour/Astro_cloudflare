@@ -1,5 +1,6 @@
 ---
 export const prerender = false;
+import { getEntry } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
@@ -7,9 +8,14 @@ import Features2 from '~/components/widgets/Features2.astro';
 import Map from '~/components/widgets/Map.astro';
 import { SITE } from 'astrowind:config';
 
-import data from '~/data/pages/contact.yaml';
+import yamlData from '~/data/pages/contact.yaml';
 import branding from '~/data/site/branding.yaml';
 import { generateChallenge, buildCookieValue, cookieName, cookieTtlSeconds } from '~/lib/contact-captcha';
+
+const locale = process.env.SITE_LOCALE || 'en';
+const entry = await getEntry('contact', 'index');
+const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
+const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
 
 const ht = data.hero_text ?? {};
 const form = data.contact_form ?? {};

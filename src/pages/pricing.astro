@@ -1,4 +1,5 @@
 ---
+import { getEntry } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import Prices from '~/components/widgets/Pricing.astro';
@@ -8,7 +9,12 @@ import Features3 from '~/components/widgets/Features3.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import { SITE } from 'astrowind:config';
 
-import data from '~/data/pages/pricing.yaml';
+import yamlData from '~/data/pages/pricing.yaml';
+
+const locale = process.env.SITE_LOCALE || 'en';
+const entry = await getEntry('pricing', 'index');
+const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
+const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
 
 const ht = data.hero_text ?? {};
 const pkg = data.pricing_packages ?? {};

@@ -1,4 +1,5 @@
 ---
+import { getEntry } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
@@ -13,7 +14,13 @@ import ProductGrid from '~/components/widgets/ProductGrid.astro';
 import { SITE, APP_PRODUCTS } from 'astrowind:config';
 import { getProducts } from '~/utils/products';
 
-import data from '~/data/pages/home.yaml';
+import yamlData from '~/data/pages/home.yaml';
+
+const locale = process.env.SITE_LOCALE || 'en';
+const homepageEntry = await getEntry('homepage', 'index');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ksData = (homepageEntry?.data as any)?.[locale] || (homepageEntry?.data as any)?.['en'] || {};
+const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
 
 const hero = data.hero ?? {};
 const carousel = data.hero_carousel ?? {};

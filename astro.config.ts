@@ -15,12 +15,15 @@ import icon from 'astro-icon';
 import compress from 'astro-compress';
 import cloudflare from '@astrojs/cloudflare';
 import type { AstroIntegration } from 'astro';
+import keystatic from '@keystatic/astro';
 
 import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const locale = process.env.SITE_LOCALE || 'en';
 
 function yamlPlugin(): Plugin {
   return {
@@ -42,6 +45,8 @@ function yamlPlugin(): Plugin {
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
+
+const configFile = locale === 'en' ? './src/config.yaml' : `./src/config.${locale}.yaml`;
 
 export default defineConfig({
   output: 'static',
@@ -92,8 +97,10 @@ export default defineConfig({
     }),
 
     astrowind({
-      config: './src/config.yaml',
+      config: configFile,
     }),
+
+    keystatic(),
   ],
 
   image: {
@@ -115,9 +122,21 @@ export default defineConfig({
       },
     },
 
+    optimizeDeps: {
+      exclude: ['@keystatic/astro', '@keystatic/core'],
+    },
+
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),
+        ...(locale !== 'en'
+          ? {
+              '~/data/site/navigation.yaml': path.resolve(
+                __dirname,
+                `./src/data/site/navigation.${locale}.yaml`
+              ),
+            }
+          : {}),
       },
     },
   },

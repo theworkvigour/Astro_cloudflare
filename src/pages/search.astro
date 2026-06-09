@@ -68,7 +68,7 @@ const q = Astro.url.searchParams.get('q') || '';
 
         function escapeHtml(s) {
           return String(s).replace(/[&<>"']/g, function (c) {
-            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&#39;', "'": '&#39;' })[c];
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&#39;', "'": '&#39;' })[c] || '';
           });
         }
         function escapeAttr(s) { return escapeHtml(s); }

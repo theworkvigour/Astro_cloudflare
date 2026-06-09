@@ -1,0 +1,111 @@
+﻿# Navigation for pt locale (translated via Keystatic)
+header:
+  topBar:
+    - text: Find a Store
+      href: /store-locator
+    - text: Help
+      href: /help
+    - text: Join Us
+      href: /join
+    - text: Sign In
+      href: /login
+  links:
+    - text: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+    - text: Solutions
+      links:
+        - text: Features
+          href: /#features
+        - text: Services
+          href: /services
+        - text: Pricing
+          href: /pricing
+    - text: Resources
+      links:
+        - text: Latest Article
+          href: /news/get-started-website-with-astro-tailwind-css
+        - text: Categories
+          href: /category/tutorials
+        - text: Tags
+          href: /tag/astro
+    - text: Support
+      links:
+        - text: News
+          href: /news
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+        - text: R&D Center
+          href: /randdcenter
+  actions:
+    - text: Get a quote
+      href: /contact
+      variant: primary
+footer:
+  links:
+    - title: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+    - title: Solutions
+      links:
+        - text: Features
+          href: /#features
+        - text: Services
+          href: /services
+        - text: Pricing
+          href: /pricing
+    - title: Resources
+      links:
+        - text: Blog
+          href: /news
+        - text: Login
+          href: /login
+    - title: Support
+      links:
+        - text: News
+          href: /news
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+  secondaryLinks:
+    - text: Terms
+      href: /terms
+    - text: Privacy Policy
+      href: /privacy
+  socialLinks:
+    - ariaLabel: X
+      icon: tabler:brand-x
+      href: '#'
+    - ariaLabel: Instagram
+      icon: tabler:brand-instagram
+      href: '#'
+    - ariaLabel: Facebook
+      icon: tabler:brand-facebook
+      href: '#'
+    - ariaLabel: LinkedIn
+      icon: tabler:brand-linkedin
+      href: '#'
+    - ariaLabel: RSS
+      icon: tabler:rss
+      href: /rss.xml
+    - ariaLabel: GitHub
+      icon: tabler:brand-github
+      href: https://github.com/theworkvigour
+  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
