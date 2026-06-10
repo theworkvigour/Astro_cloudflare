@@ -339,15 +339,26 @@ Type a keyword to start searching
         const path = window.location.pathname;
         const host = window.location.hostname;
         const parts = host.split('.');
-        // Replace first subdomain with target locale
-        // en.alluredna.com → es.alluredna.com
-        // vectoflare-en.workers.dev → vectoflare-es.workers.dev
-        if (parts[0].indexOf('vectoflare-') === 0) {
-          parts[0] = 'vectoflare-' + locale;
-        } else {
-          parts[0] = locale;
+
+        // Local dev: use path-based switching
+        if (host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0') {
+          window.location.href = window.location.origin + '/' + locale + path;
+          return;
         }
-        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
+
+        // parts.length >= 3 means there's a subdomain (e.g. "en.alluredna.com")
+        // Replace the subdomain part with the target locale
+        if (parts.length >= 3) {
+          if (parts[0].indexOf('vectoflare-') === 0) {
+            parts[0] = 'vectoflare-' + locale;
+          } else {
+            parts[0] = locale;
+          }
+          window.location.href = window.location.protocol + '//' + parts.join('.') + path;
+        } else {
+          // Bare domain or unknown: fall back to path-based
+          window.location.href = window.location.origin + '/' + locale + path;
+        }
       });
 
       return { btn, menu, label };
