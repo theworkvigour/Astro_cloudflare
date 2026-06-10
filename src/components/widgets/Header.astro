@@ -338,14 +338,16 @@ Type a keyword to start searching
         const locale = t.getAttribute('data-locale') || 'en';
         const path = window.location.pathname;
         const host = window.location.hostname;
-        // Cross-Worker URL: vectoflare-{locale}.theworkvigo.workers.dev{path}
-        let target;
-        if (host.indexOf('vectoflare-') === 0) {
-          target = 'https://vectoflare-' + locale + '.theworkvigo.workers.dev' + path;
+        const parts = host.split('.');
+        // Replace first subdomain with target locale
+        // en.alluredna.com → es.alluredna.com
+        // vectoflare-en.workers.dev → vectoflare-es.workers.dev
+        if (parts[0].indexOf('vectoflare-') === 0) {
+          parts[0] = 'vectoflare-' + locale;
         } else {
-          target = window.location.origin + '/' + locale + path;
+          parts[0] = locale;
         }
-        window.location.href = target;
+        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
       });
 
       return { btn, menu, label };
