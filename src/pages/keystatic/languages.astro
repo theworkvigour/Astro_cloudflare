@@ -1,0 +1,230 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+
+const token = readTokenFromCookies(Astro.cookies);
+let langs: Array<{ code: string; name: string; textDirection: string; hasConfig: boolean; hasNav: boolean; pageCount: number }> = [];
+if (token) {
+  try {
+    const client = new GitHubClient(token);
+    const toFetch = ['en', 'fr', 'de', 'es', 'pt', 'zh'];
+    for (const code of toFetch) {
+      const configPath = code === 'en' ? 'src/config.yaml' : `src/config.${code}.yaml`;
+      const navPath = `src/data/site/navigation.${code}.yaml`;
+      const pageFiles = ['home.yaml', 'about.yaml', 'services.yaml', 'pricing.yaml', 'contact.yaml', 'news.yaml'];
+
+      let configOk = false;
+      let navOk = false;
+      let pageCount = 0;
+      let name = code.toUpperCase();
+      let textDirection = 'ltr';
+
+      try {
+        const c = await client.readFile(configPath);
+        configOk = true;
+        const lm = c.content.match(/language:\s*(\w+)/);
+        if (lm) name = lm[1].toUpperCase();
+        const dm = c.content.match(/textDirection:\s*(\w+)/);
+        if (dm) textDirection = dm[1];
+      } catch {}
+
+      try {
+        await client.readFile(navPath);
+        navOk = true;
+      } catch {}
+
+      for (const pf of pageFiles) {
+        try {
+          const p = code === 'en' ? `src/data/pages/${pf}` : `src/data/pages/${code}/${pf}`;
+          await client.readFile(p);
+          pageCount++;
+        } catch {}
+      }
+
+      langs.push({ code, name, textDirection, hasConfig: configOk, hasNav: navOk, pageCount });
+    }
+  } catch {}
+}
+---
+
+<AdminLayout title="Language Manager" active="languages" username={verified?.username}>
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Add or remove languages. Each language gets its own config, navigation, and page data directory.
+      </p>
+    </div>
+    <button
+      id="add-lang-btn"
+      class="px-4 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+    >
+      + Add Language
+    </button>
+  </div>
+
+  <div id="add-form" class="hidden mb-8 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-6">
+    <h3 class="text-base font-semibold mb-4">New Language</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <div>
+        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Language Code</label>
+        <input id="f-code" type="text" placeholder="e.g. ja, ko, ar" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Display Name</label>
+        <input id="f-name" type="text" placeholder="e.g. 日本語, 한국어" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Text Direction</label>
+        <select id="f-dir" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900">
+          <option value="ltr">LTR (left to right)</option>
+          <option value="rtl">RTL (right to left)</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button id="submit-add" class="px-4 py-2 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700">Create</button>
+      <button id="cancel-add" class="px-4 py-2 text-sm font-medium rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">Cancel</button>
+    </div>
+    <div id="add-status" class="mt-3 text-sm hidden"></div>
+  </div>
+
+  <div id="lang-list" class="space-y-2">
+    {langs.map((l) => (
+      <div class="flex items-center justify-between rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-3">
+        <div class="flex items-center gap-4">
+          <span class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-sm font-bold">{l.code.toUpperCase()}</span>
+          <div>
+            <div class="text-sm font-medium">{l.name}</div>
+            <div class="text-xs text-gray-400 font-mono">{l.code} · {l.textDirection}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ${l.hasConfig ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'}`}>
+            {l.hasConfig ? '✓ Config' : '✗ Config'}
+          </span>
+          <span class={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ${l.hasNav ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'}`}>
+            {l.hasNav ? '✓ Nav' : '✗ Nav'}
+          </span>
+          <span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+            {l.pageCount} pages
+          </span>
+          {l.code !== 'en' && (
+            <button
+              data-delete={l.code}
+              class="text-xs text-red-600 dark:text-red-400 hover:underline"
+            >Delete</button>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</AdminLayout>
+
+<script is:inline>
+(function () {
+  const btn = document.getElementById('add-lang-btn');
+  const form = document.getElementById('add-form');
+  const cancel = document.getElementById('cancel-add');
+  const submit = document.getElementById('submit-add');
+  const status = document.getElementById('add-status');
+  const list = document.getElementById('lang-list');
+
+  function show(el) { if (el) el.classList.remove('hidden'); }
+  function hide(el) { if (el) el.classList.add('hidden'); }
+
+  if (btn && form) {
+    btn.addEventListener('click', function () { show(form); hide(btn.closest('.flex')?.querySelector('#add-status')); });
+  }
+  if (cancel && form) {
+    cancel.addEventListener('click', function () { hide(form); if (status) { hide(status); status.textContent = ''; status.className = 'mt-3 text-sm hidden'; } });
+  }
+
+  if (submit) {
+    submit.addEventListener('click', async function () {
+      const code = document.getElementById('f-code');
+      const name = document.getElementById('f-name');
+      const dir = document.getElementById('f-dir');
+      if (!code || !name || !dir || !status) return;
+
+      const c = code.value.trim().toLowerCase();
+      const n = name.value.trim();
+      if (!c || !/^[a-z]{2,3}$/.test(c)) {
+        show(status); status.textContent = 'Code must be 2-3 lowercase letters (e.g. ja, ko, ar)'; status.className = 'mt-3 text-sm text-red-600';
+        return;
+      }
+      if (!n) {
+        show(status); status.textContent = 'Display name is required'; status.className = 'mt-3 text-sm text-red-600';
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = 'Creating...';
+      show(status); status.textContent = 'Creating language...'; status.className = 'mt-3 text-sm text-blue-600';
+
+      try {
+        const res = await fetch('/api/admin/languages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: c, name: n, textDirection: dir.value }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          status.textContent = 'Language created! Reloading...';
+          status.className = 'mt-3 text-sm text-green-600';
+          setTimeout(function () { window.location.reload(); }, 1200);
+        } else {
+          status.textContent = data.error || 'Failed';
+          status.className = 'mt-3 text-sm text-red-600';
+        }
+      } catch (e) {
+        status.textContent = 'Network error';
+        status.className = 'mt-3 text-sm text-red-600';
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Create';
+      }
+    });
+  }
+
+  // delete handlers
+  if (list) {
+    list.addEventListener('click', async function (e) {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      const btn = target.closest('[data-delete]');
+      if (!btn) return;
+      const code = btn.getAttribute('data-delete');
+      if (!code) return;
+      if (!confirm('Delete language "' + code.toUpperCase() + '"? This cannot be undone.')) return;
+
+      const row = btn.closest('.flex');
+      if (row) row.style.opacity = '0.4';
+
+      try {
+        const res = await fetch('/api/admin/languages', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setTimeout(function () { window.location.reload(); }, 800);
+        } else {
+          alert('Error: ' + (data.error || 'Unknown'));
+          if (row) row.style.opacity = '1';
+        }
+      } catch {
+        alert('Network error');
+        if (row) row.style.opacity = '1';
+      }
+    });
+  }
+})();
+</script>

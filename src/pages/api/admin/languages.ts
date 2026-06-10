@@ -1,0 +1,407 @@
+import type { APIRoute } from 'astro';
+import { authorizeAdmin, errorResponse, jsonResponse } from './_guard';
+
+export const prerender = false;
+
+const FILES = [
+  'src/config.yaml',
+  'src/data/site/navigation.yaml',
+  'src/data/site/branding.yaml',
+  'src/data/pages/home.yaml',
+  'src/data/pages/about.yaml',
+  'src/data/pages/services.yaml',
+  'src/data/pages/pricing.yaml',
+  'src/data/pages/contact.yaml',
+  'src/data/pages/news.yaml',
+] as const;
+
+// template for a new locale config
+function configTemplate(locale: string, name: string, dir: string): string {
+  const upper = locale.toUpperCase();
+  return `site:
+  name: Vectoflare
+  site: 'https://vectoflare.com'
+  base: '/'
+  trailingSlash: false
+  googleSiteVerificationId: ''
+
+metadata:
+  title:
+    default: Vectoflare — ${name}
+    template: '%s — Vectoflare'
+  description: 'Vectoflare — ${name}'
+  keywords:
+    - Vectoflare
+  author: Vectoflare
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Vectoflare
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+    locale: ${locale}_${upper}
+  twitter:
+    handle: '@vectoflare'
+    site: '@vectoflare'
+    cardType: summary_large_image
+
+i18n:
+  language: ${locale}
+  textDirection: ${dir}
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 6
+    post:
+      isEnabled: true
+      permalink: '/news/%slug%'
+      robots:
+        index: true
+        follow: true
+    list:
+      isEnabled: true
+      pathname: 'news'
+      robots:
+        index: true
+        follow: true
+    category:
+      isEnabled: true
+      pathname: 'category'
+      robots:
+        index: true
+        follow: true
+    tag:
+      isEnabled: true
+      pathname: 'tag'
+      robots:
+        index: false
+        follow: true
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 4
+  products:
+    isEnabled: true
+    productsPerPage: 12
+    product:
+      isEnabled: true
+      permalink: '/products/%slug%'
+      robots:
+        index: true
+        follow: true
+    list:
+      isEnabled: true
+      pathname: 'products'
+      robots:
+        index: true
+        follow: true
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+
+ui:
+  theme: 'system'
+`;
+}
+
+// template for a new locale navigation file
+function navTemplate(name: string): string {
+  return `header:
+  topBar:
+    - text: Find a Store
+      href: /store-locator
+    - text: Help
+      href: /help
+    - text: Join Us
+      href: /join
+    - text: Sign In
+      href: /login
+  links:
+    - text: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+    - text: Solutions
+      links:
+        - text: Features
+          href: /#features
+        - text: Services
+          href: /services
+        - text: Pricing
+          href: /pricing
+    - text: Resources
+      links:
+        - text: Blog
+          href: /news
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+    - text: Support
+      links:
+        - text: News
+          href: /news
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+        - text: R&D Center
+          href: /randdcenter
+  actions:
+    - text: Get a quote
+      href: /contact
+      variant: primary
+footer:
+  links:
+    - title: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+    - title: Solutions
+      links:
+        - text: Features
+          href: /#features
+        - text: Services
+          href: /services
+        - text: Pricing
+          href: /pricing
+    - title: Resources
+      links:
+        - text: Blog
+          href: /news
+        - text: Contact
+          href: /contact
+    - title: Support
+      links:
+        - text: News
+          href: /news
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+  secondaryLinks:
+    - text: Terms
+      href: /terms
+    - text: Privacy Policy
+      href: /privacy
+  socialLinks:
+    - ariaLabel: X
+      icon: tabler:brand-x
+      href: '#'
+    - ariaLabel: Instagram
+      icon: tabler:brand-instagram
+      href: '#'
+    - ariaLabel: Facebook
+      icon: tabler:brand-facebook
+      href: '#'
+    - ariaLabel: LinkedIn
+      icon: tabler:brand-linkedin
+      href: '#'
+    - ariaLabel: RSS
+      icon: tabler:rss
+      href: /rss.xml
+    - ariaLabel: GitHub
+      icon: tabler:brand-github
+      href: https://github.com/theworkvigour
+  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
+`;
+}
+
+const PAGE_FILES = ['home.yaml', 'about.yaml', 'services.yaml', 'pricing.yaml', 'contact.yaml', 'news.yaml'];
+
+async function tryRead(client: import('~/lib/github').GitHubClient, path: string): Promise<string | null> {
+  try {
+    const r = await client.readFile(path);
+    return r.content;
+  } catch {
+    return null;
+  }
+}
+
+async function getFileSha(client: import('~/lib/github').GitHubClient, path: string): Promise<string | undefined> {
+  try {
+    const r = await client.readFile(path);
+    return r.sha;
+  } catch {
+    return undefined;
+  }
+}
+
+interface LanguageEntry {
+  code: string;
+  name: string;
+  textDirection: string;
+  hasConfig: boolean;
+  hasNav: boolean;
+  pageCount: number;
+}
+
+export const GET: APIRoute = async ({ cookies }) => {
+  const auth = authorizeAdmin(cookies);
+  if (!auth.ok) return errorResponse(auth.error, auth.status);
+
+  const client = auth.ctx.github;
+  const known = ['en', 'fr', 'de', 'es', 'pt', 'zh'];
+  const results: LanguageEntry[] = [];
+
+  for (const code of known) {
+    const configPath = code === 'en' ? 'src/config.yaml' : `src/config.${code}.yaml`;
+    const navPath = `src/data/site/navigation.${code}.yaml`;
+
+    const configContent = await tryRead(client, configPath);
+    const navContent = await tryRead(client, navPath);
+
+    let name = code.toUpperCase();
+    let textDirection = 'ltr';
+
+    if (configContent) {
+      const langMatch = configContent.match(/language:\s*(\w+)/);
+      if (langMatch) name = langMatch[1].toUpperCase();
+      const dirMatch = configContent.match(/textDirection:\s*(\w+)/);
+      if (dirMatch) textDirection = dirMatch[1];
+    }
+
+    // count existing pages for this locale
+    let pageCount = 0;
+    if (code === 'en') {
+      for (const pf of PAGE_FILES) {
+        const c = await tryRead(client, `src/data/pages/${pf}`);
+        if (c) pageCount++;
+      }
+    } else {
+      for (const pf of PAGE_FILES) {
+        const c = await tryRead(client, `src/data/pages/${code}/${pf}`);
+        if (c) pageCount++;
+      }
+    }
+
+    results.push({
+      code,
+      name,
+      textDirection,
+      hasConfig: !!configContent,
+      hasNav: !!navContent,
+      pageCount,
+    });
+  }
+
+  return jsonResponse({ languages: results });
+};
+
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const auth = authorizeAdmin(cookies);
+  if (!auth.ok) return errorResponse(auth.error, auth.status);
+
+  let body: { code?: string; name?: string; textDirection?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return errorResponse('Invalid request', 400);
+  }
+
+  const code = body.code?.trim().toLowerCase();
+  const name = body.name?.trim();
+  const textDirection = body.textDirection === 'rtl' ? 'rtl' : 'ltr';
+
+  if (!code || !/^[a-z]{2,3}$/.test(code)) {
+    return errorResponse('Language code must be 2-3 lowercase letters (e.g. ja, ko, ar)', 400);
+  }
+  if (!name) {
+    return errorResponse('Display name is required', 400);
+  }
+
+  const client = auth.ctx.github;
+  const configPath = `src/config.${code}.yaml`;
+  const navPath = `src/data/site/navigation.${code}.yaml`;
+
+  // check if config already exists
+  const existingConfig = await tryRead(client, configPath);
+  if (existingConfig) {
+    return errorResponse(`Language "${code}" already exists (config.${code}.yaml found)`, 409);
+  }
+
+  try {
+    // 1. create config file
+    await client.createFile(configPath, configTemplate(code, name, textDirection), `feat: add ${code} language config`);
+
+    // 2. create navigation file
+    await client.createFile(navPath, navTemplate(name), `feat: add ${code} navigation`);
+
+    // 3. copy English pages as initial content
+    for (const pf of PAGE_FILES) {
+      const srcContent = await tryRead(client, `src/data/pages/${pf}`);
+      if (srcContent) {
+        const destPath = `src/data/pages/${code}/${pf}`;
+        await client.createFile(destPath, srcContent, `feat: add ${code} ${pf}`);
+      }
+    }
+
+    return jsonResponse({ success: true, code, message: `Language "${code}" created successfully` });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to create language';
+    return errorResponse(message, 500);
+  }
+};
+
+export const DELETE: APIRoute = async ({ request, cookies }) => {
+  const auth = authorizeAdmin(cookies);
+  if (!auth.ok) return errorResponse(auth.error, auth.status);
+
+  let body: { code?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return errorResponse('Invalid request', 400);
+  }
+
+  const code = body.code?.trim().toLowerCase();
+  if (!code || code === 'en') {
+    return errorResponse('Cannot delete default language (en)', 400);
+  }
+
+  const client = auth.ctx.github;
+
+  // collect all files to delete
+  const toDelete: string[] = [];
+  toDelete.push(`src/config.${code}.yaml`);
+  toDelete.push(`src/data/site/navigation.${code}.yaml`);
+  for (const pf of PAGE_FILES) {
+    toDelete.push(`src/data/pages/${code}/${pf}`);
+  }
+
+  const errors: string[] = [];
+  for (const filePath of toDelete) {
+    const sha = await getFileSha(client, filePath);
+    if (sha) {
+      try {
+        await client.deleteFile(filePath, sha, `chore: remove ${code} language files`);
+      } catch (e) {
+        errors.push(`${filePath}: ${e instanceof Error ? e.message : 'unknown error'}`);
+      }
+    }
+  }
+
+  return jsonResponse({
+    success: true,
+    code,
+    message: `Language "${code}" removed`,
+    errors: errors.length > 0 ? errors : undefined,
+  });
+};
