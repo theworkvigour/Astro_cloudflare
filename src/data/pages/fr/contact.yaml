@@ -1,0 +1,77 @@
+hero_text:
+  tagline: Contact
+  title: GET IN TOUCH
+contact_form:
+  id: form
+  title: Send us a message
+  subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
+  email_to: hello@vectoflare.com
+  submit_button: Send message
+  success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
+  error_message: Something went wrong sending your message. Please try again or email us directly.
+  default_country_code: '+1'
+  captcha:
+    label: 'Anti-spam: please solve the following'
+  fields:
+    - name: firstName
+      label: First Name
+      row: 1
+    - name: lastName
+      label: Last Name
+      row: 1
+    - name: companyName
+      label: Company Name
+      row: 2
+    - name: address
+      label: Address
+      row: 3
+    - name: zip
+      label: Zip / Postal Code
+      row: 4
+    - name: country
+      label: Country
+      row: 4
+    - name: email
+      label: E-mail
+      row: 5
+      type: email
+    - name: tel
+      label: TEL
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: Subject
+      row: 6
+    - name: message
+      label: Message
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: Other ways to reach us
+  columns: 3
+  items:
+    - title: Sales enquiries
+      description: Quotes, configurations, dealer applications and bulk orders.
+      icon: tabler:shopping-bag
+    - title: Technical support
+      description: Warranty, repairs, spare parts and operating questions.
+      icon: tabler:tool
+    - title: Press & partnerships
+      description: Media kits, sponsorship and industry collaboration.
+      icon: tabler:news
+    - title: Phone
+      description: '+8613305324192'
+      icon: tabler:headset
+    - title: Email
+      description: hello@vectoflare.com
+      icon: tabler:mail
+    - title: Headquarters
+      description: Coastal industrial park, building 4, EU time zone
+      icon: tabler:map-pin
+map:
+  title: Our Location
+  subtitle: Visit us at our headquarters
+  address: Coastal industrial park, building 4, EU time zone
+  zoom: 15

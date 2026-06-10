@@ -30,6 +30,24 @@ function yamlPlugin(): Plugin {
     async load(id) {
       if (!id.endsWith('.yaml') && !id.endsWith('.yml')) return null;
       const clean = id.split('?')[0];
+      // Check for locale-specific page data: src/data/pages/{locale}/filename.yaml
+      if (locale !== 'en') {
+        const pagesMatch = clean.match(/[/\\]data[/\\]pages[/\\](.+\.ya?ml)$/);
+        if (pagesMatch) {
+          const localePath = clean.replace(
+            /[/\\]pages[/\\]/,
+            `/pages/${locale}/`
+          );
+          try {
+            await fs.access(localePath);
+            const content = await fs.readFile(localePath, 'utf8');
+            const data = yaml.load(content);
+            return { code: `export default ${JSON.stringify(data)};`, map: null };
+          } catch {
+            // locale file not found, fall back to English
+          }
+        }
+      }
       const content = await fs.readFile(clean, 'utf8');
       const data = yaml.load(content);
       return {

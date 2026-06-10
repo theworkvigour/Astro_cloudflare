@@ -9,16 +9,16 @@
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare — Modern Solutions for Inflatable & Engineered Products
+    default: Vectoflare — Solutions modernes pour bateaux pneumatiques et produits techniques
     template: '%s — Vectoflare'
-  description: 'Vectoflare designs and manufactures premium inflatable boats, RIBs, and engineered products. Explore our catalog, technical specs, and resources for professionals and enthusiasts.'
+  description: 'Vectoflare conçoit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualité supérieure. Explorez notre catalogue, nos spécifications techniques et nos ressources.'
   keywords:
     - Vectoflare
-    - inflatable boat
+    - bateau pneumatique
     - RIB
     - PVC
     - marine
-    - engineering
+    - ingénierie
   author: Vectoflare
   robots:
     index: true

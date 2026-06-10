@@ -1,93 +1,93 @@
 ﻿# Navigation for zh locale (translated via Keystatic)
 header:
   topBar:
-    - text: Find a Store
+    - text: 查找门店
       href: /store-locator
-    - text: Help
+    - text: 帮助
       href: /help
-    - text: Join Us
+    - text: 加入我们
       href: /join
-    - text: Sign In
+    - text: 登录
       href: /login
   links:
-    - text: Products
+    - text: 产品
       links:
-        - text: All Products
+        - text: 全部产品
           href: /products
-        - text: RIB Boats
+        - text: RIB 艇
           href: /products?category=rib
-        - text: Inflatable Boats
+        - text: 充气艇
           href: /products?category=inflatable
-        - text: Accessories
+        - text: 配件
           href: /products?category=accessory
-    - text: Solutions
+    - text: 解决方案
       links:
-        - text: Features
+        - text: 功能特点
           href: /#features
-        - text: Services
+        - text: 服务
           href: /services
-        - text: Pricing
+        - text: 价格
           href: /pricing
-    - text: Resources
+    - text: 资源
       links:
-        - text: Latest Article
+        - text: 最新文章
           href: /news/get-started-website-with-astro-tailwind-css
-        - text: Categories
+        - text: 分类
           href: /category/tutorials
-        - text: Tags
+        - text: 标签
           href: /tag/astro
-    - text: Support
+    - text: 支持
       links:
-        - text: News
+        - text: 新闻
           href: /news
-        - text: Contact
+        - text: 联系我们
           href: /contact
-        - text: About
+        - text: 关于我们
           href: /about
-        - text: R&D Center
+        - text: 研发中心
           href: /randdcenter
   actions:
-    - text: Get a quote
+    - text: 获取报价
       href: /contact
       variant: primary
 footer:
   links:
-    - title: Products
+    - title: 产品
       links:
-        - text: All Products
+        - text: 全部产品
           href: /products
-        - text: RIB Boats
+        - text: RIB 艇
           href: /products?category=rib
-        - text: Inflatable Boats
+        - text: 充气艇
           href: /products?category=inflatable
-        - text: Accessories
+        - text: 配件
           href: /products?category=accessory
-    - title: Solutions
+    - title: 解决方案
       links:
-        - text: Features
+        - text: 功能特点
           href: /#features
-        - text: Services
+        - text: 服务
           href: /services
-        - text: Pricing
+        - text: 价格
           href: /pricing
-    - title: Resources
+    - title: 资源
       links:
-        - text: Blog
+        - text: 博客
           href: /news
-        - text: Login
+        - text: 登录
           href: /login
-    - title: Support
+    - title: 支持
       links:
-        - text: News
+        - text: 新闻
           href: /news
-        - text: Contact
+        - text: 联系我们
           href: /contact
-        - text: About
+        - text: 关于我们
           href: /about
   secondaryLinks:
-    - text: Terms
+    - text: 条款
       href: /terms
-    - text: Privacy Policy
+    - text: 隐私政策
       href: /privacy
   socialLinks:
     - ariaLabel: X
@@ -108,4 +108,4 @@ footer:
     - ariaLabel: GitHub
       icon: tabler:brand-github
       href: https://github.com/theworkvigour
-  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
+  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · 版权所有

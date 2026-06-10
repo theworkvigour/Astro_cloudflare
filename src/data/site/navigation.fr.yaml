@@ -1,93 +1,93 @@
 ﻿# Navigation for fr locale (translated via Keystatic)
 header:
   topBar:
-    - text: Find a Store
+    - text: Trouver un magasin
       href: /store-locator
-    - text: Help
+    - text: Aide
       href: /help
-    - text: Join Us
+    - text: Nous rejoindre
       href: /join
-    - text: Sign In
+    - text: Connexion
       href: /login
   links:
-    - text: Products
+    - text: Produits
       links:
-        - text: All Products
+        - text: Tous les produits
           href: /products
-        - text: RIB Boats
+        - text: Bateaux RIB
           href: /products?category=rib
-        - text: Inflatable Boats
+        - text: Bateaux pneumatiques
           href: /products?category=inflatable
-        - text: Accessories
+        - text: Accessoires
           href: /products?category=accessory
     - text: Solutions
       links:
-        - text: Features
+        - text: Fonctionnalités
           href: /#features
         - text: Services
           href: /services
-        - text: Pricing
+        - text: Tarifs
           href: /pricing
-    - text: Resources
+    - text: Ressources
       links:
-        - text: Latest Article
+        - text: Dernier article
           href: /news/get-started-website-with-astro-tailwind-css
-        - text: Categories
+        - text: Catégories
           href: /category/tutorials
-        - text: Tags
+        - text: Étiquettes
           href: /tag/astro
     - text: Support
       links:
-        - text: News
+        - text: Actualités
           href: /news
         - text: Contact
           href: /contact
-        - text: About
+        - text: À propos
           href: /about
-        - text: R&D Center
+        - text: Centre R&D
           href: /randdcenter
   actions:
-    - text: Get a quote
+    - text: Demander un devis
       href: /contact
       variant: primary
 footer:
   links:
-    - title: Products
+    - title: Produits
       links:
-        - text: All Products
+        - text: Tous les produits
           href: /products
-        - text: RIB Boats
+        - text: Bateaux RIB
           href: /products?category=rib
-        - text: Inflatable Boats
+        - text: Bateaux pneumatiques
           href: /products?category=inflatable
-        - text: Accessories
+        - text: Accessoires
           href: /products?category=accessory
     - title: Solutions
       links:
-        - text: Features
+        - text: Fonctionnalités
           href: /#features
         - text: Services
           href: /services
-        - text: Pricing
+        - text: Tarifs
           href: /pricing
-    - title: Resources
+    - title: Ressources
       links:
         - text: Blog
           href: /news
-        - text: Login
+        - text: Connexion
           href: /login
     - title: Support
       links:
-        - text: News
+        - text: Actualités
           href: /news
         - text: Contact
           href: /contact
-        - text: About
+        - text: À propos
           href: /about
   secondaryLinks:
-    - text: Terms
+    - text: Conditions
       href: /terms
-    - text: Privacy Policy
+    - text: Politique de confidentialité
       href: /privacy
   socialLinks:
     - ariaLabel: X
@@ -108,4 +108,4 @@ footer:
     - ariaLabel: GitHub
       icon: tabler:brand-github
       href: https://github.com/theworkvigour
-  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
+  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · Tous droits réservés.

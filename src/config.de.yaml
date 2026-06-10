@@ -9,16 +9,16 @@
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare — Modern Solutions for Inflatable & Engineered Products
+    default: Vectoflare — Moderne Lösungen für Schlauchboote und technische Produkte
     template: '%s — Vectoflare'
-  description: 'Vectoflare designs and manufactures premium inflatable boats, RIBs, and engineered products. Explore our catalog, technical specs, and resources for professionals and enthusiasts.'
+  description: 'Vectoflare entwickelt und fertigt hochwertige Schlauchboote, RIBs und technische Produkte. Entdecken Sie unseren Katalog, technische Daten und Ressourcen.'
   keywords:
     - Vectoflare
-    - inflatable boat
+    - Schlauchboot
     - RIB
     - PVC
-    - marine
-    - engineering
+    - Marine
+    - Ingenieurwesen
   author: Vectoflare
   robots:
     index: true

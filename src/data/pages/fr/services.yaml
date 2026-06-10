@@ -1,0 +1,86 @@
+hero:
+  tagline: Services
+  title: Marine services for the lifetime of your boat
+  subtitle: From the first quote to the twentieth service, our team is on the line. We design, build, deliver, train, and support — end to end.
+  actions:
+    - variant: primary
+      text: Get a quote
+      href: /contact
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Services
+
+features2_what_we_do:
+  title: What we do
+  subtitle: A focused service catalogue that mirrors the products we ship.
+  columns: 3
+  items:
+    - title: Custom configuration
+      description: Spec a boat online with our configurator, or talk to a sales engineer about a non-standard build.
+      icon: tabler:settings-2
+    - title: Refit & repair
+      description: Tube replacement, electronics retrofit, engine upgrades and gel-coat restoration at our service centre.
+      icon: tabler:tool
+    - title: Sea-trial training
+      description: Operational and safety training for commercial operators, free handover for recreational buyers.
+      icon: tabler:school
+    - title: Worldwide delivery
+      description: Sea and air freight with all customs paperwork handled by us.
+      icon: tabler:truck-loading
+    - title: Warranty & support
+      description: Two-year hull warranty, one-year accessories, lifetime technical support.
+      icon: tabler:shield-check
+    - title: Spare parts
+      description: Genuine spares and consumables in stock year-round, shipped within 48 hours.
+      icon: tabler:package
+
+content_service:
+  isReversed: true
+  items:
+    - title: Engineering-grade quality
+      description: Every service follows the same drawings and procedures we use in the factory.
+      icon: tabler:ruler
+    - title: Genuine parts only
+      description: No aftermarket substitutes. If a part carries our name, it came from us.
+      icon: tabler:certificate
+    - title: Transparent pricing
+      description: You see the parts, the labour and the lead time before work begins.
+      icon: tabler:receipt
+    - title: Lifetime technical support
+      description: Twenty-year-old hulls still call us. We still pick up.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80
+    alt: Service centre
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Service that earns its name</h3>
+
+testimonials:
+  title: What customers say
+  testimonials:
+    - testimonial: We took delivery of our 5.5 m RIB in Lisbon and have run it hard for three seasons. The aftersales team answered a weekend call about a faulty switch within twenty minutes.
+      name: Henrik L.
+      job: Commercial diving operator, Portugal
+      image:
+        src: https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=930&q=80
+        alt: Henrik L.
+    - testimonial: Vectoflare built us a 7.5 m patrol RIB with a custom console layout. The drawings were exact, the build was on time, and the boat has been in service for over four years without a single hull issue.
+      name: Coastguard Service
+      job: Government contract
+      image:
+        src: https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80
+        alt: Coastguard
+    - testimonial: Bought a tender for our yacht in Singapore. Configured it online, the shipping paperwork was done by Vectoflare, and it arrived on a cradle six weeks later.
+      name: Mark W.
+      job: Yacht owner, APAC
+      image:
+        src: https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=824&q=80
+        alt: Mark W.
+
+cta:
+  actions:
+    - variant: primary
+      text: Request a quote
+      href: /contact
+  title: Need a quote or a refit estimate?
+  subtitle: Send us a short brief and we will reply with a price, lead time and our recommendations.
