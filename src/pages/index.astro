@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { ui } from '~/styles/ui';
 import { SITE } from 'astrowind:config';
+import { products } from '../data/products';
 
 const metadata = {
   title: SITE.name,
@@ -9,51 +9,27 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
-const productSystem = [
-  {
-    name: 'SUP Boards',
-    desc: 'Stable inflatable paddle boards for lakes, sea, and beginners. Lightweight, portable, and easy to store.',
-    use: 'Recreation / Training / Exploration',
-  },
-  {
-    name: 'Inflatable Kayaks',
-    desc: 'Lightweight portable kayaks for rivers and coastal waters. Designed for touring, fishing, and adventure.',
-    use: 'Touring / Fishing / Adventure',
-  },
-  {
-    name: 'RIBs & Dinghies',
-    desc: 'Rigid-hull inflatable boats and portable dinghies for transport, commercial use, and rescue operations.',
-    use: 'Transport / Commercial / Rescue',
-  },
-  {
-    name: 'Safety Equipment',
-    desc: 'Certified life vests, PFDs, and protection gear for all water activities. Safety first, always.',
-    use: 'All water activities',
-  },
-  {
-    name: 'Accessories',
-    desc: 'Paddles, pumps, bags, and essential gear for maintenance, transport, and customization.',
-    use: 'Maintenance / Transport / Customization',
-  },
-];
+const categories = [...new Set(products.map(p => p.category))].map(cat => {
+  const items = products.filter(p => p.category === cat);
+  const waters = [...new Set(items.flatMap(p => p.water))];
+  const skills = [...new Set(items.map(p => p.skill))];
+  const names: Record<string, string> = {
+    SUP: 'SUP Boards', KAYAK: 'Inflatable Kayaks', DINGHY: 'Dinghies',
+    RIB: 'RIBs & Rigid Hulls', SAFETY: 'Safety Equipment', ACCESSORY: 'Accessories',
+  };
+  return {
+    name: names[cat] || cat,
+    count: items.length,
+    waters: waters.slice(0, 3).join(', '),
+    skill: skills.sort().join(' - '),
+  };
+});
 
 const useCases = [
-  {
-    title: 'Beginner Water Sports',
-    desc: 'Stable SUP boards and kayaks designed for first-time users. Easy launch, stable ride, confidence building.',
-  },
-  {
-    title: 'Outdoor Exploration',
-    desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips. Packable and ready for adventure.',
-  },
-  {
-    title: 'Professional Operations',
-    desc: 'Commercial-grade RIBs for tour operators, ferry services, law enforcement, and emergency response.',
-  },
-  {
-    title: 'Family Recreation',
-    desc: 'Spacious dinghies and safe equipment for family day trips, fishing, and watersports.',
-  },
+  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users. Confidence building on calm water.' },
+  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips. Packable adventure.' },
+  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators, law enforcement, and emergency response.' },
+  { title: 'Family Recreation', desc: 'Spacious dinghies and safe equipment for family day trips, fishing, and watersports.' },
 ];
 
 const trustPoints = [
@@ -70,11 +46,11 @@ const trustPoints = [
     <div class="max-w-3xl mx-auto px-6">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Since 2012</span>
       <h1 class="mt-6 text-5xl font-semibold tracking-tight text-gray-900">
-        Explore Water. Build Freedom.
+        Wavefella — Global Water Sports Brand
       </h1>
       <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-        Wavefella designs professional water sports equipment for paddling, exploration,
-        and outdoor adventure. Every product is engineered for performance, durability, and safety.
+        SUP, kayak, dinghy, RIB, and safety equipment for outdoor adventure.
+        Engineered for performance, built for safety.
       </p>
       <div class="mt-10 flex items-center justify-center gap-4">
         <a href="#products" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
@@ -91,106 +67,111 @@ const trustPoints = [
   <section id="products" class="max-w-6xl mx-auto py-20 px-6">
     <div class="max-w-3xl">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Complete water sports equipment line</h2>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
       <p class="mt-4 text-gray-500">
-        From paddleboards to rescue vessels, every category is designed with a clear purpose and use case.
+        From paddleboards to rescue vessels, every product has structured specs for skill level, water type, and region availability.
       </p>
     </div>
     <div class="mt-12 grid md:grid-cols-3 gap-6">
-      {productSystem.map(p => (
+      {categories.map(cat => (
         <div class="border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-colors">
-          <h3 class="text-xl font-semibold text-gray-900">{p.name}</h3>
-          <p class="text-gray-500 mt-2">{p.desc}</p>
-          <p class="text-sm text-gray-400 mt-4">Use: {p.use}</p>
+          <h3 class="text-xl font-semibold text-gray-900">{cat.name}</h3>
+          <p class="text-sm text-gray-400 mt-1">{cat.count} products</p>
+          <p class="text-gray-500 mt-3">{cat.waters}</p>
+          <p class="text-sm text-gray-400 mt-2">Skill: {cat.skill}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Use Cases -->
+  <!-- Product List (SSOT) -->
   <section class="bg-gray-50 py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="max-w-3xl">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
-        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built for real water experiences</h2>
-        <p class="mt-4 text-gray-500">
-          Whether you are a beginner or a professional, Wavefella has the right equipment for your水上活动。
-        </p>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product Catalog</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">All products</h2>
       </div>
-      <div class="mt-12 grid md:grid-cols-4 gap-6">
-        {useCases.map(u => (
+      <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map(p => (
           <div class="bg-white border border-gray-200 rounded-2xl p-6">
-            <h3 class="font-semibold text-gray-900">{u.title}</h3>
-            <p class="text-gray-500 mt-2 text-sm">{u.desc}</p>
+            <h3 class="font-semibold text-gray-900">{p.name}</h3>
+            <p class="text-gray-500 mt-2 text-sm">{p.desc}</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{p.category}</span>
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{p.skill}</span>
+              {p.region.slice(0, 2).map(r => <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-500">{r}</span>)}
+            </div>
+            {p.safety.length > 0 && (
+              <p class="mt-3 text-xs text-amber-600">Safety: {p.safety.join(', ')}</p>
+            )}
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Trust Layer -->
+  <!-- Use Cases -->
   <section class="max-w-6xl mx-auto py-20 px-6">
     <div class="max-w-3xl">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Safety & Quality</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built to last, tested to perform</h2>
-      <p class="mt-4 text-gray-500">
-        Every Wavefella product undergoes rigorous testing and certification to meet international standards.
-      </p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built for real water experiences</h2>
     </div>
     <div class="mt-12 grid md:grid-cols-4 gap-6">
-      {trustPoints.map(t => (
+      {useCases.map(u => (
         <div class="border border-gray-200 rounded-2xl p-6">
-          <h3 class="font-semibold text-gray-900">{t.title}</h3>
-          <p class="text-gray-500 mt-2 text-sm">{t.desc}</p>
+          <h3 class="font-semibold text-gray-900">{u.title}</h3>
+          <p class="text-gray-500 mt-2 text-sm">{u.desc}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- AI Ask -->
-  <section id="ask" class="bg-gray-50 py-20 px-6">
+  <!-- Trust Layer -->
+  <section class="bg-gray-50 py-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center max-w-3xl mx-auto">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">AI Product Guide</span>
-        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Ask about our products</h2>
-        <p class="mt-4 text-gray-500">
-          Not sure which product fits your needs? Ask our AI guide for product comparisons,
-          use case recommendations, and safety advice. Neutral, factual, no sales pitch.
-        </p>
+      <div class="max-w-3xl">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Safety & Quality</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built to last, tested to perform</h2>
       </div>
-      <div class="mt-10 max-w-2xl mx-auto">
-        <form id="ask-form" class="flex gap-3">
-          <input
-            id="ask-input"
-            type="text"
-            placeholder="E.g. What is the difference between a SUP and a kayak?"
-            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400"
-            autocomplete="off"
-          />
-          <button type="submit" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors shrink-0">
-            Ask
-          </button>
-        </form>
-        <div id="ask-output" class="mt-8 hidden">
-          <div id="ask-answer" class="p-6 bg-white border border-gray-200 rounded-2xl text-gray-700 leading-relaxed"></div>
-          <div id="ask-sources" class="mt-3 text-xs text-gray-400"></div>
-        </div>
-        <div id="ask-error" class="mt-4 text-sm text-red-500 hidden"></div>
+      <div class="mt-12 grid md:grid-cols-4 gap-6">
+        {trustPoints.map(t => (
+          <div class="bg-white border border-gray-200 rounded-2xl p-6">
+            <h3 class="font-semibold text-gray-900">{t.title}</h3>
+            <p class="text-gray-500 mt-2 text-sm">{t.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
+  <!-- AI Ask -->
+  <section id="ask" class="py-20 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">AI Product Guide</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Find the right product</h2>
+      <p class="mt-4 text-gray-500">
+        Ask our AI to compare products, recommend based on your skill level and water type,
+        or check safety requirements. Powered by our structured product catalog.
+      </p>
+    </div>
+    <div class="mt-10 max-w-2xl mx-auto px-6">
+      <input id="q" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400" placeholder="E.g. Which SUP is good for a beginner on a lake?" />
+      <button id="ask-btn" class="mt-4 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">Ask AI</button>
+      <pre id="out" class="mt-6 text-left text-sm text-gray-700 bg-white border border-gray-200 rounded-2xl p-6 hidden whitespace-pre-wrap"></pre>
+    </div>
+  </section>
+
   <!-- Contact / Distribution -->
-  <section class="py-20 px-6 text-center">
+  <section class="bg-gray-50 py-20 px-6 text-center">
     <div class="max-w-2xl mx-auto">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Get in touch</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Contact & Distribution</h2>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Become a Wavefella Partner</h2>
       <p class="mt-4 text-gray-500 max-w-xl mx-auto">
-        For distributors, retail partners, or product inquiries. We welcome collaboration
-        with dealers, rental operators, and water sports professionals worldwide.
+        We work with global distributors in water sports retail. For distributors,
+        retail partners, or product inquiries — let's talk.
       </p>
-      <a href="/contact" class="mt-8 inline-block px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 transition-colors">
-        Get in touch
+      <a href="/distributors" class="mt-8 inline-block px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
+        Partner with us
       </a>
     </div>
   </section>
@@ -198,25 +179,17 @@ const trustPoints = [
 
 <script is:inline>
 (function() {
-  var form = document.getElementById('ask-form');
-  var input = document.getElementById('ask-input');
-  var output = document.getElementById('ask-output');
-  var answer = document.getElementById('ask-answer');
-  var sources = document.getElementById('ask-sources');
-  var error = document.getElementById('ask-error');
+  var btn = document.getElementById('ask-btn');
+  var input = document.getElementById('q');
+  var out = document.getElementById('out');
+  if (!btn || !input || !out) return;
 
-  if (!form || !input || !output || !answer || !sources || !error) return;
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
+  btn.addEventListener('click', async function() {
     var q = input.value.trim();
     if (!q) return;
-
-    output.classList.add('hidden');
-    error.classList.add('hidden');
-    answer.textContent = 'Thinking...';
-    output.classList.remove('hidden');
-    sources.textContent = '';
+    out.classList.add('hidden');
+    out.textContent = 'Thinking...';
+    out.classList.remove('hidden');
 
     try {
       var res = await fetch('/api/ask', {
@@ -225,19 +198,9 @@ const trustPoints = [
         body: JSON.stringify({ question: q }),
       });
       var data = await res.json();
-
-      if (res.ok && data.answer) {
-        answer.textContent = data.answer;
-        if (data.sources && data.sources.length > 0) {
-          sources.textContent = 'Sources: ' + data.sources.map(function(s) { return s.title; }).join(', ');
-        }
-      } else {
-        throw new Error(data.error || 'Request failed');
-      }
+      out.textContent = res.ok && data.answer ? data.answer : 'Error: ' + (data.error || 'Request failed');
     } catch (err) {
-      output.classList.add('hidden');
-      error.textContent = 'Error: ' + err.message;
-      error.classList.remove('hidden');
+      out.textContent = 'Error: ' + err.message;
     }
   });
 })();

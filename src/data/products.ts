@@ -1,0 +1,133 @@
+export interface ProductRecord {
+  id: string;
+  name: string;
+  category: 'SUP' | 'KAYAK' | 'DINGHY' | 'RIB' | 'SAFETY' | 'ACCESSORY';
+  region: string[];
+  skill: 'beginner' | 'intermediate' | 'advanced' | 'professional';
+  water: string[];
+  safety: string[];
+  desc: string;
+}
+
+export const products: ProductRecord[] = [
+  {
+    id: 'sup-explorer-11',
+    name: "SUP Explorer 11'",
+    category: 'SUP',
+    region: ['EU', 'US', 'ASIA'],
+    skill: 'beginner',
+    water: ['lake', 'sea'],
+    safety: ['life vest recommended', 'leash required'],
+    desc: 'Stable all-around inflatable paddle board for lakes and calm coastal waters.',
+  },
+  {
+    id: 'sup-tour-12',
+    name: "SUP Tour 12'",
+    category: 'SUP',
+    region: ['EU', 'US'],
+    skill: 'intermediate',
+    water: ['lake', 'sea', 'river'],
+    safety: ['life vest recommended', 'leash required'],
+    desc: 'Longer touring SUP designed for speed and tracking on open water.',
+  },
+  {
+    id: 'kayak-lite',
+    name: 'Inflatable Kayak Lite',
+    category: 'KAYAK',
+    region: ['GLOBAL'],
+    skill: 'beginner',
+    water: ['river', 'lake'],
+    safety: ['life vest required'],
+    desc: 'Lightweight single-person touring kayak for travel and exploration.',
+  },
+  {
+    id: 'kayak-tandem',
+    name: 'Inflatable Kayak Tandem',
+    category: 'KAYAK',
+    region: ['EU', 'US', 'ASIA'],
+    skill: 'beginner',
+    water: ['lake', 'coastal'],
+    safety: ['life vest required'],
+    desc: 'Two-person inflatable kayak for family trips and recreational paddling.',
+  },
+  {
+    id: 'airdeck-270',
+    name: 'AirDeck 270',
+    category: 'DINGHY',
+    region: ['EU', 'US', 'ASIA'],
+    skill: 'beginner',
+    water: ['lake', 'river'],
+    safety: ['life vest recommended', 'max 3 persons'],
+    desc: 'Compact inflatable dinghy with air deck floor for fishing and day trips.',
+  },
+  {
+    id: 'airdeck-360',
+    name: 'AirDeck 360',
+    category: 'DINGHY',
+    region: ['EU', 'US'],
+    skill: 'beginner',
+    water: ['lake', 'coastal'],
+    safety: ['life vest recommended', 'max 5 persons'],
+    desc: 'Spacious family dinghy with reinforced air deck for stability and comfort.',
+  },
+  {
+    id: 'rib-330',
+    name: 'RIB 330',
+    category: 'RIB',
+    region: ['EU', 'US', 'ASIA'],
+    skill: 'advanced',
+    water: ['coastal', 'sea'],
+    safety: ['life vest required', 'VHF radio recommended'],
+    desc: 'High-performance rigid-hull inflatable boat for transport and coastal navigation.',
+  },
+  {
+    id: 'rib-450-patrol',
+    name: 'RIB 450 Patrol',
+    category: 'RIB',
+    region: ['EU', 'US', 'ASIA', 'GLOBAL'],
+    skill: 'professional',
+    water: ['coastal', 'sea', 'rescue'],
+    safety: ['life vest required', 'emergency kit required', 'VHF radio required'],
+    desc: 'Heavy-duty patrol RIB engineered for law enforcement, rescue, and commercial use.',
+  },
+  {
+    id: 'life-vest-classic',
+    name: 'Life Vest Classic',
+    category: 'SAFETY',
+    region: ['GLOBAL'],
+    skill: 'beginner',
+    water: ['all'],
+    safety: ['CE certified', 'ISO 12402'],
+    desc: 'Universal buoyancy aid for recreational water sports. CE and ISO certified.',
+  },
+  {
+    id: 'life-vest-pro',
+    name: 'Life Vest Pro',
+    category: 'SAFETY',
+    region: ['EU', 'US'],
+    skill: 'advanced',
+    water: ['all'],
+    safety: ['CE certified', 'ISO 12402', 'SOLLAS compliant'],
+    desc: 'Professional-grade life vest with SOLAS reflectors for offshore and rescue operations.',
+  },
+  {
+    id: 'paddle-carbon',
+    name: 'Carbon Paddle',
+    category: 'ACCESSORY',
+    region: ['GLOBAL'],
+    skill: 'beginner',
+    water: ['all'],
+    safety: [],
+    desc: 'Lightweight carbon-fiber paddle for SUP and kayak. Adjustable length.',
+  },
+  {
+    id: 'pump-dual',
+    name: 'Dual-Action Pump',
+    category: 'ACCESSORY',
+    region: ['GLOBAL'],
+    skill: 'beginner',
+    water: ['all'],
+    safety: [],
+    desc: 'High-volume dual-action hand pump for rapid inflating of SUPs and kayaks.',
+  },
+];

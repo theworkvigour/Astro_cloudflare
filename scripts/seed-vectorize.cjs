@@ -117,7 +117,19 @@ async function main() {
       'product-oars-pump-set': { category: 'Accessory', attributes: { usage: ['all'] }, safety: '' },
     };
 
-    const pAttr = productAttrs[page.id] || {};
+    // SSOT product attributes from src/data/products.ts
+    const ssotProducts = {
+      'sup-explorer-11': { category: 'SUP', attributes: { stability: 'high', usage: ['lake', 'sea'], skill_level: 'beginner' }, safety: 'life vest recommended, leash required' },
+      'sup-tour-12': { category: 'SUP', attributes: { stability: 'medium', usage: ['lake', 'sea', 'river'], skill_level: 'intermediate' }, safety: 'life vest recommended, leash required' },
+      'kayak-lite': { category: 'KAYAK', attributes: { stability: 'medium', usage: ['river', 'lake'], skill_level: 'beginner' }, safety: 'life vest required' },
+      'kayak-tandem': { category: 'KAYAK', attributes: { stability: 'medium', usage: ['lake', 'coastal'], skill_level: 'beginner' }, safety: 'life vest required' },
+      'life-vest-classic': { category: 'SAFETY', attributes: { usage: ['all'] }, safety: 'CE certified, ISO 12402' },
+      'life-vest-pro': { category: 'SAFETY', attributes: { usage: ['all'] }, safety: 'CE certified, ISO 12402, SOLAS compliant' },
+      'paddle-carbon': { category: 'ACCESSORY', attributes: { usage: ['all'] }, safety: '' },
+      'pump-dual': { category: 'ACCESSORY', attributes: { usage: ['all'] }, safety: '' },
+    };
+
+    const pAttr = productAttrs[page.id] || ssotProducts[page.id] || {};
 
     for (const [i, chunk] of chunks.entries()) {
       try {

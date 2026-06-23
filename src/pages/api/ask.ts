@@ -1,15 +1,7 @@
 import type { APIRoute } from 'astro';
+import { products } from '../../data/products';
 
 export const prerender = false;
-
-interface AskRequest {
-  question: string;
-}
-
-interface Source {
-  url: string;
-  title: string;
-}
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env;
@@ -17,7 +9,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
   }
 
-  let body: AskRequest;
+  let body: { question?: string };
   try {
     body = await request.json();
   } catch {
@@ -30,65 +22,47 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    let vector: number[];
+    const productContext = products.map(p =>
+      `Product: ${p.name}
+Category: ${p.category}
+Region: ${p.region.join(', ')}
+Skill: ${p.skill}
+Water: ${p.water.join(', ')}
+Safety: ${p.safety.length ? p.safety.join('; ') : 'none'}
+Description: ${p.desc}`
+    ).join('\n\n');
 
-    if (env.AI) {
+    let ragContext = '';
+    if (env.AI && env.VECTORIZE) {
       const aiRes = await env.AI.run('@cf/baai/bge-base-en-v1.5', { text: [question] }) as { data: Array<number[]> };
-      vector = aiRes.data[0];
-    } else {
-      return new Response(JSON.stringify({ error: 'AI binding not available' }), { status: 500 });
+      const vector = aiRes.data[0];
+      const searchResults = await env.VECTORIZE.query(vector, { topK: 5 });
+      const sources = (searchResults.matches || [])
+        .filter((m: any) => m.score > 0.25)
+        .map((m: any) => ((m.metadata as any)?.text || '').slice(0, 600));
+      if (sources.length) {
+        ragContext = '\n\nAdditional context from knowledge base:\n' + sources.map((s: any, i: number) => `[${i + 1}] ${s}`).join('\n\n');
+      }
     }
 
-    const searchResults = await env.VECTORIZE.query(vector, { topK: 10 });
+    const prompt = `You are a product selection assistant for Wavefella.
 
-    const sources: Source[] = (searchResults.matches || [])
-      .filter((m: any) => m.score > 0.25)
-      .map((m: any) => ({
-        url: (m.metadata as any)?.url || '',
-        title: (m.metadata as any)?.title || '',
-        text: ((m.metadata as any)?.text || '').slice(0, 800),
-        type: (m.metadata as any)?.type || '',
-      }));
+Below is the structured product catalog. Only recommend based on this data.
+Do NOT use marketing language. Be neutral, educational, and safety-conscious.
 
-    const context = sources
-      .map((s: any, i: number) => `[${i + 1}] ${s.title} (${s.url})\n${s.text}`)
-      .join('\n\n');
+Structured product catalog:
+${productContext}${ragContext}
 
-    const prompt = `You are Wavefella's Product Guide Assistant.
+Question: ${question}
 
-Your role:
-- Help users understand water sports products
-- Compare SUP, kayak, RIB, dinghy, and safety equipment
-- Recommend suitable use scenarios based on user needs
-- Educate users about safety requirements
-
-Capabilities:
-1. Product selection explanation — explain which products suit different skill levels and activities
-2. Comparison analysis — compare different product types (e.g. SUP vs kayak, RIB vs dinghy)
-3. Use case recommendation — suggest equipment for specific scenarios (lake trip, fishing, rescue)
-4. Safety guidance — advise on life vests, PFDs, and safe practices
-
-Rules:
-- Do NOT sell or push purchase
-- Do NOT use marketing language ("best", "perfect", "must-have", "top")
-- Be neutral, structured, and educational
-- Always prioritize safety
-- If the user asks about suitability, explain what each product does and let them decide
-- If context is insufficient, say so clearly
-- Base your answer only on the provided context
-
-Context:
-${context || '(no relevant context found)'}
-
-Question:
-${question}
-
-Provide a clear, structured answer. If comparing products, use a balanced format. If giving safety advice, be explicit.`;
+If the user asks about product selection, compare relevant products by category, skill level, and water type.
+If the user asks about safety, reference the safety requirements listed for each product.
+If the question is outside the catalog, say you can only answer about Wavefella products.`;
 
     const workersModel = '@cf/meta/llama-3.1-8b-instruct';
     const llmRes = await env.AI.run(workersModel, {
       messages: [
-        { role: 'system', content: 'You are Wavefella\'s Product Guide Assistant. Help users understand products, compare options, recommend use scenarios, and educate on safety. Never sell or market.' },
+        { role: 'system', content: 'You are Wavefella\'s product selection assistant. Only recommend based on product data. No marketing language.' },
         { role: 'user', content: prompt },
       ],
       max_tokens: 1024,
@@ -96,10 +70,7 @@ Provide a clear, structured answer. If comparing products, use a balanced format
     }) as { response: string };
 
     return new Response(
-      JSON.stringify({
-        answer: llmRes.response,
-        sources: sources.map((s: any) => ({ url: s.url, title: s.title })),
-      }),
+      JSON.stringify({ answer: llmRes.response }),
       { status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8' } },
     );
   } catch (err) {
