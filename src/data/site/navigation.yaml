@@ -13,6 +13,10 @@ header:
           href: /products?category=inflatable
         - text: Accessories
           href: /products?category=accessory
+        - text: Compare
+          href: /products/compare
+        - text: Bundle Deals
+          href: /products/bundles
     - text: Solutions
       links:
         - text: Features
@@ -25,6 +29,8 @@ header:
       links:
         - text: Guides
           href: /guides
+        - text: Size Guide
+          href: /size-guide
         - text: Technology
           href: /technology
         - text: Safety
@@ -57,6 +63,10 @@ footer:
           href: /products?category=inflatable
         - text: Accessories
           href: /products?category=accessory
+        - text: Compare
+          href: /products/compare
+        - text: Bundle Deals
+          href: /products/bundles
     - title: Solutions
       links:
         - text: Features
@@ -69,6 +79,8 @@ footer:
       links:
         - text: Blog
           href: /news
+        - text: Size Guide
+          href: /size-guide
         - text: Login
           href: /login
     - title: Support

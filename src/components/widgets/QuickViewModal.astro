@@ -1,0 +1,104 @@
+---
+export interface Props {
+  productId: string;
+}
+
+const { productId } = Astro.props;
+---
+
+<div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40" id={`quick-view-${productId}`} role="dialog" aria-modal="true" data-quick-view>
+  <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-900" data-quick-view-title></h3>
+      <button onclick="document.getElementById('quick-view-{productId}').classList.add('hidden')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-6">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gray-100 rounded-xl overflow-hidden">
+          <img data-quick-view-image class="w-full h-56 object-cover" alt="" loading="lazy" />
+        </div>
+        <div>
+          <div class="text-sm uppercase tracking-wider text-sky-600 font-medium" data-quick-view-category></div>
+          <div class="mt-3 text-gray-600 text-sm leading-relaxed" data-quick-view-desc></div>
+          <div class="mt-4 grid grid-cols-2 gap-2 text-sm" data-quick-view-specs></div>
+          <div class="mt-4 flex items-center gap-2" data-quick-view-price></div>
+          <div class="mt-4 flex gap-3">
+            <a data-quick-view-link class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition-colors" href="">
+              View Details →
+            </a>
+            <a data-quick-view-contact class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 transition-colors" href="">
+              Request Quote
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = await fetch('/search-index.json').then(r => r.json()).catch(() => []);
+const modalMap: Record<string, any> = {};
+products.forEach((p: any) => { if (p?.slug) modalMap[p.slug] = p; });
+
+document.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest('[data-quick-view-btn]');
+  if (!btn) return;
+  const slug = btn.getAttribute('data-quick-view-btn');
+  if (!slug) return;
+  const data = modalMap[slug];
+  if (!data) return;
+  const modal = document.getElementById(`quick-view-${slug}`);
+  if (!modal) return;
+
+  modal.querySelector('[data-quick-view-title]')!.textContent = data.title || '';
+  modal.querySelector('[data-quick-view-category]')!.textContent = data.categoryLabel || '';
+  modal.querySelector('[data-quick-view-desc]')!.textContent = data.summary || '';
+  modal.querySelector('[data-quick-view-image]')!.src = data.image || '';
+  modal.querySelector('[data-quick-view-image]')!.alt = data.title || '';
+
+  const specsEl = modal.querySelector('[data-quick-view-specs]')!;
+  specsEl.innerHTML = '';
+  if (data.specs) {
+    data.specs.slice(0, 6).forEach((s: any) => {
+      const div = document.createElement('div');
+      div.className = 'bg-gray-50 rounded-lg px-3 py-2';
+      div.innerHTML = `<span class="font-medium text-gray-700">${s.label}:</span> <span class="text-gray-500">${s.value}</span>`;
+      specsEl.appendChild(div);
+    });
+  }
+
+  const priceEl = modal.querySelector('[data-quick-view-price]')!;
+  priceEl.innerHTML = '';
+  if (data.price?.amount) {
+    priceEl.innerHTML = `<span class="text-2xl font-bold text-gray-900">$${data.price.amount}</span>`;
+  } else {
+    priceEl.innerHTML = `<span class="text-gray-500">Contact for pricing</span>`;
+  }
+
+  modal.querySelector('[data-quick-view-link]')!.setAttribute('href', `/products/${slug}`);
+  modal.querySelector('[data-quick-view-contact]')!.setAttribute('href', `/contact?product=${encodeURIComponent(data.title || slug)}`);
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+});
+
+document.addEventListener('click', (e) => {
+  const modal = (e.target as HTMLElement).closest('[data-quick-view]');
+  if (modal && e.target === modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('[data-quick-view]').forEach(el => {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    });
+  }
+});
+</script>

@@ -100,13 +100,23 @@ const priceText = product.price?.amount ? `${product.price.amount}${product.pric
           <div class="text-xs text-muted dark:text-slate-500">{product.price.note}</div>
         )}
       </div>
-      <a
-        href={link}
-        class="inline-flex items-center gap-1 text-sm font-semibold text-primary dark:text-blue-400 hover:underline"
-      >
-        View details
-        <Icon name="tabler:arrow-right" class="w-4 h-4" />
-      </a>
+      <div class="flex items-center gap-2">
+        <button
+          data-quick-view-btn={product.slug}
+          class="inline-flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-sky-600 transition-colors"
+          title="Quick view"
+        >
+          <Icon name="tabler:eye" class="w-4 h-4" />
+          Quick view
+        </button>
+        <a
+          href={link}
+          class="inline-flex items-center gap-1 text-sm font-semibold text-primary dark:text-blue-400 hover:underline"
+        >
+          View details
+          <Icon name="tabler:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
     </div>
   </div>
 </article>

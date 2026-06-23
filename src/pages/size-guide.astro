@@ -1,0 +1,92 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+import { getProducts } from '~/utils/products';
+
+const metadata = {
+  title: `Size Guide — ${SITE.name}`,
+  description: 'Find the right size inflatable SUP, kayak, or boat for your needs. Compare dimensions, weight capacities, and recommended uses.',
+};
+
+const products = await getProducts();
+
+const getSpec = (p: typeof products[number], label: string) => {
+  const s = p.specs?.find(s => s.label.toLowerCase().includes(label.toLowerCase()));
+  return s?.value || '-';
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <h1 class="text-4xl font-semibold text-gray-900">Size & Specs Guide</h1>
+    <p class="mt-4 text-lg text-gray-500">Dimensions, capacities, and recommended uses for every Wavefella product.</p>
+
+    <div class="mt-12 space-y-16">
+      {(['inflatable', 'rib', 'accessory'] as const).map(cat => {
+        const catProducts = products.filter(p => p.category === cat);
+        if (catProducts.length === 0) return null;
+        const catLabel = catProducts[0]?.categoryLabel || cat;
+        return (
+          <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-2">{catLabel}</h2>
+            <p class="text-gray-500 mb-6">
+              {cat === 'inflatable' ? 'Inflatable SUPs and kayaks designed for portability without sacrificing performance. Match the right size to your weight and paddling style.' :
+               cat === 'rib' ? 'Rigid-hull inflatable boats for coastal navigation, patrol, and professional marine operations. Choose by length and engine capacity.' :
+               'Accessories and safety equipment to complement your watercraft. Universal sizing with multiple options.'}
+            </p>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Product</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Length</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Width</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Weight</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Max Load</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-gray-200">Best For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {catProducts.map((p, i) => (
+                    <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                      <td class="px-4 py-3 font-medium text-gray-900 border-b border-gray-200">
+                        <a href={`/products/${p.slug}`} class="hover:text-sky-600">{p.title}</a>
+                      </td>
+                      <td class="px-4 py-3 text-gray-600 border-b border-gray-200">{getSpec(p, 'length')}</td>
+                      <td class="px-4 py-3 text-gray-600 border-b border-gray-200">{getSpec(p, 'width')}</td>
+                      <td class="px-4 py-3 text-gray-600 border-b border-gray-200">{getSpec(p, 'weight')}</td>
+                      <td class="px-4 py-3 text-gray-600 border-b border-gray-200">{getSpec(p, 'load') || getSpec(p, 'capacity') || '-'}</td>
+                      <td class="px-4 py-3 text-gray-600 border-b border-gray-200">{p.summary || '-'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <section class="mt-16 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="text-xl font-semibold text-gray-900">How to Choose the Right Size</h2>
+      <div class="mt-4 grid md:grid-cols-3 gap-6">
+        <div>
+          <h3 class="font-medium text-gray-900">SUP Boards</h3>
+          <p class="mt-2 text-sm text-gray-600">Choose length based on your weight and intended use. Wider boards (32"+) offer more stability. Longer boards (11-12 ft) track better for touring. Heavier paddlers need higher volume boards.</p>
+        </div>
+        <div>
+          <h3 class="font-medium text-gray-900">Kayaks</h3>
+          <p class="mt-2 text-sm text-gray-600">Single kayaks (9 ft) are best for solo travel and rivers. Tandem kayaks (12 ft) accommodate two paddlers or one adult with gear. Check weight capacity for total load including gear.</p>
+        </div>
+        <div>
+          <h3 class="font-medium text-gray-900">Dinghies & RIBs</h3>
+          <p class="mt-2 text-sm text-gray-600">Choose dinghy length by passenger count and intended use. Larger RIBs (4.5 m+) are suited for offshore and rescue. Smaller dinghies (2.7 m) work as tenders and fishing platforms.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sr-only" data-ai-block="definition" aria-hidden="true">
+      <p>Wavefella size guide comparing product dimensions, weight capacities, and recommended uses across inflatable, RIB, and accessory categories.</p>
+    </section>
+  </section>
+</Layout>

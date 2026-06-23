@@ -2,6 +2,7 @@
 import merge from 'lodash.merge';
 import Layout from '~/layouts/PageLayout.astro';
 import ProductCard from '~/components/widgets/ProductCard.astro';
+import QuickViewModal from '~/components/widgets/QuickViewModal.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import { Icon } from 'astro-icon/components';
 
@@ -30,7 +31,7 @@ const hidden = !isProductsEnabled() || !isProductsListEnabled();
 
 const metadata = merge(
   {
-    title: `Products â€?${SITE.name}`,
+    title: `Products ï¿½?${SITE.name}`,
     description: `Browse the full ${SITE.name} product catalog. Filter by category, compare specifications and request a quote.`,
     canonical: getCanonical(getPermalink(PRODUCT_LIST)),
     robots: { index: !hidden, follow: true },
@@ -48,7 +49,7 @@ const metadata = merge(
         Wavefella products
       </h1>
       <p class="mt-3 md:mt-4 mx-auto text-xl text-gray-500 dark:text-slate-400 font-medium">
-        Premium inflatable boats, RIBs, accessories and engineered products â€?built for life on the water.
+        Premium inflatable boats, RIBs, accessories and engineered products ï¿½?built for life on the water.
       </p>
     </header>
 
@@ -105,4 +106,8 @@ const metadata = merge(
       )
     }
   </section>
+
+  {filteredProducts.map(p => (
+    <QuickViewModal productId={p.slug} />
+  ))}
 </Layout>

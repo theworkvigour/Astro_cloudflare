@@ -1,0 +1,77 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+import { getProducts, findProductsBySlugs } from '~/utils/products';
+import { bundles } from '~/data/bundles';
+
+const metadata = {
+  title: `Bundle Deals — ${SITE.name}`,
+  description: 'Save on Wavefella product bundles and package deals. Starter packs, touring kits, family packages, and more.',
+};
+
+const allProducts = await getProducts();
+const enriched = await Promise.all(bundles.map(async b => {
+  const prods = await findProductsBySlugs(b.products.map(p => p.slug));
+  return { ...b, products: prods };
+}));
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <a href="/products" class="text-sm text-sky-600 hover:text-sky-700">← Products</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Bundle Deals</h1>
+    <p class="mt-4 text-lg text-gray-500">Save money with curated packages. Everything you need, one box, one price.</p>
+
+    <div class="mt-12 space-y-8">
+      {enriched.map(b => (
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="grid md:grid-cols-3 gap-0">
+            <div class="md:col-span-1 bg-gray-100 min-h-[200px] flex items-center justify-center p-6">
+              <img src={b.image} alt={b.name} class="w-full h-48 object-contain" loading="lazy" />
+            </div>
+            <div class="md:col-span-2 p-6 md:p-8">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-sky-100 text-sky-700">{b.badge}</span>
+                {b.featured && <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">★ Featured</span>}
+              </div>
+              <h2 class="text-2xl font-semibold text-gray-900">{b.name}</h2>
+              <p class="mt-2 text-gray-600">{b.description}</p>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                {b.products.map(p => (
+                  <a href={`/products/${p.slug}`} class="inline-flex items-center gap-1 px-3 py-1 text-xs bg-gray-100 rounded-full text-gray-700 hover:bg-gray-200">
+                    {p.title} {b.products.find(bp => bp.slug === p.slug) ? `×${bundles.find(bu => bu.id === b.id)?.products.find(bp => bp.slug === p.slug)?.qty || ''}` : ''}
+                  </a>
+                ))}
+              </div>
+
+              <div class="mt-6 flex items-end justify-between">
+                <div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-3xl font-bold text-gray-900">${b.bundlePrice}</span>
+                    <span class="text-lg text-gray-400 line-through">${b.totalPrice}</span>
+                    <span class="text-sm font-semibold text-emerald-600">Save ${b.savings}</span>
+                  </div>
+                  <div class="text-sm text-gray-500 mt-1">{b.currency} · Includes {b.products.length} items</div>
+                </div>
+                <a href={`/contact?bundle=${encodeURIComponent(b.id)}`} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-sky-600 text-white font-semibold hover:bg-sky-700 transition-colors">
+                  Request Bundle
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <section class="mt-12 p-6 bg-gray-50 rounded-2xl border border-gray-200">
+      <h2 class="text-xl font-semibold text-gray-900">Custom Bundles</h2>
+      <p class="mt-2 text-gray-600">Need a custom combination? Contact our sales team to build a package tailored to your needs. Volume discounts available for fleet and commercial orders.</p>
+      <a href="/contact" class="mt-4 inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700">Contact sales →</a>
+    </section>
+
+    <section class="sr-only" data-ai-block="definition" aria-hidden="true">
+      <p>Wavefella bundle deals offering discounted packages of {enriched.length} curated product combinations. Save {enriched.map(b => b.savings).reduce((a,b) => Math.max(parseInt(a), parseInt(b)), 0).toString()} on complete kits.</p>
+    </section>
+  </section>
+</Layout>
