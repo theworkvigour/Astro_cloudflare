@@ -1,43 +1,42 @@
-# Wavefella �?AI-Powered Multilingual Site
+# Wavefella — Product Intelligence System
 
-**Perplexity-style AI search engine** with RAG, semantic search, multi-model LLM routing, encrypted contact forms, and a Keystatic admin panel �?all running on Cloudflare Workers free tier.
+**Wavefella** is a water sports equipment manufacturer that designs and produces inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.
 
-Built on [AstroWind](https://github.com/arthelokyo/astrowind), deployed as Cloudflare Workers (static + SSR).
+This is the **Product Intelligence System** — a unified platform where a single source of truth (SSOT) drives the UI, AI decision engine, SEO, and product graph simultaneously.
+
+Built on [AstroWind](https://github.com/arthelokyo/astrowind), deployed to Cloudflare Workers (static + SSR).
 
 ---
 
 ## Architecture
 
 ```
-┌─ User ──────────────────────────────────────�?�? Browser �?Static HTML (Cloudflare Workers)  �?�?        �?/api/search  (semantic search)     �?�?        �?/api/chat    (RAG Q&A + citations) �?�?        �?/keystatic   (admin panel)         �?└──────────────────────────────────────────────�?         �?         �?┌─ AI Engine ──────────────────────────────────�?�? Vectorize (768-dim cosine)                 �?�?   �?                                        �?�? embed() �?AI_GATEWAY / OpenAI / Workers AI  �?�?   �?                                        �?�? LLM �?gpt-4o-mini / Llama 3.1 / Llama 3.3  �?�?   �?                                        �?�? Answer + source references                  �?└──────────────────────────────────────────────�?         �?         �?┌─ Data Layer ─────────────────────────────────�?�? src/config.yaml       Site config           �?�? src/data/site/        Languages, navigation �?�? src/data/post/        Blog posts (MD/MDX)   �?�? src/data/product/     Product data          �?�? src/data/contact/     Encrypted submissions �?�? src/data/pages/       Page content (YAML)   �?└──────────────────────────────────────────────�?```
-
-### Provider Fallback Chain
-
+src/data/products.ts  ──→  SSOT (12 products, 6 categories)
+       │
+       ├──→ UI (product cards, category grid, filters)
+       ├──→ AI (Product Selection Engine at /api/ask)
+       ├──→ SEO (JSON-LD, llms.txt, AI Summary, FAQ)
+       └──→ Product Graph (category intelligence, safety rules)
 ```
-AI_GATEWAY (Cloudflare AI Gateway proxy) �?best performance
-  �?(if unset)
-OPENAI_API_KEY �?gpt-4o-mini / text-embedding-3-small (768-dim)
-  �?(if unset)
-Workers AI (free tier) �?Llama 3.1 8B / bge-base-en-v1.5 (768-dim)
-```
+
+### Core Principles
+
+| Layer | Description |
+|-------|-------------|
+| **SSOT** | `products.ts` is the single source of truth — UI, AI, and SEO all read from it |
+| **Product Graph** | 6 category nodes with intent, best-for, avoid, safety rules |
+| **AI Decision Engine** | Structured reasoning (not chat) — matches environment + skill + safety |
+| **UI** | Bound to SSOT — no hardcoded product data in templates |
+| **SEO** | One-line definition, AI Summary, llms.txt, JSON-LD (Organization + FAQPage + Brand) |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Dependencies
 corepack enable
 yarn install
-
-# Local dev (English)
 yarn dev
-
-# Local dev (specific locale)
-SITE_LOCALE=fr yarn dev
-
-# Build for production
-yarn build
 ```
 
 ### Required: `.dev.vars`
@@ -48,123 +47,72 @@ SESSION_SECRET=your-random-secret-here
 
 ---
 
-## AI Search Engine
+## Homepage Structure (V2.0)
 
-| Component | File | Purpose |
-|-----------|------|---------|
-| Vector config | `src/lib/vector.ts` | 768-dim constant, input preprocessing |
-| Embedding | `src/lib/embed.ts` | Text→vector with 24h in-memory cache |
-| RAG engine | `src/lib/rag.ts` | chunk �?embed �?search �?assemble �?answer |
-| LLM router | `src/lib/ai-gateway.ts` | Multi-model with fallback |
-| Search API | `POST /api/search` | Semantic search endpoint |
-| Chat API | `POST /api/chat` | RAG Q&A with source citations |
-| Embed API | `POST /api/embed` | Standalone embedding |
-| AI sitemap | `GET /api/ai/sitemap` | Page index for knowledge base |
-| Chat widget | `AIChat.astro` | Floating bubble UI (in Layout.astro) |
-| Ingest Worker | `src/workers/ingest.ts` | Standalone index ingestion |
-| Seed script | `scripts/seed-vectorize.js` | One-time index builder |
-
-### Setup
-
-```bash
-# 1. Create Vectorize index (one-time)
-npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
-
-# 2. Set secrets
-npx wrangler secret put OPENAI_API_KEY   # optional (free Workers AI fallback)
-npx wrangler secret put SESSION_SECRET
-
-# 3. Seed knowledge base
-npm run build
-npm run dev &                    # background dev server
-node scripts/seed-vectorize.js
-
-# 4. Deploy
-git push origin main             # CI/CD auto-deploys
-
-# 5. (Optional) Deploy ingestion Worker separately
-npx wrangler deploy src/workers/ingest.ts --name Wavefella-ingest \
-  --compatibility-date 2026-06-05
+```
+[Header]
+[Hero Carousel]         5-image auto-rotating carousel with dot nav
+[Trust Bar]             Stable for Beginners · Travel-Ready · Ocean, Lake & River Tested
+[AI Summary]            "What is Wavefella?" — structured for AI consumption
+[SUP Collection]        Find Your Perfect SUP — 4 entry cards
+[Product System]        12 products across 6 categories
+[Product Catalog]       Full product grid with specs
+[Hero Product]          Featured product with feature tags (Stability+, Ocean Ready, Travel+)
+[Technology]            PVC Layer · Drop-Stitch Core · Reinforced Rail Edge
+[Why Wavefella]         Engineered Materials · Tested for Safety · Adapts to All Waters
+[Proof Layer]           12 products · 50+ countries · Founded 2012 · ISO certified
+[Use Cases]             Scenario-based: Beginner, Outdoor, Professional, Family
+[AI Ask]                Product Selection Engine — structured recommendations
+[Community]             Real Riders — user photos + testimonials
+[Learning Center]       Guides: How to Choose, Beginner, Inflatable vs Hard, Safety
+[FAQ]                   6 conversion-focused questions
+[Final CTA]             Shop All Boards / Take the Quiz
+[Contact]               Address · Phone · Email
+[Footer]
 ```
 
-### Free Tier Budget
+---
 
-| Resource | Free Limit | Our Usage (per chat) |
-|----------|-----------|---------------------|
-| Workers AI | 500 req/day | 1 embed + 1 LLM |
-| Vectorize | 1M queries/month | 5 queries |
-| Workers | 100k req/day | static + API |
-| KV | 1k writes/day | sessions only |
+## AI Product Selection Engine
+
+Located at `POST /api/ask`. Unlike a chatbot, this is a **structured decision engine**:
+
+- **Input**: Question + full product catalog + product graph (JSON, not text)
+- **Processing**: Environment matching → skill matching → safety validation
+- **Output**: Recommended Product / Reason / Category Intelligence / Safety / Warning
+- **Temperature**: 0.2 (deterministic, no hallucination)
+- **System prompt**: "Product Selection Engine — do not sell, do not market, do not hallucinate"
 
 ---
 
-## Languages
+## Products
 
-7 locales configured; only `en` is enabled by default. Toggle from `/keystatic/languages`.
+12 products across 6 categories, defined in `src/data/products.ts`:
 
-| Locale | Code | Status |
-|--------|------|--------|
-| 🇬🇧 English | `en` | �?enabled |
-| 🇫🇷 French | `fr` | ⏸️ disabled |
-| 🇩🇪 German | `de` | ⏸️ disabled |
-| 🇪🇸 Spanish | `es` | ⏸️ disabled |
-| 🇵🇹 Portuguese | `pt` | ⏸️ disabled |
-| 🇨🇳 Chinese | `zh` | ⏸️ disabled |
-| 🇸🇦 Arabic | `ar` | ⏸️ disabled (RTL) |
+| Category | Products | Environments |
+|----------|----------|-------------|
+| SUP | Explorer 11, Tour 12 | Lake, River, Coastal, Ocean |
+| KAYAK | Lite, Tandem | Lake, River, Coastal |
+| DINGHY | AirDeck 270, AirDeck 360 | Lake, Coastal, Protected |
+| RIB | 330, 450 Patrol | Coastal, Ocean, Offshore |
+| SAFETY | Life Vest Classic, Life Vest Pro | All waters |
+| ACCESSORY | Carbon Paddle, Dual-Action Pump | All waters |
 
-Language is auto-detected from the config filename (`config.yaml` �?`en`, `config.fr.yaml` �?`fr`). No manual `i18n.language` sync needed. Components read `I18N.language` from `astrowind:config`.
-
-### Adding a new language
-
-1. Create `config.{locale}.yaml` + `navigation.{locale}.yaml`
-2. Add entry to `src/data/site/languages.yaml` with `enabled: false`
-3. CI/CD auto-discovers from `languages.yaml` �?no workflow edits needed
+Each product includes: `definition`, `problem`, `howItWorks`, `audience`, `environment`, `water_condition`, `safety_level`, `use_case`, `safety_rules`.
 
 ---
 
-## Admin Panel
+## AI SEO (GEO/AEO) Framework
 
-Each Worker includes a full admin panel at `/keystatic/`:
-
-| Path | Purpose |
-|------|---------|
-| `/keystatic` | Dashboard |
-| `/keystatic/pages` | Edit page content |
-| `/keystatic/navigation` | Navigation menu |
-| `/keystatic/branding` | Brand config |
-| `/keystatic/posts` | Blog posts |
-| `/keystatic/products` | Product data |
-| `/keystatic/languages` | Language enable/disable |
-| `/keystatic/seo` | SEO & site settings |
-| `/keystatic/contact-submissions` | View encrypted submissions |
-| `/keystatic/link-refactor` | Bulk URL/name refactor |
-| `/keystatic/validate-links` | Link validation sweep |
-
-### First-time setup
-
-1. Visit `/keystatic`, enter admin password
-2. Configure GitHub PAT (Fine-grained, `Contents: Read and write`)
-3. Token is encrypted in browser cookie
-
-Content changes commit directly to `src/data/` via GitHub API. Next CI build picks them up.
-
-### Fallback chain
-
-1. Locale-specific content
-2. English content
-3. YAML config defaults
-
----
-
-## Contact Form
-
-SSR endpoint at `/contact` with:
-
-- Math captcha (HMAC-signed cookie)
-- Honeypot anti-bot field
-- Rate limit: 5 submissions/IP/hour (in-memory sliding window)
-- AES-256-GCM encryption �?`src/data/contact/submissions.enc.json`
-- Optional Resend email notification
+| Element | Location |
+|---------|----------|
+| One-line definition | H1 tag, top of homepage |
+| AI Summary | `#ai-summary` section — what/how/who structured block |
+| llms.txt | `/llms.txt` — AI-crawlable site summary |
+| JSON-LD Organization | Schema.org `Organization` + `Brand` + `FAQPage` |
+| Product structure | `definition`/`problem`/`howItWorks`/`audience` per product |
+| FAQ schema | 6 Q&A items as `mainEntity` in JSON-LD |
+| Scenario use cases | 4 scenario-based cards with Scenario/Solution/Products |
 
 ---
 
@@ -172,11 +120,8 @@ SSR endpoint at `/contact` with:
 
 | Command | Purpose |
 |---------|---------|
-| `yarn dev` | Local dev (default locale) |
-| `SITE_LOCALE=fr yarn dev` | Local dev (specific locale) |
+| `yarn dev` | Local dev server |
 | `yarn build` | Production build |
-| `SITE_LOCALE=pt yarn build` | Build specific locale |
-| `yarn build:all` | Build all enabled locales |
 | `yarn preview` | Preview production build |
 | `yarn check` | astro check + ESLint + Prettier |
 | `yarn fix` | Auto-fix lint issues |
@@ -185,65 +130,21 @@ SSR endpoint at `/contact` with:
 
 ## Deployment
 
-### CI/CD (automatic)
+Push to `main` triggers GitHub Actions CI/CD:
 
-Push to `main` triggers GitHub Actions:
+1. Type check + lint
+2. Build all enabled locales
+3. Deploy each locale to Cloudflare Workers
 
-1. **check-astro** �?type check + lint
-2. **enabled-locales** �?reads `languages.yaml`, builds enabled locales
-3. **build-and-deploy** �?builds + deploys each locale to Cloudflare Workers
+**Domain**: `wavefella-{locale}.theworkvigo.workers.dev`
 
-Domain: `Wavefella-{locale}.theworkvigo.workers.dev`
+### Required Secrets
 
-### Custom domain
-
-Set `CUSTOM_DOMAIN = true` in GitHub Variables. CI maps `{locale}.alluredna.com` �?the Worker (requires `alluredna.com` in Cloudflare).
-
-### Manual deploy
-
-```bash
-SITE_LOCALE=en yarn build
-cd dist/server
-yarn wrangler deploy --name Wavefella-en
-```
-
-### Secrets
-
-```bash
-echo "your-secret" | yarn wrangler secret put SESSION_SECRET --name Wavefella-en
-echo "sk-..." | yarn wrangler secret put OPENAI_API_KEY --name Wavefella-en
-```
-
-CI auto-sets `SESSION_SECRET` from GitHub Secrets.
-
----
-
-## Environment Variables
-
-### GitHub Secrets
-
-| Secret | Required | Purpose |
-|--------|----------|---------|
-| `CLOUDFLARE_ACCOUNT_ID` | �?| Cloudflare account ID |
-| `CLOUDFLARE_API_TOKEN` | �?| API token (Workers + Vectorize perms) |
-| `SESSION_SECRET` | �?| Session encryption |
-| `OPENAI_API_KEY` | �?| OpenAI for LLM + embeddings |
-| `AI_GATEWAY` | �?| Cloudflare AI Gateway URL |
-
-### GitHub Variables (optional)
-
-| Variable | Purpose |
-|----------|---------|
-| `CUSTOM_DOMAIN` | Set `true` for custom domain mapping |
-
----
-
-## Requirements
-
-- **Node.js >= 22.12.0**
-- **Yarn 4.x** (corepack managed)
-- **Cloudflare account** (Workers + KV + Vectorize)
-- **GitHub PAT** (admin panel content saving)
+| Secret | Purpose |
+|--------|---------|
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account |
+| `CLOUDFLARE_API_TOKEN` | Workers + Vectorize permissions |
+| `SESSION_SECRET` | Session encryption |
 
 ---
 
@@ -253,10 +154,20 @@ CI auto-sets `SESSION_SECRET` from GitHub Secrets.
 |-------|-----------|
 | Framework | Astro v6 |
 | Styling | Tailwind CSS v4 |
-| AI Search | Vectorize (768-dim cosine) |
-| LLM | OpenAI / Workers AI (free fallback) |
+| AI | Workers AI (bge-base-en-v1.5, llama-3.1-8b-instruct) |
+| Vector DB | Cloudflare Vectorize (768-dim cosine) |
 | Deployment | Cloudflare Workers |
-| Adapter | @astrojs/cloudflare |
 | Admin | Keystatic (GitHub API-backed) |
 | Contact | AES-256-GCM + Resend |
-| Data | YAML + MD/MDX + JSON |
+| Images | Local assets (`public/images/wavefella/`) |
+
+---
+
+## Contact
+
+**Wavefella**  
+5067 Saddleback St, Montclair, CA 91763, USA  
+213-557-7888  
+info@wavefella.com  
+
+[YouTube](https://www.youtube.com/@Wavefella) · [X](https://x.com/wavefella) · [Instagram](https://www.instagram.com/wavefellaco) · [Facebook](https://www.facebook.com/wavefella)
