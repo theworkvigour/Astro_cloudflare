@@ -66,51 +66,48 @@ jobs:
         env:
           SITE_LOCALE: ${{ matrix.locale }}
 
-      - name: Inject AI bindings into wrangler.ci.json
+      - name: Inject bindings into wrangler.ci.json
         run: |
-          node -e "
-            const fs = require('fs');
-            const c = JSON.parse(fs.readFileSync('dist/server/wrangler.ci.json','utf8'));
-            // Vectorize binding
-            if (!c.vectorize) c.vectorize = [];
-            if (!c.vectorize.find(b => b.binding === 'VECTORIZE')) {
-              c.vectorize.push({ binding: 'VECTORIZE', index_name: 'ai-index' });
-            }
-            // Workers AI binding
-            if (!c.ai) c.ai = [];
-            if (!c.ai.find(b => b.binding === 'AI')) {
-              c.ai.push({ binding: 'AI' });
-            }
-            fs.writeFileSync('dist/server/wrangler.ci.json', JSON.stringify(c, null, 2));
-            console.log('✓ Injected VECTORIZE + AI bindings');
-          "
-
-      - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
-        run: |
-          set +e
           cd dist/server
           # strip absolute Windows paths
           node -e "
             const c = require('./wrangler.json');
             delete c.configPath; delete c.userConfigPath;
-            require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c));
+            // Vectorize binding (array of objects)
+            c.vectorize = [{ binding: 'VECTORIZE', index_name: 'ai-index' }];
+            // Workers AI binding (single object, NOT array)
+            c.ai = { binding: 'AI' };
+            require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c, null, 2));
+            console.log('✓ Injected VECTORIZE + AI bindings');
           "
-          # get existing KV namespace ID (if any) and inject so wrangler doesn't try to create it
+
+      - name: Ensure KV namespace exists
+        run: |
+          yarn wrangler kv namespace create "vectoflare-${{ matrix.locale }}-session" 2>/dev/null || true
+
+      - name: Inject KV namespace ID
+        run: |
+          cd dist/server
           KV_ID=$(yarn wrangler kv namespace list 2>/dev/null | node -e "
             let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='vectoflare-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){} 
+              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='vectoflare-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){}
             })
           ")
           if [ -n "$KV_ID" ]; then
             node -e "
               const c = require('./wrangler.ci.json');
-              const kv = c.kv_namespaces || [];
-              const idx = kv.findIndex(e => e.binding === 'SESSION');
-              if (idx >= 0) { kv[idx].id = '$KV_ID'; }
-              c.kv_namespaces = kv;
-              require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c));
+              c.kv_namespaces = [{ binding: 'SESSION', id: '$KV_ID' }];
+              require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c, null, 2));
+              console.log('✓ Injected SESSION KV id=' + '$KV_ID');
             "
+          else
+            echo 'ERROR: could not find KV namespace ID'
+            exit 1
           fi
+
+      - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
+        run: |
+          cd dist/server
           yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
           rc=$?; cat /tmp/deploy-${{ matrix.locale }}.log; exit $rc
         env:
