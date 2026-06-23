@@ -5,7 +5,7 @@ contact_form:
   id: form
   title: Send us a message
   subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
-  email_to: hello@Wavefella.com
+  email_to: info@wavefella.com
   submit_button: Send message
   success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
   error_message: Something went wrong sending your message. Please try again or email us directly.
@@ -64,16 +64,16 @@ features2_other_ways:
       description: Media kits, sponsorship and industry collaboration.
       icon: tabler:news
     - title: Phone
-      description: '+8613305324192'
+      description: '+1 (213) 557-7888'
       icon: tabler:headset
     - title: Email
-      description: hello@Wavefella.com
+      description: info@wavefella.com
       icon: tabler:mail
     - title: Headquarters
-      description: Coastal industrial park, building 4, EU time zone
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
       icon: tabler:map-pin
 map:
   title: Our Location
   subtitle: Visit us at our headquarters
-  address: Coastal industrial park, building 4, EU time zone
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
   zoom: 15

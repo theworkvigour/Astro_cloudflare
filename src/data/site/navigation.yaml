@@ -85,22 +85,19 @@ footer:
     - text: Medical Disclaimer
       href: /disclaimer
   socialLinks:
+    - ariaLabel: YouTube
+      icon: tabler:brand-youtube
+      href: https://www.youtube.com/@Wavefella
     - ariaLabel: X
       icon: tabler:brand-x
-      href: ''
+      href: https://x.com/wavefella
     - ariaLabel: Instagram
       icon: tabler:brand-instagram
-      href: ''
+      href: https://www.instagram.com/wavefellaco
     - ariaLabel: Facebook
       icon: tabler:brand-facebook
-      href: ''
-    - ariaLabel: LinkedIn
-      icon: tabler:brand-linkedin
-      href: ''
+      href: https://www.facebook.com/wavefella
     - ariaLabel: RSS
       icon: tabler:rss
       href: /rss.xml
-    - ariaLabel: GitHub
-      icon: tabler:brand-github
-      href: https://github.com/theworkvigour
   footNote: © {year} <a class="text-blue-600 underline dark:text-muted" href="/">{site_name}</a> · All rights reserved.

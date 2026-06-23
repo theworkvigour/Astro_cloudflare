@@ -105,12 +105,18 @@ siteSettings:
   organization:
     name: Wavefella
     logo: ''
-    contactEmail: info@hifond.com
-    contactPhone: '+1 (585) 310 1999'
+    contactEmail: info@wavefella.com
+    contactPhone: '+1 (213) 557-7888'
     address: '5067 Saddleback St, Montclair, CA 91763, USA'
   socialLinks:
-    - platform: github
-      url: 'https://github.com/theworkvigour'
+    - platform: youtube
+      url: 'https://www.youtube.com/@Wavefella'
+    - platform: x
+      url: 'https://x.com/wavefella'
+    - platform: instagram
+      url: 'https://www.instagram.com/wavefellaco'
+    - platform: facebook
+      url: 'https://www.facebook.com/wavefella'
     - platform: rss
       url: /rss.xml
 
