@@ -4,7 +4,7 @@ title: Oars & Pump Set
 sku: ACC-OAR-PUMP
 summary: Pair of 1.6 m aluminium oars and a 5 L high-flow foot pump. Fits all inflatables in the range.
 description: Spare or replacement oars and pump. 1.6 m aluminium oars with plastic blade, 5 L high-flow foot pump with pressure gauge.
-image: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+image: /images/wavefella/products/electric-pump.jpg
 category: accessory
 tags:
   - accessory

@@ -4,11 +4,11 @@ title: AirDeck 360
 sku: AIR-360
 summary: Mid-size 3.6 m inflatable with an air deck. Family-friendly, planes with a 15 hp outboard.
 description: The AirDeck 360 is the sweet-spot in our inflatable range — long enough for four adults and a day bag, light enough for two people to launch, and fast enough to plane with a 15 hp outboard.
-image: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+image: /images/wavefella/products/airdeck-360.jpg
 gallery:
-  - url: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+  - url: /images/wavefella/products/airdeck-360.jpg
     alt: AirDeck 360 — cruising
-  - url: https://images.unsplash.com/photo-1605281317010-fe5ffe798166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+  - url: /images/wavefella/products/airdeck-270.jpg
     alt: AirDeck 360 — at the beach
 category: inflatable
 tags:

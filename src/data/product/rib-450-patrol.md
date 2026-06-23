@@ -4,11 +4,11 @@ title: RIB 450 Patrol
 sku: RIB-450P
 summary: 4.5 m aluminium-hull patrol RIB. Heavy-duty build, suitable for commercial operators.
 description: The 450 Patrol is a 4.5 m aluminium RIB built for commercial work — dive operators, coastguard auxiliaries, harbour pilots. Reinforced hull, Hypalon tube, custom console.
-image: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+image: /images/wavefella/products/rib-450-patrol.jpg
 gallery:
-  - url: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+  - url: /images/wavefella/products/rib-450-patrol.jpg
     alt: RIB 450 Patrol — at sea
-  - url: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80
+  - url: /images/wavefella/products/rib-330.jpg
     alt: RIB 450 Patrol — side view
 category: rib
 tags:
