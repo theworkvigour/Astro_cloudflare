@@ -1,0 +1,264 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+const token = readTokenFromCookies(Astro.cookies);
+if (!token) return Astro.redirect('/keystatic/github-token');
+
+const file = 'src/config.yaml';
+
+interface ConfigData {
+  site: { name: string; site: string; googleSiteVerificationId: string };
+  metadata: {
+    keywords: string[];
+    robots: { index: boolean; follow: boolean };
+    twitter: { handle: string; site: string; cardType: string };
+  };
+  analytics: { vendors: { googleAnalytics: { id: string | null } } };
+}
+let data: ConfigData = {
+  site: { name: 'Vectoflare', site: 'https://alluredna.com', googleSiteVerificationId: '' },
+  metadata: { keywords: [], robots: { index: true, follow: true }, twitter: { handle: '', site: '', cardType: 'summary_large_image' } },
+  analytics: { vendors: { googleAnalytics: { id: null } } },
+};
+let sha = '';
+let loadError: string | null = null;
+// Full raw config preserved for client-side merge (avoids overwriting
+// fields like siteSettings, partytown, etc. that the form doesn't manage).
+let existingConfigStr = '{}';
+
+try {
+  const client = new GitHubClient(token);
+  const f = await client.readFile(file);
+  const yamlMod = await import('js-yaml');
+  const parsed = yamlMod.load(f.content) as Record<string, any>;
+  if (parsed && typeof parsed === 'object') {
+    if (parsed.site) data.site = { ...data.site, ...parsed.site };
+    if (parsed.metadata) data.metadata = { ...data.metadata, ...parsed.metadata };
+    if (parsed.analytics) data.analytics = { ...data.analytics, ...parsed.analytics };
+    // Preserve full config structure for client-side merge
+    existingConfigStr = JSON.stringify(parsed);
+  }
+  sha = f.sha;
+} catch (err) {
+  loadError = err instanceof Error ? err.message : 'Failed to read';
+}
+
+const getData = () => data;
+const getSha = () => sha;
+const getLoadError = () => loadError;
+---
+
+<AdminLayout title="SEO & Site Settings" active="seo" username={verified?.username}>
+  <div class="mb-6">
+    <h1 class="text-2xl font-semibold">SEO & Site Settings</h1>
+    <p class="mt-1 text-sm text-gray-500">Edit site URL, verification codes, analytics, robots, and social metadata. File: <code class="font-mono">{file}</code>. Changes take effect after Cloudflare rebuilds.</p>
+  </div>
+
+  {getLoadError() && (
+    <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
+      Failed to read: {getLoadError()}
+    </div>
+  )}
+
+  <form id="seo-form" class="space-y-6 pb-32" data-file={file} data-sha={getSha()}>
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
+      <h2 class="text-base font-semibold">Site URL (Canonical)</h2>
+      <p class="text-xs text-gray-500">This must match the actual deployment URL. It controls canonical tags, sitemaps, and hreflang. Changing this requires a rebuild.</p>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Site URL</label>
+        <input type="text" name="site_url" readonly
+          value={getData().site.site ?? ''}
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-gray-100 dark:bg-gray-800 text-sm font-mono cursor-not-allowed"
+        />
+        <p class="mt-1 text-xs text-amber-600">Read-only. Change via the code repository if you need a different domain.</p>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
+      <h2 class="text-base font-semibold">Google Services</h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Google Search Console Verification ID</label>
+        <input type="text" name="google_site_verification_id"
+          value={getData().site.googleSiteVerificationId ?? ''}
+          placeholder="e.g. abc123def456"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-gray-500">Found in your Google Search Console > Settings > Verification details. Adds <code class="font-mono">&lt;meta name="google-site-verification"&gt;</code>.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Google Analytics Measurement ID</label>
+        <input type="text" name="google_analytics_id"
+          value={getData().analytics?.vendors?.googleAnalytics?.id ?? ''}
+          placeholder="e.g. G-XXXXXXXXXX"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+        <p class="mt-1 text-xs text-gray-500">Leave empty to disable. Adds gtag.js script to all pages.</p>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
+      <h2 class="text-base font-semibold">Default Keywords & Robots</h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Default Keywords (comma-separated)</label>
+        <input type="text" name="keywords"
+          value={Array.isArray(getData().metadata?.keywords) ? getData().metadata.keywords.join(', ') : ''}
+          placeholder="Vectoflare, inflatable boat, RIB, marine, engineering"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+        />
+        <p class="mt-1 text-xs text-gray-500">Fallback keywords used when a page doesn't define its own.</p>
+      </div>
+      <div class="flex gap-6">
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="robots_index" value="true" checked={getData().metadata?.robots?.index !== false}
+            class="rounded border-gray-300 dark:border-gray-700"
+          />
+          Allow indexing (noindex)
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="robots_follow" value="true" checked={getData().metadata?.robots?.follow !== false}
+            class="rounded border-gray-300 dark:border-gray-700"
+          />
+          Allow follow links (nofollow)
+        </label>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-5">
+      <h2 class="text-base font-semibold">Twitter / X Card</h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter Handle (creator)</label>
+        <input type="text" name="twitter_handle"
+          value={getData().metadata?.twitter?.handle ?? ''}
+          placeholder="@vectoflare"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter Site (account)</label>
+        <input type="text" name="twitter_site"
+          value={getData().metadata?.twitter?.site ?? ''}
+          placeholder="@vectoflare"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter Card Type</label>
+        <select name="twitter_card_type"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
+        >
+          <option value="summary_large_image" selected={getData().metadata?.twitter?.cardType === 'summary_large_image'}>Summary Large Image (recommended)</option>
+          <option value="summary" selected={getData().metadata?.twitter?.cardType === 'summary'}>Summary (small image)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 z-40">
+      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <div class="text-xs text-gray-500" data-fileInfo>File: <code class="font-mono">{file}</code></div>
+        <div class="flex gap-2">
+          <a href="/keystatic" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">Cancel</a>
+          <button id="submit-btn" type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">Save & Push</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <script type="application/json" id="existing-config" data-str={existingConfigStr}></script>
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('seo-form');
+      if (!form) return;
+      const submitBtn = document.getElementById('submit-btn');
+      const file = form.dataset.file;
+      const sha = form.dataset.sha;
+
+      /** Deep merge: mutates `target` with values from `source` (recursive for plain objects). */
+      function deepMerge(target, source) {
+        if (!source || typeof source !== 'object') return target;
+        for (const key of Object.keys(source)) {
+          if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+            target[key] = deepMerge(target[key] || {}, source[key]);
+          } else {
+            target[key] = source[key];
+          }
+        }
+        return target;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Pushing...'; }
+
+        // Read existing config from the hidden JSON tag (preserves fields the form doesn't manage)
+        let existing = {};
+        try {
+          const tag = document.getElementById('existing-config');
+          if (tag) existing = JSON.parse(tag.getAttribute('data-str') || '{}');
+        } catch {}
+
+        const keywordsRaw = String(form.querySelector('[name="keywords"]')?.value || '').trim();
+        const keywords = keywordsRaw ? keywordsRaw.split(',').map(k => k.trim()).filter(k => k) : [];
+
+        const robotsIndex = !(form.querySelector('[name="robots_index"]')?.checked === false);
+        const robotsFollow = !(form.querySelector('[name="robots_follow"]')?.checked === false);
+
+        const gaId = String(form.querySelector('[name="google_analytics_id"]')?.value || '').trim();
+
+        // Only the fields managed by this form — deep-merged into existing config
+        const override = {
+          site: {
+            googleSiteVerificationId: String(form.querySelector('[name="google_site_verification_id"]')?.value || '').trim(),
+          },
+          metadata: {
+            keywords,
+            robots: { index: robotsIndex, follow: robotsFollow },
+            twitter: {
+              handle: String(form.querySelector('[name="twitter_handle"]')?.value || '').trim(),
+              site: String(form.querySelector('[name="twitter_site"]')?.value || '').trim(),
+              cardType: String(form.querySelector('[name="twitter_card_type"]')?.value || 'summary_large_image'),
+            },
+          },
+          analytics: {
+            vendors: {
+              googleAnalytics: { id: gaId || null },
+            },
+          },
+        };
+
+        const data = deepMerge(existing, override);
+
+        try {
+          const res = await fetch('/api/admin/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              format: 'yaml',
+              path: file,
+              sha,
+              data,
+              commitMessage: 'Update SEO & site settings',
+            }),
+          });
+          const result = await res.json();
+          if (!res.ok || !result.success) {
+            window.__adminToast?.(result.error || 'Save failed', 'error');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
+            return;
+          }
+          window.__adminToast?.('Saved, Cloudflare is redeploying...', 'success');
+          setTimeout(() => { window.location.reload(); }, 800);
+        } catch {
+          window.__adminToast?.('Network error', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save & Push'; }
+        }
+      });
+    })();
+  </script>
+</AdminLayout>

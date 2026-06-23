@@ -218,7 +218,7 @@ footer:
     - ariaLabel: GitHub
       icon: tabler:brand-github
       href: https://github.com/theworkvigour
-  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · All rights reserved.
+  footNote: © {year} <a class="text-blue-600 underline dark:text-muted" href="/">{site_name}</a> · All rights reserved.
 `;
 }
 
@@ -246,13 +246,14 @@ interface LanguageEntry {
   code: string;
   name: string;
   textDirection: string;
+  enabled: boolean;
   hasConfig: boolean;
   hasNav: boolean;
   pageCount: number;
 }
 
 /** Read the master locale list from src/data/site/languages.yaml via GitHub */
-async function readLocaleList(client: import('~/lib/github').GitHubClient): Promise<Array<{ code: string; name: string; locale: string; textDirection: string }>> {
+async function readLocaleList(client: import('~/lib/github').GitHubClient): Promise<Array<{ code: string; name: string; locale: string; textDirection: string; enabled: boolean }>> {
   const yamlContent = await tryRead(client, 'src/data/site/languages.yaml');
   if (!yamlContent) return [];
   const yamlMod = await import('js-yaml');
@@ -316,6 +317,7 @@ export const GET: APIRoute = async ({ cookies }) => {
       code,
       name: lang.name || code.toUpperCase(),
       textDirection: lang.textDirection || 'ltr',
+      enabled: lang.enabled !== false,
       hasConfig: !!configContent,
       hasNav: !!navContent,
       pageCount,
@@ -367,7 +369,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       if (Array.isArray(parsed)) existingList = parsed;
     } catch {}
     existingList = existingList.filter((l) => l.locale !== code);
-    existingList.push({ code: code.toUpperCase(), name, locale: code, textDirection });
+    existingList.push({ code: code.toUpperCase(), name, locale: code, textDirection, enabled: false });
     existingList.sort((a, b) => a.locale.localeCompare(b.locale));
     const yamlMod = await import('js-yaml');
     const newYamlContent = yamlMod.dump(existingList, { lineWidth: 120, noRefs: true, sortKeys: false, quotingType: "'" });

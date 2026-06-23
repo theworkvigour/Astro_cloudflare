@@ -25,12 +25,14 @@ const milestones = data.steps2_milestones ?? {};
 const locations = data.features2_locations ?? {};
 
 const metadata = {
-  title: `About ${SITE.name}`,
-  description: `${SITE.name} designs and manufactures premium inflatable boats, RIBs and engineered products. Learn about our history, values and team.`,
+  title: `About ${SITE.name} — Inflatable Boat Manufacturer & Marine Engineering`,
+  description: `${SITE.name} designs and manufactures premium inflatable boats, RIBs and engineered products. Learn about our history, values and team. Get a quote today.`,
 };
+
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'About' }];
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={crumbs}>
   <Hero tagline={hero.tagline} image={hero.image} title={hero.title} subtitle={hero.subtitle} />
 
   <Stats title={stats.title} stats={stats.stats} />

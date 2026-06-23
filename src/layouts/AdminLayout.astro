@@ -3,7 +3,7 @@ import '~/assets/styles/tailwind.css';
 
 interface Props {
   title: string;
-  active: 'dashboard' | 'posts' | 'products' | 'pages' | 'navigation' | 'branding' | 'submissions' | 'links' | 'languages' | 'settings';
+  active: 'dashboard' | 'posts' | 'products' | 'pages' | 'navigation' | 'branding' | 'submissions' | 'links' | 'languages' | 'settings' | 'seo';
   username?: string;
 }
 
@@ -18,6 +18,7 @@ const tabs = [
   { id: 'branding', href: '/keystatic/branding', label: 'Branding' },
   { id: 'submissions', href: '/keystatic/contact-submissions', label: 'Submissions' },
   { id: 'languages', href: '/keystatic/languages', label: 'Languages' },
+  { id: 'seo', href: '/keystatic/seo', label: 'SEO' },
   { id: 'links', href: '/keystatic/link-refactor', label: 'Links' },
 ] as const;
 ---

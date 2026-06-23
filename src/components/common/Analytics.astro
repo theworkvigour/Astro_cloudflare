@@ -1,8 +1,10 @@
 ---
-import { ANALYTICS } from 'astrowind:config';
+export interface Props {
+  id?: string;
+}
 
-const id = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.googleAnalytics.id) : '';
-const partytown = !!ANALYTICS?.vendors?.googleAnalytics?.partytown;
+const { id = '' } = Astro.props;
+const partytown = false;
 const scriptType = partytown ? 'text/partytown' : undefined;
 ---
 

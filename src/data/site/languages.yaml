@@ -2,23 +2,34 @@
   name: English
   locale: en
   textDirection: ltr
+  enabled: true
 - code: FR
   name: Français
   locale: fr
   textDirection: ltr
+  enabled: false
 - code: DE
   name: Deutsch
   locale: de
   textDirection: ltr
+  enabled: false
 - code: ES
   name: Español
   locale: es
   textDirection: ltr
+  enabled: false
 - code: PT
   name: Português
   locale: pt
   textDirection: ltr
+  enabled: false
+- code: AR
+  name: العربية
+  locale: ar
+  textDirection: rtl
+  enabled: false
 - code: ZH
   name: 中文
   locale: zh
   textDirection: ltr
+  enabled: false

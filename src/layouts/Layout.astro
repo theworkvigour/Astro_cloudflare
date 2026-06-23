@@ -11,12 +11,13 @@ import Metadata from '~/components/common/Metadata.astro';
 import SiteVerification from '~/components/common/SiteVerification.astro';
 import Analytics from '~/components/common/Analytics.astro';
 import BasicScripts from '~/components/common/BasicScripts.astro';
+import AIChat from '~/components/widgets/AIChat.astro';
 
 // Comment the line below to disable View Transitions
 import { ClientRouter } from 'astro:transitions';
 
 import type { MetaData as MetaDataType } from '~/types';
-
+import { getSeoSettings } from '~/utils/seo-settings';
 export interface Props {
   metadata?: MetaDataType;
 }
@@ -24,9 +25,11 @@ export interface Props {
 const { metadata = {} } = Astro.props;
 const { language, textDirection } = I18N;
 
-const orgName = SITE_SETTINGS.organization?.name || SITE_SETTINGS.siteName;
-const orgLogo = SITE_SETTINGS.organization?.logo || new URL('/favicon.svg', SITE_SETTINGS.siteUrl).toString();
-const sameAs = (SITE_SETTINGS.socialLinks || [])
+const seo = await getSeoSettings();
+
+const orgName = seo.organizationName || SITE_SETTINGS.organization?.name || SITE_SETTINGS.siteName;
+const orgLogo = seo.organizationLogo || SITE_SETTINGS.organization?.logo || new URL('/favicon.svg', seo.siteUrl).toString();
+const sameAs = (seo.socialLinks || [])
   .map((s) => s?.url)
   .filter((u): u is string => typeof u === 'string' && u.length > 0);
 
@@ -34,14 +37,32 @@ const orgJsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: orgName,
-  url: SITE_SETTINGS.siteUrl,
+  url: seo.siteUrl,
   logo: orgLogo,
   description: SITE_SETTINGS.siteDescription,
 };
-if (SITE_SETTINGS.organization?.contactEmail) orgJsonLd.email = SITE_SETTINGS.organization.contactEmail;
-if (SITE_SETTINGS.organization?.contactPhone) orgJsonLd.telephone = SITE_SETTINGS.organization.contactPhone;
-if (SITE_SETTINGS.organization?.address) orgJsonLd.address = SITE_SETTINGS.organization.address;
+if (seo.organizationEmail) orgJsonLd.email = seo.organizationEmail;
+if (seo.organizationPhone) orgJsonLd.telephone = seo.organizationPhone;
+if (seo.organizationAddress) orgJsonLd.address = seo.organizationAddress;
 if (sameAs.length > 0) orgJsonLd.sameAs = sameAs;
+
+const websiteJsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_SETTINGS.siteName || orgName,
+  url: seo.siteUrl,
+  description: SITE_SETTINGS.siteDescription,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${seo.siteUrl.replace(/\/+$/, '')}/search?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const siteUrlTrimmed = seo.siteUrl.replace(/\/+$/, '');
 ---
 
 <!doctype html>
@@ -51,13 +72,17 @@ if (sameAs.length > 0) orgJsonLd.sameAs = sameAs;
     <Favicons />
     <CustomStyles />
     <ApplyColorMode />
-    <Metadata {...metadata} />
-    <SiteVerification />
-    <Analytics />
+    <Metadata {...metadata} seoSettings={seo} />
+    <SiteVerification id={seo.googleSiteVerificationId} />
+    <Analytics id={seo.googleAnalyticsId} />
 
     <link rel="preconnect" href="https://images.unsplash.com" />
 
+    <link rel="alternate" hreflang="en" href={`${siteUrlTrimmed}${Astro.url.pathname}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrlTrimmed}${Astro.url.pathname}`} />
+
     <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />
@@ -67,5 +92,6 @@ if (sameAs.length > 0) orgJsonLd.sameAs = sameAs;
     <slot />
 
     <BasicScripts />
+    <AIChat />
   </body>
 </html>

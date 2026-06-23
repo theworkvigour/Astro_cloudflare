@@ -24,6 +24,7 @@ interface UpdateYamlPayload {
 type UpdatePayload = UpdateMarkdownPayload | UpdateYamlPayload;
 
 function isAllowedPath(path: string): boolean {
+  if (path === 'src/config.yaml') return true;
   if (!path.startsWith('src/data/')) return false;
   if (path.includes('..')) return false;
   if (/\.(md|mdx)$/i.test(path)) return true;

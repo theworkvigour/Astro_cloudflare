@@ -4,16 +4,19 @@ import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import Announcement from '~/components/widgets/Announcement.astro';
 import ChatWidget from '~/components/ChatWidget.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 
 import { headerData, footerData } from '~/navigation';
 
 import type { MetaData } from '~/types';
+import type { Crumb } from '~/components/common/Breadcrumbs.astro';
 
 export interface Props {
   metadata?: MetaData;
+  breadcrumbs?: Crumb[];
 }
 
-const { metadata } = Astro.props;
+const { metadata, breadcrumbs } = Astro.props;
 ---
 
 <Layout metadata={metadata}>
@@ -24,6 +27,11 @@ const { metadata } = Astro.props;
     <Header {...headerData} isSticky showSearch showToggleTheme showTopBar />
   </slot>
   <main>
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <Breadcrumbs crumbs={breadcrumbs} />
+      </div>
+    )}
     <slot />
   </main>
   <slot name="footer">

@@ -1,24 +1,17 @@
-﻿site:
+site:
   name: Vectoflare
-  site: 'https://alluredna.com'
+  site: 'https://vectoflare.com'
   base: '/'
   trailingSlash: false
-
   googleSiteVerificationId: ''
 
-# Default SEO metadata
 metadata:
   title:
-    default: Vectoflare — Soluciones modernas para barcos inflables y productos técnicos
+    default: Vectoflare — العربية
     template: '%s — Vectoflare'
-  description: 'Vectoflare diseña y fabrica barcos inflables, RIB y productos técnicos de primera calidad. Explore nuestro catálogo, especificaciones técnicas y recursos.'
+  description: 'Vectoflare — العربية'
   keywords:
     - Vectoflare
-    - barco inflable
-    - RIB
-    - PVC
-    - marino
-    - ingeniería
   author: Vectoflare
   robots:
     index: true
@@ -30,51 +23,32 @@ metadata:
         width: 1200
         height: 628
     type: website
-    locale: es_ES
+    locale: ar_AR
   twitter:
     handle: '@vectoflare'
     site: '@vectoflare'
     cardType: summary_large_image
 
 i18n:
-  textDirection: ltr
+  language: ar
+  textDirection: rtl
 
 apps:
   blog:
     isEnabled: true
     postsPerPage: 6
-
     post:
       isEnabled: true
-      permalink: '/news/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: '/news/%slug%'
       robots:
         index: true
         follow: true
-
     list:
       isEnabled: true
-      pathname: 'news' # News main path
+      pathname: 'news'
       robots:
         index: true
         follow: true
-
-    category:
-      isEnabled: true
-      pathname: 'category' # /category/<slug>
-      robots:
-        index: true
-        follow: true
-
-    tag:
-      isEnabled: true
-      pathname: 'tag' # /tag/<slug>
-      robots:
-        index: false
-        follow: true
-
-    isRelatedPostsEnabled: true
-    relatedPostsCount: 4
-
   products:
     isEnabled: true
     productsPerPage: 12
@@ -94,7 +68,7 @@ apps:
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: null
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: 'system'

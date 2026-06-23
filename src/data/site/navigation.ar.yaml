@@ -1,0 +1,104 @@
+header:
+  topBar:
+    - text: تسجيل الدخول
+      href: /login
+  links:
+    - text: المنتجات
+      links:
+        - text: جميع المنتجات
+          href: /products
+        - text: قوارب RIB
+          href: /products?category=rib
+        - text: قوارب قابلة للنفخ
+          href: /products?category=inflatable
+        - text: إكسسوارات
+          href: /products?category=accessory
+    - text: الحلول
+      links:
+        - text: المميزات
+          href: /#features
+        - text: الخدمات
+          href: /services
+        - text: الأسعار
+          href: /pricing
+    - text: الموارد
+      links:
+        - text: المدونة
+          href: /news
+        - text: اتصل بنا
+          href: /contact
+        - text: عن الشركة
+          href: /about
+    - text: الدعم
+      links:
+        - text: الأخبار
+          href: /news
+        - text: اتصل بنا
+          href: /contact
+        - text: عن الشركة
+          href: /about
+        - text: مركز البحث والتطوير
+          href: /randdcenter
+  actions:
+    - text: اطلب عرض سعر
+      href: /contact
+      variant: primary
+footer:
+  links:
+    - title: المنتجات
+      links:
+        - text: جميع المنتجات
+          href: /products
+        - text: قوارب RIB
+          href: /products?category=rib
+        - text: قوارب قابلة للنفخ
+          href: /products?category=inflatable
+        - text: إكسسوارات
+          href: /products?category=accessory
+    - title: الحلول
+      links:
+        - text: المميزات
+          href: /#features
+        - text: الخدمات
+          href: /services
+        - text: الأسعار
+          href: /pricing
+    - title: الموارد
+      links:
+        - text: المدونة
+          href: /news
+        - text: اتصل بنا
+          href: /contact
+    - title: الدعم
+      links:
+        - text: الأخبار
+          href: /news
+        - text: اتصل بنا
+          href: /contact
+        - text: عن الشركة
+          href: /about
+  secondaryLinks:
+    - text: الشروط والأحكام
+      href: /terms
+    - text: سياسة الخصوصية
+      href: /privacy
+  socialLinks:
+    - ariaLabel: X
+      icon: tabler:brand-x
+      href: ''
+    - ariaLabel: Instagram
+      icon: tabler:brand-instagram
+      href: ''
+    - ariaLabel: Facebook
+      icon: tabler:brand-facebook
+      href: ''
+    - ariaLabel: LinkedIn
+      icon: tabler:brand-linkedin
+      href: ''
+    - ariaLabel: RSS
+      icon: tabler:rss
+      href: /rss.xml
+    - ariaLabel: GitHub
+      icon: tabler:brand-github
+      href: https://github.com/theworkvigour
+  footNote: © {year} <a class="text-blue-600 underline dark:text-muted" href="/">{site_name}</a> · جميع الحقوق محفوظة.

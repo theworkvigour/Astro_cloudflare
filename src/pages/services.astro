@@ -23,12 +23,14 @@ const testimonials = data.testimonials ?? {};
 const cta = data.cta ?? {};
 
 const metadata = {
-  title: `Services — ${SITE.name}`,
-  description: `${SITE.name} offers boat configuration, refit & repair, training, and worldwide delivery.`,
+  title: `Marine Services — Boat Configuration, Refit & Repair | ${SITE.name}`,
+  description: `${SITE.name} offers professional boat configuration, refit & repair, crew training, and worldwide delivery services. Contact us for a customized solution.`,
 };
+
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Services' }];
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={crumbs}>
   <Hero
     tagline={hero.tagline}
     title={hero.title}

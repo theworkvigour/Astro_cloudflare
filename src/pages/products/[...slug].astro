@@ -31,10 +31,17 @@ const gallery = await Promise.all(
 );
 const related = await findRelatedProducts(product, 3);
 
+const defaultTitle = product.categoryLabel
+  ? `${product.title} — ${product.categoryLabel} | ${SITE.name}`
+  : `${product.title} | ${SITE.name}`;
+const defaultDesc = (product.summary ?? product.description)
+  ? `${product.summary ?? product.description} — Contact ${SITE.name} for pricing, specs, and ordering.`
+  : `Explore the ${product.title} from ${SITE.name}. Contact us for pricing, technical specs, and ordering information.`;
+
 const metadata = merge(
   {
-    title: product.title,
-    description: product.summary ?? product.description,
+    title: defaultTitle,
+    description: defaultDesc,
     canonical: url,
     robots: { index: !product.draft, follow: true },
     openGraph: {
@@ -47,16 +54,25 @@ const metadata = merge(
   product.metadata ? { ...product.metadata, canonical: product.metadata.canonical || url } : {}
 ) as MetaData;
 
+const productCrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
+  ...(product.categoryLabel ? [{ name: product.categoryLabel, href: `/products?category=${product.category}` }] : []),
+  { name: product.title },
+];
+
 const specRows = product.specs ?? [];
 const productJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
+  '@id': url ? `${url}#product` : undefined,
   name: product.title,
   description: product.summary ?? product.description,
   sku: product.sku,
   image: image ? String(image) : undefined,
   brand: { '@type': 'Brand', name: SITE.name },
   category: product.categoryLabel,
+  url: url || undefined,
   ...(product.price?.amount
     ? {
         offers: {
@@ -66,35 +82,17 @@ const productJsonLd = {
           availability: product.inStock
             ? 'https://schema.org/InStock'
             : 'https://schema.org/OutOfStock',
+          url: url || undefined,
         },
       }
     : {}),
 };
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={productCrumbs}>
   <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
 
   <article class="px-4 sm:px-6 py-8 sm:py-12 lg:py-16 mx-auto max-w-6xl">
-    <nav class="text-sm text-muted dark:text-slate-400 mb-4" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2 flex-wrap">
-        <li><a href="/" class="hover:underline">Home</a></li>
-        <li aria-hidden="true">/</li>
-        <li><a href="/products" class="hover:underline">Products</a></li>
-        {product.categoryLabel && (
-          <>
-            <li aria-hidden="true">/</li>
-            <li>
-              <a href={`/products?category=${product.category}`} class="hover:underline">
-                {product.categoryLabel}
-              </a>
-            </li>
-          </>
-        )}
-        <li aria-hidden="true">/</li>
-        <li class="text-default dark:text-slate-200 font-medium truncate max-w-[200px] sm:max-w-none">{product.title}</li>
-      </ol>
-    </nav>
 
     <header class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-10">
       <div class="rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg">

@@ -6,7 +6,7 @@ const KEY_LENGTH = 32;
 const SALT = 'vectoflare.contact.submissions.v1';
 
 function deriveKey(): Buffer {
-  const secret = (import.meta.env as any).SESSION_SECRET || (import.meta.env as any).KEYSTATIC_SECRET || 'theworkvigour-astro-tina-cms-contact-vault';
+  const secret = (import.meta.env as any).SESSION_SECRET || (import.meta.env as any).KEYSTATIC_SECRET || crypto.randomBytes(32).toString('hex');
   return crypto.scryptSync(`${SALT}::${secret}`, SALT, KEY_LENGTH);
 }
 

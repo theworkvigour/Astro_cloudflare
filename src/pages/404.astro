@@ -1,5 +1,8 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import ChatWidget from '~/components/ChatWidget.astro';
+import { footerData } from '~/navigation';
 import { getHomePermalink } from '~/utils/permalinks';
 import { SITE } from 'astrowind:config';
 
@@ -31,4 +34,6 @@ const description = 'Sorry, the page you are looking for has drifted out to sea.
       </div>
     </div>
   </section>
+  <Footer {...footerData} />
+  <ChatWidget />
 </Layout>

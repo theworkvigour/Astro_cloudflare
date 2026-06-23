@@ -1,6 +1,6 @@
 site:
   name: Vectoflare
-  site: 'https://vectoflare.com'
+  site: 'https://alluredna.com'
   base: '/'
   trailingSlash: false
 
@@ -95,6 +95,23 @@ analytics:
   vendors:
     googleAnalytics:
       id: null # or "G-XXXXXXXXXX"
+
+# Site settings — controls Organization schema (sameAs, logo, contact) and social links
+siteSettings:
+  siteName: Vectoflare
+  siteTagline: 'Premium inflatable boats, RIBs and engineered products'
+  siteDescription: 'Vectoflare designs and manufactures premium inflatable boats, RIBs, and engineered products. Explore our catalog, technical specs, and resources for professionals and enthusiasts.'
+  organization:
+    name: Vectoflare
+    logo: ''
+    contactEmail: info@vectoflare.com
+    contactPhone: '+86 133 0532 4192'
+    address: 'Qingdao, China'
+  socialLinks:
+    - platform: github
+      url: 'https://github.com/theworkvigour'
+    - platform: rss
+      url: /rss.xml
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

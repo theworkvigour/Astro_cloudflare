@@ -126,12 +126,17 @@ if (token) {
       <div class="mt-2 text-3xl font-semibold">{counts.submissions ? '✓' : '—'}</div>
       <div class="mt-4 text-sm text-blue-600 dark:text-blue-400">View Encrypted Submissions →</div>
     </a>
-    <a href="/keystatic/link-refactor" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 hover:border-blue-400 transition">
-      <div class="text-sm uppercase tracking-wide text-gray-500">Links</div>
-      <div class="mt-2 text-3xl font-semibold">⚙</div>
-      <div class="mt-4 text-sm text-blue-600 dark:text-blue-400">Batch Rename URLs / Check Broken Links →</div>
-    </a>
-  </div>
+      <a href="/keystatic/link-refactor" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 hover:border-blue-400 transition">
+        <div class="text-sm uppercase tracking-wide text-gray-500">Links</div>
+        <div class="mt-2 text-3xl font-semibold">⚙</div>
+        <div class="mt-4 text-sm text-blue-600 dark:text-blue-400">Batch Rename URLs / Check Broken Links →</div>
+      </a>
+      <a href="/keystatic/seo" class="block rounded-xl border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-950/30 p-6 hover:border-yellow-400 transition">
+        <div class="text-sm uppercase tracking-wide text-yellow-600 dark:text-yellow-400">SEO Settings</div>
+        <div class="mt-2 text-3xl font-semibold">🔍</div>
+        <div class="mt-4 text-sm text-yellow-600 dark:text-yellow-400">Site URL, Analytics, Social Links, OG Image →</div>
+      </a>
+    </div>
 
   <div class="mt-10 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
     <h2 class="text-base font-semibold">Usage</h2>
@@ -139,7 +144,6 @@ if (token) {
       <li>All changes are pushed via GitHub API to the <code class="font-mono">main</code> branch; Cloudflare auto-triggers rebuild</li>
       <li>Blog and product pages update immediately after deploy (typically 1-2 minutes)</li>
       <li>History & rollback: check the <a class="text-blue-600 hover:underline" href="https://github.com/theworkvigour/Astro_cloudflare/commits/main/src/data" target="_blank" rel="noopener">commit history</a> in GitHub</li>
-      <li>Global site settings (SEO defaults, organization info) live in <code class="font-mono">src/config.yaml</code> in the repo</li>
       <li>Per-locale builds: set <code class="font-mono">SITE_LOCALE</code> env var (see <code class="font-mono">src/data/site/languages.yaml</code>) to generate locale-specific output</li>
       <li>Multilingual content (<code class="font-mono">src/content/*/index.json</code>) can be edited directly in GitHub or via a local <code class="font-mono">npx keystatic dev</code> session</li>
     </ul>

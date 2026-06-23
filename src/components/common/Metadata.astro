@@ -12,6 +12,16 @@ import { adaptOpenGraphImages } from '~/utils/images';
 
 export interface Props extends MetaData {
   dontUseTitleTemplate?: boolean;
+  seoSettings?: {
+    siteUrl?: string;
+    defaultOgImage?: { src?: string; alt?: string } | null;
+    keywords?: string[];
+    robotsIndex?: boolean;
+    robotsFollow?: boolean;
+    twitterHandle?: string;
+    twitterSite?: string;
+    twitterCardType?: string;
+  };
 }
 
 const {
@@ -22,6 +32,7 @@ const {
   description,
   openGraph = {},
   twitter = {},
+  seoSettings = {},
 } = Astro.props;
 
 const mergedOg: MetaDataOpenGraph = merge(
@@ -84,27 +95,39 @@ const mergedTwitter = merge(
         site: twitter.site,
         creator: twitter.handle,
       }
+    : {},
+  seoSettings?.twitterCardType || seoSettings?.twitterHandle || seoSettings?.twitterSite
+    ? {
+        card: (seoSettings.twitterCardType || 'summary_large_image') as 'summary_large_image' | 'summary',
+        site: seoSettings.twitterSite,
+        creator: seoSettings.twitterHandle,
+      }
     : {}
 );
 
-// noindex / nofollow: only emit true when the user explicitly opts out.
-// If a page passes `robots: { index: false }` we honour that. Otherwise we
-// fall back to the global default in config.yaml (which we treat as the
-// safe "do index" baseline).
 const resolveNoindex = (): boolean => {
   if (typeof robots?.index === 'boolean') return !robots.index;
   if (typeof METADATA?.robots?.index === 'boolean') return !METADATA.robots.index;
+  if (typeof seoSettings?.robotsIndex === 'boolean') return !seoSettings.robotsIndex;
   return false;
 };
 const resolveNofollow = (): boolean => {
   if (typeof robots?.follow === 'boolean') return !robots.follow;
   if (typeof METADATA?.robots?.follow === 'boolean') return !METADATA.robots.follow;
+  if (typeof seoSettings?.robotsFollow === 'boolean') return !seoSettings.robotsFollow;
   return false;
 };
 
+// Avoid double-branding: if the title already contains the site name,
+// skip the template (e.g. "OARS Pump Set — Vectoflare" + "%s — Vectoflare"
+// would produce "OARS Pump Set — Vectoflare — Vectoflare").
+const siteBrand = SITE?.name || 'Vectoflare';
+const rawTitle = title || METADATA?.title?.default || '';
+const titleAlreadyBranded = rawTitle.includes(siteBrand);
+
 const seoProps: SEOProps = {
-  title: title || METADATA?.title?.default || '',
-  titleTemplate: ignoreTitleTemplate ? '%s' : METADATA?.title?.template || '%s',
+  title: rawTitle,
+  titleTemplate: ignoreTitleTemplate || titleAlreadyBranded ? '%s' : METADATA?.title?.template || '%s',
   canonical: canonical,
   noindex: resolveNoindex(),
   nofollow: resolveNofollow(),

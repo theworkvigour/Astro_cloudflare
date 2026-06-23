@@ -26,6 +26,21 @@ const { post } = Astro.props as Props;
 const url = getCanonical(getPermalink(post.permalink, 'post'));
 const image = (await findImage(post.image)) as ImageMetadata | string | undefined;
 
+const pubDate = post.publishDate;
+const modDate = post.updateDate || pubDate;
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.excerpt,
+  image: image ? String(image) : undefined,
+  datePublished: pubDate instanceof Date ? pubDate.toISOString() : undefined,
+  dateModified: modDate instanceof Date ? modDate.toISOString() : undefined,
+  author: post.author ? { '@type': 'Person', name: post.author } : undefined,
+  publisher: { '@type': 'Organization', name: 'Vectoflare' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
 const metadata = merge(
   {
     title: post.title,
@@ -45,7 +60,8 @@ const metadata = merge(
 ) as MetaData;
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'News', href: '/news' }, { name: post.title }]}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <SinglePost post={{ ...post, image: image }} url={url}>
     {post.Content && <post.Content />}
   </SinglePost>

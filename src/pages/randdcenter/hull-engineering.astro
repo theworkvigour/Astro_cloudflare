@@ -2,13 +2,19 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'R&D Center', href: '/randdcenter' },
+  { name: 'Hull Engineering Studio' },
+];
+
 const metadata = {
-  title: `Hull Engineering Studio — R&D Center — ${SITE.name}`,
-  description: `${SITE.name} Hull Engineering Studio: CAD design, finite element analysis (FEA), custom HDPE/aluminium/fiberglass hull development. Structural simulation and optimisation for inflatable boats and RIBs.`,
+  title: `Hull Engineering Studio — CAD, FEA & Custom RIB Hull Design | ${SITE.name}`,
+  description: `Explore our Hull Engineering Studio for CAD design, finite element analysis (FEA), and custom HDPE/aluminium/fibre glass hull development. Contact our engineering team to start your next RIB project.`,
 };
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={crumbs}>
   <section class="px-6 sm:px-6 py-16 sm:py-20 mx-auto max-w-5xl">
     <a href="/randdcenter" class="text-sm text-gray-500 hover:underline">&larr; Back to R&D Center</a>
     <div class="mt-4 grid md:grid-cols-5 gap-10">

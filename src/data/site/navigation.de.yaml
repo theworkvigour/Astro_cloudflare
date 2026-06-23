@@ -1,12 +1,6 @@
-﻿# Navigation for de locale (translated via Keystatic)
+# Navigation for de locale (translated via Keystatic)
 header:
   topBar:
-    - text: Filiale finden
-      href: /store-locator
-    - text: Hilfe
-      href: /help
-    - text: Beitreten
-      href: /join
     - text: Anmelden
       href: /login
   links:
@@ -92,20 +86,20 @@ footer:
   socialLinks:
     - ariaLabel: X
       icon: tabler:brand-x
-      href: '#'
+      href: ''
     - ariaLabel: Instagram
       icon: tabler:brand-instagram
-      href: '#'
+      href: ''
     - ariaLabel: Facebook
       icon: tabler:brand-facebook
-      href: '#'
+      href: ''
     - ariaLabel: LinkedIn
       icon: tabler:brand-linkedin
-      href: '#'
+      href: ''
     - ariaLabel: RSS
       icon: tabler:rss
       href: /rss.xml
     - ariaLabel: GitHub
       icon: tabler:brand-github
       href: https://github.com/theworkvigour
-  footNote: © 2024 <a class="text-blue-600 underline dark:text-muted" href="/">Vectoflare</a> · Alle Rechte vorbehalten.
+  footNote: © {year} <a class="text-blue-600 underline dark:text-muted" href="/">{site_name}</a> · Alle Rechte vorbehalten.

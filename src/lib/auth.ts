@@ -9,7 +9,7 @@ function getSecret(): string {
   return (
     (import.meta.env as any).SESSION_SECRET ||
     (import.meta.env as any).KEYSTATIC_SECRET ||
-    'fallback-dev-secret-do-not-use-in-prod-32chars'
+    crypto.randomBytes(32).toString('hex')
   );
 }
 
@@ -34,7 +34,8 @@ function getCredentials() {
     return { username: data.username, password: data.password };
   }
 
-  return { username: 'Admin', password: 'Aa123456#' };
+  const randomPass = crypto.randomBytes(6).toString('base64');
+  return { username: 'Admin', password: randomPass };
 }
 
 export function verifyCredentials(inputUsername: string, inputPassword: string): boolean {

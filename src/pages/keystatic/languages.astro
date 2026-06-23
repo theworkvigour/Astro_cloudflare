@@ -3,212 +3,169 @@ export const prerender = false;
 import AdminLayout from '~/layouts/AdminLayout.astro';
 import { verifySessionToken } from '~/lib/auth';
 import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
 
 const session = Astro.cookies.get('ks-admin-session')?.value;
 const verified = session ? verifySessionToken(session) : null;
 if (!verified) return Astro.redirect('/login');
 
 const token = readTokenFromCookies(Astro.cookies);
-let initialLangs: Array<{ code: string; name: string; textDirection: string; hasConfig: boolean; hasNav: boolean; pageCount: number }> = [];
+const file = 'src/data/site/languages.yaml';
+
+let initialLangs = [];
+let sha = '';
+let loadError = null;
 if (token) {
   try {
-    const res = await fetch(Astro.request.url.replace(/\/+$/, '') + '/api/admin/languages', {
-      headers: { Cookie: Astro.request.headers.get('cookie') || '' },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      initialLangs = data.languages || [];
-    }
-  } catch {}
+    const client = new GitHubClient(token);
+    const f = await client.readFile(file);
+    const yamlMod = await import('js-yaml');
+    const parsed = yamlMod.load(f.content);
+    if (Array.isArray(parsed)) initialLangs = parsed;
+    sha = f.sha;
+  } catch (err) {
+    loadError = err instanceof Error ? err.message : 'Load failed';
+  }
 }
 ---
 
-<script is:inline id="lang-data-init" type="application/json">{JSON.stringify(initialLangs)}</script>
-
 <AdminLayout title="Language Manager" active="languages" username={verified?.username}>
-  <div class="mb-6 flex items-center justify-between">
-    <div>
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-        Add or remove languages. Each language gets its own config, navigation, page data, and CI workflow entry.
-      </p>
-    </div>
-    <button
-      id="add-lang-btn"
-      class="px-4 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700"
-    >
-      + Add Language
-    </button>
+  <div class="mb-6">
+    <p class="text-sm text-gray-500 dark:text-gray-400">
+      Enable or disable language versions. Only enabled languages are built and deployed.
+      English is always enabled.
+    </p>
   </div>
 
-  <div id="add-form" class="hidden mb-8 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-6">
-    <h3 class="text-base font-semibold mb-4">New Language</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-      <div>
-        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Language Code</label>
-        <input id="f-code" type="text" placeholder="e.g. ja, ko, ar" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900" />
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Display Name</label>
-        <input id="f-name" type="text" placeholder="e.g. 日本語, 한국어" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900" />
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Text Direction</label>
-        <select id="f-dir" class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900">
-          <option value="ltr">LTR (left to right)</option>
-          <option value="rtl">RTL (right to left)</option>
-        </select>
-      </div>
-    </div>
-    <div class="flex gap-2">
-      <button id="submit-add" class="px-4 py-2 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700">Create</button>
-      <button id="cancel-add" class="px-4 py-2 text-sm font-medium rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">Cancel</button>
-    </div>
-    <div id="add-status" class="mt-3 text-sm hidden"></div>
-  </div>
+  {loadError && (
+    <div class="mb-4 p-4 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">{loadError}</div>
+  )}
 
-  <div id="lang-list" class="space-y-2">
-    <div id="loading-msg" class="text-sm text-gray-400 italic">Loading...</div>
-  </div>
+  <form id="lang-form" data-file={file} data-sha={sha}>
+    <div id="lang-list" class="space-y-2 mb-6">
+      {initialLangs.map((l) => (
+        <div class="flex items-center justify-between rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-3">
+          <div class="flex items-center gap-4">
+            <span class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-sm font-bold">{l.code.toUpperCase()}</span>
+            <div>
+              <div class="text-sm font-medium">{l.code === 'en' ? `${l.name} (Default)` : l.name}</div>
+              <div class="text-xs text-gray-400 font-mono">{l.locale} · {l.textDirection}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            {l.code === 'en' ? (
+              <span class="text-xs px-2.5 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300 font-medium">Always enabled</span>
+            ) : (
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="enabled" value={l.locale} checked={l.enabled !== false} class="sr-only peer" />
+                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">{l.enabled !== false ? 'Enabled' : 'Disabled'}</span>
+              </label>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button type="submit" id="submit-btn" class="px-5 py-2.5 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">Save & Push</button>
+      <span id="save-status" class="text-sm hidden"></span>
+    </div>
+  </form>
 </AdminLayout>
 
 <script is:inline>
-(function () {
-  const btn = document.getElementById('add-lang-btn');
-  const form = document.getElementById('add-form');
-  const cancel = document.getElementById('cancel-add');
-  const submit = document.getElementById('submit-add');
-  const status = document.getElementById('add-status');
-  const list = document.getElementById('lang-list');
-  const loading = document.getElementById('loading-msg');
+(function() {
+  const form = document.getElementById('lang-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const status = document.getElementById('save-status');
 
-  function show(el) { if (el) el.classList.remove('hidden'); }
-  function hide(el) { if (el) el.classList.add('hidden'); }
+  if (!form || !submitBtn || !status) return;
 
-  function renderLangs(initialLangs) {
-    if (loading) hide(loading);
-    if (!list) return;
-    list.innerHTML = initialLangs.map(function (l) {
-      var badges = '';
-      badges += '<span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ' + (l.hasConfig ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300') + '">' + (l.hasConfig ? '\u2713 Config' : '\u2717 Config') + '</span> ';
-      badges += '<span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ' + (l.hasNav ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300') + '">' + (l.hasNav ? '\u2713 Nav' : '\u2717 Nav') + '</span> ';
-      badges += '<span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">' + l.pageCount + ' pages</span>';
-      var delBtn = l.code !== 'en' ? '<button data-delete="' + l.code + '" class="text-xs text-red-600 dark:text-red-400 hover:underline ml-3">Delete</button>' : '';
-      return '<div class="flex items-center justify-between rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-3">' +
-        '<div class="flex items-center gap-4">' +
-          '<span class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-sm font-bold">' + l.code.toUpperCase() + '</span>' +
-          '<div>' +
-            '<div class="text-sm font-medium">' + escHtml(l.name) + '</div>' +
-            '<div class="text-xs text-gray-400 font-mono">' + l.code + ' \u00B7 ' + l.textDirection + '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="flex items-center gap-2">' + badges + delBtn + '</div>' +
-      '</div>';
-    }).join('');
-  }
+  function show(el) { el.classList.remove('hidden'); }
+  function hide(el) { el.classList.add('hidden'); }
 
-  function escHtml(s) {
-    var d = document.createElement('div');
-    d.appendChild(document.createTextNode(s));
-    return d.innerHTML;
-  }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Pushing...';
+    show(status);
+    status.textContent = 'Saving...';
+    status.className = 'text-sm text-blue-600';
 
-  // render initial data from server
-  var initData = document.getElementById('lang-data-init');
-  if (initData) {
-    try { renderLangs(JSON.parse(initData.textContent || '[]')); } catch(e) {}
-  }
+    const checkboxes = form.querySelectorAll('input[name="enabled"]');
+    const enabledLocales = [];
+    checkboxes.forEach(function(cb) {
+      if (cb.checked) enabledLocales.push(cb.value);
+    });
 
-  // fetch fresh data from API
-  fetch('/api/admin/languages').then(function (r) { return r.json(); }).then(function (d) {
-    if (d.languages) renderLangs(d.languages);
-  })['catch'](function () {});
+    const formData = new FormData();
+    const sha = form.dataset.sha || '';
 
-  if (btn && form) {
-    btn.addEventListener('click', function () { show(form); hide(btn.closest('.flex')?.querySelector('#add-status')); });
-  }
-  if (cancel && form) {
-    cancel.addEventListener('click', function () { hide(form); if (status) { hide(status); status.textContent = ''; status.className = 'mt-3 text-sm hidden'; } });
-  }
+    // Reconstruct the full languages list from the rendered DOM
+    const langDivs = document.querySelectorAll('#lang-list > div');
+    const languages = [];
+    langDivs.forEach(function(div) {
+      const codeEl = div.querySelector('.font-mono');
+      if (!codeEl) return;
+      const parts = codeEl.textContent.trim().split('·');
+      const locale = parts[0].trim();
+      const dir = parts.length > 1 ? parts[1].trim() : 'ltr';
+      const nameEl = div.querySelector('.font-medium');
+      const name = nameEl ? nameEl.textContent.replace(/\s*\(.*?\)\s*$/, '').trim() : locale.toUpperCase();
+      const checkbox = div.querySelector('input[name="enabled"]');
+      const enabled = checkbox ? checkbox.checked : true;
+      languages.push({
+        code: locale.toUpperCase(),
+        name: name,
+        locale: locale,
+        textDirection: dir,
+        enabled: enabled,
+      });
+    });
 
-  if (submit) {
-    submit.addEventListener('click', async function () {
-      var code = document.getElementById('f-code');
-      var name = document.getElementById('f-name');
-      var dir = document.getElementById('f-dir');
-      if (!code || !name || !dir || !status) return;
+    try {
+      const res = await fetch('/api/admin/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          format: 'yaml',
+          path: 'src/data/site/languages.yaml',
+          sha: sha,
+          data: languages,
+          commitMessage: 'Update language enabled status',
+        }),
+      });
+      const result = await res.json();
 
-      var c = code.value.trim().toLowerCase();
-      var n = name.value.trim();
-      if (!c || !/^[a-z]{2,3}$/.test(c)) {
-        show(status); status.textContent = 'Code must be 2-3 lowercase letters (e.g. ja, ko, ar)'; status.className = 'mt-3 text-sm text-red-600';
-        return;
-      }
-      if (!n) {
-        show(status); status.textContent = 'Display name is required'; status.className = 'mt-3 text-sm text-red-600';
+      if (!res.ok || !result.success) {
+        status.textContent = result.error || 'Save failed';
+        status.className = 'text-sm text-red-600';
         return;
       }
 
-      submit.disabled = true;
-      submit.textContent = 'Creating...';
-      show(status); status.textContent = 'Creating language...'; status.className = 'mt-3 text-sm text-blue-600';
-
-      try {
-        var res = await fetch('/api/admin/languages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: c, name: n, textDirection: dir.value }),
-        });
-        var data = await res.json();
-        if (data.success) {
-          status.textContent = 'Language created! Reloading...';
-          status.className = 'mt-3 text-sm text-green-600';
-          setTimeout(function () { window.location.reload(); }, 1200);
-        } else {
-          status.textContent = data.error || 'Failed';
-          status.className = 'mt-3 text-sm text-red-600';
-        }
-      } catch (e) {
-        status.textContent = 'Network error';
-        status.className = 'mt-3 text-sm text-red-600';
-      } finally {
-        submit.disabled = false;
-        submit.textContent = 'Create';
+      if (result.sha) {
+        form.dataset.sha = result.sha;
       }
+
+      status.textContent = 'Saved! The CI/CD pipeline will rebuild only enabled languages.';
+      status.className = 'text-sm text-green-600';
+      setTimeout(function() { window.location.reload(); }, 1500);
+    } catch (err) {
+      status.textContent = 'Network error';
+      status.className = 'text-sm text-red-600';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save & Push';
+    }
+  });
+
+  // Update label text on toggle
+  document.querySelectorAll('input[name="enabled"]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var label = this.closest('label').querySelector('span');
+      if (label) label.textContent = this.checked ? 'Enabled' : 'Disabled';
     });
-  }
-
-  // delete handlers
-  if (list) {
-    list.addEventListener('click', async function (e) {
-      var target = e.target;
-      if (!(target instanceof Element)) return;
-      var delBtn = target.closest('[data-delete]');
-      if (!delBtn) return;
-      var code = delBtn.getAttribute('data-delete');
-      if (!code) return;
-      if (!confirm('Delete language "' + code.toUpperCase() + '"? This cannot be undone.')) return;
-
-      var row = delBtn.closest('.flex');
-      if (row) row.style.opacity = '0.4';
-
-      try {
-        var res = await fetch('/api/admin/languages', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: code }),
-        });
-        var data = await res.json();
-        if (data.success) {
-          setTimeout(function () { window.location.reload(); }, 800);
-        } else {
-          alert('Error: ' + (data.error || 'Unknown'));
-          if (row) row.style.opacity = '1';
-        }
-      } catch {
-        alert('Network error');
-        if (row) row.style.opacity = '1';
-      }
-    });
-  }
+  });
 })();
 </script>

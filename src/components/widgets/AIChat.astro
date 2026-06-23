@@ -1,0 +1,171 @@
+---
+export interface Props {
+  position?: 'bottom-right' | 'bottom-left';
+  title?: string;
+}
+
+const { position = 'bottom-right', title = 'AI Assistant' } = Astro.props;
+---
+
+<div
+  id="ai-chat"
+  class="fixed z-50 flex flex-col"
+  class:list={[
+    position === 'bottom-right' ? 'bottom-4 right-4' : 'bottom-4 left-4',
+  ]}
+  data-chat
+>
+  <!-- Toggle Button -->
+  <button
+    id="ai-chat-toggle"
+    class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform"
+    aria-label="Open AI chat"
+    type="button"
+  >
+    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 8V4m0 0L9 7m3-3l3 3M4 16h16M4 16l2 4h12l2-4M4 16l-2-4h20l-2 4"/>
+    </svg>
+  </button>
+
+  <!-- Chat Panel -->
+  <div
+    id="ai-chat-panel"
+    class="hidden flex-col bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl w-80 max-w-[calc(100vw-2rem)] overflow-hidden"
+    role="dialog"
+    aria-label={title}
+  >
+    <!-- Header -->
+    <div class="flex items-center px-4 py-3 gap-3 bg-blue-600 text-white">
+      <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 shrink-0">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 8V4m0 0L9 7m3-3l3 3M4 16h16M4 16l2 4h12l2-4M4 16l-2-4h20l-2 4"/>
+        </svg>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold text-sm">{title}</div>
+        <div class="text-xs text-white/80">Ask about Vectoflare products</div>
+      </div>
+      <button id="ai-chat-close" class="text-white/80 hover:text-white" type="button" aria-label="Close">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div id="ai-chat-messages" class="flex-1 overflow-y-auto max-h-80 p-4 space-y-3 min-h-[200px]">
+      <div class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 p-3 rounded-lg text-sm">
+        Hi! Ask me anything about Vectoflare boats, products, services, or pricing.
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="border-t border-gray-200 dark:border-gray-800 p-3">
+      <form id="ai-chat-form" class="flex gap-2">
+        <input
+          id="ai-chat-input"
+          type="text"
+          placeholder="Type your question..."
+          class="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="submit"
+          class="px-3 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          id="ai-chat-send"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  const toggle = document.getElementById('ai-chat-toggle');
+  const panel = document.getElementById('ai-chat-panel');
+  const close = document.getElementById('ai-chat-close');
+  const form = document.getElementById('ai-chat-form');
+  const input = document.getElementById('ai-chat-input');
+  const messages = document.getElementById('ai-chat-messages');
+  const sendBtn = document.getElementById('ai-chat-send');
+
+  if (!toggle || !panel || !close || !form || !input || !messages || !sendBtn) return;
+
+  function open() { panel.classList.remove('hidden'); toggle.setAttribute('aria-expanded', 'true'); setTimeout(function() { input.focus(); }, 100); }
+  function closePanel() { panel.classList.add('hidden'); toggle.setAttribute('aria-expanded', 'false'); }
+
+  toggle.addEventListener('click', function() { panel.classList.contains('hidden') ? open() : closePanel(); });
+  close.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !panel.classList.contains('hidden')) closePanel(); });
+
+  function addMessage(text, isUser) {
+    var div = document.createElement('div');
+    div.className = isUser
+      ? 'bg-blue-600 text-white p-3 rounded-lg text-sm ml-8'
+      : 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 p-3 rounded-lg text-sm mr-8';
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addTyping() {
+    var div = document.createElement('div');
+    div.id = 'ai-typing';
+    div.className = 'bg-gray-100 dark:bg-gray-900 text-gray-500 p-3 rounded-lg text-sm mr-8';
+    div.textContent = 'Thinking...';
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeTyping() {
+    var el = document.getElementById('ai-typing');
+    if (el) el.remove();
+  }
+
+  function addSources(sources) {
+    if (!sources || sources.length === 0) return;
+    var div = document.createElement('div');
+    div.className = 'text-xs text-gray-400 mt-1 px-1';
+    div.textContent = 'Sources: ' + sources.map(function(s) { return s.title; }).join(', ');
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var question = input.value.trim();
+    if (!question) return;
+
+    addMessage(question, true);
+    input.value = '';
+    sendBtn.disabled = true;
+
+    addTyping();
+
+    try {
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: question }),
+      });
+      var data = await res.json();
+      removeTyping();
+
+      if (res.ok && data.answer) {
+        addMessage(data.answer, false);
+        addSources(data.sources);
+      } else {
+        addMessage('Sorry, I couldn\'t process that request.', false);
+      }
+    } catch (err) {
+      removeTyping();
+      addMessage('Network error. Please try again.', false);
+    } finally {
+      sendBtn.disabled = false;
+    }
+  });
+})();
+</script>

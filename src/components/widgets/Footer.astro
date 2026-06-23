@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import branding from '~/data/site/branding.yaml';
 import { getHomePermalink } from '~/utils/permalinks';
+import { getSeoSettings } from '~/utils/seo-settings';
 
 interface Link {
   text?: string;
@@ -24,6 +25,23 @@ export interface Props {
 }
 
 const { socialLinks = [], secondaryLinks = [], links = [], footNote, theme = 'light' } = Astro.props;
+
+const seo = await getSeoSettings();
+
+const ksSocialLinks: Array<Link> = (seo.socialLinks || [])
+  .filter((s) => s?.url && s.url !== '#')
+  .map((s) => ({
+    ariaLabel: s.ariaLabel || s.platform,
+    href: s.url || '#',
+    icon: s.icon || '',
+  }));
+
+const mergedSocialLinks = (ksSocialLinks.length > 0
+  ? [
+      ...ksSocialLinks,
+      ...socialLinks.filter((s) => !ksSocialLinks.find((k) => k.ariaLabel?.toLowerCase() === s.ariaLabel?.toLowerCase())),
+    ]
+  : socialLinks).filter((s) => s?.href && s.href !== '#');
 
 const siteName = branding?.site_name?.trim() || 'Vectoflare';
 const year = new Date().getFullYear();
@@ -83,9 +101,9 @@ const copyrightHtml = String(rawCopyright)
     </div>
     <div class="md:flex md:items-center md:justify-between py-6 md:py-8">
       {
-        socialLinks?.length ? (
+        mergedSocialLinks?.length ? (
           <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
-            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+            {mergedSocialLinks.map(({ ariaLabel, href, text, icon }) => (
               <li>
                 <a
                   class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"

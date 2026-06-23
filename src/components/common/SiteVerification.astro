@@ -1,5 +1,9 @@
 ---
-import { SITE } from 'astrowind:config';
+export interface Props {
+  id?: string;
+}
+
+const { id = '' } = Astro.props;
 ---
 
-{SITE.googleSiteVerificationId && <meta name="google-site-verification" content={SITE.googleSiteVerificationId} />}
+{id && <meta name="google-site-verification" content={id} />}

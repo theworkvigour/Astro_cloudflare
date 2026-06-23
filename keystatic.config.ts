@@ -240,6 +240,13 @@ const map = {
   zoom: fields.integer({ label: 'Zoom level', defaultValue: 15 }),
 };
 
+const socialLinkFields = {
+  platform: fields.text({ label: 'Platform (e.g. twitter, facebook)' }),
+  url: fields.url({ label: 'Profile URL' }),
+  ariaLabel: fields.text({ label: 'Aria Label' }),
+  icon: fields.text({ label: 'Icon (e.g. tabler:brand-x)' }),
+};
+
 export default config({
   storage: {
     kind: 'github',

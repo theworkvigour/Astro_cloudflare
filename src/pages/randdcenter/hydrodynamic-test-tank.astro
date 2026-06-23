@@ -2,13 +2,19 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'R&D Center', href: '/randdcenter' },
+  { name: 'Hydrodynamic Test Tank' },
+];
+
 const metadata = {
-  title: `Hydrodynamic Test Tank — R&D Center — ${SITE.name}`,
-  description: `${SITE.name} Hydrodynamic Test Tank: scale-model towing tests, hull-form optimisation, planing performance analysis, fuel efficiency validation for RIB and inflatable boat hulls.`,
+  title: `Hydrodynamic Test Tank — Scale-Model Towing & Hull Optimisation | ${SITE.name}`,
+  description: `Validate your RIB hull performance with our hydrodynamic test tank. Scale-model towing, planing analysis, and fuel efficiency testing. Book a tank test session today.`,
 };
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={crumbs}>
   <section class="px-6 sm:px-6 py-16 sm:py-20 mx-auto max-w-5xl">
     <a href="/randdcenter" class="text-sm text-gray-500 hover:underline">&larr; Back to R&D Center</a>
     <div class="mt-4 grid md:grid-cols-5 gap-10">

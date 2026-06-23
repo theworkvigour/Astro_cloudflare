@@ -25,12 +25,29 @@ const faqs = data.faqs ?? {};
 const cta = data.cta ?? {};
 
 const metadata = {
-  title: `Pricing — ${SITE.name}`,
-  description: `Transparent pricing for ${SITE.name} boats, accessories and service packages. No hidden fees.`,
+  title: `Pricing — Inflatable Boats, RIBs & Service Packages | ${SITE.name}`,
+  description: `Transparent pricing for ${SITE.name} boats, accessories and service packages. No hidden fees. Request a quote or order now.`,
 };
+
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Pricing' }];
+
+const faqSchemaItems = (faqs?.items ?? [])
+  .filter((item: any) => item?.title && item?.description)
+  .map((item: any) => ({
+    '@type': 'Question',
+    name: item.title,
+    acceptedAnswer: { '@type': 'Answer', text: item.description },
+  }));
+
+const faqJsonLd = faqSchemaItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqSchemaItems,
+} : null;
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} breadcrumbs={crumbs}>
+  {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
   <HeroText tagline={ht.tagline} title={ht.title} subtitle={ht.subtitle} />
 
   <Prices title={pkg.title} subtitle={pkg.subtitle} prices={pkg.prices} />

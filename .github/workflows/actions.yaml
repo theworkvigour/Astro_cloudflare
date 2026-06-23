@@ -21,14 +21,37 @@ jobs:
       - run: yarn install --immutable
       - run: yarn run check:astro
 
+  enabled-locales:
+    runs-on: ubuntu-latest
+    outputs:
+      locales: ${{ steps.get-locales.outputs.locales }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: corepack enable
+      - run: yarn install --immutable
+      - id: get-locales
+        run: |
+          LOCALES=$(node -e "
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+            const data = yaml.load(fs.readFileSync('src/data/site/languages.yaml','utf8'));
+            const enabled = Array.isArray(data) ? data.filter(function(l) { return l.enabled; }).map(function(l) { return l.locale; }) : [];
+            if (enabled.length === 0) enabled.push('en');
+            console.log(JSON.stringify(enabled));
+          ")
+          echo "locales=$LOCALES" >> $GITHUB_OUTPUT
+
   build-and-deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: [check-astro]
+    needs: [check-astro, enabled-locales]
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
-        locale: [en, fr, de, es, pt, zh]
+        locale: ${{ fromJSON(needs.enabled-locales.outputs.locales) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

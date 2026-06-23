@@ -44,12 +44,6 @@ export const footerData = {
     { text: 'Terms', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
-  socialLinks: navData?.footer?.socialLinks ?? [
-    { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
-    { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
-    { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: '#' },
-    { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
-    { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/theworkvigour' },
-  ],
+  footNote: navData?.footer?.footNote,
+  socialLinks: (navData?.footer?.socialLinks ?? []).filter((s) => s?.href && s.href !== '#'),
 };
