@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `SUP & Kayaking with Kids — ${SITE.name}`,
+  description: 'Family paddling guide: age recommendations, safety gear for children, kid-friendly boards and kayaks, tips for keeping young paddlers engaged.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP & Kayaking with Kids</h1>
+    <p class="mt-4 text-lg text-gray-500">Introducing children to paddling creates lifelong outdoor enthusiasts. Here is how to do it safely.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Age Recommendations</h2>
+        <p class="mt-3 text-gray-600">Ages 3-6: ride on an adult's SUP or in a tandem kayak with a parent. Ages 7-10: can paddle their own small SUP or kayak in calm, shallow water with close supervision. Ages 11+: ready for full-size boards with proper instruction. Every child develops differently — assess confidence and swimming ability before introducing paddling.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Safety Gear for Kids</h2>
+        <p class="mt-3 text-gray-600">A properly fitted life vest is mandatory for children. The Wavefella Life Vest Classic is available in child sizes with CE and ISO 12402 certification. The vest should fit snugly — lift the shoulders to check; the vest should not ride up over the chin. A leash is essential and should be attached to a quick-release belt, not the child directly.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Best Boards & Kayaks for Families</h2>
+        <p class="mt-3 text-gray-600">The SUP Explorer 11 (32-inch width) provides a stable platform for an adult with a child on the nose. The Kayak Tandem is ideal for a parent-child paddling team — separate cockpits with adjustable seats. For older children ready to paddle independently, the Kayak Lite at 15 lbs is light enough for a pre-teen to carry and launch.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Making It Fun</h2>
+        <p class="mt-3 text-gray-600">Keep trips short — 30-45 minutes is plenty for young children. Incorporate games: follow the leader, paddle to a specific buoy and back, or look for wildlife. Bring snacks in a dry bag. Let children help with setup and inflation — involving them in the process builds ownership and excitement. End the trip before they get tired or bored.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Choosing the Right Environment</h2>
+        <p class="mt-3 text-gray-600">Start on small, sheltered lakes with no boat traffic. Sandy beaches with gradual entry are ideal — no sharp rocks or shells. Avoid areas with strong currents, boat channels, or steep drop-offs. Check the forecast and choose days with wind under 8 mph and no thunderstorm risk. The calmer the conditions, the more fun everyone will have.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Teaching Water Safety</h2>
+        <p class="mt-3 text-gray-600">Before each trip, review basic safety rules: stay seated or kneeling until comfortable, always wear the life vest, stay within arm's reach of an adult, what to do if they fall in (stay calm, hold the board). Make safety a habit from the very first outing — children who learn safety early become responsible paddlers as adults.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/guides/beginner-guide" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Beginner Guide</a>
+        <a href="/guides/choosing-paddle" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Choosing a Paddle</a>
+        <a href="/products?category=inflatable" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop SUPs & Kayaks</a>
+      </div>
+    </section>
+  </section>
+</Layout>

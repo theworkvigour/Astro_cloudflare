@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `SUP Fishing Guide — ${SITE.name}`,
+  description: 'Learn how to fish from an inflatable SUP. Board selection, gear setup, casting techniques, and safety tips for stand-up paddleboard fishing.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Fishing Guide</h1>
+    <p class="mt-4 text-lg text-gray-500">SUP fishing combines the serenity of paddleboarding with the thrill of angling.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Choosing a Board for Fishing</h2>
+        <p class="mt-3 text-gray-600">Stability is the priority for SUP fishing. A wider board with ample deck space allows room for gear. The SUP Explorer 11 with its 32-inch width provides a stable platform. Look for boards with multiple D-rings for securing a cooler, crate, or rod holder.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Essential Gear</h2>
+        <p class="mt-3 text-gray-600">Start with: a paddle leash (keeps your paddle nearby when casting), an anchor system (a 2-3 lb folding anchor with rope), a dry bag for electronics, a rod holder (mount or belt-mounted), and a life vest from Wavefella's safety lineup. A milk crate bungeed to the deck organizers tackle, pliers, and tools.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Casting from a SUP</h2>
+        <p class="mt-3 text-gray-600">Stand with feet wider than usual for stability. Keep your knees slightly bent to absorb board movement. Cast parallel to the board's length to avoid falling sideways. Practice casting while kneeling before attempting standing casts. A low-profile spinning reel handles better on a SUP than a baitcaster.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Fighting & Landing Fish</h2>
+        <p class="mt-3 text-gray-600">When you hook a fish, sit down on the board for stability. Let the fish tire itself out — on a SUP you cannot brace against a gunwale. A landing net with a long handle is essential. Keep the fish low to the board to avoid tipping. A lip gripper helps with handling.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Best Environments</h2>
+        <p class="mt-3 text-gray-600">SUP fishing excels in shallow flats, mangroves, and estuaries where motorized boats cannot go. Calm lakes and slow rivers are ideal for beginners. Always check wind conditions before heading out — wind over 12 mph makes SUP fishing challenging and unsafe.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Safety Considerations</h2>
+        <p class="mt-3 text-gray-600">Always wear your life vest. Attach your leash. Carry a whistle or air horn. Tell someone your float plan. Watch for boat traffic — you are low to the water and hard to see. A bright flag or high-visibility paddle blade helps other boaters spot you.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/understanding-specs" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Understanding SUP Specs</a>
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/guides/sup-maintenance" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP Maintenance</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop SUPs</a>
+      </div>
+    </section>
+  </section>
+</Layout>

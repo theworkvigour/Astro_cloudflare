@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `SUP Yoga Guide — ${SITE.name}`,
+  description: 'Practice yoga on an inflatable SUP. Board selection, poses for beginners and advanced, anchoring tips, and the benefits of paddling plus yoga.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Yoga Guide</h1>
+    <p class="mt-4 text-lg text-gray-500">Take your practice to the water. SUP yoga challenges balance and deepens mind-body connection.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Choosing a Board for Yoga</h2>
+        <p class="mt-3 text-gray-600">Wider is better for yoga. Look for boards 32 inches or wider with a thick, comfortable EVA foam deck pad. The SUP Explorer 11 at 32 inches provides excellent stability. A board with a large standing area free of D-rings and bungees gives you room to move through poses.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Setting Up Your Floating Studio</h2>
+        <p class="mt-3 text-gray-600">Inflate your board to 12-15 PSI for a firm, stable platform. Anchor the board in a sheltered cove or shallow area — dropping a small anchor from the tail keeps you oriented. Use a non-slip yoga mat on the deck pad if you want extra cushioning for knee-intensive poses.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Beginner Poses</h2>
+        <p class="mt-3 text-gray-600">Start with: Mountain Pose (Tadasana) to find your center of balance, Tree Pose (Vrksasana) with one foot on the ankle or calf, Warrior II (Virabhadrasana II) for lower body strength, and Cat-Cow on hands and knees to warm up the spine. Practice near shore or in shallow water until you build confidence.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Intermediate Poses</h2>
+        <p class="mt-3 text-gray-600">Once comfortable, try: Downward-Facing Dog (Adho Mukha Svanasana), Chair Pose (Utkatasana), Half Moon (Ardha Chandrasana) using the paddle as support, and Pigeon Pose (Eka Pada Rajakapotasana). The gentle instability of the water activates core stabilizers continuously.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Advanced Practice</h2>
+        <p class="mt-3 text-gray-600">Challenge yourself with: Handstand (Adho Mukha Vrksasana) near shore with a spotter, Crow Pose (Bakasana) for arm balance, and Headstand (Sirsasana) once you have mastered inversions on land. Always have a fallback plan — falling into water is safe but protect your head and neck.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Benefits of SUP Yoga</h2>
+        <p class="mt-3 text-gray-600">SUP yoga activates more stabilizing muscles than land yoga. The uneven surface forces micro-adjustments that build core strength and proprioception. The calming effect of water reduces cortisol and enhances focus. Many practitioners report that balancing on water translates to better balance on land.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/beginner-guide" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Beginner Guide</a>
+        <a href="/guides/sup-fitness" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP for Fitness</a>
+        <a href="/guides/sup-maintenance" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP Maintenance</a>
+        <a href="/products?category=inflatable" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop Inflatables</a>
+      </div>
+    </section>
+  </section>
+</Layout>

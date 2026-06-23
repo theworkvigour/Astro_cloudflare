@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Understanding SUP Board Specs — ${SITE.name}`,
+  description: 'Decode SUP board specifications: volume, length, width, thickness, weight capacity, hull shape, and how each spec affects paddling performance.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Understanding SUP Board Specs</h1>
+    <p class="mt-4 text-lg text-gray-500">Board specifications affect how a SUP performs. Here is what each number means for your paddling experience.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Volume (Liters)</h2>
+        <p class="mt-3 text-gray-600">Volume determines buoyancy. A higher volume board floats higher and supports more weight. Formula: rider weight (kg) + gear weight (kg) + 30-50L for recreational paddling, or 50-70L for surfing and maneuverability. The SUP Explorer 11 offers approximately 275L — adequate for most riders up to 220 lbs.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Length</h2>
+        <p class="mt-3 text-gray-600">Longer boards track straighter and glide more efficiently between strokes. Shorter boards turn faster and are more maneuverable. All-around boards: 10-11 ft. Touring boards: 11-12.5 ft. Surfing boards: 8-10 ft. The SUP Tour 12 at 12 ft prioritizes glide and tracking for distance paddling.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Width</h2>
+        <p class="mt-3 text-gray-600">Width is the primary stability factor. Wider boards (32-34 in) offer exceptional primary stability — the board feels stable even on flat water. Narrower boards (28-30 in) are faster but require active balance. The SUP Explorer 11 at 32 in is stable enough for beginners and yoga, while the SUP Tour 12 at 30 in balances speed and stability for touring.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Thickness & Pressure</h2>
+        <p class="mt-3 text-gray-600">Standard inflatable SUP thickness is 6 inches. Thicker boards (8 in) offer more volume and rigidity but feel more like a raft. Wavefella boards use drop-stitch construction at 6 inches, inflated to 12-15 PSI for a rigid, hard-board feel. Higher pressure equals more rigidity — always inflate to the recommended range.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Hull Shape</h2>
+        <p class="mt-3 text-gray-600">Planning hull (flat bottom): stable at rest, planes easily — common on all-around boards. Displacement hull (pointed, V-shaped bottom): cuts through water, tracks straight — ideal for touring. The SUP Tour 12 uses a displacement hull for efficiency on long-distance paddles. The SUP Explorer 11 uses a planning hull for versatile all-around performance.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Weight Capacity</h2>
+        <p class="mt-3 text-gray-600">Maximum load capacity includes rider plus gear. Exceeding the capacity makes the board sluggish, harder to balance, and prone to porpoising (nose diving). The SUP Explorer 11: 220 lbs max. The SUP Tour 12: 250 lbs max. For paddlers near the upper limit of a board, consider going up one size for better performance.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/how-to-choose-your-sup" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">How to Choose Your SUP</a>
+        <a href="/guides/inflatable-vs-hard" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Inflatable vs Hard Board</a>
+        <a href="/guides/sup-maintenance" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP Maintenance</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop SUPs</a>
+      </div>
+    </section>
+  </section>
+</Layout>

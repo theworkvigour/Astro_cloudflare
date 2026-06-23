@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Inflatable Boat Care & Repair — ${SITE.name}`,
+  description: 'Complete guide to repairing inflatable SUPs, kayaks, and boats. Puncture repair, valve replacement, seam repair, and preventive maintenance.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Inflatable Boat Care & Repair</h1>
+    <p class="mt-4 text-lg text-gray-500">With proper care, inflatable boards and boats last for years. Here is how to handle repairs.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Finding a Leak</h2>
+        <p class="mt-3 text-gray-600">Inflate the board to 10 PSI. Mix soapy water in a spray bottle and spray the surface — look for bubbles. Common leak areas: valve base, seam edges, and around fin boxes. For hard-to-find leaks, inflate the board, submerge sections in water (or apply soapy water), and watch for bubble streams. Mark each leak with tape.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Repairing Small Punctures</h2>
+        <p class="mt-3 text-gray-600">For punctures under 1/4 inch: clean the area with alcohol, apply PVC adhesive from your repair kit, place a patch, and press firmly. Weight the patch for 24 hours. For punctures up to 1 inch: use a larger patch with rounded corners (sharp corners peel). Deflate the board completely before starting any repair.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Repairing Seam Separations</h2>
+        <p class="mt-3 text-gray-600">Seam separations require more care. Clean both surfaces with acetone. Apply two thin coats of PVC adhesive to each surface, letting each coat dry to tacky. Press together firmly and use a seam roller. Apply heat (hair dryer on medium) to activate the adhesive fully. Let cure for 48 hours before inflating.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Valve Replacement</h2>
+        <p class="mt-3 text-gray-600">If air leaks from the valve, the valve core may need replacement. Use a valve tool (available from Wavefella) to unscrew the core. Take the old core to a dealer for a matching replacement. Apply PTFE tape to the new core threads and tighten. Test at full pressure before hitting the water.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">When to Seek Professional Repair</h2>
+        <p class="mt-3 text-gray-600">Some damage requires professional attention: large tears (over 2 inches), damage to the drop-stitch threads, delamination of the deck pad, or valve base separation from the PVC. Contact Wavefella support for authorized repair center referrals. Attempting DIY repair on structural damage can void the warranty.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Preventive Care</h2>
+        <p class="mt-3 text-gray-600">Most damage is preventable. Avoid dragging your inflatable on rough surfaces — carry it. Inflate to correct pressure (12-15 PSI) — under-inflated boards flex more and are prone to crease damage. Store away from rodents and sharp objects. Rinse after saltwater use. Inspect your board before every outing.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/sup-maintenance" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP Maintenance</a>
+        <a href="/guides/understanding-specs" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Understanding SUP Specs</a>
+        <a href="/technology" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Technology</a>
+        <a href="/products?category=accessory" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Repair Kits & Accessories</a>
+      </div>
+    </section>
+  </section>
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Kayak Paddling Techniques — ${SITE.name}`,
+  description: 'Learn proper kayak paddling technique: forward stroke, sweep stroke, draw stroke, bracing, and edging for inflatable kayaks.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Kayak Paddling Techniques</h1>
+    <p class="mt-4 text-lg text-gray-500">Master the fundamentals of kayak paddling for efficiency, control, and endurance.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">The Forward Stroke</h2>
+        <p class="mt-3 text-gray-600">Unlike SUP, kayak paddling uses a double-bladed paddle with alternating strokes. Sit upright with your back against the seat. Rotate your torso — not your arms — to drive the stroke. The paddle blade enters the water near your feet and exits at your hip. A proper forward stroke uses legs and core, not shoulders.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">The Sweep Stroke</h2>
+        <p class="mt-3 text-gray-600">For turning the kayak, use a sweep stroke. Plant the paddle blade wide near the bow and sweep it in a wide arc toward the stern. A forward sweep turns the boat away from the paddle side. A reverse sweep turns toward the paddle side. Practice both until turning feels intuitive.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">The Draw Stroke</h2>
+        <p class="mt-3 text-gray-600">The draw stroke moves the kayak sideways without turning. Reach out to the side, plant the blade parallel to the boat, and pull the water toward you. Keep the blade perpendicular to the boat for maximum lateral movement. This is essential for docking and positioning near fishing spots.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Bracing</h2>
+        <p class="mt-3 text-gray-600">In a kayak, a low brace uses the back of the paddle blade to slap the water surface and prevent tipping. A high brace holds the paddle overhead with the blade flat on the water. Inflatable kayaks are naturally stable, but bracing technique is still important in wind waves and boat wakes.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Edging</h2>
+        <p class="mt-3 text-gray-600">Edging tilts the kayak slightly to one side to carve turns. In the Kayak Lite and Kayak Tandem, edging works by shifting your hips while keeping your upper body upright. This tilts the hull and allows the kayak to turn more sharply than with paddle strokes alone.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Paddling with a Partner (Tandem)</h2>
+        <p class="mt-3 text-gray-600">In the Kayak Tandem, communication is key. The rear paddler sets the cadence and steering. The front paddler follows the rhythm. For turning, the rear paddler uses sweep strokes while the front paddler continues forward strokes. Practice basic commands: "switch sides," "stop," "back paddle."</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/beginner-guide" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Beginner Guide</a>
+        <a href="/guides/weather-conditions" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Weather & Water Conditions</a>
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/products?category=inflatable" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop Kayaks</a>
+      </div>
+    </section>
+  </section>
+</Layout>

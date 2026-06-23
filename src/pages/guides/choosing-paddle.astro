@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Choosing the Right Paddle — ${SITE.name}`,
+  description: 'Guide to selecting the right SUP or kayak paddle: materials (aluminum, fiberglass, carbon), blade shapes, shaft types, and sizing for your height.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Choosing the Right Paddle</h1>
+    <p class="mt-4 text-lg text-gray-500">Your paddle is your engine. Choosing the right one makes paddling more efficient and more fun.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Paddle Length</h2>
+        <p class="mt-3 text-gray-600">For SUP, a paddle should be 8-10 inches taller than you. Stand with the paddle vertical — your arm should reach up and grip the handle with your elbow bent at 90 degrees. For kayaking, measure from the ground to your nose height. Adjustable paddles like the Wavefella Carbon Paddle (170-220 cm) let you fine-tune length.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Shaft Materials</h2>
+        <p class="mt-3 text-gray-600">Aluminum is durable and affordable but heavy — good for rental fleets and occasional use. Fiberglass balances weight and cost — a good upgrade for regular paddlers. Carbon fiber is the lightest and stiffest — the Wavefella Carbon Paddle weighs only 24 oz and reduces arm fatigue by about 30% compared to aluminum.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Blade Shapes</h2>
+        <p class="mt-3 text-gray-600">A dihedral blade (ridged down the center) tracks straighter through the water, reducing flutter — ideal for touring. A flat blade provides more catch and power per stroke — good for surfing and general use. A scoop blade holds more water for powerful acceleration — preferred by racers.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Shaft Shapes</h2>
+        <p class="mt-3 text-gray-600">Straight shafts are standard and work for all paddling styles. Bent shafts (offset by 10-12 degrees) reduce wrist fatigue during long touring days — the angle aligns your wrist with the power phase of the stroke. Bent shafts are not recommended for surfing or whitewater where you need to switch paddle sides frequently.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Blade Size</h2>
+        <p class="mt-3 text-gray-600">Larger blades (100+ sq in) pull more water per stroke for powerful acceleration — good for strong paddlers and surfing. Smaller blades (80-95 sq in) allow higher cadence with less strain — better for touring, fitness, and paddlers with smaller frames. Match blade size to your body strength and paddling style.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Paddle Care</h2>
+        <p class="mt-3 text-gray-600">Rinse your paddle with fresh water after saltwater use. Store it out of direct sunlight. Check the ferrule mechanism regularly on adjustable paddles and apply silicone grease if it becomes stiff. Inspect the blade edges for chips or delamination. A well-maintained paddle lasts for years.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/paddling-techniques" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Paddling Techniques</a>
+        <a href="/guides/understanding-specs" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Understanding SUP Specs</a>
+        <a href="/guides/sup-fitness" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP for Fitness</a>
+        <a href="/products?category=accessory" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Paddles & Accessories</a>
+      </div>
+    </section>
+  </section>
+</Layout>

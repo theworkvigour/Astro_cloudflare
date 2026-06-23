@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `SUP Maintenance & Storage Guide — ${SITE.name}`,
+  description: 'Complete guide to cleaning, storing, and maintaining your inflatable SUP board. UV protection, valve care, pressure management, and winter storage.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Maintenance & Storage</h1>
+    <p class="mt-4 text-lg text-gray-500">Proper care extends the life of your inflatable SUP by years. Follow these guidelines.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Cleaning Your Board</h2>
+        <p class="mt-3 text-gray-600">Rinse your board with fresh water after every use, especially after saltwater paddling. Use mild soap and a soft sponge for stubborn dirt. Never use solvents, alcohol, or abrasive cleaners — they damage PVC. Dry the board completely before storage to prevent mold and mildew.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">UV Protection</h2>
+        <p class="mt-3 text-gray-600">PVC degrades under prolonged UV exposure. Store your board out of direct sunlight when not in use. Apply a UV protectant spray formulated for inflatable boats every 4-6 weeks during heavy use. When paddling, the board is fine in the sun — it is the hours of storage in direct light that cause damage.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Valve Maintenance</h2>
+        <p class="mt-3 text-gray-600">The inflation valve is the most common failure point. Check the valve core tightness with a valve tool (included in your repair kit). Apply silicone grease to the O-ring annually. If air escapes from the valve, replace the core — it is a standard part available at any Wavefella dealer.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Pressure Management</h2>
+        <p class="mt-3 text-gray-600">Inflate to 12-15 PSI for optimal rigidity. In hot weather, pressure rises as the air inside expands. Check pressure after the board has been in the sun and release air if it exceeds 15 PSI. Never leave an over-inflated board in direct sunlight — thermal expansion can damage seams.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Storage</h2>
+        <p class="mt-3 text-gray-600">Deflate and roll your board loosely — tight rolls create permanent creases. Store in a cool, dry place away from rodents, sharp objects, and temperature extremes. For winter storage, clean and dry the board thoroughly, partially inflate it (3-5 PSI) to maintain shape, and store flat or loosely rolled.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Repairing Small Punctures</h2>
+        <p class="mt-3 text-gray-600">Your Wavefella board comes with a PVC repair kit. For small punctures: clean the area, apply PVC adhesive, place the patch, and weight it for 24 hours. For valve or seam damage, contact Wavefella support or an authorized repair center.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/inflatable-repair" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Inflatable Boat Care & Repair</a>
+        <a href="/guides/preparing-sup-summer" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Preparing for Summer</a>
+        <a href="/guides/understanding-specs" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Understanding SUP Specs</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop Boards</a>
+      </div>
+    </section>
+  </section>
+</Layout>

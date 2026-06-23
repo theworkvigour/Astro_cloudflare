@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Reading Weather & Water Conditions — ${SITE.name}`,
+  description: 'Learn to read weather forecasts, wind patterns, tides, and currents for safe SUP and kayak paddling. Know when to go and when to stay ashore.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Reading Weather & Water Conditions</h1>
+    <p class="mt-4 text-lg text-gray-500">Understanding weather and water is the most important skill for safe paddling.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Wind</h2>
+        <p class="mt-3 text-gray-600">Wind is the primary weather factor for paddlers. Below 10 mph: ideal for all paddling. 10-15 mph: challenging for beginners, manageable for experienced paddlers on stable boards. Above 15 mph: dangerous for SUPs and recreational kayaks. Check both wind speed and direction — offshore wind (blowing away from land) is especially dangerous as it pushes you away from shore.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Waves</h2>
+        <p class="mt-3 text-gray-600">Wave height is measured from trough to crest. Under 1 ft: calm, ideal for beginners. 1-2 ft: moderate, suitable for intermediate paddlers on stable boards like the SUP Explorer 11. Over 2 ft: advanced only. Remember that boat wakes can create sudden wave conditions even on calm days. Stay alert in busy waterways.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Tides</h2>
+        <p class="mt-3 text-gray-600">Tides affect coastal paddling significantly. Plan to paddle with the incoming or outgoing tide rather than against it. Know the tidal range for your area — some locations have 10+ ft tidal swings that completely change shoreline access. Slack tide (the period between incoming and outgoing) offers the calmest conditions.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Currents</h2>
+        <p class="mt-3 text-gray-600">River currents are measured in knots or mph. Under 2 knots: safe for all paddlers. 2-4 knots: experienced paddlers only. Above 4 knots: dangerous, requires whitewater skills. Always paddle upstream first on rivers — if you tire, the current will help you return, not sweep you further away.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Weather Forecast Resources</h2>
+        <p class="mt-3 text-gray-600">Use NOAA Marine Forecasts (marine.weather.gov) for coastal conditions. Windy.com provides visual wind and wave forecasts. Local harbor webcams show real-time conditions. Check three sources before launching: general forecast, marine forecast, and live observations from nearby weather stations.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">The Go/No-Go Decision</h2>
+        <p class="mt-3 text-gray-600">If any of these are true, stay ashore: wind over 15 mph, waves over 2 ft, thunderstorms in the forecast, air temperature below 50°F with water below 60°F, or visibility under 1 mile. The water will still be there tomorrow. No paddle is worth a rescue.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/guides/multi-day-trip" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Multi-Day Trip Planning</a>
+        <a href="/safety" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Standards</a>
+        <a href="/products?category=accessory" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Equipment</a>
+      </div>
+    </section>
+  </section>
+</Layout>

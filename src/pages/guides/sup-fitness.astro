@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `SUP for Fitness & Cross-Training — ${SITE.name}`,
+  description: 'Use stand-up paddleboarding as a full-body workout. Learn SUP fitness routines, calorie burn, muscle groups engaged, and training plans.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP for Fitness & Cross-Training</h1>
+    <p class="mt-4 text-lg text-gray-500">SUP is one of the best full-body workouts available. Here is how to maximize the fitness benefits.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Muscle Groups Engaged</h2>
+        <p class="mt-3 text-gray-600">SUP paddling works your core (stabilizing muscles fire constantly), back (latissimus dorsi and rhomboids drive the stroke), shoulders (deltoids control the paddle), arms (biceps and triceps), and legs (quads and glutes maintain stance). A 60-minute SUP session burns 400-700 calories depending on intensity.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Endurance Training</h2>
+        <p class="mt-3 text-gray-600">Use the SUP Tour 12 for distance paddling. Maintain a steady cadence of 50-60 strokes per minute for 45-90 minutes. Focus on torso rotation — your core, not your arms, should tire first. Track distance with a GPS watch or phone app and aim to increase distance by 10% per week.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Interval Training</h2>
+        <p class="mt-3 text-gray-600">Alternate 2 minutes of sprint paddling with 2 minutes of active recovery (slow paddling). Repeat 8-10 times. This builds cardiovascular fitness and power. Mark a 200-meter course and do timed laps — rest 1 minute between each. Record your times to track improvement.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">SUP Yoga Cross-Training</h2>
+        <p class="mt-3 text-gray-600">Combining SUP paddling days with SUP yoga days creates a balanced fitness routine. Paddling builds cardiovascular endurance and upper body strength. Yoga develops flexibility, balance, and core stability. Alternate paddling and yoga sessions for the best all-around fitness results.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Recovery Paddling</th></h2>
+        <p class="mt-3 text-gray-600">On rest days, a gentle 30-minute paddle at low intensity promotes blood flow and recovery without taxing your muscles. Use the SUP Explorer 11 for stability. Focus on technique and breathing. The rhythmic nature of paddling has meditative benefits that support mental recovery.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Building a Weekly Routine</h2>
+        <p class="mt-3 text-gray-600">Monday: 45-min endurance paddle (SUP Tour 12). Wednesday: 30-min interval training. Friday: 30-min SUP yoga. Saturday: 60-min distance paddle. Sunday: 30-min recovery paddle. Adjust based on your fitness level and schedule. Always warm up with 5 minutes of gentle paddling before intense effort.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/paddling-techniques" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Paddling Techniques</a>
+        <a href="/guides/sup-yoga" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">SUP Yoga</a>
+        <a href="/guides/choosing-paddle" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Choosing a Paddle</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop Boards</a>
+      </div>
+    </section>
+  </section>
+</Layout>

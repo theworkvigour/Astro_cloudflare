@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Multi-Day Paddling Trip Planning — ${SITE.name}`,
+  description: 'Plan and pack for multi-day SUP or kayak expeditions. Gear checklist, camping considerations, navigation, food, and safety for extended trips.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Multi-Day Paddling Trip Planning</h1>
+    <p class="mt-4 text-lg text-gray-500">Extend your paddling adventures across multiple days with proper planning and gear.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Choosing the Right Watercraft</h2>
+        <p class="mt-3 text-gray-600">For multi-day trips, choose a board or kayak with enough deck space or storage for gear. The SUP Tour 12 at 12 ft provides ample deck space for strapping a dry bag. The Kayak Tandem with its 400 lb capacity can carry two people plus gear. On inflatable boards, distribute weight evenly and keep gear low to maintain stability.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Essential Gear Checklist</h2>
+        <p class="mt-3 text-gray-600">Paddling gear: board, paddle (plus spare), pump, repair kit, leash, life vest, whistle. Camping: lightweight tent, sleeping bag (rated for expected temps), sleeping pad, stove, fuel, cookware, water filter or purification tablets. Clothing: quick-dry layers, rain jacket, sun hat, wetsuit or drysuit if cold water. Navigation: waterproof map, compass, GPS device, phone in waterproof case.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Food & Water Planning</h2>
+        <p class="mt-3 text-gray-600">Plan for 1 gallon of water per person per day (or a reliable water filter). High-energy, lightweight food: dehydrated meals, nuts, trail mix, energy bars, tortillas, peanut butter, instant coffee. Pack food in dry bags and distribute across multiple bags in case one gets lost. Pack an extra day's food for emergencies.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Route Planning & Navigation</h2>
+        <p class="mt-3 text-gray-600">Plan to paddle 10-15 miles per day depending on conditions and your fitness level. Identify campsites, water sources, and bail-out points on your map. Note tide schedules for coastal trips. Tell someone on shore your complete route and expected return date. Check in at ranger stations or marinas along the way.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Weather Contingency</h2>
+        <p class="mt-3 text-gray-600">Multi-day trips require weather flexibility. Build in layover days for bad weather. Know the signs of approaching storms: rapidly building clouds, sudden wind shifts, dropping barometric pressure. If wind exceeds 15 mph, get off the water and set up camp early. A personal locator beacon (PLB) is strongly recommended for remote trips.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">Leave No Trace</h2>
+        <p class="mt-3 text-gray-600">Pack out everything you pack in. Use established campsites where available. Bury human waste 200 feet from water and campsites. Use biodegradable soap sparingly and at least 200 feet from water. Respect wildlife — observe from a distance. Leave the water cleaner than you found it. Carry a trash bag for any litter you find along the shore.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/weather-conditions" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Weather & Water Conditions</a>
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/guides/inflatable-repair" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Inflatable Repair</a>
+        <a href="/guides/understanding-specs" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Understanding SUP Specs</a>
+      </div>
+    </section>
+  </section>
+</Layout>
