@@ -8,170 +8,154 @@ const metadata = {
   description: SITE?.description,
   ignoreTitleTemplate: true,
 };
+
+const productSystem = [
+  {
+    name: 'SUP Boards',
+    desc: 'Stable inflatable paddle boards for lakes, sea, and beginners. Lightweight, portable, and easy to store.',
+    use: 'Recreation / Training / Exploration',
+  },
+  {
+    name: 'Inflatable Kayaks',
+    desc: 'Lightweight portable kayaks for rivers and coastal waters. Designed for touring, fishing, and adventure.',
+    use: 'Touring / Fishing / Adventure',
+  },
+  {
+    name: 'RIBs & Dinghies',
+    desc: 'Rigid-hull inflatable boats and portable dinghies for transport, commercial use, and rescue operations.',
+    use: 'Transport / Commercial / Rescue',
+  },
+  {
+    name: 'Safety Equipment',
+    desc: 'Certified life vests, PFDs, and protection gear for all water activities. Safety first, always.',
+    use: 'All water activities',
+  },
+  {
+    name: 'Accessories',
+    desc: 'Paddles, pumps, bags, and essential gear for maintenance, transport, and customization.',
+    use: 'Maintenance / Transport / Customization',
+  },
+];
+
+const useCases = [
+  {
+    title: 'Beginner Water Sports',
+    desc: 'Stable SUP boards and kayaks designed for first-time users. Easy launch, stable ride, confidence building.',
+  },
+  {
+    title: 'Outdoor Exploration',
+    desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips. Packable and ready for adventure.',
+  },
+  {
+    title: 'Professional Operations',
+    desc: 'Commercial-grade RIBs for tour operators, ferry services, law enforcement, and emergency response.',
+  },
+  {
+    title: 'Family Recreation',
+    desc: 'Spacious dinghies and safe equipment for family day trips, fishing, and watersports.',
+  },
+];
+
+const trustPoints = [
+  { title: 'ISO & CE Certified', desc: 'Every product meets international safety and quality standards.' },
+  { title: 'Material Excellence', desc: 'Premium PVC and Hypalon fabrics tested for UV, abrasion, and temperature extremes.' },
+  { title: 'Rigorous Testing', desc: 'Each vessel undergoes pressure, buoyancy, and load tests before shipment.' },
+  { title: '2-Year Warranty', desc: 'All Wavefella products backed by comprehensive manufacturer warranty.' },
+];
 ---
 
 <Layout metadata={metadata}>
   <!-- Hero -->
-  <section class={ui.section + " text-center"}>
-    <div class="max-w-4xl mx-auto px-6">
-      <span class={ui.badge}>Founded 2012</span>
-      <h1 class={"mt-6 " + ui.h1 + " text-5xl md:text-6xl"}>
-        Premium Inflatables for Every Adventure
+  <section class="py-28 text-center bg-gradient-to-b from-sky-50 to-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Since 2012</span>
+      <h1 class="mt-6 text-5xl font-semibold tracking-tight text-gray-900">
+        Explore Water. Build Freedom.
       </h1>
-      <p class={"mt-6 " + ui.subtitle + " mx-auto"}>
-        Wavefella designs and manufactures high-quality inflatable boats, stand-up paddleboards,
-        and water sports gear. From dinghies to commercial rescue vessels — built for performance,
-        durability, and safety.
+      <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+        Wavefella designs professional water sports equipment for paddling, exploration,
+        and outdoor adventure. Every product is engineered for performance, durability, and safety.
       </p>
       <div class="mt-10 flex items-center justify-center gap-4">
-        <a href="#products" class={ui.btnPrimary}>Explore products</a>
-        <a href="#ask" class={ui.btnOutline}>Ask AI</a>
+        <a href="#products" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
+          Explore products
+        </a>
+        <a href="#ask" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 transition-colors">
+          Ask AI
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Why Wavefella -->
-  <section class={ui.section + " bg-gray-50"}>
-    <div class={ui.container}>
-      <div class="max-w-3xl">
-        <span class={ui.badge}>Why Wavefella</span>
-        <h2 class={"mt-4 " + ui.h2}>Engineered for water, designed for you</h2>
-        <p class={"mt-4 " + ui.subtitle}>
-          Every Wavefella product is the result of decades of inflatable technology expertise.
-          Our R&D center drives continuous innovation in materials, structural design, and
-          manufacturing processes.
-        </p>
-      </div>
-      <div class={"mt-16 " + ui.grid3}>
-        {[
-          { title: "Decades of expertise", desc: "Years of inflatable boat technology and manufacturing innovation." },
-          { title: "Rigorous testing", desc: "Every vessel undergoes strict quality control and safety certification." },
-          { title: "Global support", desc: "Distributed worldwide through authorized dealers and partners." },
-        ].map(p => (
-          <div class={ui.cardSm}>
-            <h3 class={ui.h3 + " text-lg"}>{p.title}</h3>
-            <p class={"mt-2 " + ui.body}>{p.desc}</p>
-          </div>
-        ))}
-      </div>
+  <!-- Product System -->
+  <section id="products" class="max-w-6xl mx-auto py-20 px-6">
+    <div class="max-w-3xl">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Complete water sports equipment line</h2>
+      <p class="mt-4 text-gray-500">
+        From paddleboards to rescue vessels, every category is designed with a clear purpose and use case.
+      </p>
     </div>
-  </section>
-
-  <!-- Products -->
-  <section id="products" class={ui.section}>
-    <div class={ui.container}>
-      <div class="max-w-3xl">
-        <span class={ui.badge}>Products</span>
-        <h2 class={"mt-4 " + ui.h2}>Our product lines</h2>
-      </div>
-      <div class={"mt-12 " + ui.grid3}>
-        {[
-          {
-            name: "Dinghies",
-            desc: "Lightweight, portable inflatable dinghies for recreational boating, fishing, and tender duties.",
-          },
-          {
-            name: "Sport Tenders",
-            desc: "Performance tenders designed for speed and maneuverability. Ideal for yacht tendering and watersports.",
-          },
-          {
-            name: "Rigid Hulls",
-            desc: "RIB series with fiberglass or aluminum hulls. Superior stability, performance, and durability.",
-          },
-          {
-            name: "Sport Utility Boats",
-            desc: "Versatile multi-purpose inflatables for work, play, and exploration in any conditions.",
-          },
-          {
-            name: "Commercial & Rescue",
-            desc: "Heavy-duty vessels engineered for commercial use, law enforcement, and emergency response.",
-          },
-          {
-            name: "River Boats",
-            desc: "Whitewater rafting boats built to withstand the toughest river conditions.",
-          },
-          {
-            name: "Stand-Up Paddleboards",
-            desc: "Premium inflatable SUPs for touring, yoga, surfing, and recreational paddling.",
-          },
-          {
-            name: "SUP Accessories",
-            desc: "High-performance paddles, reliable pumps, carry bags, and essential gear.",
-          },
-          {
-            name: "Life Vests & Safety",
-            desc: "Certified personal flotation devices and safety equipment for all water activities.",
-          },
-        ].map(p => (
-          <div class={ui.card}>
-            <h3 class={ui.h3 + " text-xl"}>{p.name}</h3>
-            <p class={"mt-3 " + ui.body}>{p.desc}</p>
-          </div>
-        ))}
-      </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      {productSystem.map(p => (
+        <div class="border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-colors">
+          <h3 class="text-xl font-semibold text-gray-900">{p.name}</h3>
+          <p class="text-gray-500 mt-2">{p.desc}</p>
+          <p class="text-sm text-gray-400 mt-4">Use: {p.use}</p>
+        </div>
+      ))}
     </div>
   </section>
 
   <!-- Use Cases -->
-  <section class={ui.section + " bg-gray-50"}>
-    <div class={ui.container}>
+  <section class="bg-gray-50 py-20 px-6">
+    <div class="max-w-6xl mx-auto">
       <div class="max-w-3xl">
-        <span class={ui.badge}>Use cases</span>
-        <h2 class={"mt-4 " + ui.h2}>Built for every water experience</h2>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built for real water experiences</h2>
+        <p class="mt-4 text-gray-500">
+          Whether you are a beginner or a professional, Wavefella has the right equipment for your水上活动。
+        </p>
       </div>
-      <div class={"mt-12 " + ui.grid3}>
-        {[
-          { title: "Recreational Boating", desc: "Day trips, fishing, and family outings on lakes, rivers, and coastal waters." },
-          { title: "Yacht Tender", desc: "Compact, reliable tender for yacht owners. Easy to store and launch." },
-          { title: "Commercial Operations", desc: "Tour operators, ferry services, and marine transport." },
-          { title: "Emergency Response", desc: "Search and rescue, law enforcement, and disaster relief operations." },
-          { title: "Whitewater Rafting", desc: "Professional-grade river boats for guided tours and expedition rafting." },
-          { title: "Watersports & SUP", desc: "Paddleboarding, yoga, surfing, and fitness on the water." },
-        ].map(u => (
-          <div class={ui.cardSm}>
-            <h3 class={ui.h3 + " text-lg"}>{u.title}</h3>
-            <p class={"mt-2 " + ui.body}>{u.desc}</p>
+      <div class="mt-12 grid md:grid-cols-4 gap-6">
+        {useCases.map(u => (
+          <div class="bg-white border border-gray-200 rounded-2xl p-6">
+            <h3 class="font-semibold text-gray-900">{u.title}</h3>
+            <p class="text-gray-500 mt-2 text-sm">{u.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Technology -->
-  <section class={ui.section}>
-    <div class={ui.container}>
-      <div class="max-w-3xl">
-        <span class={ui.badge}>Technology</span>
-        <h2 class={"mt-4 " + ui.h2}>Research & Development Center</h2>
-        <p class={"mt-4 " + ui.subtitle}>
-          Our state-of-the-art R&D center drives innovation in materials, structural design,
-          and manufacturing processes — setting industry standards for quality and performance.
-        </p>
-      </div>
-      <div class={"mt-12 " + ui.grid2}>
-        {[
-          { title: "Material Innovation", desc: "Advanced PVC and Hypalon materials for abrasion resistance, UV protection, and low-temperature performance." },
-          { title: "Structural Design", desc: "Optimized air chamber layouts for stability and load capacity. CAD-designed keels for superior tracking." },
-          { title: "Manufacturing Excellence", desc: "Heat-sealed seams with automated production lines for consistent quality and airtightness." },
-          { title: "Safety Testing", desc: "Every product undergoes rigorous testing and certification to meet international safety standards." },
-        ].map(t => (
-          <div class={ui.cardSm}>
-            <h3 class={ui.h3 + " text-lg"}>{t.title}</h3>
-            <p class={"mt-2 " + ui.body}>{t.desc}</p>
-          </div>
-        ))}
-      </div>
+  <!-- Trust Layer -->
+  <section class="max-w-6xl mx-auto py-20 px-6">
+    <div class="max-w-3xl">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Safety & Quality</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built to last, tested to perform</h2>
+      <p class="mt-4 text-gray-500">
+        Every Wavefella product undergoes rigorous testing and certification to meet international standards.
+      </p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-4 gap-6">
+      {trustPoints.map(t => (
+        <div class="border border-gray-200 rounded-2xl p-6">
+          <h3 class="font-semibold text-gray-900">{t.title}</h3>
+          <p class="text-gray-500 mt-2 text-sm">{t.desc}</p>
+        </div>
+      ))}
     </div>
   </section>
 
   <!-- AI Ask -->
-  <section id="ask" class={ui.section + " bg-gray-50"}>
-    <div class={ui.container}>
+  <section id="ask" class="bg-gray-50 py-20 px-6">
+    <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-3xl mx-auto">
-        <span class={ui.badge}>AI Assistant</span>
-        <h2 class={"mt-4 " + ui.h2}>Ask about our products</h2>
-        <p class={"mt-4 " + ui.subtitle + " mx-auto"}>
-          Get factual, neutral explanations about Wavefella products, specifications, and capabilities.
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">AI Product Guide</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Ask about our products</h2>
+        <p class="mt-4 text-gray-500">
+          Not sure which product fits your needs? Ask our AI guide for product comparisons,
+          use case recommendations, and safety advice. Neutral, factual, no sales pitch.
         </p>
       </div>
       <div class="mt-10 max-w-2xl mx-auto">
@@ -179,16 +163,16 @@ const metadata = {
           <input
             id="ask-input"
             type="text"
-            placeholder="What is a RIB vs a dinghy?"
-            class={ui.input}
+            placeholder="E.g. What is the difference between a SUP and a kayak?"
+            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400"
             autocomplete="off"
           />
-          <button type="submit" class={ui.btnPrimary + " shrink-0"}>
+          <button type="submit" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors shrink-0">
             Ask
           </button>
         </form>
         <div id="ask-output" class="mt-8 hidden">
-          <div id="ask-answer" class={"p-6 bg-white border border-gray-200 rounded-2xl " + ui.body}></div>
+          <div id="ask-answer" class="p-6 bg-white border border-gray-200 rounded-2xl text-gray-700 leading-relaxed"></div>
           <div id="ask-sources" class="mt-3 text-xs text-gray-400"></div>
         </div>
         <div id="ask-error" class="mt-4 text-sm text-red-500 hidden"></div>
@@ -196,15 +180,17 @@ const metadata = {
     </div>
   </section>
 
-  <!-- Contact -->
-  <section class={ui.section + " text-center"}>
-    <div class="max-w-2xl mx-auto px-6">
-      <h2 class={ui.h2}>Get in touch</h2>
-      <p class={"mt-4 " + ui.subtitle + " mx-auto"}>
-        For inquiries, partnership opportunities, or technical questions.
+  <!-- Contact / Distribution -->
+  <section class="py-20 px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Get in touch</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Contact & Distribution</h2>
+      <p class="mt-4 text-gray-500 max-w-xl mx-auto">
+        For distributors, retail partners, or product inquiries. We welcome collaboration
+        with dealers, rental operators, and water sports professionals worldwide.
       </p>
-      <a href="/contact" class={"mt-8 " + ui.btnOutline + " inline-block"}>
-        Contact us
+      <a href="/contact" class="mt-8 inline-block px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 transition-colors">
+        Get in touch
       </a>
     </div>
   </section>

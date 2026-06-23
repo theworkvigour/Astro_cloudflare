@@ -108,6 +108,17 @@ async function main() {
 
     const vectors = [];
 
+    const productAttrs = {
+      'products': { category: 'overview', attributes: {}, safety: '' },
+      'product-rib-330': { category: 'RIB', attributes: { stability: 'high', usage: ['coastal', 'transport', 'commercial'], skill_level: 'advanced' }, safety: 'life vests required, capacity 4 persons' },
+      'product-rib-450-patrol': { category: 'RIB', attributes: { stability: 'high', usage: ['coastal', 'patrol', 'rescue'], skill_level: 'professional' }, safety: 'life vests required, capacity 6 persons, emergency equipment recommended' },
+      'product-airdeck-270': { category: 'Dinghy', attributes: { stability: 'medium', usage: ['lake', 'river', 'fishing'], skill_level: 'beginner' }, safety: 'life vests recommended, max 3 persons' },
+      'product-airdeck-360': { category: 'Dinghy', attributes: { stability: 'medium', usage: ['lake', 'coastal', 'family'], skill_level: 'beginner' }, safety: 'life vests recommended, max 5 persons' },
+      'product-oars-pump-set': { category: 'Accessory', attributes: { usage: ['all'] }, safety: '' },
+    };
+
+    const pAttr = productAttrs[page.id] || {};
+
     for (const [i, chunk] of chunks.entries()) {
       try {
         const res = await fetch(WORKERS_AI_EMBED(accountId), {
@@ -131,7 +142,16 @@ async function main() {
         vectors.push({
           id: `${page.id}-${i}`,
           values: vector,
-          metadata: { text: chunk.slice(0, 500), url: page.url, title: page.title, type: page.type || 'page', section: page.section || 'main' },
+          metadata: {
+            text: chunk.slice(0, 500),
+            url: page.url,
+            title: page.title,
+            type: page.type || 'page',
+            section: page.section || 'main',
+            ...(pAttr.category ? { category: pAttr.category } : {}),
+            ...(pAttr.attributes && Object.keys(pAttr.attributes).length ? { attributes: JSON.stringify(pAttr.attributes) } : {}),
+            ...(pAttr.safety ? { safety: pAttr.safety } : {}),
+          },
         });
         totalChunks++;
       } catch (err) {
