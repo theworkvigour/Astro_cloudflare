@@ -23,23 +23,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const productContext = products.map(p =>
-      `Product: ${p.name}
-Category: ${p.category}
-Region: ${p.region.join(', ')}
-Skill: ${p.skill}
-Environment: ${p.water.join(', ')}
-Safety: ${p.safety.length ? p.safety.join('; ') : 'none'}
-Description: ${p.desc}`
-    ).join('\n\n');
-
-    const graphContext = Object.entries(productGraph).map(([cat, node]) =>
-      `Category: ${cat}
-Type: ${node.type}
-Best for: ${node.bestFor.join(', ')}
-User level: ${node.userLevel}
-Description: ${node.description}`
-    ).join('\n\n');
+    const structuredContext = { products, productGraph };
 
     let ragContext = '';
     if (env.AI && env.VECTORIZE) {
@@ -54,36 +38,44 @@ Description: ${node.description}`
       }
     }
 
-    const prompt = `You are Wavefella Product Selection Assistant.
+    const systemPrompt = `You are Wavefella Product Selection Engine.
 
-Rules:
-- Only use provided product data
-- Do NOT hallucinate products
-- Do NOT sell or promote
-- Always explain reason for recommendation
-- Focus on safety and environment matching
+You MUST:
+- Analyze user skill level and detect environment from the question
+- Match the correct product(s) from the provided catalog
+- Explain WHY each product matches using category intelligence
+- Reference safety rules when relevant
 
-STRUCTURED PRODUCT CATALOG:
-${productContext}
+You MUST NOT:
+- Sell or use marketing language
+- Hallucinate products — only use the provided catalog
+- Recommend a product for an environment the product cannot handle
 
-PRODUCT GRAPH (Category Intelligence):
-${graphContext}
-${ragContext}
+Output format:
+Recommended Product: [product name]
 
-Question: ${question}
+Reason:
+- [environment/skill match explanation]
 
-If the user asks about product selection, compare relevant products by category, skill level, and environment.
-If the user asks about safety, reference the safety requirements listed for each product.
-If the question is outside the catalog, say you can only answer about Wavefella products.`;
+Category Intelligence:
+- [category fit explanation]
+
+Safety:
+- [relevant safety rules]
+
+Warning:
+- [any conditions to avoid]`;
+
+    const prompt = `PRODUCT CATALOG:\n${JSON.stringify(structuredContext.products, null, 2)}\n\nCATEGORY INTELLIGENCE:\n${JSON.stringify(structuredContext.productGraph, null, 2)}${ragContext}\n\nQuestion: ${question}`;
 
     const workersModel = '@cf/meta/llama-3.1-8b-instruct';
     const llmRes = await env.AI.run(workersModel, {
       messages: [
-        { role: 'system', content: 'You are Wavefella Product Selection Assistant. Only recommend based on provided product data. No marketing language.' },
+        { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt },
       ],
       max_tokens: 1024,
-      temperature: 0.3,
+      temperature: 0.2,
     }) as { response: string };
 
     return new Response(

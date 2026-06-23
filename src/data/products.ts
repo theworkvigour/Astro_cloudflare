@@ -4,8 +4,11 @@ export interface ProductRecord {
   category: 'SUP' | 'KAYAK' | 'DINGHY' | 'RIB' | 'SAFETY' | 'ACCESSORY';
   region: string[];
   skill: 'beginner' | 'intermediate' | 'advanced' | 'professional';
-  water: string[];
-  safety: string[];
+  environment: string[];
+  water_condition: string[];
+  safety_level: 'low' | 'medium' | 'high';
+  use_case: string[];
+  safety_rules: string[];
   desc: string;
 }
 
@@ -16,8 +19,11 @@ export const products: ProductRecord[] = [
     category: 'SUP',
     region: ['EU', 'US', 'ASIA'],
     skill: 'beginner',
-    water: ['lake', 'sea'],
-    safety: ['life vest recommended', 'leash required'],
+    environment: ['lake', 'sea'],
+    water_condition: ['calm', 'light waves'],
+    safety_level: 'medium',
+    use_case: ['recreation', 'training', 'exploration'],
+    safety_rules: ['life vest recommended in open water', 'leash required'],
     desc: 'Stable all-around inflatable paddle board for lakes and calm coastal waters.',
   },
   {
@@ -26,8 +32,11 @@ export const products: ProductRecord[] = [
     category: 'SUP',
     region: ['EU', 'US'],
     skill: 'intermediate',
-    water: ['lake', 'sea', 'river'],
-    safety: ['life vest recommended', 'leash required'],
+    environment: ['lake', 'sea', 'river'],
+    water_condition: ['calm', 'light waves', 'moderate chop'],
+    safety_level: 'medium',
+    use_case: ['touring', 'fitness', 'exploration'],
+    safety_rules: ['life vest recommended', 'leash required', 'avoid strong currents'],
     desc: 'Longer touring SUP designed for speed and tracking on open water.',
   },
   {
@@ -36,8 +45,11 @@ export const products: ProductRecord[] = [
     category: 'KAYAK',
     region: ['GLOBAL'],
     skill: 'beginner',
-    water: ['river', 'lake'],
-    safety: ['life vest required'],
+    environment: ['river', 'lake'],
+    water_condition: ['calm', 'light current'],
+    safety_level: 'medium',
+    use_case: ['touring', 'travel', 'exploration'],
+    safety_rules: ['life vest required', 'check river flow before launch'],
     desc: 'Lightweight single-person touring kayak for travel and exploration.',
   },
   {
@@ -46,8 +58,11 @@ export const products: ProductRecord[] = [
     category: 'KAYAK',
     region: ['EU', 'US', 'ASIA'],
     skill: 'beginner',
-    water: ['lake', 'coastal'],
-    safety: ['life vest required'],
+    environment: ['lake', 'coastal'],
+    water_condition: ['calm', 'light waves'],
+    safety_level: 'medium',
+    use_case: ['family', 'recreation', 'touring'],
+    safety_rules: ['life vest required for all occupants', 'max 2 persons'],
     desc: 'Two-person inflatable kayak for family trips and recreational paddling.',
   },
   {
@@ -56,8 +71,11 @@ export const products: ProductRecord[] = [
     category: 'DINGHY',
     region: ['EU', 'US', 'ASIA'],
     skill: 'beginner',
-    water: ['lake', 'river'],
-    safety: ['life vest recommended', 'max 3 persons'],
+    environment: ['lake', 'river'],
+    water_condition: ['calm', 'light current'],
+    safety_level: 'medium',
+    use_case: ['fishing', 'day trips', 'tender'],
+    safety_rules: ['life vest recommended', 'max 3 persons', 'check weight limit before loading'],
     desc: 'Compact inflatable dinghy with air deck floor for fishing and day trips.',
   },
   {
@@ -66,8 +84,11 @@ export const products: ProductRecord[] = [
     category: 'DINGHY',
     region: ['EU', 'US'],
     skill: 'beginner',
-    water: ['lake', 'coastal'],
-    safety: ['life vest recommended', 'max 5 persons'],
+    environment: ['lake', 'coastal'],
+    water_condition: ['calm', 'light waves'],
+    safety_level: 'medium',
+    use_case: ['family', 'fishing', 'day trips'],
+    safety_rules: ['life vest recommended', 'max 5 persons', 'distribute load evenly'],
     desc: 'Spacious family dinghy with reinforced air deck for stability and comfort.',
   },
   {
@@ -76,8 +97,11 @@ export const products: ProductRecord[] = [
     category: 'RIB',
     region: ['EU', 'US', 'ASIA'],
     skill: 'advanced',
-    water: ['coastal', 'sea'],
-    safety: ['life vest required', 'VHF radio recommended'],
+    environment: ['coastal', 'sea'],
+    water_condition: ['moderate chop', 'rough'],
+    safety_level: 'high',
+    use_case: ['transport', 'navigation', 'diving'],
+    safety_rules: ['life vest required for all occupants', 'VHF radio recommended', 'check weather before departure'],
     desc: 'High-performance rigid-hull inflatable boat for transport and coastal navigation.',
   },
   {
@@ -86,8 +110,11 @@ export const products: ProductRecord[] = [
     category: 'RIB',
     region: ['EU', 'US', 'ASIA', 'GLOBAL'],
     skill: 'professional',
-    water: ['coastal', 'sea', 'rescue'],
-    safety: ['life vest required', 'emergency kit required', 'VHF radio required'],
+    environment: ['coastal', 'sea', 'rescue'],
+    water_condition: ['moderate chop', 'rough', 'extreme'],
+    safety_level: 'high',
+    use_case: ['patrol', 'rescue', 'commercial', 'law enforcement'],
+    safety_rules: ['life vest required', 'emergency kit required', 'VHF radio required', 'crew must be trained'],
     desc: 'Heavy-duty patrol RIB engineered for law enforcement, rescue, and commercial use.',
   },
   {
@@ -96,8 +123,11 @@ export const products: ProductRecord[] = [
     category: 'SAFETY',
     region: ['GLOBAL'],
     skill: 'beginner',
-    water: ['all'],
-    safety: ['CE certified', 'ISO 12402'],
+    environment: ['all'],
+    water_condition: ['all'],
+    safety_level: 'high',
+    use_case: ['recreation', 'training', 'supervision'],
+    safety_rules: ['CE certified', 'ISO 12402', 'inspect before each use', 'replace if damaged'],
     desc: 'Universal buoyancy aid for recreational water sports. CE and ISO certified.',
   },
   {
@@ -106,8 +136,11 @@ export const products: ProductRecord[] = [
     category: 'SAFETY',
     region: ['EU', 'US'],
     skill: 'advanced',
-    water: ['all'],
-    safety: ['CE certified', 'ISO 12402', 'SOLLAS compliant'],
+    environment: ['all'],
+    water_condition: ['all'],
+    safety_level: 'high',
+    use_case: ['offshore', 'rescue', 'commercial'],
+    safety_rules: ['CE certified', 'ISO 12402', 'SOLAS compliant', 'automatic inflation check'],
     desc: 'Professional-grade life vest with SOLAS reflectors for offshore and rescue operations.',
   },
   {
@@ -116,8 +149,11 @@ export const products: ProductRecord[] = [
     category: 'ACCESSORY',
     region: ['GLOBAL'],
     skill: 'beginner',
-    water: ['all'],
-    safety: [],
+    environment: ['all'],
+    water_condition: ['all'],
+    safety_level: 'low',
+    use_case: ['paddling', 'replacement', 'upgrade'],
+    safety_rules: ['check locking mechanism before use'],
     desc: 'Lightweight carbon-fiber paddle for SUP and kayak. Adjustable length.',
   },
   {
@@ -126,8 +162,11 @@ export const products: ProductRecord[] = [
     category: 'ACCESSORY',
     region: ['GLOBAL'],
     skill: 'beginner',
-    water: ['all'],
-    safety: [],
+    environment: ['all'],
+    water_condition: ['all'],
+    safety_level: 'low',
+    use_case: ['inflation', 'maintenance', 'travel'],
+    safety_rules: ['do not exceed recommended pressure'],
     desc: 'High-volume dual-action hand pump for rapid inflating of SUPs and kayaks.',
   },
 ];
