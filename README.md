@@ -1,6 +1,6 @@
-# Vectoflare — Multilingual Astro + Cloudflare Workers
+# Vectoflare — Multilingual AI-Powered Site (Astro + Cloudflare Workers)
 
-配置驱动的多语言网站，基于 [AstroWind](https://github.com/arthelokyo/astrowind) 改造。支持 6 种语言，每个语言独立部署为 Cloudflare Worker。
+Perplexity-style AI search engine with RAG, semantic search, and multi-model routing. Built on [AstroWind](https://github.com/arthelokyo/astrowind), deployed as Cloudflare Workers.
 
 ## 语言
 
@@ -175,12 +175,88 @@ CI 自动从 GitHub Secrets `SESSION_SECRET` 设置。
 - AES-256-GCM 加密存储
 - Resend 邮件通知
 
+## AI Search Engine (Perplexity-style)
+
+The site includes a fully functional AI search engine with RAG:
+
+### Architecture
+
+```
+User → AIChat Widget / API
+        ↓
+  /api/search (semantic search)
+        ↓
+  Vectorize (1536-dim cosine)
+        ↓
+  /api/chat (RAG answer + citations)
+        ↓
+  LLM (AI_GATEWAY → OpenAI → Workers AI)
+        ↓
+  Answer + source references
+```
+
+### Components
+
+| File | Purpose |
+|------|---------|
+| `src/lib/vector.ts` | Vector dimension (1536), input preprocessing |
+| `src/lib/embed.ts` | Text→vector with 24h in-memory cache |
+| `src/lib/rag.ts` | Core RAG engine: chunk → embed → search → assemble → answer |
+| `src/lib/ai-gateway.ts` | Multi-model router (fast/quality, 3 providers) |
+| `src/pages/api/search.ts` | `POST /api/search` — semantic search |
+| `src/pages/api/chat.ts` | `POST /api/chat` — RAG Q&A with source citations |
+| `src/pages/api/embed.ts` | `POST /api/embed` — embedding endpoint |
+| `src/pages/api/ai/sitemap.ts` | `GET /api/ai/sitemap` — page list for indexing |
+| `src/components/widgets/AIChat.astro` | Floating chat bubble UI (injected in Layout.astro) |
+| `src/workers/ingest.ts` | Standalone ingestion Worker (deploy separately) |
+| `scripts/seed-vectorize.js` | One-time index seeder |
+
+### Provider Fallback Chain
+
+```
+AI_GATEWAY (Cloudflare AI Gateway proxy) → best
+  ↓ (if unset)
+OPENAI_API_KEY → gpt-4o-mini / text-embedding-3-small
+  ↓ (if unset)
+Workers AI (free tier) → Llama 3.1 8B / bge-base-en-v1.5
+```
+
+### Setup
+
+```bash
+# 1. Create Vectorize index (one-time)
+npx wrangler vectorize create ai-index --dimensions=1536 --metric=cosine
+
+# 2. Set secrets
+npx wrangler secret put OPENAI_API_KEY        # optional
+npx wrangler secret put AI_GATEWAY             # optional
+npx wrangler secret put SESSION_SECRET
+
+# 3. Seed knowledge base
+npm run build
+# Start dev server in another terminal: npm run dev
+node scripts/seed-vectorize.js
+
+# 4. Deploy
+git push origin main    # CI/CD auto-deploys
+```
+
+### Free Tier Budget
+
+| Resource | Free Limit | Our Usage |
+|----------|-----------|-----------|
+| Workers AI | 500+ req/day | ~5 req/chat session |
+| Vectorize | 1M queries/month | ~5 queries/chat |
+| Workers | 100k req/day | Static HTML + API |
+| KV | 1k writes/day | Session tokens only |
+
 ## 技术栈
 
 - **Astro v6** — 框架
 - **Tailwind CSS v4** — 样式
-- **Cloudflare Workers** — 部署
+- **Cloudflare Workers + Pages** — 部署
 - **@astrojs/cloudflare** — 适配器
+- **Vectorize** — 1536-dim 语义搜索
 - **js-yaml** — YAML 解析
 - **GitHub API** — 内容保存
 
@@ -202,8 +278,10 @@ GitHub Secrets：
 | Secret | 用途 |
 |--------|------|
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 账号 ID |
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API 令牌 |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API 令牌（需 Workers + Vectorize 权限） |
 | `SESSION_SECRET` | 会话加密密钥 |
+| `OPENAI_API_KEY` | （可选）OpenAI API 密钥，用于 AI 问答/嵌入 |
+| `AI_GATEWAY` | （可选）Cloudflare AI Gateway URL，替代直接调用 |
 
 GitHub Variables（可选）：
 

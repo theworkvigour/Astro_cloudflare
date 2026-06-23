@@ -1,28 +1,23 @@
 /**
  * seed-vectorize.js
- *
  * One-time script to build the initial Vectorize index from all site pages.
  *
  * Usage:
- *   1. Build the site first:   npm run build
- *   2. Ensure Vectorize exists: npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
- *   3. Run:                    node scripts/seed-vectorize.js
+ *   1. Build the site:                  npm run build
+ *   2. Create Vectorize index:          npx wrangler vectorize create ai-index --dimensions=1536 --metric=cosine
+ *   3. Start dev server:                npm run dev
+ *   4. Run:                             node scripts/seed-vectorize.js
  *
- * Reads the built HTML files from dist/client/, strips markup,
- * chunks the text, embeds each chunk, and upserts into Vectorize.
- *
- * Requires: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN env vars.
+ * Requires: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN env vars for direct API mode.
+ * Otherwise runs against the local dev server (default).
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const DIST = path.resolve(__dirname, '..', 'dist', 'client');
-const AI_SITEMAP_URL = 'http://localhost:4321/api/ai/sitemap';  // dev server
+const DEV_SERVER = process.env.DEV_SERVER || 'http://localhost:4321';
 
-/**
- * Strip HTML tags, keep meaningful text.
- */
 function stripHtml(html) {
   return html
     .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
@@ -33,25 +28,18 @@ function stripHtml(html) {
     .trim();
 }
 
-/**
- * Get page content from built HTML file.
- */
 function getPageContent(url) {
   const filePath = path.join(DIST, url === '/' ? 'index.html' : `${url}.html`.replace(/\/$/, '/index.html'));
-  if (!fs.existsSync(filePath)) {
-    // try /index.html
-    const altPath = path.join(DIST, url.replace(/\/$/, ''), 'index.html');
-    if (!fs.existsSync(altPath)) return null;
-    return stripHtml(fs.readFileSync(altPath, 'utf8'));
-  }
-  return stripHtml(fs.readFileSync(filePath, 'utf8'));
+  if (fs.existsSync(filePath)) return stripHtml(fs.readFileSync(filePath, 'utf8'));
+  const altPath = path.join(DIST, url.replace(/\/$/, ''), 'index.html');
+  if (fs.existsSync(altPath)) return stripHtml(fs.readFileSync(altPath, 'utf8'));
+  return null;
 }
 
 async function main() {
-  // Fetch the AI sitemap to get the page list
   let pages;
   try {
-    const res = await fetch(AI_SITEMAP_URL);
+    const res = await fetch(`${DEV_SERVER}/api/ai/sitemap`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     pages = data.pages;
@@ -64,36 +52,34 @@ async function main() {
   console.log(`Found ${pages.length} pages to index.`);
 
   let totalChunks = 0;
-
   for (const page of pages) {
     const content = getPageContent(page.url);
     if (!content) {
-      console.warn(`  ⚠ No built file for ${page.url}, skipping`);
+      console.warn(`  Skipping ${page.url} (no built file)`);
       continue;
     }
+    console.log(`  Indexing ${page.title} (${page.url}) [${content.length} chars]`);
 
-    console.log(`  → ${page.title} (${page.url}) [${content.length} chars]`);
-
-    // Upload via API
     try {
-      const res = await fetch('http://localhost:4321/api/embed', {
+      const res = await fetch(`${DEV_SERVER}/api/embed`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: content, pageId: page.id, pageUrl: page.url, pageTitle: page.title }),
+        body: JSON.stringify({ text: content }),
       });
       if (!res.ok) {
         const err = await res.text();
-        console.warn(`  ⚠ Embed API error: ${err}`);
+        console.warn(`  Embed API error: ${err}`);
+        continue;
       }
     } catch (err) {
-      console.warn(`  ⚠ Network error: ${err.message}`);
+      console.warn(`  Network error: ${err.message}`);
+      continue;
     }
-
     totalChunks++;
   }
 
-  console.log(`\n✓ Indexed ${totalChunks} pages.`);
-  console.log('Run: npx wrangler vectorize describe ai-index  to verify.');
+  console.log(`\nDone. Indexed ${totalChunks} pages.`);
+  console.log('Verify: npx wrangler vectorize describe ai-index');
 }
 
 main().catch(console.error);

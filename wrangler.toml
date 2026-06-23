@@ -8,21 +8,19 @@ directory = "./dist/client"
 binding = "ASSETS"
 
 # ─── AI Infrastructure ──────────────────────────────────────────
-# Vectorize + AI bindings are injected by CI/CD into wrangler.ci.json
-# during deployment. They are NOT declared here to avoid triggering
-# @cloudflare/vite-plugin remote validation on static builds.
+# Vectorize + AI bindings are injected by CI/CD during deployment
+# to avoid triggering @cloudflare/vite-plugin remote validation.
 # See .github/workflows/actions.yaml → build-and-deploy step.
 #
-# For local development, use miniflare/mock bindings or set
-# OPENAI_API_KEY which bypasses Workers AI entirely.
+# Vectorize index must exist with --dimensions=1536 --metric=cosine:
+#   npx wrangler vectorize create ai-index --dimensions=1536 --metric=cosine
 
 # ─── Environment Variables ──────────────────────────────────────
 
 [vars]
 NODE_VERSION = "22"
 NODE_ENV = "development"
-# OPENAI_API_KEY and SESSION_SECRET must be set via:
-#   wrangler secret put OPENAI_API_KEY
-#   wrangler secret put SESSION_SECRET
-#   wrangler secret put KEYSTATIC_SECRET
-# Or via Cloudflare Dashboard → Worker → Variables → Secrets
+# AI_GATEWAY  — optional Cloudflare AI Gateway URL for proxied LLM calls
+# OPENAI_API_KEY — optional, set via: wrangler secret put OPENAI_API_KEY
+# SESSION_SECRET — required, set via: wrangler secret put SESSION_SECRET
+# KEYSTATIC_SECRET — optional, set via: wrangler secret put KEYSTATIC_SECRET

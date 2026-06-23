@@ -1,11 +1,6 @@
 import type { APIRoute } from 'astro';
-import { embed } from '~/lib/rag';
 
 export const prerender = false;
-
-interface EmbedRequest {
-  text: string;
-}
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env;
@@ -13,7 +8,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
   }
 
-  let body: EmbedRequest;
+  let body: { text?: string };
   try {
     body = await request.json();
   } catch {
@@ -26,17 +21,36 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const vector = await embed(text, env);
+    let vector: number[];
+
+    if (env.AI_GATEWAY) {
+      const res = await fetch(env.AI_GATEWAY, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'embed', prompt: text }),
+      });
+      if (!res.ok) throw new Error(`Gateway embed error (${res.status})`);
+      const data = await res.json() as { data?: Array<{ embedding: number[] }> };
+      vector = data.data?.[0]?.embedding || [];
+    } else if (env.OPENAI_API_KEY) {
+      const res = await fetch('https://api.openai.com/v1/embeddings', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'text-embedding-3-small', input: text, dimensions: 1536 }),
+      });
+      if (!res.ok) throw new Error(`OpenAI embed error (${res.status})`);
+      const data = await res.json() as { data: Array<{ embedding: number[] }> };
+      vector = data.data[0].embedding;
+    } else if (env.AI) {
+      const res = await env.AI.run('@cf/baai/bge-base-en-v1.5', { text: [text] }) as { data: Array<number[]> };
+      vector = res.data[0];
+    } else {
+      throw new Error('No embedding provider available');
+    }
 
     return new Response(
-      JSON.stringify({
-        dimensions: vector.length,
-        vector: vector,
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      },
+      JSON.stringify({ dimensions: vector.length, vector }),
+      { status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8' } },
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
