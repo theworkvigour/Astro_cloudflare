@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { VECTOR_DIM } from '../../lib/vector';
 
 export const prerender = false;
 
@@ -28,7 +29,7 @@ async function embedQuery(query: string, env: any): Promise<number[]> {
     const res = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'text-embedding-3-small', input: query, dimensions: 1536 }),
+      body: JSON.stringify({ model: 'text-embedding-3-small', input: query, dimensions: VECTOR_DIM }),
     });
     if (!res.ok) throw new Error(`OpenAI embed error (${res.status})`);
     const data = await res.json() as { data: Array<{ embedding: number[] }> };

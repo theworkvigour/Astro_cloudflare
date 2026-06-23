@@ -12,8 +12,8 @@ binding = "ASSETS"
 # to avoid triggering @cloudflare/vite-plugin remote validation.
 # See .github/workflows/actions.yaml → build-and-deploy step.
 #
-# Vectorize index must exist with --dimensions=1536 --metric=cosine:
-#   npx wrangler vectorize create ai-index --dimensions=1536 --metric=cosine
+# Vectorize index must exist with --dimensions=768 --metric=cosine:
+#   npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
 
 # ─── Environment Variables ──────────────────────────────────────
 

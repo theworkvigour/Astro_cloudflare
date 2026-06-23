@@ -1,4 +1,4 @@
-export const VECTOR_DIM = 1536; // OpenAI text-embedding-3-small
+export const VECTOR_DIM = 768; // Workers AI bge-base-en-v1.5 (free) / OpenAI text-embedding-3-small (optional)
 
 export function toVectorInput(text: string): string {
   return text
