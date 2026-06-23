@@ -10536,54 +10536,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wavefella@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "wavefella@workspace:."
-  dependencies:
-    "@astrojs/check": "npm:^0.9.9"
-    "@astrojs/cloudflare": "npm:^13.6.1"
-    "@astrojs/mdx": "npm:^6.0.1"
-    "@astrojs/partytown": "npm:^2.1.7"
-    "@astrojs/rss": "npm:^4.0.18"
-    "@astrojs/sitemap": "npm:^3.7.3"
-    "@eslint/js": "npm:^10.0.1"
-    "@fontsource-variable/inter": "npm:^5.2.8"
-    "@iconify-json/flat-color-icons": "npm:^1.2.3"
-    "@iconify-json/tabler": "npm:^1.2.35"
-    "@keystatic/core": "npm:^0.5.50"
-    "@tailwindcss/postcss": "npm:^4.3.0"
-    "@tailwindcss/typography": "npm:^0.5.19"
-    "@types/js-yaml": "npm:^4.0.9"
-    "@types/lodash.merge": "npm:^4.6.9"
-    "@types/mdx": "npm:^2.0.13"
-    "@typescript-eslint/eslint-plugin": "npm:^8.60.0"
-    "@typescript-eslint/parser": "npm:^8.60.0"
-    astro: "npm:^6.4.2"
-    astro-compress: "npm:^2.4.1"
-    astro-embed: "npm:^0.13.0"
-    astro-eslint-parser: "npm:^1.4.0"
-    astro-icon: "npm:^1.1.5"
-    astro-seo: "npm:^1.1.0"
-    eslint: "npm:^10.4.0"
-    eslint-plugin-astro: "npm:^1.7.0"
-    globals: "npm:^17.6.0"
-    js-yaml: "npm:^4.1.1"
-    limax: "npm:4.2.3"
-    lodash.merge: "npm:^4.6.2"
-    mdast-util-to-string: "npm:^4.0.0"
-    prettier: "npm:^3.8.3"
-    prettier-plugin-astro: "npm:^0.14.1"
-    reading-time: "npm:^1.5.0"
-    sharp: "npm:0.34.5"
-    tailwind-merge: "npm:^3.6.0"
-    tailwindcss: "npm:^4.3.0"
-    typescript: "npm:^5.9.3"
-    typescript-eslint: "npm:^8.60.0"
-    unpic: "npm:^4.2.2"
-    wrangler: "npm:^4.98.0"
-  languageName: unknown
-  linkType: soft
-
 "vfile-location@npm:^5.0.0":
   version: 5.0.3
   resolution: "vfile-location@npm:5.0.3"
@@ -10894,6 +10846,54 @@ __metadata:
   checksum: 10c0/37cf335c90efff31672ebb345577d681e2177f7ff9006a9ad47c68c5a9d265ba4a7b39d6c2599ceea639ca9315584ce4bd9c9fbf7a7217bfb7a599e71943c4c4
   languageName: node
   linkType: hard
+
+"wavefella@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "wavefella@workspace:."
+  dependencies:
+    "@astrojs/check": "npm:^0.9.9"
+    "@astrojs/cloudflare": "npm:^13.6.1"
+    "@astrojs/mdx": "npm:^6.0.1"
+    "@astrojs/partytown": "npm:^2.1.7"
+    "@astrojs/rss": "npm:^4.0.18"
+    "@astrojs/sitemap": "npm:^3.7.3"
+    "@eslint/js": "npm:^10.0.1"
+    "@fontsource-variable/inter": "npm:^5.2.8"
+    "@iconify-json/flat-color-icons": "npm:^1.2.3"
+    "@iconify-json/tabler": "npm:^1.2.35"
+    "@keystatic/core": "npm:^0.5.50"
+    "@tailwindcss/postcss": "npm:^4.3.0"
+    "@tailwindcss/typography": "npm:^0.5.19"
+    "@types/js-yaml": "npm:^4.0.9"
+    "@types/lodash.merge": "npm:^4.6.9"
+    "@types/mdx": "npm:^2.0.13"
+    "@typescript-eslint/eslint-plugin": "npm:^8.60.0"
+    "@typescript-eslint/parser": "npm:^8.60.0"
+    astro: "npm:^6.4.2"
+    astro-compress: "npm:^2.4.1"
+    astro-embed: "npm:^0.13.0"
+    astro-eslint-parser: "npm:^1.4.0"
+    astro-icon: "npm:^1.1.5"
+    astro-seo: "npm:^1.1.0"
+    eslint: "npm:^10.4.0"
+    eslint-plugin-astro: "npm:^1.7.0"
+    globals: "npm:^17.6.0"
+    js-yaml: "npm:^4.1.1"
+    limax: "npm:4.2.3"
+    lodash.merge: "npm:^4.6.2"
+    mdast-util-to-string: "npm:^4.0.0"
+    prettier: "npm:^3.8.3"
+    prettier-plugin-astro: "npm:^0.14.1"
+    reading-time: "npm:^1.5.0"
+    sharp: "npm:0.34.5"
+    tailwind-merge: "npm:^3.6.0"
+    tailwindcss: "npm:^4.3.0"
+    typescript: "npm:^5.9.3"
+    typescript-eslint: "npm:^8.60.0"
+    unpic: "npm:^4.2.2"
+    wrangler: "npm:^4.98.0"
+  languageName: unknown
+  linkType: soft
 
 "web-namespaces@npm:^2.0.0":
   version: 2.0.1
