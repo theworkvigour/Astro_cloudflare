@@ -7,7 +7,7 @@
   name: Français
   locale: fr
   textDirection: ltr
-  enabled: false
+  enabled: true
 - code: DE
   name: Deutsch
   locale: de
@@ -17,7 +17,7 @@
   name: Español
   locale: es
   textDirection: ltr
-  enabled: false
+  enabled: true
 - code: PT
   name: Português
   locale: pt
