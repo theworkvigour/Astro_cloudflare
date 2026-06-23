@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { products } from '../../data/products';
+import { productGraph } from '../../lib/productGraph';
 
 export const prerender = false;
 
@@ -27,9 +28,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
 Category: ${p.category}
 Region: ${p.region.join(', ')}
 Skill: ${p.skill}
-Water: ${p.water.join(', ')}
+Environment: ${p.water.join(', ')}
 Safety: ${p.safety.length ? p.safety.join('; ') : 'none'}
 Description: ${p.desc}`
+    ).join('\n\n');
+
+    const graphContext = Object.entries(productGraph).map(([cat, node]) =>
+      `Category: ${cat}
+Type: ${node.type}
+Best for: ${node.bestFor.join(', ')}
+User level: ${node.userLevel}
+Description: ${node.description}`
     ).join('\n\n');
 
     let ragContext = '';
@@ -45,24 +54,32 @@ Description: ${p.desc}`
       }
     }
 
-    const prompt = `You are a product selection assistant for Wavefella.
+    const prompt = `You are Wavefella Product Selection Assistant.
 
-Below is the structured product catalog. Only recommend based on this data.
-Do NOT use marketing language. Be neutral, educational, and safety-conscious.
+Rules:
+- Only use provided product data
+- Do NOT hallucinate products
+- Do NOT sell or promote
+- Always explain reason for recommendation
+- Focus on safety and environment matching
 
-Structured product catalog:
-${productContext}${ragContext}
+STRUCTURED PRODUCT CATALOG:
+${productContext}
+
+PRODUCT GRAPH (Category Intelligence):
+${graphContext}
+${ragContext}
 
 Question: ${question}
 
-If the user asks about product selection, compare relevant products by category, skill level, and water type.
+If the user asks about product selection, compare relevant products by category, skill level, and environment.
 If the user asks about safety, reference the safety requirements listed for each product.
 If the question is outside the catalog, say you can only answer about Wavefella products.`;
 
     const workersModel = '@cf/meta/llama-3.1-8b-instruct';
     const llmRes = await env.AI.run(workersModel, {
       messages: [
-        { role: 'system', content: 'You are Wavefella\'s product selection assistant. Only recommend based on product data. No marketing language.' },
+        { role: 'system', content: 'You are Wavefella Product Selection Assistant. Only recommend based on provided product data. No marketing language.' },
         { role: 'user', content: prompt },
       ],
       max_tokens: 1024,

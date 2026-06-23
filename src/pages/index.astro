@@ -99,9 +99,7 @@ const trustPoints = [
     <div class="text-center max-w-3xl mx-auto mb-16">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
       <h2 class="mt-4 text-4xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
-      <p class="mt-4 text-lg text-gray-500">
-        From paddleboards to rescue vessels — each category designed for specific waters, skill levels, and use cases.
-      </p>
+      <p class="mt-4 text-lg text-gray-500">From paddleboards to rescue vessels — each category designed for specific environments, skill levels, and use cases.
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       {categories.map(cat => (
@@ -229,6 +227,25 @@ const trustPoints = [
       <pre id="out" class="mt-8 text-left text-sm text-gray-700 bg-white border border-gray-200 rounded-2xl p-8 hidden whitespace-pre-wrap leading-relaxed"></pre>
     </div>
   </section>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Brand",
+    "name": "Wavefella",
+    "url": "https://vectoflare-en.theworkvigo.workers.dev",
+    "description": "Global water sports brand. SUP, kayak, dinghy, RIB, and safety equipment for outdoor adventure.",
+    "foundingDate": "2012",
+    "areaServed": ["US", "EU", "ASIA", "GLOBAL"],
+    "knowsAbout": ["Stand-up paddleboarding", "Kayaking", "Inflatable boats", "Water safety", "Marine equipment"],
+    "brand": products.map(p => ({
+      "@type": "Product",
+      "name": p.name,
+      "category": p.category,
+      "description": p.desc,
+      "audience": { "@type": "Audience", "suggestedGender": p.skill },
+    })),
+  })} />
 
   <!-- Contact -->
   <section class="bg-gray-50 py-24 px-6 text-center">
