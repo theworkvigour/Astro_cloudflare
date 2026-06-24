@@ -1,4 +1,4 @@
-site:
+ï»¿site:
   name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
@@ -9,8 +9,8 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Wavefella ¡ª Moderne L?sungen f¨¹r Schlauchboote und technische Produkte
-    template: '%s ¡ª Wavefella'
+    default: Wavefella â€” Moderne LÃ¶sungen fÃ¼r Schlauchboote und technische Produkte
+    template: '%s â€” Wavefella'
   description: 'Wavefella entwickelt und fertigt hochwertige Schlauchboote, RIBs und technische Produkte. Entdecken Sie unseren Katalog, technische Daten und Ressourcen.'
   keywords:
     - Wavefella

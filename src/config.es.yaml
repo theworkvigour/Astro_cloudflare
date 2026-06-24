@@ -1,4 +1,4 @@
-site:
+ï»¿site:
   name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
@@ -9,16 +9,16 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Wavefella ¡ª Soluciones modernas para barcos inflables y productos t¨¦cnicos
-    template: '%s ¡ª Wavefella'
-  description: 'Wavefella dise?a y fabrica barcos inflables, RIB y productos t¨¦cnicos de primera calidad. Explore nuestro cat¨¢logo, especificaciones t¨¦cnicas y recursos.'
+    default: Wavefella â€” Soluciones modernas para barcos inflables y productos tÃ©cnicos
+    template: '%s â€” Wavefella'
+  description: 'Wavefella diseÃ±a y fabrica barcos inflables, RIB y productos tÃ©cnicos de primera calidad. Explore nuestro catÃ¡logo, especificaciones tÃ©cnicas y recursos.'
   keywords:
     - Wavefella
     - barco inflable
     - RIB
     - PVC
     - marino
-    - ingenier¨ªa
+    - ingenierÃ­a
   author: Wavefella
   robots:
     index: true

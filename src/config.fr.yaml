@@ -1,4 +1,4 @@
-site:
+ï»¿site:
   name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
@@ -9,16 +9,16 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Wavefella ¡ª Solutions modernes pour bateaux pneumatiques et produits techniques
-    template: '%s ¡ª Wavefella'
-  description: 'Wavefella con?oit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualit¨¦ sup¨¦rieure. Explorez notre catalogue, nos sp¨¦cifications techniques et nos ressources.'
+    default: Wavefella â€” Solutions modernes pour bateaux pneumatiques et produits techniques
+    template: '%s â€” Wavefella'
+  description: 'Wavefella conÃ§oit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualitÃ© supÃ©rieure. Explorez notre catalogue, nos spÃ©cifications techniques et nos ressources.'
   keywords:
     - Wavefella
     - bateau pneumatique
     - RIB
     - PVC
     - marine
-    - ing¨¦nierie
+    - ingÃ©nierie
   author: Wavefella
   robots:
     index: true
