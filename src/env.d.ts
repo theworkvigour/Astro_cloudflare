@@ -55,6 +55,7 @@ interface KVNamespace {
 
 declare namespace App {
   interface Locals {
+    lang: string;
     runtime: {
       env: {
         VECTORIZE: FnVectorize;

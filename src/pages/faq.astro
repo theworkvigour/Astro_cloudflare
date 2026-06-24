@@ -1,0 +1,66 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
+import Tldr from '~/components/common/Tldr.astro';
+import { faqs } from '~/data/faq';
+import { guides } from '~/data/guides';
+
+const metadata = {
+  title: `FAQ — ${SITE.name}`,
+  description: 'Frequently asked questions about inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and water sports.',
+};
+
+const categories = [...new Set(faqs.map(f => f.category))];
+const catNames: Record<string, string> = {
+  product: 'Products',
+  shipping: 'Shipping & Warranty',
+  safety: 'Safety',
+  maintenance: 'Maintenance & Repair',
+  general: 'General',
+};
+---
+
+<Layout metadata={metadata}>
+  <meta name="ai-intent" content="faq,water-sports-questions,sup-buying-faq" />
+
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="faq">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Frequently asked questions</h1>
+    <p class="mt-4 text-lg text-gray-500">Common questions about Wavefella products, water sports equipment, safety, and more.</p>
+
+    <Tldr
+      summary="Wavefella manufactures CE-certified inflatable SUP boards, kayaks, dinghies, RIBs, and safety equipment. Products are designed for controlled water environments — lakes, sheltered bays, rivers, and coastal waters. All products backed by 2-year warranty."
+      className="mt-8"
+    />
+  </section>
+
+  {categories.map(cat => (
+    <section class="max-w-3xl mx-auto pb-16 px-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-6">{catNames[cat] || cat}</h2>
+      <div class="space-y-4">
+        {faqs.filter(f => f.category === cat).map(item => (
+          <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group">
+            <summary class="px-6 py-4 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors list-none flex items-center justify-between">
+              <span>{item.question}</span>
+              <span class="text-gray-400 group-open:rotate-180 transition-transform shrink-0">▼</span>
+            </summary>
+            <div class="px-6 pb-4 space-y-3">
+              <p class="text-gray-600 leading-relaxed">{item.answer}</p>
+              {item.relatedGuides.length > 0 && (
+                <div class="flex flex-wrap gap-2 text-sm">
+                  {item.relatedGuides.map(slug => {
+                    const g = guides.find(gg => gg.slug === slug);
+                    return g ? <a href={`/guides/${slug}`} class="px-3 py-1 bg-sky-50 text-sky-700 rounded-full hover:bg-sky-100 transition-colors">{g.title} →</a> : null;
+                  })}
+                </div>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <JsonLd type="FAQPage" faqs={faqs.map(f => ({ q: f.question, a: f.answer }))} />
+</Layout>

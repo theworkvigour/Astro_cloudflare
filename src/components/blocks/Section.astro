@@ -1,0 +1,43 @@
+---
+export interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  headline?: string;
+  className?: string;
+  containerClass?: string;
+  background?: 'white' | 'gray' | 'dark' | 'none';
+  narrow?: boolean;
+}
+
+const {
+  id,
+  title,
+  subtitle,
+  headline,
+  className = '',
+  containerClass = '',
+  background = 'white',
+  narrow = false,
+} = Astro.props;
+
+const bgMap: Record<string, string> = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  dark: 'bg-gradient-to-br from-gray-900 to-gray-800 text-white',
+  none: '',
+};
+---
+
+<section id={id} class={`py-24 px-6 ${bgMap[background]} ${className}`}>
+  <div class={`mx-auto ${narrow ? 'max-w-3xl' : 'max-w-6xl'} ${containerClass}`}>
+    {title && (
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{title}</span>
+        {headline && <h2 class="mt-4 text-4xl font-semibold {background === 'dark' ? 'text-white' : 'text-gray-900'}">{headline}</h2>}
+        {subtitle && <p class="mt-4 text-lg {background === 'dark' ? 'text-white/70' : 'text-gray-500'}">{subtitle}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

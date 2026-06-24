@@ -1,0 +1,385 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+import { products } from '~/data/products';
+import { bundles } from '~/data/bundles';
+import JsonLd from '~/components/common/JsonLd.astro';
+import TrustBadges from '~/components/common/TrustBadges.astro';
+import Tldr from '~/components/common/Tldr.astro';
+import { languages as langMap, defaultLang, ui } from '~/i18n/config';
+
+export async function getStaticPaths() {
+  return Object.keys(langMap).map(lang => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+
+const metadata = {
+  title: SITE.name,
+  description: SITE?.description,
+  ignoreTitleTemplate: true,
+};
+
+const heroImages = [
+  '/images/wavefella/hero/hero-3.jpg',
+  '/images/wavefella/hero/hero-4.jpg',
+  '/images/wavefella/hero/hero-5.jpg',
+  '/images/wavefella/hero/hero-scenic.png',
+  '/images/wavefella/hero/hero-7.jpg',
+];
+
+const categoryMeta: Record<string, { img: string; color: string }> = {
+  SUP:     { img: '/images/wavefella/categories/sup-touring.png', color: 'from-sky-400 to-blue-500' },
+  KAYAK:   { img: '/images/wavefella/categories/kayak-river.jpg', color: 'from-teal-400 to-cyan-500' },
+  DINGHY:  { img: '/images/wavefella/categories/dinghy.jpg', color: 'from-amber-400 to-orange-500' },
+  RIB:     { img: '/images/wavefella/categories/rib.jpg', color: 'from-red-400 to-rose-500' },
+  SAFETY:  { img: '/images/wavefella/categories/life-jacket.png', color: 'from-emerald-400 to-green-500' },
+  ACCESSORY: { img: '/images/wavefella/categories/accessories.png', color: 'from-violet-400 to-purple-500' },
+};
+
+const categories = [...new Set(products.map(p => p.category))].map(cat => {
+  const items = products.filter(p => p.category === cat);
+  const waters = [...new Set(items.flatMap(p => p.environment))];
+  const skills = [...new Set(items.map(p => p.skill))];
+  const names: Record<string, string> = {
+    SUP: 'SUP Boards', KAYAK: 'Inflatable Kayaks', DINGHY: 'Dinghies',
+    RIB: 'RIBs & Rigid Hulls', SAFETY: 'Safety Equipment', ACCESSORY: 'Accessories',
+  };
+  const meta = categoryMeta[cat] || { img: '', color: 'from-gray-400 to-gray-500' };
+  return {
+    name: names[cat] || cat,
+    count: items.length,
+    waters: waters.slice(0, 3).join(', '),
+    skill: skills.sort().join(' - '),
+    img: meta.img,
+    gradient: meta.color,
+  };
+});
+
+const productVisuals: Record<string, string> = {
+  'sup-explorer-11':    '/images/wavefella/products/sup-allround.jpg',
+  'sup-tour-12':        '/images/wavefella/products/sup-touring.jpg',
+  'kayak-lite':         '/images/wavefella/products/rk-river.jpg',
+  'kayak-tandem':       '/images/wavefella/products/rk-expedition.jpg',
+  'airdeck-270':        '/images/wavefella/products/airdeck-270.jpg',
+  'airdeck-360':        '/images/wavefella/products/airdeck-360.jpg',
+  'rib-330':            '/images/wavefella/products/rib-330.jpg',
+  'rib-450-patrol':     '/images/wavefella/products/rib-450-patrol.jpg',
+  'life-vest-classic':  '/images/wavefella/products/life-jacket.png',
+  'life-vest-pro':      '/images/wavefella/products/life-jacket-2.jpg',
+  'paddle-carbon':      '/images/wavefella/products/sup-paddle.jpg',
+  'pump-dual':          '/images/wavefella/products/electric-pump.jpg',
+};
+
+const useCases = [
+  {
+    title: 'Beginner Water Sports',
+    desc: 'Stable SUP boards and kayaks for first-time users.',
+    scenario: 'A family visiting a lake for the weekend wants to try paddle boarding. They need stable, easy-to-launch equipment with clear safety guidance.',
+    solution: 'The SUP Explorer 11 provides wide-body stability for beginners. The Life Vest Classic ensures CE-certified flotation. The Dual-Action Pump inflates both boards in under 10 minutes.',
+    products: ['SUP Explorer 11', 'Life Vest Classic', 'Dual-Action Pump'],
+    img: '/images/wavefella/use-cases/beginner.jpg',
+  },
+  {
+    title: 'Outdoor Exploration',
+    desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.',
+    scenario: 'An outdoor enthusiast plans a week-long river trip and needs a boat that packs small, inflates at camp, and handles varying currents.',
+    solution: 'The Kayak Lite packs into a backpack and inflates in under 4 minutes. Its drop-stitch construction handles lakes, slow rivers, and coastal paddling.',
+    products: ['Inflatable Kayak Lite', 'Carbon Paddle', 'Life Vest Classic'],
+    img: '/images/wavefella/use-cases/outdoor.jpg',
+  },
+  {
+    title: 'Professional Operations',
+    desc: 'Commercial-grade RIBs for tour operators and emergency response.',
+    scenario: 'A coastal tour operator needs a fleet of durable boats that run daily trips in varying sea conditions and meet commercial safety regulations.',
+    solution: 'The RIB 330 and RIB 450 Patrol use fiberglass deep-V hulls with Hypalon tubes for all-weather durability. Multiple units can be deployed with consistent performance.',
+    products: ['RIB 330', 'RIB 450 Patrol', 'Life Vest Pro'],
+    img: '/images/wavefella/use-cases/professional.jpg',
+  },
+  {
+    title: 'Family Recreation',
+    desc: 'Spacious dinghies for day trips, fishing, and watersports.',
+    scenario: 'A family of four wants a stable boat for weekend lake outings, fishing trips, and towing a tube for the kids.',
+    solution: 'The AirDeck 360 seats up to five with a reinforced air deck floor. It inflates at the launch site, stores in the car, and handles both calm lakes and sheltered coastal waters.',
+    products: ['AirDeck 360', 'Life Vest Classic', 'Dual-Action Pump'],
+    img: '/images/wavefella/use-cases/family.jpg',
+  },
+];
+
+const proofPoints = [
+  { metric: '12', label: 'products across 6 categories', detail: 'SUP, Kayak, Dinghy, RIB, Safety, Accessory' },
+  { metric: '50+', label: 'countries served', detail: 'Global distribution network across EU, US, ASIA' },
+  { metric: '2012', label: 'founded', detail: 'Over a decade of water sports manufacturing' },
+  { metric: 'ISO', label: 'CE & ISO certified', detail: 'Every product meets international safety standards' },
+];
+
+const faqItems = [
+  { q: 'Is SUP hard to learn?', a: 'Not at all. Most beginners stand up and paddle within their first session.' },
+  { q: 'Can I use it in the ocean?', a: 'Yes. Wavefella SUP boards are built for ocean, lake, and river use.' },
+  { q: 'How long does it take to inflate?', a: 'With the included dual-action pump, most boards inflate to 12–15 PSI in under 5 minutes.' },
+  { q: 'Can I travel with an inflatable SUP?', a: 'Absolutely. Every Wavefella board packs into a backpack-sized carrying case.' },
+  { q: 'What is the weight limit?', a: 'Our All-Around SUPs support up to 220 lbs. The Touring series supports up to 250 lbs.' },
+  { q: 'What comes in the box?', a: 'Every Wavefella SUP includes the board, backpack, hand pump, fin, leash, and repair kit.' },
+  { q: 'Do you offer bundle deals?', a: 'Yes. Curated bundles like the Explorer Starter Pack save up to $198.' },
+];
+
+const faqLd = faqItems.map(f => ({ question: f.q, answer: f.a }));
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+---
+
+<Layout metadata={metadata}>
+  <meta name="ai-intent" content="beginner-water-training,water-rescue-training,stability-systems,marine-safety-equipment" />
+  <meta name="last-modified" content="2026-06-23" />
+
+  <!-- AI Semantic Blocks -->
+  <section class="sr-only" data-ai-block="definition" aria-hidden="true">
+    <p>Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports. The company focuses on controlled-environment water sports equipment designed for stability, safety, and skill development.</p>
+  </section>
+  <section class="sr-only" data-ai-block="use-case" aria-hidden="true">
+    <p>Wavefella products are used in beginner SUP training, long-distance touring, family recreation on lakes and sheltered waters, professional marine patrol and rescue operations, and water safety training programs.</p>
+  </section>
+
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center text-center text-white overflow-hidden bg-gradient-to-br from-[#001830] via-[#002d4a] to-[#003355]">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06)_0%,transparent_60%)]"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 py-24">
+      <div class="reveal">
+        <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/60">Since 2012</span>
+        <h1 class="mt-8 text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-balance drop-shadow-xl">
+          {t('hero.title')}
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto text-pretty drop-shadow-lg leading-relaxed">
+          {t('hero.subtitle')}
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
+          <a href={`/${lang}/#products`} class="group px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5">
+            {t('cta.explore')}
+            <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
+          </a>
+          <a href={`/${lang}/products`} class="px-8 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-all backdrop-blur-sm">
+            {t('cta.bundles')}
+          </a>
+        </div>
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-2 max-w-2xl mx-auto text-left text-sm text-white/70">
+          {products.map(p => (
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-white/40 flex-shrink-0"></span>
+              <span>{p.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="border-b border-gray-100 bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-center gap-x-16 gap-y-3 text-sm font-medium text-gray-600">
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Stable for Beginners</span>
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Travel-Ready Design</span>
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Ocean, Lake & River Tested</span>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="max-w-6xl mx-auto py-24 px-6" id="philosophy">
+    <Tldr
+      summary="Wavefella designs and manufactures inflatable watercraft and safety equipment for controlled water environments — lakes, sheltered bays, rivers, training facilities, and coastal waters. Founded in 2012, every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction."
+      points={[
+        '12 products across 6 categories: SUP, Kayak, Dinghy, RIB, Safety, Accessory',
+        'Serves recreational, commercial, and professional users in 50+ countries',
+        'All products rated for specific skill levels, water conditions, and safety requirements',
+      ]}
+    />
+    <div class="mt-16 grid md:grid-cols-3 gap-8">
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">🌊</div>
+        <h3 class="mt-5 text-lg font-semibold text-gray-900">Environment-First Design</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Every product is rated for specific water conditions — calm, moderate, or challenging — with clear safety guidelines.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">⚙️</div>
+        <h3 class="mt-5 text-lg font-semibold text-gray-900">Controlled-Skill Progression</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Products organized by skill — beginner, intermediate, advanced — so every user finds the right platform for their ability.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">🛡️</div>
+        <h3 class="mt-5 text-lg font-semibold text-gray-900">Safety-as-Standard</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">CE certification is not optional. Every vessel undergoes pressure, buoyancy, and load testing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Preview -->
+  <section class="bg-gray-50 py-24 px-6" id="products">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Find your match</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Three scenarios, three solutions</h2>
+        <p class="mt-4 text-lg text-gray-500">Real product pairings for real situations — each matched to skill level, water type, and safety needs.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="h-52 bg-gradient-to-br from-sky-400 to-blue-500 overflow-hidden">
+            <img src="/images/wavefella/products/sup-allround.jpg" alt="Beginner" class="w-full h-full object-cover opacity-80" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">Beginner</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">Taking your first strokes</h3>
+            <p class="mt-2 text-sm text-gray-500">You want to try paddle boarding on calm lakes. You need stability, clear safety guidance, and gear that won't sink your confidence.</p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="h-52 bg-gradient-to-br from-amber-400 to-orange-500 overflow-hidden">
+            <img src="/images/wavefella/products/airdeck-360.jpg" alt="Family" class="w-full h-full object-cover opacity-80" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">Family</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">A family day on the water</h3>
+            <p class="mt-2 text-sm text-gray-500">Weekend lake trips with the family. You need a stable, spacious boat that inflates at the launch site and packs in the car.</p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="h-52 bg-gradient-to-br from-red-400 to-rose-500 overflow-hidden">
+            <img src="/images/wavefella/products/rib-450-patrol.jpg" alt="Professional" class="w-full h-full object-cover opacity-80" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-red-600">Professional</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">Patrol and rescue operations</h3>
+            <p class="mt-2 text-sm text-gray-500">Law enforcement or SAR teams need all-weather durability, consistent performance across multiple units, and commercial-grade reliability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust + CTA -->
+  <section class="py-24 px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        {proofPoints.map(pt => (
+          <div class="text-center">
+            <div class="text-4xl font-bold text-sky-400">{pt.metric}</div>
+            <div class="mt-2 text-lg font-semibold">{pt.label}</div>
+            <div class="mt-1 text-sm text-white/60">{pt.detail}</div>
+          </div>
+        ))}
+      </div>
+      <div class="mb-12">
+        <TrustBadges />
+      </div>
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold">Start your water journey today</h2>
+        <p class="mt-3 text-white/70">Every product CE certified, every purchase backed by warranty.</p>
+        <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
+          <a href={`/${lang}/products`} class="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+            Browse all products
+          </a>
+          <a href={`/${lang}/products`} class="px-8 py-4 border-2 border-white/30 text-white rounded-xl font-semibold hover:border-white transition-colors">
+            View bundle deals
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Overview -->
+  <section class="ai-summary bg-blue-50/80 dark:bg-slate-800/50 border-l-4 border-blue-500 rounded-r-xl px-6 py-5 max-w-6xl mx-auto mt-8 mb-8" aria-label="AI overview">
+    <div class="flex items-start gap-3">
+      <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">AI Overview</span>
+      <div class="space-y-1.5 text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
+        <p><strong>Wavefella</strong> designs and manufactures professional-grade inflatable water sports equipment — SUP boards, kayaks, dinghies, RIBs, safety gear, and accessories.</p>
+        <p>Every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction for rigidity at 12-15 PSI.</p>
+      </div>
+    </div>
+  </section>
+
+  <JsonLd type="FAQPage" faqs={faqLd} />
+
+  <!-- Product System -->
+  <section id="product-system" class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
+      <p class="mt-4 text-lg text-gray-500">From paddleboards to rescue vessels — each category designed for specific environments, skill levels, and use cases.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {categories.map(cat => (
+        <a href={`/${lang}/products#${cat.name.toLowerCase().replace(/\s+/g, '-')}`} class="group block rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow bg-white">
+          <div class={`h-48 bg-gradient-to-br ${cat.gradient} relative overflow-hidden`}>
+            <img src={cat.img} alt={cat.name} class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900">{cat.name}</h3>
+            <p class="text-sm text-gray-400 mt-1">{cat.count} products</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.waters}</span>
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.skill}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="max-w-6xl mx-auto py-24 px-6" data-ai-block="use-case">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for real water experiences</h2>
+      <p class="mt-4 text-lg text-gray-500">From first-time paddlers to professional operators — Wavefella equips every water adventure.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      {useCases.map(u => (
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+          <div class="h-48 overflow-hidden">
+            <img src={u.img} alt={u.title} class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900">{u.title}</h3>
+            <p class="text-gray-500 mt-2">{u.desc}</p>
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl">
+              <p class="text-sm font-medium text-gray-700">Scenario</p>
+              <p class="mt-1 text-sm text-gray-600">{u.scenario}</p>
+            </div>
+            <div class="mt-3 p-4 bg-sky-50 rounded-xl">
+              <p class="text-sm font-medium text-sky-700">Solution</p>
+              <p class="mt-1 text-sm text-gray-600">{u.solution}</p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {u.products.map(pr => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-medium">{pr}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-gray-50 py-24 px-6" id="faq" data-ai-block="faq">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Frequently asked questions</h2>
+      </div>
+      <div class="space-y-4">
+        {faqItems.map((item, i) => (
+          <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group">
+            <summary class="px-6 py-4 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors list-none flex items-center justify-between">
+              <span>{item.q}</span>
+              <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-6 pb-4">
+              <p class="text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

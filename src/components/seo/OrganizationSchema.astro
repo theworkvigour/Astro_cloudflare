@@ -1,0 +1,31 @@
+---
+import { SITE, SITE_SETTINGS } from 'astrowind:config';
+
+export interface Props {
+  name?: string;
+  description?: string;
+  url?: string;
+  logo?: string;
+  sameAs?: string[];
+}
+
+const {
+  name = SITE_SETTINGS?.siteName || SITE?.name || 'Wavefella',
+  description = SITE?.description || 'Water sports equipment manufacturer',
+  url = String(SITE.site || '').replace(/\/+$/, ''),
+  logo = SITE_SETTINGS?.organization?.logo || '',
+  sameAs,
+} = Astro.props;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name,
+  description,
+  url,
+  ...(logo ? { logo: logo.startsWith('http') ? logo : `${url}${logo}` } : {}),
+  ...(sameAs ? { sameAs } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

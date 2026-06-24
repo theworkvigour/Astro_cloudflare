@@ -1,0 +1,81 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+import { products } from '~/data/products';
+import { languages } from '~/i18n/config';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+const metadata = {
+  title: `Products — ${SITE.name}`,
+  description: `Browse the full Wavefella product catalog. Inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.`,
+};
+
+const productVisuals: Record<string, string> = {
+  'sup-explorer-11': '/images/wavefella/products/sup-allround.jpg',
+  'sup-tour-12': '/images/wavefella/products/sup-touring.jpg',
+  'kayak-lite': '/images/wavefella/products/rk-river.jpg',
+  'kayak-tandem': '/images/wavefella/products/rk-expedition.jpg',
+  'airdeck-270': '/images/wavefella/products/airdeck-270.jpg',
+  'airdeck-360': '/images/wavefella/products/airdeck-360.jpg',
+  'rib-330': '/images/wavefella/products/rib-330.jpg',
+  'rib-450-patrol': '/images/wavefella/products/rib-450-patrol.jpg',
+  'life-vest-classic': '/images/wavefella/products/life-jacket.png',
+  'life-vest-pro': '/images/wavefella/products/life-jacket-2.jpg',
+  'paddle-carbon': '/images/wavefella/products/sup-paddle.jpg',
+  'pump-dual': '/images/wavefella/products/electric-pump.jpg',
+};
+
+const categories = [...new Set(products.map(p => p.category))];
+const categoryNames: Record<string, string> = {
+  SUP: 'SUP Boards',
+  KAYAK: 'Kayaks',
+  DINGHY: 'Dinghies',
+  RIB: 'RIBs',
+  SAFETY: 'Safety Equipment',
+  ACCESSORY: 'Accessories',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Catalog</span>
+      <h1 class="mt-4 text-4xl font-semibold text-gray-900">Wavefella products</h1>
+      <p class="mt-4 text-lg text-gray-500">Premium inflatable boats, SUPs, kayaks, RIBs, and safety equipment — built for life on the water.</p>
+    </div>
+
+    {categories.map(cat => (
+      <section class="mb-16" id={cat.toLowerCase()}>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">{categoryNames[cat] || cat}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.filter(p => p.category === cat).map(p => (
+            <a href={`/${lang}/products/${p.id}`} class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+              <div class="h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                {productVisuals[p.id] ? (
+                  <img src={productVisuals[p.id]} alt={p.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                ) : (
+                  <div class="flex items-center justify-center h-full text-gray-400 text-sm">{p.category}</div>
+                )}
+              </div>
+              <div class="p-6">
+                <h3 class="font-semibold text-gray-900 text-lg">{p.name}</h3>
+                <p class="text-gray-500 mt-2 text-sm">{p.desc}</p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="px-2 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">{p.category}</span>
+                  <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{p.skill}</span>
+                  <span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full">{p.safety_level}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </section>
+</Layout>

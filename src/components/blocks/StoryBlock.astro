@@ -1,0 +1,62 @@
+---
+import Tldr from '~/components/common/Tldr.astro';
+
+export interface StoryItem {
+  label: string;
+  title: string;
+  description: string;
+  visual?: string;
+}
+
+export interface Props {
+  tldr?: string;
+  tldrPoints?: string[];
+  problem?: StoryItem;
+  solution?: StoryItem;
+  items?: StoryItem[];
+  columns?: 2 | 3 | 4;
+  className?: string;
+}
+
+const { tldr, tldrPoints, problem, solution, items, columns = 3, className = '' } = Astro.props;
+
+const gridCols: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-3',
+  4: 'md:grid-cols-4',
+};
+---
+
+<section class={className}>
+  {tldr && <Tldr summary={tldr} points={tldrPoints} className="mb-16" />}
+
+  {problem && (
+    <div class="mb-8 p-6 bg-red-50 border-l-4 border-red-400 rounded-r-xl">
+      <span class="text-xs font-semibold uppercase tracking-wider text-red-600">{problem.label}</span>
+      <h3 class="mt-2 text-xl font-semibold text-gray-900">{problem.title}</h3>
+      <p class="mt-2 text-gray-600">{problem.description}</p>
+    </div>
+  )}
+
+  {solution && (
+    <div class="mb-12 p-6 bg-green-50 border-l-4 border-green-400 rounded-r-xl">
+      <span class="text-xs font-semibold uppercase tracking-wider text-green-600">{solution.label}</span>
+      <h3 class="mt-2 text-xl font-semibold text-gray-900">{solution.title}</h3>
+      <p class="mt-2 text-gray-600">{solution.description}</p>
+    </div>
+  )}
+
+  {items && items.length > 0 && (
+    <div class={`grid ${gridCols[columns]} gap-8`}>
+      {items.map(item => (
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+          {item.visual && (
+            <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mb-5">{item.visual}</div>
+          )}
+          <h3 class="text-lg font-semibold text-gray-900">{item.title}</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  )}
+</section>

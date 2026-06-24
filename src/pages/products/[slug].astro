@@ -8,6 +8,7 @@ import ProductLayout from '~/layouts/ProductLayout.astro';
 import ProductCard from '~/components/widgets/ProductCard.astro';
 import ToBlogLink from '~/components/blog/ToBlogLink.astro';
 import JsonLd from '~/components/common/JsonLd.astro';
+import Tldr from '~/components/common/Tldr.astro';
 import TrustBadges from '~/components/common/TrustBadges.astro';
 
 import { findRelatedProducts, getStaticPathsProduct } from '~/utils/products';
@@ -16,6 +17,7 @@ import { SITE } from 'astrowind:config';
 import { getCanonical, getPermalink } from '~/utils/permalinks';
 import type { MetaData } from '~/types';
 import { products as productRecords } from '~/data/products';
+import { guides } from '~/data/guides';
 
 export const prerender = true;
 
@@ -34,6 +36,9 @@ const gallery = await Promise.all(
   }))
 );
 const related = await findRelatedProducts(product, 3);
+const relatedGuides = rec
+  ? guides.filter(g => g.relatedProducts.includes(rec.id)).slice(0, 3)
+  : [];
 
 const defaultTitle = product.categoryLabel
   ? `${product.title} — ${product.categoryLabel} | ${SITE.name}`
@@ -116,6 +121,57 @@ const specRows = product.specs ?? [];
     </div>
   </section>
 
+  <!-- TLDR (AI-crawlable) -->
+  {rec && (
+    <section class="max-w-6xl mx-auto px-6 -mt-8 relative z-20">
+      <Tldr
+        summary={rec.definition}
+        points={[`${rec.audience}`, `Use cases: ${rec.ai_use_cases.slice(0, 3).join(', ')}`]}
+      />
+    </section>
+  )}
+
+  <!-- Why This Exists (Problem) -->
+  {rec && rec.problem && (
+    <section class="section-premium bg-white dark:bg-slate-950" data-ai-block="problem">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto reveal">
+          <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 dark:text-blue-400 mb-2 block">Why this exists</span>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-6">The problem it solves</h2>
+          <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">{rec.problem}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Use Cases -->
+  {rec && rec.ai_use_cases.length > 0 && (
+    <section class="section-premium bg-gray-50/50 dark:bg-slate-900/50" data-ai-block="use-case">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="reveal max-w-3xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-8 text-center">Use cases</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            {rec.ai_use_cases.map(uc => (
+              <div class="flex items-start gap-3 p-5 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
+                <span class="w-2 h-2 mt-2 rounded-full bg-sky-500 flex-shrink-0"></span>
+                <div>
+                  <p class="text-sm text-gray-700 dark:text-slate-300">{uc}</p>
+                </div>
+              </div>
+            ))}
+            <div class="flex items-start gap-3 p-5 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-100 dark:border-sky-800">
+              <span class="w-2 h-2 mt-2 rounded-full bg-sky-500 flex-shrink-0"></span>
+              <div>
+                <p class="text-sm font-semibold text-sky-800 dark:text-sky-300">Skill level</p>
+                <p class="text-sm text-sky-700 dark:text-sky-400 capitalize">{rec.skill}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Story Section -->
   {product.description && (
     <section class="section-premium bg-white dark:bg-slate-950">
@@ -123,6 +179,19 @@ const specRows = product.specs ?? [];
         <div class="content-max-w reveal">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-6">Story</h2>
           <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed whitespace-pre-line">{product.description}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Comparison -->
+  {rec && rec.ai_comparison && (
+    <section class="section-premium bg-white dark:bg-slate-950" data-ai-block="comparison">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto reveal">
+          <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 dark:text-blue-400 mb-2 block">Comparison</span>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-6">How it compares</h2>
+          <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">{rec.ai_comparison}</p>
         </div>
       </div>
     </section>
@@ -285,6 +354,27 @@ const specRows = product.specs ?? [];
         <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-12 text-center">Related products</h2>
         <div class="grid gap-6 md:grid-cols-3">
           {related.map((p) => <ProductCard product={p} showMeta={false} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Guides -->
+  {relatedGuides.length > 0 && (
+    <section class="section-premium bg-gray-50/50 dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-6 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-8 text-center">Related guides</h2>
+        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {relatedGuides.map(g => (
+            <a href={`/guides/${g.slug}`} class="block p-6 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-2 text-xs mb-2">
+                <span class="px-2 py-0.5 bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-full capitalize">{g.difficulty}</span>
+              </div>
+              <h3 class="text-base font-semibold text-default dark:text-slate-200">{g.title}</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-slate-400 line-clamp-2">{g.description}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sky-600 dark:text-blue-400">Read guide →</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
