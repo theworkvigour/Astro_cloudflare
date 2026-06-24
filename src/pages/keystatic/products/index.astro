@@ -30,7 +30,7 @@ let loadError: string | null = null;
 
 try {
   const client = new GitHubClient(token);
-  const files = await client.listFiles('src/data/product/');
+  const files = await client.listFiles('src/content/products/');
   const mdFiles = files.filter((f) => /\.(md|mdx)$/i.test(f.name));
   const enriched = await Promise.all(
     mdFiles.map(async (f) => {

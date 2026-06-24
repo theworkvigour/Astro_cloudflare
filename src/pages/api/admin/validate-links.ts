@@ -69,11 +69,11 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
   const known = new Set<string>(STATIC_PAGES);
   for (const t of tree) {
-    if (t.path.startsWith('src/data/post/') && /\.(md|mdx)$/i.test(t.path)) {
-      const slug = t.path.replace(/^src\/data\/post\//, '').replace(/\.(md|mdx)$/i, '');
+    if (t.path.startsWith('src/content/news/') && /\.(md|mdx)$/i.test(t.path)) {
+      const slug = t.path.replace(/^src\/content\/news\//, '').replace(/\.(md|mdx)$/i, '');
       known.add(`/news/${slug}`);
-    } else if (t.path.startsWith('src/data/product/') && /\.(md|mdx)$/i.test(t.path)) {
-      const slug = t.path.replace(/^src\/data\/product\//, '').replace(/\.(md|mdx)$/i, '');
+    } else if (t.path.startsWith('src/content/products/') && /\.(md|mdx)$/i.test(t.path)) {
+      const slug = t.path.replace(/^src\/content\/products\//, '').replace(/\.(md|mdx)$/i, '');
       known.add(`/products/${slug}`);
     }
   }

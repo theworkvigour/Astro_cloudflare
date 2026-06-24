@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const payload = validatePayload(body);
   if (typeof payload === 'string') return errorResponse(payload, 400);
 
-  const prefix = payload.collection === 'post' ? 'src/data/post/' : 'src/data/product/';
+  const prefix = payload.collection === 'post' ? 'src/content/news/' : 'src/content/products/';
   const titleSlug = slugify(payload.frontmatter.title as string);
   const filename = (payload.filename ?? `${titleSlug}.md`).replace(/^\/+/, '');
   if (!/^[A-Za-z0-9._-]+\.(md|mdx)$/.test(filename)) {

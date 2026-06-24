@@ -5,8 +5,8 @@ import { parseMarkdown } from '~/lib/markdown';
 export const prerender = false;
 
 const ALLOWED_PREFIXES = [
-  'src/data/post/',
-  'src/data/product/',
+  'src/content/news/',
+  'src/content/products/',
   'src/data/pages/',
   'src/data/site/',
 ];

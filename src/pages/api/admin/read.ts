@@ -4,14 +4,14 @@ import { authorizeAdmin, errorResponse, okResponse } from './_guard';
 export const prerender = false;
 
 const ALLOWED_PREFIXES = [
-  'src/data/post/',
-  'src/data/product/',
+  'src/content/news/',
+  'src/content/products/',
   'src/data/pages/',
   'src/data/site/',
 ];
 
 function isAllowedPath(path: string): boolean {
-  if (!path.startsWith('src/data/')) return false;
+  if (!path.startsWith('src/data/') && !path.startsWith('src/content/')) return false;
   if (path.includes('..')) return false;
   if (/\.(md|mdx)$/i.test(path)) return true;
   if (/\.(ya?ml)$/i.test(path)) return true;

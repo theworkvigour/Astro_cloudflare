@@ -19,7 +19,7 @@ interface ApplyRequest {
   commitMessage?: string;
 }
 
-const SCAN_PATH_PREFIXES = ['src/data/post/', 'src/data/product/', 'src/data/pages/', 'src/data/site/'];
+const SCAN_PATH_PREFIXES = ['src/content/news/', 'src/content/products/', 'src/data/pages/', 'src/data/site/'];
 
 function isAllowedPath(path: string): boolean {
   if (!SCAN_PATH_PREFIXES.some((p) => path.startsWith(p))) return false;

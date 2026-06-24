@@ -19,7 +19,7 @@ if (!filename) return Astro.redirect('/keystatic/products');
 
 let initial: CollectionFormData;
 let sha = '';
-let filePath = `src/data/product/${filename}`;
+let filePath = `src/content/products/${filename}`;
 
 try {
   const client = new GitHubClient(token);

@@ -143,8 +143,8 @@ export function validateRule(rule: RefactorRule): string | null {
 }
 
 const SCAN_PATH_PREFIXES = [
-  'src/data/post/',
-  'src/data/product/',
+  'src/content/news/',
+  'src/content/products/',
   'src/data/pages/',
   'src/data/site/',
 ];
