@@ -1,0 +1,59 @@
+---
+import type { Post } from '~/types';
+import { getPermalink } from '~/utils/permalinks';
+import { getFormattedDate } from '~/utils/utils';
+
+export interface Props {
+  posts: Array<Post>;
+}
+
+const { posts } = Astro.props;
+
+const grouped = posts.reduce<Record<number, Post[]>>((acc, post) => {
+  const year = post.publishDate.getFullYear();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(post);
+  return acc;
+}, {});
+
+const years = Object.keys(grouped).map(Number).sort((a, b) => b - a);
+---
+
+<div class="relative">
+  {years.map((year, yi) => (
+    <div class="reveal">
+      <div class="flex items-start gap-6 mb-10">
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-primary dark:text-blue-400 whitespace-nowrap font-heading">{year}</span>
+          <div class="w-px flex-1 bg-gradient-to-b from-primary/30 to-transparent mt-3"></div>
+        </div>
+        <div class="flex-1 pb-12 space-y-8">
+          {grouped[year].map((post) => {
+            const link = getPermalink(post.permalink, 'post');
+            return (
+              <article class="group relative pl-8 before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:rounded-full before:bg-primary/30 before:border-2 before:border-primary dark:before:border-blue-400 before:bg-white dark:before:bg-slate-950">
+                <div class="text-xs text-gray-400 dark:text-slate-500 font-medium mb-1.5 tracking-wide">
+                  {getFormattedDate(post.publishDate)}
+                  {post.category && (
+                    <>
+                      <span class="mx-2">·</span>
+                      <a href={getPermalink(post.category.slug, 'category')} class="hover:text-primary transition-colors">{post.category.title}</a>
+                    </>
+                  )}
+                </div>
+                <h3 class="text-lg font-semibold leading-snug font-heading dark:text-slate-200">
+                  <a href={link} class="hover:text-primary transition-colors">
+                    {post.title}
+                  </a>
+                </h3>
+                {post.excerpt && (
+                  <p class="mt-1.5 text-sm text-gray-500 dark:text-slate-400 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

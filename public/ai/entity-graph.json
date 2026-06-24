@@ -1,0 +1,1247 @@
+{
+  "nodes": [
+    {
+      "id": "sup-tour-12",
+      "type": "product",
+      "label": "SUP Tour 12'",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:sup",
+      "type": "tag",
+      "label": "sup"
+    },
+    {
+      "id": "tag:touring",
+      "type": "tag",
+      "label": "touring"
+    },
+    {
+      "id": "tag:performance",
+      "type": "tag",
+      "label": "performance"
+    },
+    {
+      "id": "sup-explorer-11",
+      "type": "product",
+      "label": "SUP Explorer 11'",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:beginner",
+      "type": "tag",
+      "label": "beginner"
+    },
+    {
+      "id": "tag:inflatable",
+      "type": "tag",
+      "label": "inflatable"
+    },
+    {
+      "id": "rib-450-patrol",
+      "type": "product",
+      "label": "RIB 450 Patrol",
+      "category": "rib"
+    },
+    {
+      "id": "tag:rib",
+      "type": "tag",
+      "label": "rib"
+    },
+    {
+      "id": "tag:commercial",
+      "type": "tag",
+      "label": "commercial"
+    },
+    {
+      "id": "tag:patrol",
+      "type": "tag",
+      "label": "patrol"
+    },
+    {
+      "id": "rib-330",
+      "type": "product",
+      "label": "RIB 330",
+      "category": "rib"
+    },
+    {
+      "id": "tag:tender",
+      "type": "tag",
+      "label": "tender"
+    },
+    {
+      "id": "tag:small-boat",
+      "type": "tag",
+      "label": "small-boat"
+    },
+    {
+      "id": "pump-dual",
+      "type": "product",
+      "label": "Dual-Action Pump",
+      "category": "accessory"
+    },
+    {
+      "id": "tag:pump",
+      "type": "tag",
+      "label": "pump"
+    },
+    {
+      "id": "tag:inflation",
+      "type": "tag",
+      "label": "inflation"
+    },
+    {
+      "id": "tag:accessory",
+      "type": "tag",
+      "label": "accessory"
+    },
+    {
+      "id": "paddle-carbon",
+      "type": "product",
+      "label": "Carbon Paddle",
+      "category": "accessory"
+    },
+    {
+      "id": "tag:paddle",
+      "type": "tag",
+      "label": "paddle"
+    },
+    {
+      "id": "tag:carbon",
+      "type": "tag",
+      "label": "carbon"
+    },
+    {
+      "id": "tag:lightweight",
+      "type": "tag",
+      "label": "lightweight"
+    },
+    {
+      "id": "oars-pump-set",
+      "type": "product",
+      "label": "Oars & Pump Set",
+      "category": "accessory"
+    },
+    {
+      "id": "tag:oars",
+      "type": "tag",
+      "label": "oars"
+    },
+    {
+      "id": "life-vest-pro",
+      "type": "product",
+      "label": "Life Vest Pro",
+      "category": "accessory"
+    },
+    {
+      "id": "tag:safety",
+      "type": "tag",
+      "label": "safety"
+    },
+    {
+      "id": "tag:life vest",
+      "type": "tag",
+      "label": "life vest"
+    },
+    {
+      "id": "tag:professional",
+      "type": "tag",
+      "label": "professional"
+    },
+    {
+      "id": "tag:SOLAS",
+      "type": "tag",
+      "label": "SOLAS"
+    },
+    {
+      "id": "life-vest-classic",
+      "type": "product",
+      "label": "Life Vest Classic",
+      "category": "accessory"
+    },
+    {
+      "id": "tag:PFD",
+      "type": "tag",
+      "label": "PFD"
+    },
+    {
+      "id": "kayak-tandem",
+      "type": "product",
+      "label": "Inflatable Kayak Tandem",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:kayak",
+      "type": "tag",
+      "label": "kayak"
+    },
+    {
+      "id": "tag:tandem",
+      "type": "tag",
+      "label": "tandem"
+    },
+    {
+      "id": "tag:family",
+      "type": "tag",
+      "label": "family"
+    },
+    {
+      "id": "kayak-lite",
+      "type": "product",
+      "label": "Inflatable Kayak Lite",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:travel",
+      "type": "tag",
+      "label": "travel"
+    },
+    {
+      "id": "airdeck-360",
+      "type": "product",
+      "label": "AirDeck 360",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:day-boat",
+      "type": "tag",
+      "label": "day-boat"
+    },
+    {
+      "id": "airdeck-270",
+      "type": "product",
+      "label": "AirDeck 270",
+      "category": "inflatable"
+    },
+    {
+      "id": "tag:portable",
+      "type": "tag",
+      "label": "portable"
+    },
+    {
+      "id": "wavefella-supply-chain-2025",
+      "type": "article",
+      "label": "Expand Your Business Horizons �?Become a Dealer for Hifond's Leading Brands",
+      "category": "Corporation News"
+    },
+    {
+      "id": "tag:dealership",
+      "type": "tag",
+      "label": "dealership"
+    },
+    {
+      "id": "tag:hifond",
+      "type": "tag",
+      "label": "hifond"
+    },
+    {
+      "id": "tag:partnership",
+      "type": "tag",
+      "label": "partnership"
+    },
+    {
+      "id": "wavefella-rd-center-innovation",
+      "type": "article",
+      "label": "Wavefella R&D Center �?Forging the Future of Inflatable Water Sports",
+      "category": "Company"
+    },
+    {
+      "id": "tag:innovation",
+      "type": "tag",
+      "label": "innovation"
+    },
+    {
+      "id": "tag:R&D",
+      "type": "tag",
+      "label": "R&D"
+    },
+    {
+      "id": "tag:quality",
+      "type": "tag",
+      "label": "quality"
+    },
+    {
+      "id": "us-water-rescue-partnership",
+      "type": "article",
+      "label": "Wavefella Partners with US Water Rescue Association for Training Equipment",
+      "category": "Partnership"
+    },
+    {
+      "id": "tag:rescue",
+      "type": "tag",
+      "label": "rescue"
+    },
+    {
+      "id": "tag:training",
+      "type": "tag",
+      "label": "training"
+    },
+    {
+      "id": "sup-tour-12-launch",
+      "type": "article",
+      "label": "Wavefella Launches SUP Tour 12 �?A New Standard for Touring Inflatable SUPs",
+      "category": "Product News"
+    },
+    {
+      "id": "tag:product launch",
+      "type": "tag",
+      "label": "product launch"
+    },
+    {
+      "id": "tag:SUP",
+      "type": "tag",
+      "label": "SUP"
+    },
+    {
+      "id": "spring-2026-gear-guide",
+      "type": "article",
+      "label": "Spring 2026 Paddling Gear Guide �?What to Check Before Your First Launch",
+      "category": "Guides & Tips"
+    },
+    {
+      "id": "tag:seasonal",
+      "type": "tag",
+      "label": "seasonal"
+    },
+    {
+      "id": "tag:gear guide",
+      "type": "tag",
+      "label": "gear guide"
+    },
+    {
+      "id": "tag:spring",
+      "type": "tag",
+      "label": "spring"
+    },
+    {
+      "id": "seeking-dealers-for-wavefella",
+      "type": "article",
+      "label": "We Are Seeking Dealers for Wavefella",
+      "category": "Corporation News"
+    },
+    {
+      "id": "tag:partners",
+      "type": "tag",
+      "label": "partners"
+    },
+    {
+      "id": "tag:USA",
+      "type": "tag",
+      "label": "USA"
+    },
+    {
+      "id": "recycled-pvc-initiative",
+      "type": "article",
+      "label": "Wavefella Launches Recycled PVC Initiative for Sustainable Inflatable Manufacturing",
+      "category": "Company"
+    },
+    {
+      "id": "tag:sustainability",
+      "type": "tag",
+      "label": "sustainability"
+    },
+    {
+      "id": "tag:manufacturing",
+      "type": "tag",
+      "label": "manufacturing"
+    },
+    {
+      "id": "tag:environment",
+      "type": "tag",
+      "label": "environment"
+    },
+    {
+      "id": "preparing-sup-summer",
+      "type": "article",
+      "label": "Preparing Your SUP for Summer 2026 �?Maintenance Tips for Peak Season",
+      "category": "Guides & Tips"
+    },
+    {
+      "id": "tag:maintenance",
+      "type": "tag",
+      "label": "maintenance"
+    },
+    {
+      "id": "tag:summer",
+      "type": "tag",
+      "label": "summer"
+    },
+    {
+      "id": "miami-boat-show-2026",
+      "type": "article",
+      "label": "Wavefella to Exhibit at Miami International Boat Show 2026",
+      "category": "Events"
+    },
+    {
+      "id": "tag:event",
+      "type": "tag",
+      "label": "event"
+    },
+    {
+      "id": "tag:boat show",
+      "type": "tag",
+      "label": "boat show"
+    },
+    {
+      "id": "tag:Miami",
+      "type": "tag",
+      "label": "Miami"
+    },
+    {
+      "id": "tag:exhibition",
+      "type": "tag",
+      "label": "exhibition"
+    },
+    {
+      "id": "life-vest-pro-solas",
+      "type": "article",
+      "label": "Life Vest Pro Receives Full SOLAS Certification for Commercial Marine Use",
+      "category": "Product News"
+    },
+    {
+      "id": "tag:product",
+      "type": "tag",
+      "label": "product"
+    },
+    {
+      "id": "lake-tahoe-paddle-club",
+      "type": "article",
+      "label": "Lake Tahoe Paddle Club Chooses Wavefella for Fleet Program",
+      "category": "Customer Stories"
+    },
+    {
+      "id": "tag:customer story",
+      "type": "tag",
+      "label": "customer story"
+    },
+    {
+      "id": "tag:fleet",
+      "type": "tag",
+      "label": "fleet"
+    },
+    {
+      "id": "tag:Lake Tahoe",
+      "type": "tag",
+      "label": "Lake Tahoe"
+    },
+    {
+      "id": "kayak-tandem-best-family",
+      "type": "article",
+      "label": "Wavefella Kayak Tandem Named Best Family Watercraft 2026 by Paddle Magazine",
+      "category": "Product News"
+    },
+    {
+      "id": "tag:award",
+      "type": "tag",
+      "label": "award"
+    },
+    {
+      "id": "iso-14001-certification",
+      "type": "article",
+      "label": "Wavefella Manufacturing Facility Achieves ISO 14001 Environmental Management Certification",
+      "category": "Company"
+    },
+    {
+      "id": "tag:certification",
+      "type": "tag",
+      "label": "certification"
+    },
+    {
+      "id": "tag:ISO",
+      "type": "tag",
+      "label": "ISO"
+    },
+    {
+      "id": "great-lake-sup-challenge",
+      "type": "article",
+      "label": "Wavefella Sponsors Great Lake SUP Challenge 2026 �?Lake Michigan Crossing",
+      "category": "Community"
+    },
+    {
+      "id": "tag:sponsorship",
+      "type": "tag",
+      "label": "sponsorship"
+    },
+    {
+      "id": "tag:community",
+      "type": "tag",
+      "label": "community"
+    },
+    {
+      "id": "drop-stitch-2-0",
+      "type": "article",
+      "label": "Drop-Stitch 2.0 �?Wavefella Next Generation Core Material for Inflatable Boards",
+      "category": "Technology"
+    },
+    {
+      "id": "tag:technology",
+      "type": "tag",
+      "label": "technology"
+    },
+    {
+      "id": "tag:drop-stitch",
+      "type": "tag",
+      "label": "drop-stitch"
+    },
+    {
+      "id": "military-grade-pvc",
+      "type": "technology",
+      "label": "Military-Grade PVC Fabric",
+      "category": "materials"
+    },
+    {
+      "id": "tag:pvc",
+      "type": "tag",
+      "label": "pvc"
+    },
+    {
+      "id": "tag:material",
+      "type": "tag",
+      "label": "material"
+    },
+    {
+      "id": "tag:marine",
+      "type": "tag",
+      "label": "marine"
+    },
+    {
+      "id": "tag:durability",
+      "type": "tag",
+      "label": "durability"
+    },
+    {
+      "id": "hypalon-tubes",
+      "type": "technology",
+      "label": "Hypalon Tube Technology",
+      "category": "materials"
+    },
+    {
+      "id": "tag:hypalon",
+      "type": "tag",
+      "label": "hypalon"
+    },
+    {
+      "id": "tag:tube",
+      "type": "tag",
+      "label": "tube"
+    },
+    {
+      "id": "tag:chemical-resistance",
+      "type": "tag",
+      "label": "chemical-resistance"
+    },
+    {
+      "id": "drop-stitch-core",
+      "type": "technology",
+      "label": "Drop-Stitch Core Construction",
+      "category": "materials"
+    },
+    {
+      "id": "tag:construction",
+      "type": "tag",
+      "label": "construction"
+    },
+    {
+      "id": "tag:rigid",
+      "type": "tag",
+      "label": "rigid"
+    },
+    {
+      "id": "air-deck-floor",
+      "type": "technology",
+      "label": "Air Deck Floor System",
+      "category": "construction"
+    },
+    {
+      "id": "tag:air-deck",
+      "type": "tag",
+      "label": "air-deck"
+    },
+    {
+      "id": "tag:floor",
+      "type": "tag",
+      "label": "floor"
+    },
+    {
+      "id": "tag:dinghy",
+      "type": "tag",
+      "label": "dinghy"
+    },
+    {
+      "id": "marine-professional-operations",
+      "type": "case-use",
+      "label": "Professional Marine Operations",
+      "category": "professional"
+    },
+    {
+      "id": "env:sea",
+      "type": "environment",
+      "label": "sea"
+    },
+    {
+      "id": "skill:professional",
+      "type": "skill",
+      "label": "professional"
+    },
+    {
+      "id": "family-water-recreation",
+      "type": "case-use",
+      "label": "Family Water Recreation",
+      "category": "recreation"
+    },
+    {
+      "id": "env:lake",
+      "type": "environment",
+      "label": "lake"
+    },
+    {
+      "id": "skill:beginner",
+      "type": "skill",
+      "label": "beginner"
+    },
+    {
+      "id": "coastal-touring",
+      "type": "case-use",
+      "label": "Coastal Touring & Exploration",
+      "category": "recreation"
+    },
+    {
+      "id": "env:coastal",
+      "type": "environment",
+      "label": "coastal"
+    },
+    {
+      "id": "skill:intermediate",
+      "type": "skill",
+      "label": "intermediate"
+    },
+    {
+      "id": "beginner-sup-training",
+      "type": "case-use",
+      "label": "Beginner SUP Training",
+      "category": "training"
+    }
+  ],
+  "edges": [
+    {
+      "from": "sup-tour-12",
+      "to": "tag:sup",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-tour-12",
+      "to": "tag:touring",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-tour-12",
+      "to": "tag:performance",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-explorer-11",
+      "to": "tag:sup",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-explorer-11",
+      "to": "tag:beginner",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-explorer-11",
+      "to": "tag:inflatable",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-450-patrol",
+      "to": "tag:rib",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-450-patrol",
+      "to": "tag:commercial",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-450-patrol",
+      "to": "tag:patrol",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-330",
+      "to": "tag:rib",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-330",
+      "to": "tag:tender",
+      "relation": "tagged"
+    },
+    {
+      "from": "rib-330",
+      "to": "tag:small-boat",
+      "relation": "tagged"
+    },
+    {
+      "from": "pump-dual",
+      "to": "tag:pump",
+      "relation": "tagged"
+    },
+    {
+      "from": "pump-dual",
+      "to": "tag:inflation",
+      "relation": "tagged"
+    },
+    {
+      "from": "pump-dual",
+      "to": "tag:accessory",
+      "relation": "tagged"
+    },
+    {
+      "from": "paddle-carbon",
+      "to": "tag:paddle",
+      "relation": "tagged"
+    },
+    {
+      "from": "paddle-carbon",
+      "to": "tag:carbon",
+      "relation": "tagged"
+    },
+    {
+      "from": "paddle-carbon",
+      "to": "tag:lightweight",
+      "relation": "tagged"
+    },
+    {
+      "from": "oars-pump-set",
+      "to": "tag:accessory",
+      "relation": "tagged"
+    },
+    {
+      "from": "oars-pump-set",
+      "to": "tag:oars",
+      "relation": "tagged"
+    },
+    {
+      "from": "oars-pump-set",
+      "to": "tag:pump",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro",
+      "to": "tag:safety",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro",
+      "to": "tag:life vest",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro",
+      "to": "tag:professional",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro",
+      "to": "tag:SOLAS",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-classic",
+      "to": "tag:safety",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-classic",
+      "to": "tag:life vest",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-classic",
+      "to": "tag:PFD",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem",
+      "to": "tag:kayak",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem",
+      "to": "tag:tandem",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem",
+      "to": "tag:family",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-lite",
+      "to": "tag:kayak",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-lite",
+      "to": "tag:travel",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-lite",
+      "to": "tag:lightweight",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-360",
+      "to": "tag:inflatable",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-360",
+      "to": "tag:family",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-360",
+      "to": "tag:day-boat",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-270",
+      "to": "tag:inflatable",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-270",
+      "to": "tag:tender",
+      "relation": "tagged"
+    },
+    {
+      "from": "airdeck-270",
+      "to": "tag:portable",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-supply-chain-2025",
+      "to": "tag:dealership",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-supply-chain-2025",
+      "to": "tag:hifond",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-supply-chain-2025",
+      "to": "tag:partnership",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-rd-center-innovation",
+      "to": "tag:innovation",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-rd-center-innovation",
+      "to": "tag:R&D",
+      "relation": "tagged"
+    },
+    {
+      "from": "wavefella-rd-center-innovation",
+      "to": "tag:quality",
+      "relation": "tagged"
+    },
+    {
+      "from": "us-water-rescue-partnership",
+      "to": "tag:partnership",
+      "relation": "tagged"
+    },
+    {
+      "from": "us-water-rescue-partnership",
+      "to": "tag:rescue",
+      "relation": "tagged"
+    },
+    {
+      "from": "us-water-rescue-partnership",
+      "to": "tag:training",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-tour-12-launch",
+      "to": "tag:product launch",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-tour-12-launch",
+      "to": "tag:SUP",
+      "relation": "tagged"
+    },
+    {
+      "from": "sup-tour-12-launch",
+      "to": "tag:touring",
+      "relation": "tagged"
+    },
+    {
+      "from": "spring-2026-gear-guide",
+      "to": "tag:seasonal",
+      "relation": "tagged"
+    },
+    {
+      "from": "spring-2026-gear-guide",
+      "to": "tag:gear guide",
+      "relation": "tagged"
+    },
+    {
+      "from": "spring-2026-gear-guide",
+      "to": "tag:spring",
+      "relation": "tagged"
+    },
+    {
+      "from": "seeking-dealers-for-wavefella",
+      "to": "tag:dealership",
+      "relation": "tagged"
+    },
+    {
+      "from": "seeking-dealers-for-wavefella",
+      "to": "tag:partners",
+      "relation": "tagged"
+    },
+    {
+      "from": "seeking-dealers-for-wavefella",
+      "to": "tag:USA",
+      "relation": "tagged"
+    },
+    {
+      "from": "recycled-pvc-initiative",
+      "to": "tag:sustainability",
+      "relation": "tagged"
+    },
+    {
+      "from": "recycled-pvc-initiative",
+      "to": "tag:manufacturing",
+      "relation": "tagged"
+    },
+    {
+      "from": "recycled-pvc-initiative",
+      "to": "tag:environment",
+      "relation": "tagged"
+    },
+    {
+      "from": "preparing-sup-summer",
+      "to": "tag:seasonal",
+      "relation": "tagged"
+    },
+    {
+      "from": "preparing-sup-summer",
+      "to": "tag:maintenance",
+      "relation": "tagged"
+    },
+    {
+      "from": "preparing-sup-summer",
+      "to": "tag:summer",
+      "relation": "tagged"
+    },
+    {
+      "from": "preparing-sup-summer",
+      "to": "tag:SUP",
+      "relation": "tagged"
+    },
+    {
+      "from": "miami-boat-show-2026",
+      "to": "tag:event",
+      "relation": "tagged"
+    },
+    {
+      "from": "miami-boat-show-2026",
+      "to": "tag:boat show",
+      "relation": "tagged"
+    },
+    {
+      "from": "miami-boat-show-2026",
+      "to": "tag:Miami",
+      "relation": "tagged"
+    },
+    {
+      "from": "miami-boat-show-2026",
+      "to": "tag:exhibition",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro-solas",
+      "to": "tag:product",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro-solas",
+      "to": "tag:safety",
+      "relation": "tagged"
+    },
+    {
+      "from": "life-vest-pro-solas",
+      "to": "tag:SOLAS",
+      "relation": "tagged"
+    },
+    {
+      "from": "lake-tahoe-paddle-club",
+      "to": "tag:customer story",
+      "relation": "tagged"
+    },
+    {
+      "from": "lake-tahoe-paddle-club",
+      "to": "tag:fleet",
+      "relation": "tagged"
+    },
+    {
+      "from": "lake-tahoe-paddle-club",
+      "to": "tag:Lake Tahoe",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem-best-family",
+      "to": "tag:award",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem-best-family",
+      "to": "tag:kayak",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem-best-family",
+      "to": "tag:tandem",
+      "relation": "tagged"
+    },
+    {
+      "from": "kayak-tandem-best-family",
+      "to": "tag:family",
+      "relation": "tagged"
+    },
+    {
+      "from": "iso-14001-certification",
+      "to": "tag:certification",
+      "relation": "tagged"
+    },
+    {
+      "from": "iso-14001-certification",
+      "to": "tag:ISO",
+      "relation": "tagged"
+    },
+    {
+      "from": "iso-14001-certification",
+      "to": "tag:manufacturing",
+      "relation": "tagged"
+    },
+    {
+      "from": "iso-14001-certification",
+      "to": "tag:sustainability",
+      "relation": "tagged"
+    },
+    {
+      "from": "great-lake-sup-challenge",
+      "to": "tag:event",
+      "relation": "tagged"
+    },
+    {
+      "from": "great-lake-sup-challenge",
+      "to": "tag:sponsorship",
+      "relation": "tagged"
+    },
+    {
+      "from": "great-lake-sup-challenge",
+      "to": "tag:SUP",
+      "relation": "tagged"
+    },
+    {
+      "from": "great-lake-sup-challenge",
+      "to": "tag:community",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-2-0",
+      "to": "tag:technology",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-2-0",
+      "to": "tag:drop-stitch",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-2-0",
+      "to": "tag:innovation",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-2-0",
+      "to": "tag:R&D",
+      "relation": "tagged"
+    },
+    {
+      "from": "military-grade-pvc",
+      "to": "tag:pvc",
+      "relation": "tagged"
+    },
+    {
+      "from": "military-grade-pvc",
+      "to": "tag:material",
+      "relation": "tagged"
+    },
+    {
+      "from": "military-grade-pvc",
+      "to": "tag:marine",
+      "relation": "tagged"
+    },
+    {
+      "from": "military-grade-pvc",
+      "to": "tag:durability",
+      "relation": "tagged"
+    },
+    {
+      "from": "hypalon-tubes",
+      "to": "tag:hypalon",
+      "relation": "tagged"
+    },
+    {
+      "from": "hypalon-tubes",
+      "to": "tag:rib",
+      "relation": "tagged"
+    },
+    {
+      "from": "hypalon-tubes",
+      "to": "tag:tube",
+      "relation": "tagged"
+    },
+    {
+      "from": "hypalon-tubes",
+      "to": "tag:chemical-resistance",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-core",
+      "to": "tag:drop-stitch",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-core",
+      "to": "tag:construction",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-core",
+      "to": "tag:rigid",
+      "relation": "tagged"
+    },
+    {
+      "from": "drop-stitch-core",
+      "to": "tag:pvc",
+      "relation": "tagged"
+    },
+    {
+      "from": "air-deck-floor",
+      "to": "tag:air-deck",
+      "relation": "tagged"
+    },
+    {
+      "from": "air-deck-floor",
+      "to": "tag:floor",
+      "relation": "tagged"
+    },
+    {
+      "from": "air-deck-floor",
+      "to": "tag:dinghy",
+      "relation": "tagged"
+    },
+    {
+      "from": "air-deck-floor",
+      "to": "tag:lightweight",
+      "relation": "tagged"
+    },
+    {
+      "from": "marine-professional-operations",
+      "to": "rib-330",
+      "relation": "recommends"
+    },
+    {
+      "from": "marine-professional-operations",
+      "to": "rib-450-patrol",
+      "relation": "recommends"
+    },
+    {
+      "from": "marine-professional-operations",
+      "to": "life-vest-pro",
+      "relation": "recommends"
+    },
+    {
+      "from": "marine-professional-operations",
+      "to": "env:sea",
+      "relation": "occurs_in"
+    },
+    {
+      "from": "marine-professional-operations",
+      "to": "skill:professional",
+      "relation": "requires"
+    },
+    {
+      "from": "family-water-recreation",
+      "to": "kayak-tandem",
+      "relation": "recommends"
+    },
+    {
+      "from": "family-water-recreation",
+      "to": "airdeck-360",
+      "relation": "recommends"
+    },
+    {
+      "from": "family-water-recreation",
+      "to": "life-vest-classic",
+      "relation": "recommends"
+    },
+    {
+      "from": "family-water-recreation",
+      "to": "env:lake",
+      "relation": "occurs_in"
+    },
+    {
+      "from": "family-water-recreation",
+      "to": "skill:beginner",
+      "relation": "requires"
+    },
+    {
+      "from": "coastal-touring",
+      "to": "sup-tour-12",
+      "relation": "recommends"
+    },
+    {
+      "from": "coastal-touring",
+      "to": "kayak-lite",
+      "relation": "recommends"
+    },
+    {
+      "from": "coastal-touring",
+      "to": "env:coastal",
+      "relation": "occurs_in"
+    },
+    {
+      "from": "coastal-touring",
+      "to": "skill:intermediate",
+      "relation": "requires"
+    },
+    {
+      "from": "beginner-sup-training",
+      "to": "sup-explorer-11",
+      "relation": "recommends"
+    },
+    {
+      "from": "beginner-sup-training",
+      "to": "env:lake",
+      "relation": "occurs_in"
+    },
+    {
+      "from": "beginner-sup-training",
+      "to": "skill:beginner",
+      "relation": "requires"
+    }
+  ]
+}

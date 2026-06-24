@@ -1,0 +1,271 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import merge from 'lodash.merge';
+import ProductLayout from '~/layouts/ProductLayout.astro';
+import ProductCard from '~/components/widgets/ProductCard.astro';
+import ToBlogLink from '~/components/blog/ToBlogLink.astro';
+
+import { findRelatedProducts, getStaticPathsProduct } from '~/utils/products';
+import { findImage } from '~/utils/images';
+import { SITE } from 'astrowind:config';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+import type { MetaData } from '~/types';
+import { products as productRecords } from '~/data/products';
+
+export const prerender = true;
+
+export const getStaticPaths = getStaticPathsProduct;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { product } = Astro.props as Props;
+const rec = productRecords.find(p => p.id === product.slug);
+const url = getCanonical(getPermalink(product.permalink, 'product'));
+const image = await findImage(product.image);
+const gallery = await Promise.all(
+  (product.gallery ?? []).map(async (g) => ({
+    raw: await findImage(g.url),
+    alt: g.alt || product.title,
+  }))
+);
+const related = await findRelatedProducts(product, 3);
+
+const defaultTitle = product.categoryLabel
+  ? `${product.title} — ${product.categoryLabel} | ${SITE.name}`
+  : `${product.title} | ${SITE.name}`;
+const defaultDesc = (product.summary ?? product.description)
+  ? `${product.summary ?? product.description} — Contact ${SITE.name} for pricing, specs, and ordering.`
+  : `Explore the ${product.title} from ${SITE.name}. Contact us for pricing, technical specs, and ordering information.`;
+
+const metadata = merge(
+  {
+    title: defaultTitle,
+    description: defaultDesc,
+    canonical: url,
+    robots: { index: !product.draft, follow: true },
+    openGraph: {
+      type: 'website',
+      ...(image
+        ? { images: [{ url: image, width: 1200, height: 630 }] }
+        : {}),
+    },
+  },
+  product.metadata ? { ...product.metadata, canonical: product.metadata.canonical || url } : {}
+) as MetaData;
+
+const productCrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
+  ...(product.categoryLabel ? [{ name: product.categoryLabel, href: `/products?category=${product.category}` }] : []),
+  { name: product.title },
+];
+
+const specRows = product.specs ?? [];
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  '@id': url ? `${url}#product` : undefined,
+  name: product.title,
+  description: product.summary ?? product.description,
+  sku: product.sku,
+  image: image ? String(image) : undefined,
+  brand: { '@type': 'Brand', name: SITE.name },
+  category: product.categoryLabel,
+  url: url || undefined,
+  ...(product.price?.amount
+    ? {
+        offers: {
+          '@type': 'Offer',
+          price: product.price.amount,
+          priceCurrency: product.price.currency || 'USD',
+          availability: product.inStock
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          url: url || undefined,
+        },
+      }
+    : {}),
+};
+---
+
+<ProductLayout metadata={metadata} breadcrumbs={productCrumbs}>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+
+  <!-- Hero Image -->
+  <section class="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden bg-gray-100 dark:bg-slate-900">
+    {
+      image ? (
+        typeof image === 'string' ? (
+          <img src={image} alt={product.title} class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
+        ) : (
+          <Image
+            src={image as ImageMetadata}
+            alt={product.title}
+            class="absolute inset-0 w-full h-full object-cover"
+            widths={[1024, 2048]}
+            width={2048}
+            height={1365}
+            sizes="100vw"
+            format="webp"
+            loading="eager"
+            decoding="async"
+          />
+        )
+      ) : null
+    }
+    <div class="absolute inset-0 bg-gradient-to-t from-[#001830]/80 via-[#001830]/20 to-transparent"></div>
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pb-16 md:pb-20 w-full">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3 text-sm text-white/60 mb-4">
+          {product.categoryLabel && <span class="font-medium tracking-wider uppercase">{product.categoryLabel}</span>}
+          {product.sku && <><span aria-hidden="true">·</span><span class="font-mono">{product.sku}</span></>}
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">{product.title}</h1>
+        {product.summary && <p class="mt-4 text-lg text-white/80 max-w-xl leading-relaxed">{product.summary}</p>}
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  {product.description && (
+    <section class="section-premium bg-white dark:bg-slate-950">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="content-max-w reveal">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-6">Story</h2>
+          <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed whitespace-pre-line">{product.description}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Features -->
+  {specRows.length > 0 && (
+    <section class="section-premium bg-gray-50/50 dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="reveal">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-12 text-center">Specifications</h2>
+          <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {specRows.slice(0, 8).map((s) => (
+              <div class="flex items-start gap-4 p-5 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Icon name="tabler:check" class="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <div class="text-sm font-semibold text-default dark:text-slate-200">{s.label}</div>
+                  <div class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">{s.value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Gallery -->
+  {gallery.length > 0 && (
+    <section class="section-premium bg-white dark:bg-slate-950">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="reveal">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-12 text-center">Gallery</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            {gallery.map((g) => (
+              <div class="image-zoom rounded-2xl overflow-hidden bg-gray-50 dark:bg-slate-800 aspect-[4/3]">
+                {g.raw && (
+                  typeof g.raw === 'string' ? (
+                    <img src={g.raw} alt={g.alt} class="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  ) : (
+                    <Image
+                      src={g.raw as ImageMetadata}
+                      alt={g.alt}
+                      class="w-full h-full object-cover"
+                      widths={[480, 768]}
+                      width={768}
+                      height={576}
+                      format="webp"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Content (MDX) -->
+  {product.Content && (
+    <section class="section-premium bg-gray-50/50 dark:bg-slate-900/50">
+      <div class="max-w-3xl mx-auto px-6 reveal">
+        <div class="prose prose-lg dark:prose-invert prose-headings:font-heading prose-headings:tracking-tight prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-xl">
+          <product.Content />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- AI Data Blocks -->
+  {rec && (
+    <section class="sr-only" aria-hidden="true">
+      <div data-ai-block="definition">
+        <p>{rec.definition}</p>
+        <p>Problem it solves: {rec.problem}</p>
+        <p>How it works: {rec.howItWorks}</p>
+        <p>Target audience: {rec.audience}</p>
+      </div>
+      <div data-ai-block="use-case">
+        <p>Use cases: {rec.ai_use_cases.join('; ')}</p>
+        <p>Environments: {rec.environment.join(', ')}</p>
+        <p>Water conditions: {rec.water_condition.join(', ')}</p>
+        <p>Skill level: {rec.skill}</p>
+      </div>
+      <div data-ai-block="specification">
+        {Object.entries(rec.ai_specs).map(([k, v]) => (<p data-spec={k}>{k}: {v}</p>))}
+      </div>
+      <div data-ai-block="comparison"><p>{rec.ai_comparison}</p></div>
+      <div data-ai-block="faq">
+        {rec.ai_faq.map(f => (<p><strong>Q:</strong> {f.q} <strong>A:</strong> {f.a}</p>))}
+      </div>
+      <div data-ai-block="constraint">
+        <p>Safety rules: {rec.safety_rules.join('; ')}</p>
+        <p>Safety level: {rec.safety_level}</p>
+        <p>Regions: {rec.region.join(', ')}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Products -->
+  {related.length > 0 && (
+    <section class="section-premium bg-white dark:bg-slate-950">
+      <div class="max-w-6xl mx-auto px-6 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-12 text-center">Related products</h2>
+        <div class="grid gap-6 md:grid-cols-3">
+          {related.map((p) => <ProductCard product={p} showMeta={false} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Final CTA -->
+  <section class="section-premium bg-primary dark:bg-blue-900">
+    <div class="max-w-3xl mx-auto px-6 text-center reveal">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Interested in {product.title}?</h2>
+      <p class="text-lg text-white/70 mb-8 max-w-xl mx-auto">Contact our team for detailed specifications, pricing, and ordering information.</p>
+      <a
+        href={`/contact?product=${encodeURIComponent(product.title)}`}
+        class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-full hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+      >
+        <Icon name="tabler:message-circle" class="w-5 h-5" />
+        Request a quote
+      </a>
+    </div>
+  </section>
+
+  <ToBlogLink />
+</ProductLayout>

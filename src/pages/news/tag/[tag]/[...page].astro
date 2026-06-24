@@ -1,0 +1,76 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+import Timeline from '~/components/blog/Timeline.astro';
+
+import { fetchPosts, blogPostsPerPage, blogTagRobots } from '~/utils/blog';
+import type { Post } from '~/types';
+
+export const prerender = true;
+
+type TagPageProps = {
+  paginatedPosts: Post[];
+  currentPage: number;
+  totalPages: number;
+  tagTitle: string;
+};
+
+export const getStaticPaths = (async () => {
+  const posts = await fetchPosts();
+  const pageSize = blogPostsPerPage;
+
+  const tags = new Map<string, { slug: string; title: string; posts: Post[] }>();
+  for (const post of posts) {
+    for (const tag of post.tags || []) {
+      if (!tags.has(tag.slug)) {
+        tags.set(tag.slug, { slug: tag.slug, title: tag.title, posts: [] });
+      }
+      tags.get(tag.slug)!.posts.push(post);
+    }
+  }
+
+  return Array.from(tags.values()).flatMap(({ slug, title, posts: tagPosts }) => {
+    const totalPages = Math.ceil(tagPosts.length / pageSize);
+    return Array.from({ length: totalPages }, (_, i) => {
+      const n = i + 1;
+      return {
+        params: { tag: slug, page: n > 1 ? [String(n)] : undefined },
+        props: {
+          paginatedPosts: tagPosts.slice(i * pageSize, (i + 1) * pageSize),
+          currentPage: n,
+          totalPages,
+          tagTitle: title,
+        } satisfies TagPageProps,
+      };
+    });
+  });
+  });
+
+const { paginatedPosts, currentPage, totalPages, tagTitle } = Astro.props as TagPageProps;
+
+const prevUrl = currentPage > 1
+  ? currentPage === 2 ? `/news/tag/${Astro.params.tag}/` : `/news/tag/${Astro.params.tag}/${currentPage - 1}/`
+  : undefined;
+const nextUrl = currentPage < totalPages ? `/news/tag/${Astro.params.tag}/${currentPage + 1}/` : undefined;
+
+const metadata = {
+  title: `Posts by tag '${tagTitle}'${currentPage > 1 ? ` — Page ${currentPage}` : ''}`,
+  robots: {
+    index: blogTagRobots?.index,
+    follow: blogTagRobots?.follow,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="section-premium mx-auto max-w-4xl px-6">
+    <Headline>Tag: {tagTitle}</Headline>
+    <div class="mt-16">
+      <Timeline posts={paginatedPosts} />
+    </div>
+    <div class="mt-16 text-center">
+      <Pagination prevUrl={prevUrl} nextUrl={nextUrl} />
+    </div>
+  </section>
+</Layout>

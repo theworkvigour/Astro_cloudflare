@@ -248,8 +248,13 @@ const createLocaleSchema = <T extends z.ZodRawShape>(sectionSchemas: T): z.ZodOb
   return z.object(localeMap).partial();
 };
 
+const entityRelationSchema = z.object({
+  target: z.string(),
+  relation: z.string(),
+}).optional();
+
 const postCollection = defineCollection({
-  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/post' }),
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/content/news' }),
   schema: z.object({
     publishDate: z.date().optional(),
     updateDate: z.date().optional(),
@@ -261,6 +266,8 @@ const postCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     author: z.string().optional(),
     metadata: metadataDefinition(),
+    entityType: z.literal('article').optional(),
+    entityRelations: z.array(entityRelationSchema).optional(),
   }),
 });
 
@@ -283,7 +290,7 @@ const productImageSchema = z.object({
 });
 
 const productCollection = defineCollection({
-  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/product' }),
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/content/products' }),
   schema: z.object({
     publishDate: z.date().optional(),
     draft: z.boolean().optional(),
@@ -300,6 +307,8 @@ const productCollection = defineCollection({
     inStock: z.boolean().optional(),
     featured: z.boolean().optional(),
     metadata: metadataDefinition(),
+    entityType: z.literal('product').optional(),
+    entityRelations: z.array(entityRelationSchema).optional(),
   }),
 });
 
@@ -404,6 +413,43 @@ const globalCollection = defineCollection({
   }),
 });
 
+const technologySchema = z.object({
+  publishDate: z.date().optional(),
+  draft: z.boolean().optional(),
+  title: z.string(),
+  summary: z.string().optional(),
+  description: z.string().optional(),
+  category: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  entityType: z.literal('technology').optional(),
+  entityRelations: z.array(entityRelationSchema).optional(),
+});
+
+const technologyCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/technology' }),
+  schema: technologySchema,
+});
+
+const caseUseSchema = z.object({
+  publishDate: z.date().optional(),
+  draft: z.boolean().optional(),
+  title: z.string(),
+  summary: z.string().optional(),
+  description: z.string().optional(),
+  category: z.string().optional(),
+  environment: z.string().optional(),
+  skill: z.string().optional(),
+  products: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  entityType: z.literal('case-use').optional(),
+  entityRelations: z.array(entityRelationSchema).optional(),
+});
+
+const caseUseCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/case-use' }),
+  schema: caseUseSchema,
+});
+
 export const collections = {
   post: postCollection,
   product: productCollection,
@@ -415,4 +461,6 @@ export const collections = {
   news: newsCollection,
   navigation: navigationCollection,
   global: globalCollection,
+  technology: technologyCollection,
+  'case-use': caseUseCollection,
 };

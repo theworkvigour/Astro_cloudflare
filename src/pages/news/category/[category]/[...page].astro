@@ -1,0 +1,76 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+import Timeline from '~/components/blog/Timeline.astro';
+
+import { fetchPosts, blogPostsPerPage, blogCategoryRobots } from '~/utils/blog';
+import type { Post } from '~/types';
+
+export const prerender = true;
+
+type CategoryPageProps = {
+  paginatedPosts: Post[];
+  currentPage: number;
+  totalPages: number;
+  categoryTitle: string;
+};
+
+export const getStaticPaths: GetStaticPaths = (async () => {
+  const posts = await fetchPosts();
+  const pageSize = blogPostsPerPage;
+
+  const categories = new Map<string, { slug: string; title: string; posts: Post[] }>();
+  for (const post of posts) {
+    if (post.category?.slug) {
+      if (!categories.has(post.category.slug)) {
+        categories.set(post.category.slug, { slug: post.category.slug, title: post.category.title, posts: [] });
+      }
+      categories.get(post.category.slug)!.posts.push(post);
+    }
+  }
+
+  return Array.from(categories.values()).flatMap(({ slug, title, posts: catPosts }) => {
+    const totalPages = Math.ceil(catPosts.length / pageSize);
+    return Array.from({ length: totalPages }, (_, i) => {
+      const n = i + 1;
+      return {
+        params: { category: slug, page: n > 1 ? [String(n)] : undefined },
+        props: {
+          paginatedPosts: catPosts.slice(i * pageSize, (i + 1) * pageSize),
+          currentPage: n,
+          totalPages,
+          categoryTitle: title,
+        } satisfies CategoryPageProps,
+      };
+    });
+  });
+  });
+
+const { paginatedPosts, currentPage, totalPages, categoryTitle } = Astro.props as CategoryPageProps;
+
+const prevUrl = currentPage > 1
+  ? currentPage === 2 ? `/news/category/${Astro.params.category}/` : `/news/category/${Astro.params.category}/${currentPage - 1}/`
+  : undefined;
+const nextUrl = currentPage < totalPages ? `/news/category/${Astro.params.category}/${currentPage + 1}/` : undefined;
+
+const metadata = {
+  title: `Category '${categoryTitle}'${currentPage > 1 ? ` — Page ${currentPage}` : ''}`,
+  robots: {
+    index: blogCategoryRobots?.index,
+    follow: blogCategoryRobots?.follow,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="section-premium mx-auto max-w-4xl px-6">
+    <Headline>{categoryTitle}</Headline>
+    <div class="mt-16">
+      <Timeline posts={paginatedPosts} />
+    </div>
+    <div class="mt-16 text-center">
+      <Pagination prevUrl={prevUrl} nextUrl={nextUrl} />
+    </div>
+  </section>
+</Layout>

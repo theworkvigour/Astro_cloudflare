@@ -1,0 +1,49 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+import Timeline from '~/components/blog/Timeline.astro';
+
+import { fetchPosts, blogPostsPerPage, blogListRobots } from '~/utils/blog';
+import pageData from '~/data/pages/news.yaml';
+
+export const prerender = true;
+
+const posts = await fetchPosts();
+const pageSize = blogPostsPerPage;
+const totalPages = Math.ceil(posts.length / pageSize);
+const currentPage = 1;
+const pagePosts = posts.slice(0, pageSize);
+
+const prevUrl = undefined;
+const nextUrl = currentPage < totalPages ? `/news/page/${currentPage + 1}/` : undefined;
+
+const newsHeader = pageData?.hero_text ?? {};
+const pageTitle = newsHeader.title || 'News';
+const pageSubtitle = newsHeader.subtitle || '';
+
+const metadata = {
+  title: `${pageTitle}`,
+  robots: {
+    index: blogListRobots?.index,
+    follow: blogListRobots?.follow,
+  },
+  openGraph: {
+    type: 'blog',
+  },
+};
+---
+
+<Layout metadata={metadata} breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'News' }]}>
+  <section class="section-premium mx-auto max-w-4xl px-6">
+    <Headline subtitle={pageSubtitle}>
+      {pageTitle}
+    </Headline>
+    <div class="mt-16">
+      <Timeline posts={pagePosts} />
+    </div>
+    <div class="mt-16 text-center">
+      <Pagination prevUrl={prevUrl} nextUrl={nextUrl} />
+    </div>
+  </section>
+</Layout>

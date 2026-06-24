@@ -8,11 +8,30 @@ directory = "./dist/client"
 binding = "ASSETS"
 
 # --- AI Infrastructure ---
-# Vectorize + AI bindings are injected by CI/CD during deployment.
-# See .github/workflows/actions.yaml -> build-and-deploy step.
+# Workers AI + Vectorize + AI_QUOTA KV bindings
+#
+# Workers AI Free tier: 10,000 neurons/day (across ALL models).
+# The app-level quota enforcer (ai-quota.ts) caps at 9,000 neurons/day
+# to leave a buffer.
+#
+# To enable persistent AI quota tracking across worker instances:
+#   npx wrangler kv:namespace create AI_QUOTA
+# Then add the following to this file:
+#   [[kv_namespaces]]
+#   binding = "AI_QUOTA"
+#   id = "<generated-id>"
+#   preview_id = "<generated-preview-id>"
+# Without KV, the quota resets per-worker-isolate (in-memory only).
 #
 # Vectorize index must exist with --dimensions=768 --metric=cosine:
 #   npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "ai-index"
 
 # --- Environment Variables ---
 

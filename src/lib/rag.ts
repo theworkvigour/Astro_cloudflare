@@ -1,10 +1,15 @@
 import type { Ai } from '/.astro/ai';
 import { embed } from './embed';
-import { VECTOR_DIM, type FnVectorize } from './vector';
+import { type FnVectorize } from './vector';
+import { consumeNeurons, estimateTokens } from './ai-quota';
+
+const EMBED_MODEL = '@cf/baai/bge-base-en-v1.5';
+const LLM_MODEL = '@cf/meta/llama-3.1-8b-instruct';
 
 export interface EnvBindings {
   VECTORIZE: FnVectorize;
   AI: Ai;
+  AI_QUOTA?: KVNamespace;
 }
 
 export interface Chunk {
@@ -82,6 +87,9 @@ async function answerWorkersAI(prompt: string, ai: Ai): Promise<string> {
 
 export async function generateAnswer(systemPrompt: string, userPrompt: string, env: EnvBindings): Promise<string> {
   const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+  const inputTokens = estimateTokens(fullPrompt);
+  const quota = await consumeNeurons(LLM_MODEL, inputTokens, 1024, env);
+  if (!quota.allowed) return '';
   return answerWorkersAI(fullPrompt, env.AI);
 }
 
@@ -90,6 +98,9 @@ export async function rag(
   env: EnvBindings,
   options?: { topK?: number; filter?: Record<string, string> },
 ): Promise<{ answer: string; sources: SearchResult[] }> {
+  const embedTokens = estimateTokens(question);
+  const embedQuota = await consumeNeurons(EMBED_MODEL, embedTokens, 0, env);
+  if (!embedQuota.allowed) return { answer: '', sources: [] };
   const results = await searchSimilar(question, env, options?.topK || 5, options?.filter);
   const context = assembleContext(results);
   const systemPrompt = 'You are a website assistant for Wavefella. Answer concisely based on the context below. If the context does not answer the question, say you do not know.';

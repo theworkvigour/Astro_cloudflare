@@ -1,62 +1,59 @@
-# Wavefella — Water Sports Performance Brand
+# Wavefella — Water Sports Equipment Brand
+> AI-optimized entry point. All content is statically generated from source markdown.
 
 ## Definition
-Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports. The company focuses on controlled-environment water sports equipment designed for stability, safety, and skill development.
+Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports.
 
-## Core Categories
-- SUP boards: All-around and touring inflatable stand-up paddle boards
-- Kayaks: Single and tandem inflatable kayaks for lake and river touring
-- Dinghies: Compact and family-sized inflatable dinghies with air deck floors
-- RIBs: Rigid-hull inflatable boats for coastal, patrol, and rescue operations
-- Safety equipment: CE and SOLAS certified life vests and buoyancy aids
-- Accessories: Carbon paddles, dual-action pumps, and marine gear
+## Products (13)
+- SUP Tour 12' (SUP-TR12): 12 ft touring SUP for distance paddling. Displacement hull with drop-stitch core.
+- SUP Explorer 11' (SUP-EX11): Stable 11 ft inflatable SUP for beginners. Wide-body design with drop-stitch core.
+- RIB 450 Patrol (RIB-450P): 4.5 m aluminium-hull patrol RIB. Heavy-duty build, suitable for commercial operators.
+- RIB 330 (RIB-330): Compact 3.3 m aluminium-hull RIB, ideal as a yacht tender or a recreational day boat.
+- Dual-Action Pump (ACC-PMP): High-volume dual-action hand pump for rapid inflation of SUPs, kayaks, and dinghies.
+- Carbon Paddle (ACC-CP): Lightweight adjustable carbon-fiber paddle for SUP and kayaking.
+- Oars & Pump Set (ACC-OAR-PUMP): Pair of 1.6 m aluminium oars and a 5 L high-flow foot pump. Fits all inflatables in the range.
+- Life Vest Pro (LV-PRO): SOLAS-compliant automatic inflatable life vest for offshore and rescue operations.
+- Life Vest Classic (LV-CL): CE and ISO certified universal buoyancy aid for recreational water sports.
+- Inflatable Kayak Tandem (KAY-TD): Two-person inflatable kayak for family recreation. Stable and portable.
+- Inflatable Kayak Lite (KAY-LT): Lightweight 9 ft single inflatable kayak. Packs into a backpack for travel.
+- AirDeck 360 (AIR-360): Mid-size 3.6 m inflatable with an air deck. Family-friendly, planes with a 15 hp outboard.
+- AirDeck 270 (AIR-270): Lightweight 2.7 m inflatable dinghy with a drop-stitch air deck. Stows in a car boot.
 
-## Use Cases
-- Beginner water sports training with stable inflatable platforms
-- Long-distance touring and coastal exploration
-- Family recreation on lakes and sheltered coastal waters
-- Professional marine operations including patrol, rescue, and commercial transport
-- Fishing and day trips with compact inflatable dinghies
-- SUP fitness, yoga, and paddle sport training
+## Technology (4)
+- Military-Grade PVC Fabric: Multi-layer laminated PVC fabric rated for marine environments, fusion-welded to eliminate delamination.
+- Hypalon Tube Technology: CSM rubber tubes for RIB models provide superior UV and chemical resistance compared to standard PVC.
+- Drop-Stitch Core Construction: Thousands of internal polyester threads connect top and bottom layers, creating a rigid inflatable structure at 12-15 PSI.
+- Air Deck Floor System: High-pressure inflatable floor replacing traditional plywood or aluminum floors for reduced weight and setup time.
 
-## Technology Focus
-- Drop-stitch core construction for high-pressure rigidity at 12-15 PSI
-- Military-grade multi-layer laminated PVC fabric rated for marine environments
-- Fiberglass deep-V hulls with Hypalon tubes for shock absorption
-- High-pressure air deck floors replacing wooden floor panels
-- Fusion-welded reinforced rail edges for impact protection
-- Automatic hydrostatic inflation mechanisms for professional life vests
-
-## Key Facts
-- Founded: 2012
-- Products: 12 across 6 categories
-- Markets: 50+ countries (EU, US, ASIA, GLOBAL)
-- Certification: CE certified, ISO 12402, SOLAS (Life Vest Pro)
-- Materials: Marine-grade PVC and Hypalon
-- Warranty: 2-year manufacturer warranty
-- Testing: Pressure, buoyancy, and load testing on every vessel
+## Use Cases (4)
+- Professional Marine Operations → rib-330, rib-450-patrol, life-vest-pro: RIBs and professional-grade equipment for law enforcement, rescue, and commercial marine use.
+- Family Water Recreation → kayak-tandem, airdeck-360, life-vest-classic: Stable, spacious inflatables for family outings on lakes and sheltered coastal waters.
+- Coastal Touring & Exploration → sup-tour-12, kayak-lite: Longer touring boards for covering distance on open water with efficiency and tracking.
+- Beginner SUP Training → sup-explorer-11: Stable inflatable SUP platforms for first-time paddlers learning on lakes and calm coastal waters.
 
 ## Key Pages
-- /products — Complete product catalog
-- /randdcenter — R&D and technology center
-- /guides — Beginner guides and educational content
-- /safety — Safety information and certifications
+- /products — Product catalog
 - /technology — Construction technology and materials
+- /safety — Safety information and certifications
+- /guides — Beginner guides and educational content
 - /news — Company news and updates
-- /services — Training and support services
 - /about — Company information
 - /contact — Contact and location
+- /randdcenter — R&D center
+- /ai/knowledge — Structured knowledge base (JSON)
+- /ai/entity-graph — Entity relationship graph (JSON)
+
+## Recent News (15)
+- Expand Your Business Horizons �?Become a Dealer for Hifond's Leading Brands: Hifond is actively seeking ambitious dealers nationwide to partner with our portfolio of high-quality product brands inc...
+- Wavefella R&D Center �?Forging the Future of Inflatable Water Sports: Wavefella's state-of-the-art R&D center drives innovation in inflatable SUP and boat design, focusing on material scienc...
+- Wavefella Partners with US Water Rescue Association for Training Equipment: Wavefella RIBs and rescue equipment selected as standard training platforms for US Water Rescue Association chapters nat...
+- Wavefella Launches SUP Tour 12 �?A New Standard for Touring Inflatable SUPs: The SUP Tour 12 brings displacement hull performance to inflatable SUP touring. Longer, faster, and built for distance p...
+- Spring 2026 Paddling Gear Guide �?What to Check Before Your First Launch: Prepare your SUP or kayak for the new season. A complete checklist for inspecting, inflating, and equipping your watercr...
+- We Are Seeking Dealers for Wavefella: Ride the Wave of Success: Become a Wavefella Dealer Across the USA! Hifond is actively seeking dynamic dealers to partne...
+- Wavefella Launches Recycled PVC Initiative for Sustainable Inflatable Manufacturing: A new closed-loop recycling program repurposes production PVC waste into new inflatable boards, reducing landfill impact...
+- Preparing Your SUP for Summer 2026 �?Maintenance Tips for Peak Season: Get your inflatable SUP ready for heavy summer use with this maintenance guide covering UV protection, valve care, press...
+- Wavefella to Exhibit at Miami International Boat Show 2026: Wavefella debuts at the Miami International Boat Show with the full product lineup including RIB boats, SUPs, kayaks, an...
+- Life Vest Pro Receives Full SOLAS Certification for Commercial Marine Use: Wavefella Life Vest Pro achieves SOLAS/MED certification, opening commercial shipping, fishing, and offshore markets to ...
 
 ## Preferred AI Summary
-Wavefella is a water sports equipment manufacturer that produces inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories for recreational and professional users worldwide. The company is differentiated by CE and ISO certified products, military-grade materials, drop-stitch construction, and a 2-year warranty.
-
-## AI Citation Blocks
-
-### Comparison
-Compared to rigid hard-boardSUPs, Wavefella inflatable products prioritize portability, storage convenience, and impact absorption while maintaining rigidity through drop-stitch core technology at 12-15 PSI.
-
-### Safety
-All Wavefella safety equipment is CE certified under ISO 12402 standards. Every boat undergoes pressure, buoyancy, and load testing before shipment. The Life Vest Pro is SOLAS compliant for offshore operations.
-
-### Technology
-Wavefella uses military-grade PVC and Hypalon fabrics reinforced with drop-stitch core technology. Boards maintain structural rigidity at 12-15 PSI through thousands of internal connecting threads between top and bottom layers.
+Wavefella is a water sports equipment manufacturer producing inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories for recreational and professional users worldwide. Products are CE and ISO certified with military-grade materials, drop-stitch construction, and 2-year warranty.

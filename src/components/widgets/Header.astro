@@ -55,6 +55,21 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
+const entityForHref = (href?: string): string => {
+  if (!href) return 'page';
+  const path = href.replace(/^\/+/g, '');
+  if (path === '' || path === 'home') return 'brand';
+  if (path.startsWith('products/compare') || path.startsWith('products/bundles') || path.startsWith('size-guide')) return 'product';
+  if (path.startsWith('products') && !path.includes('/compare') && !path.includes('/bundles')) return 'product';
+  if (path.startsWith('technology') || path.startsWith('randdcenter')) return 'technology';
+  if (path.startsWith('safety')) return 'safety';
+  if (path.startsWith('guides')) return 'guide';
+  if (path.startsWith('news') || path.startsWith('blog')) return 'article';
+  if (path.startsWith('about')) return 'brand';
+  if (path.startsWith('services') || path.startsWith('pricing') || path.startsWith('contact')) return 'service';
+  return 'page';
+};
+
 const langs: Array<{ code: string; name: string; locale: string }> = Array.isArray(langData) ? langData : [];
 
 const currentLocale = I18N?.language || 'en';
@@ -171,15 +186,16 @@ const currentLang = langs.find((l) => l.locale === currentLocale) || langs[0] ||
                   <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
                     {links.map(({ text: text2, href: href2 }) => (
                       <li>
-                        <a
-                          class:list={[
-                            'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
-                            { 'aw-link-active': href2 === currentPath },
-                          ]}
-                          href={href2}
-                        >
-                          {text2}
-                        </a>
+                    <a
+                      class:list={[
+                        'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
+                        { 'aw-link-active': href2 === currentPath },
+                      ]}
+                      href={href2}
+                      data-entity={entityForHref(href2)}
+                    >
+                      {text2}
+                    </a>
                       </li>
                     ))}
                   </ul>
@@ -191,6 +207,7 @@ const currentLang = langs.find((l) => l.locale === currentLocale) || langs[0] ||
                     { 'aw-link-active': href === currentPath },
                   ]}
                   href={href}
+                  data-entity={entityForHref(href)}
                 >
                   {text}
                 </a>

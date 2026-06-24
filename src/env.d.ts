@@ -48,6 +48,11 @@ declare class Ai {
   run(model: string, input: Record<string, unknown>): Promise<unknown>;
 }
 
+interface KVNamespace {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string): Promise<void>;
+}
+
 declare namespace App {
   interface Locals {
     runtime: {

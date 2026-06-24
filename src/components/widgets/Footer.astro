@@ -43,6 +43,20 @@ const mergedSocialLinks = (ksSocialLinks.length > 0
     ]
   : socialLinks).filter((s) => s?.href && s.href !== '#');
 
+const entityForHref = (href?: string): string => {
+  if (!href) return 'page';
+  const path = href.replace(/^\/+/g, '');
+  if (path === '' || path === 'home') return 'brand';
+  if (path.startsWith('products') || path.startsWith('size-guide')) return 'product';
+  if (path.startsWith('technology') || path.startsWith('randdcenter')) return 'technology';
+  if (path.startsWith('safety')) return 'safety';
+  if (path.startsWith('guides')) return 'guide';
+  if (path.startsWith('news')) return 'article';
+  if (path.startsWith('about')) return 'brand';
+  if (path.startsWith('services') || path.startsWith('pricing') || path.startsWith('contact')) return 'service';
+  return 'page';
+};
+
 const siteName = branding?.site_name?.trim() || 'Wavefella';
 const year = new Date().getFullYear();
 const rawCopyright = footNote ?? branding?.copyright ?? `© ${year} ${siteName} · All rights reserved.`;
@@ -88,6 +102,7 @@ const copyrightHtml = String(rawCopyright)
                       class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out"
                       href={href}
                       aria-label={ariaLabel}
+                      data-entity={entityForHref(href)}
                     >
                       <Fragment set:html={text} />
                     </a>

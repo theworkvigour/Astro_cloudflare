@@ -1,0 +1,996 @@
+{
+  "brand": {
+    "name": "Wavefella",
+    "description": "Water sports equipment manufacturer — inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.",
+    "founded": 2012,
+    "certifications": [
+      "CE",
+      "ISO 12402",
+      "SOLAS (Life Vest Pro)"
+    ],
+    "materials": [
+      "Marine-grade PVC",
+      "Hypalon"
+    ],
+    "warranty": "2-year manufacturer warranty"
+  },
+  "products": [
+    {
+      "id": "SUP-TR12",
+      "name": "SUP Tour 12'",
+      "summary": "12 ft touring SUP for distance paddling. Displacement hull with drop-stitch core.",
+      "description": "A 12 ft touring inflatable SUP board optimized for speed, tracking, and covering distance. Pointed displacement hull, 30\" width, reinforced drop-stitch construction.",
+      "category": "inflatable",
+      "tags": [
+        "sup",
+        "touring",
+        "performance"
+      ],
+      "specs": [
+        {
+          "label": "Length",
+          "value": "12 ft"
+        },
+        {
+          "label": "Width",
+          "value": "30 in"
+        },
+        {
+          "label": "Thickness",
+          "value": "6 in"
+        },
+        {
+          "label": "Material",
+          "value": "Drop-stitch PVC"
+        },
+        {
+          "label": "Max pressure",
+          "value": "15 PSI"
+        },
+        {
+          "label": "Max load",
+          "value": "250 lbs"
+        },
+        {
+          "label": "Weight",
+          "value": "20 lbs"
+        },
+        {
+          "label": "Hull type",
+          "value": "Displacement"
+        },
+        {
+          "label": "Included",
+          "value": "Backpack, pump, fin, leash, repair kit"
+        }
+      ],
+      "price": "749",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/sup-touring.jpg"
+    },
+    {
+      "id": "SUP-EX11",
+      "name": "SUP Explorer 11'",
+      "summary": "Stable 11 ft inflatable SUP for beginners. Wide-body design with drop-stitch core.",
+      "description": "An 11 ft all-around inflatable SUP board built for stability and ease of use. 32\" wide platform, drop-stitch core at 12-15 PSI, complete with backpack pump and fin.",
+      "category": "inflatable",
+      "tags": [
+        "sup",
+        "beginner",
+        "inflatable"
+      ],
+      "specs": [
+        {
+          "label": "Length",
+          "value": "11 ft"
+        },
+        {
+          "label": "Width",
+          "value": "32 in"
+        },
+        {
+          "label": "Thickness",
+          "value": "6 in"
+        },
+        {
+          "label": "Material",
+          "value": "Drop-stitch PVC"
+        },
+        {
+          "label": "Max pressure",
+          "value": "15 PSI"
+        },
+        {
+          "label": "Max load",
+          "value": "220 lbs"
+        },
+        {
+          "label": "Weight",
+          "value": "18 lbs"
+        },
+        {
+          "label": "Chambers",
+          "value": "2"
+        },
+        {
+          "label": "Included",
+          "value": "Backpack, pump, fin, leash, repair kit"
+        }
+      ],
+      "price": "599",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/sup-allround.jpg"
+    },
+    {
+      "id": "RIB-450P",
+      "name": "RIB 450 Patrol",
+      "summary": "4.5 m aluminium-hull patrol RIB. Heavy-duty build, suitable for commercial operators.",
+      "description": "The 450 Patrol is a 4.5 m aluminium RIB built for commercial work �?dive operators, coastguard auxiliaries, harbour pilots. Reinforced hull, Hypalon tube, custom console.",
+      "category": "rib",
+      "tags": [
+        "rib",
+        "commercial",
+        "patrol"
+      ],
+      "specs": [
+        {
+          "label": "Overall length",
+          "value": "4.50 m"
+        },
+        {
+          "label": "Beam",
+          "value": "2.05 m"
+        },
+        {
+          "label": "Tube material",
+          "value": "1.5 mm Hypalon"
+        },
+        {
+          "label": "Hull material",
+          "value": "Marine-grade aluminium 5083, 4 mm"
+        },
+        {
+          "label": "Max load",
+          "value": "1,200 kg"
+        },
+        {
+          "label": "Max persons",
+          "value": "8"
+        },
+        {
+          "label": "Recommended power",
+          "value": "60 hp"
+        },
+        {
+          "label": "Max power",
+          "value": "90 hp"
+        },
+        {
+          "label": "Chambers",
+          "value": "5"
+        },
+        {
+          "label": "Weight (hull only)",
+          "value": "220 kg"
+        }
+      ],
+      "price": "14,500",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/rib-450-patrol.jpg"
+    },
+    {
+      "id": "RIB-330",
+      "name": "RIB 330",
+      "summary": "Compact 3.3 m aluminium-hull RIB, ideal as a yacht tender or a recreational day boat.",
+      "description": "A versatile 3.3 m RIB with a 1.2 mm PVC tube, aluminium hull and a 15 hp outboard class. Light enough to lift on davits, stable enough for four adults, and small enough to garage.",
+      "category": "rib",
+      "tags": [
+        "rib",
+        "tender",
+        "small-boat"
+      ],
+      "specs": [
+        {
+          "label": "Overall length",
+          "value": "3.30 m"
+        },
+        {
+          "label": "Beam",
+          "value": "1.65 m"
+        },
+        {
+          "label": "Tube diameter",
+          "value": "0.42 m"
+        },
+        {
+          "label": "Hull material",
+          "value": "Marine-grade aluminium 5083, 3 mm"
+        },
+        {
+          "label": "Tube material",
+          "value": "1.2 mm PVC"
+        },
+        {
+          "label": "Max load",
+          "value": "650 kg"
+        },
+        {
+          "label": "Max persons",
+          "value": "5"
+        },
+        {
+          "label": "Recommended power",
+          "value": "15 hp"
+        },
+        {
+          "label": "Weight (hull only)",
+          "value": "95 kg"
+        },
+        {
+          "label": "Chambers",
+          "value": "3"
+        }
+      ],
+      "price": "4,800",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/rib-330.jpg"
+    },
+    {
+      "id": "ACC-PMP",
+      "name": "Dual-Action Pump",
+      "summary": "High-volume dual-action hand pump for rapid inflation of SUPs, kayaks, and dinghies.",
+      "description": "Dual-action hand pump that moves air on both push and pull strokes. Built-in pressure gauge. Includes multiple valve adapters for Halkey-Roberts, Boston, and leaf-valve types.",
+      "category": "accessory",
+      "tags": [
+        "pump",
+        "inflation",
+        "accessory"
+      ],
+      "specs": [
+        {
+          "label": "Type",
+          "value": "Dual-action hand pump"
+        },
+        {
+          "label": "Airflow",
+          "value": "Both push and pull strokes"
+        },
+        {
+          "label": "Max pressure",
+          "value": "20 PSI"
+        },
+        {
+          "label": "Gauge",
+          "value": "Built-in pressure gauge"
+        },
+        {
+          "label": "Adapters",
+          "value": "Halkey-Roberts, Boston, leaf-valve"
+        },
+        {
+          "label": "Hose length",
+          "value": "36 in"
+        }
+      ],
+      "price": "49",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/electric-pump.jpg"
+    },
+    {
+      "id": "ACC-CP",
+      "name": "Carbon Paddle",
+      "summary": "Lightweight adjustable carbon-fiber paddle for SUP and kayaking.",
+      "description": "Full carbon-fiber shaft with nylon blade. Adjustable from 170 cm to 220 cm. Tool-free ferrule mechanism. Weighs only 24 oz.",
+      "category": "accessory",
+      "tags": [
+        "paddle",
+        "carbon",
+        "lightweight"
+      ],
+      "specs": [
+        {
+          "label": "Shaft material",
+          "value": "Full carbon fiber"
+        },
+        {
+          "label": "Blade material",
+          "value": "Nylon composite"
+        },
+        {
+          "label": "Length range",
+          "value": "170-220 cm adjustable"
+        },
+        {
+          "label": "Weight",
+          "value": "24 oz"
+        },
+        {
+          "label": "Ferrule",
+          "value": "Tool-free adjustable"
+        },
+        {
+          "label": "Use",
+          "value": "SUP and kayak"
+        }
+      ],
+      "price": "149",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/sup-paddle.jpg"
+    },
+    {
+      "id": "ACC-OAR-PUMP",
+      "name": "Oars & Pump Set",
+      "summary": "Pair of 1.6 m aluminium oars and a 5 L high-flow foot pump. Fits all inflatables in the range.",
+      "description": "Spare or replacement oars and pump. 1.6 m aluminium oars with plastic blade, 5 L high-flow foot pump with pressure gauge.",
+      "category": "accessory",
+      "tags": [
+        "accessory",
+        "oars",
+        "pump"
+      ],
+      "specs": [
+        {
+          "label": "Oar length",
+          "value": "1.60 m"
+        },
+        {
+          "label": "Oar material",
+          "value": "Aluminium shaft, plastic blade"
+        },
+        {
+          "label": "Pump volume",
+          "value": "5 L per stroke"
+        },
+        {
+          "label": "Pump max pressure",
+          "value": "1.0 bar (with gauge)"
+        },
+        {
+          "label": "Compatibility",
+          "value": "All inflatables in the range"
+        }
+      ],
+      "price": "180",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/electric-pump.jpg"
+    },
+    {
+      "id": "LV-PRO",
+      "name": "Life Vest Pro",
+      "summary": "SOLAS-compliant automatic inflatable life vest for offshore and rescue operations.",
+      "description": "Professional-grade life vest with automatic hydrostatic inflation. SOLAS compliant with spray hood, waterproof light, and lifting harness attachment.",
+      "category": "accessory",
+      "tags": [
+        "safety",
+        "life vest",
+        "professional",
+        "SOLAS"
+      ],
+      "specs": [
+        {
+          "label": "Certification",
+          "value": "CE, ISO 12402, SOLAS"
+        },
+        {
+          "label": "Type",
+          "value": "Automatic inflatable"
+        },
+        {
+          "label": "Inflation",
+          "value": "Hydrostatic trigger"
+        },
+        {
+          "label": "Buoyancy",
+          "value": "SOLAS-grade"
+        },
+        {
+          "label": "Features",
+          "value": "Spray hood, waterproof light, lifting harness, whistle"
+        },
+        {
+          "label": "Backup",
+          "value": "Manual inflation tube"
+        }
+      ],
+      "price": "299",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/life-jacket-2.jpg"
+    },
+    {
+      "id": "LV-CL",
+      "name": "Life Vest Classic",
+      "summary": "CE and ISO certified universal buoyancy aid for recreational water sports.",
+      "description": "Foam-filled life vest with adjustable straps, whistle, reflective strips, and rescue handle. CE certified to ISO 12402. Available in multiple sizes.",
+      "category": "accessory",
+      "tags": [
+        "safety",
+        "life vest",
+        "PFD"
+      ],
+      "specs": [
+        {
+          "label": "Certification",
+          "value": "CE, ISO 12402"
+        },
+        {
+          "label": "Type",
+          "value": "Foam-filled buoyancy aid"
+        },
+        {
+          "label": "Buoyancy",
+          "value": "50N+"
+        },
+        {
+          "label": "Sizes",
+          "value": "Child to Adult XL"
+        },
+        {
+          "label": "Features",
+          "value": "Whistle, reflective strips, rescue handle"
+        },
+        {
+          "label": "Closure",
+          "value": "Adjustable chest and side straps"
+        }
+      ],
+      "price": "79",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/life-jacket.png"
+    },
+    {
+      "id": "KAY-TD",
+      "name": "Inflatable Kayak Tandem",
+      "summary": "Two-person inflatable kayak for family recreation. Stable and portable.",
+      "description": "A 12 ft two-person inflatable kayak with separate cockpits and adjustable seats. Drop-stitch floor, removable skeg, packs into a large backpack.",
+      "category": "inflatable",
+      "tags": [
+        "kayak",
+        "tandem",
+        "family"
+      ],
+      "specs": [
+        {
+          "label": "Length",
+          "value": "12 ft"
+        },
+        {
+          "label": "Width",
+          "value": "36 in"
+        },
+        {
+          "label": "Material",
+          "value": "Drop-stitch PVC"
+        },
+        {
+          "label": "Chambers",
+          "value": "3 independent"
+        },
+        {
+          "label": "Capacity",
+          "value": "2 persons"
+        },
+        {
+          "label": "Max load",
+          "value": "400 lbs"
+        },
+        {
+          "label": "Weight",
+          "value": "28 lbs"
+        },
+        {
+          "label": "Included",
+          "value": "Backpack, pump, skeg, repair kit"
+        }
+      ],
+      "price": "649",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/rk-expedition.jpg"
+    },
+    {
+      "id": "KAY-LT",
+      "name": "Inflatable Kayak Lite",
+      "summary": "Lightweight 9 ft single inflatable kayak. Packs into a backpack for travel.",
+      "description": "A 9 ft single-person inflatable kayak weighing 15 lbs. Drop-stitch PVC with 3 independent air chambers. Packs into a backpack for airline travel.",
+      "category": "inflatable",
+      "tags": [
+        "kayak",
+        "travel",
+        "lightweight"
+      ],
+      "specs": [
+        {
+          "label": "Length",
+          "value": "9 ft"
+        },
+        {
+          "label": "Width",
+          "value": "34 in"
+        },
+        {
+          "label": "Material",
+          "value": "Drop-stitch PVC"
+        },
+        {
+          "label": "Chambers",
+          "value": "3 independent"
+        },
+        {
+          "label": "Max load",
+          "value": "250 lbs"
+        },
+        {
+          "label": "Weight",
+          "value": "15 lbs"
+        },
+        {
+          "label": "Packed size",
+          "value": "30 x 16 x 10 in"
+        },
+        {
+          "label": "Included",
+          "value": "Backpack, pump, skeg, repair kit"
+        }
+      ],
+      "price": "449",
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "image": "/images/wavefella/products/rk-river.jpg"
+    },
+    {
+      "id": "AIR-360",
+      "name": "AirDeck 360",
+      "summary": "Mid-size 3.6 m inflatable with an air deck. Family-friendly, planes with a 15 hp outboard.",
+      "description": "The AirDeck 360 is the sweet-spot in our inflatable range �?long enough for four adults and a day bag, light enough for two people to launch, and fast enough to plane with a 15 hp outboard.",
+      "category": "inflatable",
+      "tags": [
+        "inflatable",
+        "family",
+        "day-boat"
+      ],
+      "specs": [
+        {
+          "label": "Overall length",
+          "value": "3.60 m"
+        },
+        {
+          "label": "Beam",
+          "value": "1.70 m"
+        },
+        {
+          "label": "Tube material",
+          "value": "1.2 mm PVC"
+        },
+        {
+          "label": "Deck",
+          "value": "Drop-stitch high-pressure air deck"
+        },
+        {
+          "label": "Max load",
+          "value": "600 kg"
+        },
+        {
+          "label": "Max persons",
+          "value": "5"
+        },
+        {
+          "label": "Recommended power",
+          "value": "15 hp"
+        },
+        {
+          "label": "Weight (boat only)",
+          "value": "48 kg"
+        },
+        {
+          "label": "Chambers",
+          "value": "3"
+        }
+      ],
+      "price": "2,950",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/airdeck-360.jpg"
+    },
+    {
+      "id": "AIR-270",
+      "name": "AirDeck 270",
+      "summary": "Lightweight 2.7 m inflatable dinghy with a drop-stitch air deck. Stows in a car boot.",
+      "description": "A 2.7 m inflatable with a high-pressure drop-stitch air deck. Packs down to a bag that fits in a small car boot, inflates in 10 minutes, planes with a 6 hp outboard.",
+      "category": "inflatable",
+      "tags": [
+        "inflatable",
+        "tender",
+        "portable"
+      ],
+      "specs": [
+        {
+          "label": "Overall length",
+          "value": "2.70 m"
+        },
+        {
+          "label": "Beam",
+          "value": "1.50 m"
+        },
+        {
+          "label": "Tube material",
+          "value": "1.0 mm PVC"
+        },
+        {
+          "label": "Deck",
+          "value": "Drop-stitch high-pressure air deck"
+        },
+        {
+          "label": "Max load",
+          "value": "350 kg"
+        },
+        {
+          "label": "Max persons",
+          "value": "3"
+        },
+        {
+          "label": "Recommended power",
+          "value": "6 hp"
+        },
+        {
+          "label": "Weight (boat only)",
+          "value": "28 kg"
+        },
+        {
+          "label": "Chambers",
+          "value": "3"
+        },
+        {
+          "label": "Bag size",
+          "value": "110 × 60 × 35 cm"
+        }
+      ],
+      "price": "1,650",
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "image": "/images/wavefella/products/airdeck-270.jpg"
+    }
+  ],
+  "technologies": [
+    {
+      "id": "military-grade-pvc",
+      "title": "Military-Grade PVC Fabric",
+      "summary": "Multi-layer laminated PVC fabric rated for marine environments, fusion-welded to eliminate delamination.",
+      "description": "Military-grade PVC is the primary material used across Wavefella inflatable products. Multi-layer lamination provides UV resistance, saltwater corrosion protection, and abrasion resistance.",
+      "category": "materials",
+      "tags": [
+        "pvc",
+        "material",
+        "marine",
+        "durability"
+      ]
+    },
+    {
+      "id": "hypalon-tubes",
+      "title": "Hypalon Tube Technology",
+      "summary": "CSM rubber tubes for RIB models provide superior UV and chemical resistance compared to standard PVC.",
+      "description": "Hypalon (Chlorosulfonated Polyethylene) rubber is used on Wavefella RIB models for its superior resistance to UV radiation, chemicals, and extreme temperatures.",
+      "category": "materials",
+      "tags": [
+        "hypalon",
+        "rib",
+        "tube",
+        "chemical-resistance"
+      ]
+    },
+    {
+      "id": "drop-stitch-core",
+      "title": "Drop-Stitch Core Construction",
+      "summary": "Thousands of internal polyester threads connect top and bottom layers, creating a rigid inflatable structure at 12-15 PSI.",
+      "description": "Drop-stitch core is the foundational technology behind Wavefella inflatable SUP boards and kayaks. It provides rigid-body performance from an inflatable platform.",
+      "category": "materials",
+      "tags": [
+        "drop-stitch",
+        "construction",
+        "rigid",
+        "pvc"
+      ]
+    },
+    {
+      "id": "air-deck-floor",
+      "title": "Air Deck Floor System",
+      "summary": "High-pressure inflatable floor replacing traditional plywood or aluminum floors for reduced weight and setup time.",
+      "description": "The air deck floor is a high-pressure inflatable system that replaces wooden or aluminum slat floors in dinghies, reducing weight and setup time while providing adequate rigidity.",
+      "category": "construction",
+      "tags": [
+        "air-deck",
+        "floor",
+        "dinghy",
+        "lightweight"
+      ]
+    }
+  ],
+  "useCases": [
+    {
+      "id": "marine-professional-operations",
+      "title": "Professional Marine Operations",
+      "summary": "RIBs and professional-grade equipment for law enforcement, rescue, and commercial marine use.",
+      "description": "Professional marine operations require rugged, high-performance vessels. Wavefella RIB 330 and RIB 450 Patrol serve law enforcement, search and rescue, and commercial transport.",
+      "category": "professional",
+      "environment": "sea",
+      "skill": "professional",
+      "products": [
+        "rib-330",
+        "rib-450-patrol",
+        "life-vest-pro"
+      ],
+      "tags": [
+        "professional",
+        "patrol",
+        "rescue",
+        "commercial"
+      ]
+    },
+    {
+      "id": "family-water-recreation",
+      "title": "Family Water Recreation",
+      "summary": "Stable, spacious inflatables for family outings on lakes and sheltered coastal waters.",
+      "description": "Family water recreation requires stable, roomy inflatables that are easy to transport and store. The Kayak Tandem and AirDeck 360 are designed for family use.",
+      "category": "recreation",
+      "environment": "lake",
+      "skill": "beginner",
+      "products": [
+        "kayak-tandem",
+        "airdeck-360",
+        "life-vest-classic"
+      ],
+      "tags": [
+        "family",
+        "recreation",
+        "kids",
+        "lakes"
+      ]
+    },
+    {
+      "id": "coastal-touring",
+      "title": "Coastal Touring & Exploration",
+      "summary": "Longer touring boards for covering distance on open water with efficiency and tracking.",
+      "description": "Coastal touring requires boards with good tracking, glide efficiency, and the ability to handle moderate chop. Wavefella Tour 12 is designed for this use case.",
+      "category": "recreation",
+      "environment": "coastal",
+      "skill": "intermediate",
+      "products": [
+        "sup-tour-12",
+        "kayak-lite"
+      ],
+      "tags": [
+        "touring",
+        "coastal",
+        "exploration",
+        "distance"
+      ]
+    },
+    {
+      "id": "beginner-sup-training",
+      "title": "Beginner SUP Training",
+      "summary": "Stable inflatable SUP platforms for first-time paddlers learning on lakes and calm coastal waters.",
+      "description": "Beginner SUP training requires stable, forgiving boards that inspire confidence. Wavefella Explorer 11 and similar boards provide the wide platform needed for successful first paddling experiences.",
+      "category": "training",
+      "environment": "lake",
+      "skill": "beginner",
+      "products": [
+        "sup-explorer-11"
+      ],
+      "tags": [
+        "beginner",
+        "sup",
+        "training",
+        "education"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "wavefella-supply-chain-2025",
+      "title": "Expand Your Business Horizons �?Become a Dealer for Hifond's Leading Brands",
+      "excerpt": "Hifond is actively seeking ambitious dealers nationwide to partner with our portfolio of high-quality product brands including Wavefella watersports products.",
+      "category": "Corporation News",
+      "tags": [
+        "dealership",
+        "hifond",
+        "partnership"
+      ],
+      "publishDate": "2025-02-23T00:00:00.000Z"
+    },
+    {
+      "id": "wavefella-rd-center-innovation",
+      "title": "Wavefella R&D Center �?Forging the Future of Inflatable Water Sports",
+      "excerpt": "Wavefella's state-of-the-art R&D center drives innovation in inflatable SUP and boat design, focusing on material science, structural engineering, and sustainability.",
+      "category": "Company",
+      "tags": [
+        "innovation",
+        "R&D",
+        "quality"
+      ],
+      "publishDate": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "us-water-rescue-partnership",
+      "title": "Wavefella Partners with US Water Rescue Association for Training Equipment",
+      "excerpt": "Wavefella RIBs and rescue equipment selected as standard training platforms for US Water Rescue Association chapters nationwide.",
+      "category": "Partnership",
+      "tags": [
+        "partnership",
+        "rescue",
+        "training"
+      ],
+      "publishDate": "2026-05-10T00:00:00.000Z"
+    },
+    {
+      "id": "sup-tour-12-launch",
+      "title": "Wavefella Launches SUP Tour 12 �?A New Standard for Touring Inflatable SUPs",
+      "excerpt": "The SUP Tour 12 brings displacement hull performance to inflatable SUP touring. Longer, faster, and built for distance paddlers.",
+      "category": "Product News",
+      "tags": [
+        "product launch",
+        "SUP",
+        "touring"
+      ],
+      "publishDate": "2026-03-15T00:00:00.000Z"
+    },
+    {
+      "id": "spring-2026-gear-guide",
+      "title": "Spring 2026 Paddling Gear Guide �?What to Check Before Your First Launch",
+      "excerpt": "Prepare your SUP or kayak for the new season. A complete checklist for inspecting, inflating, and equipping your watercraft for spring paddling.",
+      "category": "Guides & Tips",
+      "tags": [
+        "seasonal",
+        "gear guide",
+        "spring"
+      ],
+      "publishDate": "2026-04-15T00:00:00.000Z"
+    },
+    {
+      "id": "seeking-dealers-for-wavefella",
+      "title": "We Are Seeking Dealers for Wavefella",
+      "excerpt": "Ride the Wave of Success: Become a Wavefella Dealer Across the USA! Hifond is actively seeking dynamic dealers to partner with our watersports brand.",
+      "category": "Corporation News",
+      "tags": [
+        "dealership",
+        "partners",
+        "USA"
+      ],
+      "publishDate": "2025-03-03T00:00:00.000Z"
+    },
+    {
+      "id": "recycled-pvc-initiative",
+      "title": "Wavefella Launches Recycled PVC Initiative for Sustainable Inflatable Manufacturing",
+      "excerpt": "A new closed-loop recycling program repurposes production PVC waste into new inflatable boards, reducing landfill impact by an estimated 40%.",
+      "category": "Company",
+      "tags": [
+        "sustainability",
+        "manufacturing",
+        "environment"
+      ],
+      "publishDate": "2026-05-01T00:00:00.000Z"
+    },
+    {
+      "id": "preparing-sup-summer",
+      "title": "Preparing Your SUP for Summer 2026 �?Maintenance Tips for Peak Season",
+      "excerpt": "Get your inflatable SUP ready for heavy summer use with this maintenance guide covering UV protection, valve care, pressure management, and storage.",
+      "category": "Guides & Tips",
+      "tags": [
+        "seasonal",
+        "maintenance",
+        "summer",
+        "SUP"
+      ],
+      "publishDate": "2026-06-15T00:00:00.000Z"
+    },
+    {
+      "id": "miami-boat-show-2026",
+      "title": "Wavefella to Exhibit at Miami International Boat Show 2026",
+      "excerpt": "Wavefella debuts at the Miami International Boat Show with the full product lineup including RIB boats, SUPs, kayaks, and safety equipment.",
+      "category": "Events",
+      "tags": [
+        "event",
+        "boat show",
+        "Miami",
+        "exhibition"
+      ],
+      "publishDate": "2026-06-20T00:00:00.000Z"
+    },
+    {
+      "id": "life-vest-pro-solas",
+      "title": "Life Vest Pro Receives Full SOLAS Certification for Commercial Marine Use",
+      "excerpt": "Wavefella Life Vest Pro achieves SOLAS/MED certification, opening commercial shipping, fishing, and offshore markets to the automatic inflatable life vest.",
+      "category": "Product News",
+      "tags": [
+        "product",
+        "safety",
+        "SOLAS"
+      ],
+      "publishDate": "2026-05-20T00:00:00.000Z"
+    },
+    {
+      "id": "lake-tahoe-paddle-club",
+      "title": "Lake Tahoe Paddle Club Chooses Wavefella for Fleet Program",
+      "excerpt": "How a 200-member paddle club standardized on Wavefella SUPs and kayaks for rental and instructional fleets across multiple Lake Tahoe locations.",
+      "category": "Customer Stories",
+      "tags": [
+        "customer story",
+        "fleet",
+        "Lake Tahoe"
+      ],
+      "publishDate": "2026-04-02T00:00:00.000Z"
+    },
+    {
+      "id": "kayak-tandem-best-family",
+      "title": "Wavefella Kayak Tandem Named Best Family Watercraft 2026 by Paddle Magazine",
+      "excerpt": "The Kayak Tandem receives top honors in the family watercraft category for its stability, dual-cockpit design, and portable backpack form factor.",
+      "category": "Product News",
+      "tags": [
+        "award",
+        "kayak",
+        "tandem",
+        "family"
+      ],
+      "publishDate": "2026-06-05T00:00:00.000Z"
+    },
+    {
+      "id": "iso-14001-certification",
+      "title": "Wavefella Manufacturing Facility Achieves ISO 14001 Environmental Management Certification",
+      "excerpt": "The Wavefella production facility in China earns ISO 14001:2015 certification for its environmental management systems and sustainable manufacturing processes.",
+      "category": "Company",
+      "tags": [
+        "certification",
+        "ISO",
+        "manufacturing",
+        "sustainability"
+      ],
+      "publishDate": "2026-06-10T00:00:00.000Z"
+    },
+    {
+      "id": "great-lake-sup-challenge",
+      "title": "Wavefella Sponsors Great Lake SUP Challenge 2026 �?Lake Michigan Crossing",
+      "excerpt": "The annual 22-mile Lake Michigan SUP crossing returns with Wavefella as title sponsor, featuring a new recreational division for touring boards.",
+      "category": "Community",
+      "tags": [
+        "event",
+        "sponsorship",
+        "SUP",
+        "community"
+      ],
+      "publishDate": "2026-06-01T00:00:00.000Z"
+    },
+    {
+      "id": "drop-stitch-2-0",
+      "title": "Drop-Stitch 2.0 �?Wavefella Next Generation Core Material for Inflatable Boards",
+      "excerpt": "A new higher-density drop-stitch core increases board rigidity by 25% while reducing weight by 10%, setting a new benchmark for inflatable performance.",
+      "category": "Technology",
+      "tags": [
+        "technology",
+        "drop-stitch",
+        "innovation",
+        "R&D"
+      ],
+      "publishDate": "2026-06-18T00:00:00.000Z"
+    }
+  ]
+}

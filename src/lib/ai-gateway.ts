@@ -1,3 +1,5 @@
+import { consumeNeurons, estimateTokens, estimateNeurons, quotaResponseHeaders, type QuotaEnv, DAILY_NEURON_LIMIT } from './ai-quota';
+
 export type AiMode = 'fast' | 'quality';
 export type AiProvider = 'workers-ai';
 
@@ -14,6 +16,7 @@ export interface GatewayResponse {
   provider: AiProvider;
   model: string;
   tokens?: number;
+  quotaHeaders: Record<string, string>;
 }
 
 const MODELS: Record<AiMode, string> = {
@@ -23,7 +26,7 @@ const MODELS: Record<AiMode, string> = {
 
 export async function routeToLLM(
   req: GatewayRequest,
-  env: { AI: any },
+  env: { AI: any } & QuotaEnv,
 ): Promise<GatewayResponse> {
   const mode = req.mode || 'fast';
   const system = req.system || 'You are a helpful website assistant.';
@@ -31,6 +34,19 @@ export async function routeToLLM(
   const temperature = req.temperature ?? 0.3;
 
   const model = MODELS[mode];
+  const inputTokens = estimateTokens(system + '\n' + req.prompt);
+
+  const quota = await consumeNeurons(model, inputTokens, maxTokens, env);
+  if (!quota.allowed) {
+    return {
+      answer: '',
+      provider: 'workers-ai',
+      model,
+      tokens: 0,
+      quotaHeaders: quotaResponseHeaders(quota.remaining, DAILY_NEURON_LIMIT),
+    };
+  }
+
   const res = await env.AI.run(model, {
     messages: [
       { role: 'system', content: system },
@@ -40,7 +56,15 @@ export async function routeToLLM(
     temperature,
   }) as { response: string };
 
-  return { answer: res.response, provider: 'workers-ai', model };
+  const outputTokens = estimateTokens(res.response);
+
+  return {
+    answer: res.response,
+    provider: 'workers-ai',
+    model,
+    tokens: outputTokens,
+    quotaHeaders: quotaResponseHeaders(Math.max(0, quota.remaining - estimateNeurons(model, 0, outputTokens)), DAILY_NEURON_LIMIT),
+  };
 }
 
 export function getProvider(): AiProvider {

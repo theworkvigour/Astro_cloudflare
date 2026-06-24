@@ -1,0 +1,15 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import type { MetaData } from '~/types';
+import type { Crumb } from '~/components/common/Breadcrumbs.astro';
+
+export interface Props {
+  metadata?: MetaData;
+  breadcrumbs?: Crumb[];
+}
+
+const { metadata, breadcrumbs } = Astro.props;
+---
+<PageLayout metadata={metadata} breadcrumbs={breadcrumbs}>
+  <slot />
+</PageLayout>

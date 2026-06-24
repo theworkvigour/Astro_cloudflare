@@ -1,0 +1,64 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+import Timeline from '~/components/blog/Timeline.astro';
+
+import { fetchPosts, blogPostsPerPage, blogListRobots } from '~/utils/blog';
+import pageData from '~/data/pages/news.yaml';
+
+export const prerender = true;
+
+export const getStaticPaths = (async () => {
+  const posts = await fetchPosts();
+  const pageSize = blogPostsPerPage;
+  const totalPages = Math.ceil(posts.length / pageSize);
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const n = i + 2;
+    return {
+      params: { page: String(n) },
+      props: {
+        paginatedPosts: posts.slice((n - 1) * pageSize, n * pageSize),
+        currentPage: n,
+        totalPages,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { paginatedPosts, currentPage, totalPages } = Astro.props;
+
+const prevUrl = currentPage === 2 ? '/news/' : `/news/page/${currentPage - 1}/`;
+const nextUrl = currentPage < totalPages ? `/news/page/${currentPage + 1}/` : undefined;
+
+const newsHeader = pageData?.hero_text ?? {};
+const pageTitle = newsHeader.title || 'News';
+const pageSubtitle = newsHeader.subtitle || '';
+
+const metadata = {
+  title: `${pageTitle} — Page ${currentPage}`,
+  robots: {
+    index: blogListRobots?.index,
+    follow: blogListRobots?.follow,
+  },
+  openGraph: {
+    type: 'blog',
+  },
+};
+---
+
+<Layout metadata={metadata} breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'News', href: '/news' }, { name: `Page ${currentPage}` }]}>
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline subtitle={pageSubtitle}>
+      {pageTitle}
+    </Headline>
+    <div class="mt-16">
+      <Timeline posts={paginatedPosts} />
+    </div>
+    <div class="mt-16 text-center">
+      <Pagination prevUrl={prevUrl} nextUrl={nextUrl} />
+    </div>
+  </section>
+</Layout>
