@@ -1,0 +1,169 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { contentV2Records } from '~/data/content-v2';
+import { sampleTopQueries, sampleLowCtrPages } from '~/data/seo/sample-data';
+import { generateTaskList } from '~/lib/seo/task-list';
+import { exportTasksMarkdown, exportTasksJson, exportTasksCsv } from '~/lib/seo/task-exporter';
+import { EXECUTION_STEPS } from '~/lib/seo/execution-templates';
+
+const tasks = generateTaskList(sampleTopQueries, sampleLowCtrPages, contentV2Records);
+const markdownOutput = exportTasksMarkdown(tasks);
+const jsonOutput = exportTasksJson(tasks);
+const csvOutput = exportTasksCsv(tasks);
+---
+
+<Layout metadata={{ title: 'Task List — SEO Dashboard' }}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/internal/seo" class="text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">SEO Task List · v3.2</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">Rule-driven task generation · Export to Markdown / JSON / CSV</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">High Priority</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{tasks.high.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Must do this week</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Medium Priority</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{tasks.medium.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Next week</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Low Priority</div>
+        <div class="text-3xl font-bold mt-1 text-gray-500">{tasks.low.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Monitor only</div>
+      </div>
+    </div>
+
+    <div class="flex gap-2 mb-8">
+      <button id="copy-md" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition" data-output="md">Copy Markdown</button>
+      <button id="copy-json" class="px-4 py-2 bg-gray-600 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition" data-output="json">Copy JSON</button>
+      <button id="copy-csv" class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition" data-output="csv">Copy CSV</button>
+    </div>
+
+    {tasks.high.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold mb-4 text-red-700 dark:text-red-400">🔥 HIGH PRIORITY — Must Do This Week</h2>
+        <div class="space-y-6">
+          {tasks.high.map((task, i) => {
+            const steps = EXECUTION_STEPS[task.type] || [];
+            return (
+              <div class="bg-white dark:bg-gray-800 rounded-xl border border-red-200 dark:border-red-800 overflow-hidden">
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="px-2 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-xs font-bold">{task.id}</span>
+                    <span class="px-2 py-0.5 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 rounded text-xs font-medium">{task.type}</span>
+                  </div>
+                  <div class="space-y-3">
+                    <div>
+                      <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Page</span>
+                      <p class="font-medium text-sm font-mono mt-0.5">{task.page}</p>
+                    </div>
+                    <div>
+                      <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Issue</span>
+                      <p class="text-sm text-gray-600 dark:text-gray-300 mt-0.5">{task.issue}</p>
+                    </div>
+                    <div>
+                      <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Action</span>
+                      <p class="text-sm text-blue-600 dark:text-blue-400 mt-0.5">{task.action}</p>
+                    </div>
+                    {steps.length > 0 && (
+                      <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Execution Steps</span>
+                        <ul class="mt-1 space-y-0.5">
+                          {steps.map(s => (
+                            <li class="text-xs text-gray-500 flex items-start gap-1.5">
+                              <span class="text-green-500 mt-0.5">✓</span>
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <div>
+                      <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Expected Impact</span>
+                      <p class="text-xs text-gray-500 mt-0.5">{task.expectedImpact}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {tasks.medium.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold mb-4 text-amber-700 dark:text-amber-400">🟡 MEDIUM PRIORITY — Plan for Next Week</h2>
+        <div class="space-y-4">
+          {tasks.medium.map((task, i) => (
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-amber-200 dark:border-amber-800 p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 rounded text-xs font-bold">{task.id}</span>
+                <span class="px-2 py-0.5 bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 rounded text-xs font-medium">{task.type}</span>
+              </div>
+              <div class="font-medium text-sm">{task.page}</div>
+              <div class="text-xs text-gray-500 mt-1">{task.issue}</div>
+              <div class="text-xs text-blue-600 dark:text-blue-400 mt-1">→ {task.action}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Markdown Export Preview</h2>
+        <span class="text-xs text-gray-400">Copy and paste into Notion or any Markdown editor</span>
+      </div>
+      <pre class="p-6 text-xs font-mono bg-gray-50 dark:bg-gray-900 overflow-auto max-h-96 leading-relaxed" id="md-preview">{markdownOutput}</pre>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">JSON Export Preview</h2>
+        <span class="text-xs text-gray-400">Machine-readable format for programmatic processing</span>
+      </div>
+      <pre class="p-6 text-xs font-mono bg-gray-50 dark:bg-gray-900 overflow-auto max-h-64 leading-relaxed" id="json-preview">{jsonOutput.slice(0, 2000)}...</pre>
+    </section>
+  </main>
+
+  <script>
+    const copyButtons = document.querySelectorAll('[id^="copy-"]');
+    const mdPreview = document.getElementById('md-preview');
+    const jsonPreview = document.getElementById('json-preview');
+
+    function showToast(msg) {
+      const el = document.createElement('div');
+      el.className = 'fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm shadow-lg z-50 transition-opacity';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 2000);
+    }
+
+    copyButtons.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        let text = '';
+        if (btn.id === 'copy-md') text = mdPreview.textContent;
+        else if (btn.id === 'copy-json') text = jsonPreview.textContent.replace(/\.\.\.$/, '');
+
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast('Copied to clipboard');
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          showToast('Copied to clipboard');
+        }
+      });
+    });
+  </script>
+</Layout>

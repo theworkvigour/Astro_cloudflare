@@ -1,0 +1,76 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getAllSocialPacks, getSocialSummary, PLATFORMS } from '~/lib/seo/social-engine';
+
+const packs = getAllSocialPacks();
+const summary = getSocialSummary();
+---
+
+<Layout metadata={{ title: 'Social Engine v4.0', description: 'Social × SEO × GEO content pipeline' }}>
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-2">
+      <h1 class="text-3xl font-bold text-gray-900">Social Engine</h1>
+      <span class="px-2 py-0.5 bg-pink-100 text-pink-700 text-xs font-bold rounded">v4.0</span>
+    </div>
+    <p class="text-gray-500 mb-8">1 article → 5 social posts · TikTok · Instagram · X · Pinterest · Reddit</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-gray-900">{packs.length}</div>
+        <div class="text-xs text-gray-500 mt-1">Articles</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-pink-600">{summary.total}</div>
+        <div class="text-xs text-gray-500 mt-1">Total Posts</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-orange-600">{summary.byPlatform.instagram || 0}</div>
+        <div class="text-xs text-gray-500 mt-1">Instagram</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-sky-600">{summary.byPlatform.twitter || 0}</div>
+        <div class="text-xs text-gray-500 mt-1">X / Twitter</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-red-600">{summary.byPlatform.tiktok || 0}</div>
+        <div class="text-xs text-gray-500 mt-1">TikTok</div>
+      </div>
+    </div>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Pipeline: 1 Article → 5 Social Posts</h2>
+      <div class="space-y-6">
+        {packs.map(pack => (
+          <div class="border border-gray-200 rounded-xl overflow-hidden">
+            <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+              <h3 class="font-semibold text-gray-900 text-sm">{pack.title}</h3>
+              <a href={`/v2/${pack.slug}`} target="_blank" class="text-xs text-sky-600 hover:underline">View page →</a>
+            </div>
+            <div class="divide-y divide-gray-100">
+              {pack.posts.map(post => (
+                <div class="px-5 py-3">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class={`px-2 py-0.5 rounded text-xs font-medium ${
+                      post.platform === 'instagram' ? 'bg-pink-100 text-pink-700' :
+                      post.platform === 'tiktok' ? 'bg-gray-100 text-gray-700' :
+                      post.platform === 'twitter' ? 'bg-sky-100 text-sky-700' :
+                      post.platform === 'pinterest' ? 'bg-red-100 text-red-700' :
+                      'bg-orange-100 text-orange-700'
+                    }`}>{post.platform}</span>
+                    <span class="text-xs text-gray-400">{post.cta}</span>
+                  </div>
+                  <p class="text-sm text-gray-700 whitespace-pre-wrap">{post.content.length > 200 ? post.content.slice(0, 200) + '...' : post.content}</p>
+                  {post.hashtags.length > 0 && (
+                    <div class="mt-1 flex gap-1 flex-wrap">
+                      {post.hashtags.map(h => <span class="text-xs text-sky-500">{h}</span>)}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

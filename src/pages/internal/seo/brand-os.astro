@@ -1,0 +1,139 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { BRAND, getAllBrandPages, getEngines } from '~/lib/seo/brand-os';
+
+const brandPages = getAllBrandPages();
+const engines = getEngines();
+const regions = BRAND.regions;
+const totalCtas = brandPages.length;
+const categories = ['beginner', 'guide', 'comparison', 'brand', 'gear'] as const;
+const catCounts: Record<string, number> = {};
+for (const cat of categories) catCounts[cat] = brandPages.filter(p => p.category === cat).length;
+
+const engineStyles: Record<string, { bg: string; border: string; text: string; label: string; count: string }> = {
+  sky:   { bg: 'bg-sky-50', border: 'border-sky-200', text: 'text-sky-700', label: 'text-sky-700', count: 'text-sky-500' },
+  purple:{ bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', label: 'text-purple-700', count: 'text-purple-500' },
+  green: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', label: 'text-green-700', count: 'text-green-500' },
+};
+---
+
+<Layout metadata={{ title: 'Brand OS v4.0', description: 'Global Brand Operating System' }}>
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-2">
+      <h1 class="text-3xl font-bold text-gray-900">Brand OS</h1>
+      <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded">v4.0</span>
+      <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">Global</span>
+    </div>
+    <p class="text-gray-500 mb-8">Global Brand Operating System — SEO + GEO + Brand unified growth</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-gray-900">{totalCtas}</div>
+        <div class="text-xs text-gray-500 mt-1">Content Pages</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-green-600">{BRAND.categories.length}</div>
+        <div class="text-xs text-gray-500 mt-1">Product Lines</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-sky-600">{regions.length}</div>
+        <div class="text-xs text-gray-500 mt-1">Regions</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-amber-600">{engines.length}</div>
+        <div class="text-xs text-gray-500 mt-1">Growth Engines</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-purple-600">{brandPages.filter(p => p.geoEnabled).length}</div>
+        <div class="text-xs text-gray-500 mt-1">GEO Enabled</div>
+      </div>
+    </div>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Brand Identity</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <div><span class="text-gray-400 text-xs uppercase tracking-wider">Name</span><p class="font-bold text-gray-900 mt-1 text-xl">{BRAND.name}</p></div>
+        <div class="md:col-span-2"><span class="text-gray-400 text-xs uppercase tracking-wider">Tagline</span><p class="font-semibold text-gray-900 mt-1">{BRAND.tagline}</p></div>
+        <div><span class="text-gray-400 text-xs uppercase tracking-wider">Founded</span><p class="text-gray-900 mt-1">{BRAND.foundingYear}</p></div>
+        <div><span class="text-gray-400 text-xs uppercase tracking-wider">CTA</span><p class="text-sky-600 mt-1">{BRAND.cta.text} →</p></div>
+        <div><span class="text-gray-400 text-xs uppercase tracking-wider">Categories</span><p class="text-gray-900 mt-1">{BRAND.categories.join(', ')}</p></div>
+      </div>
+      <div class="mt-4"><span class="text-gray-400 text-xs uppercase tracking-wider">Ethos</span>
+        <ul class="mt-2 space-y-1">{BRAND.ethos.map(e => <li class="text-sm text-gray-700 flex items-center gap-2"><span class="w-1.5 h-1.5 bg-sky-500 rounded-full"></span>{e}</li>)}</ul>
+      </div>
+    </section>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Three Engines</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        {engines.map(e => {
+          const s = engineStyles[e.color] || engineStyles.sky;
+          return (
+          <div class={`p-5 ${s.bg} rounded-xl border ${s.border}`}>
+            <div class="flex items-center justify-between mb-2">
+              <span class={`text-xs font-bold uppercase tracking-wider ${s.label}`}>{e.name}</span>
+              <span class={`text-xs font-medium ${s.count}`}>{e.pages} pages</span>
+            </div>
+            <p class="text-sm text-gray-700">{e.description}</p>
+          </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Global Regions</h2>
+      <div class="grid md:grid-cols-3 gap-3">
+        {regions.map(r => (
+          <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between text-sm">
+            <div class="flex items-center gap-2">
+              <span>{r.flag}</span>
+              <span class="font-medium text-gray-900">{r.name}</span>
+              <span class="text-xs text-gray-400">({r.locale})</span>
+            </div>
+            <span class="text-xs text-gray-400">Priority: {r.sitemapPriority}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6">
+      <h2 class="text-lg font-semibold mb-4">Conversion Flow: All Pages</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left text-gray-400 text-xs uppercase">
+              <th class="pb-3 pr-4">Page</th>
+              <th class="pb-3 pr-4">Category</th>
+              <th class="pb-3 pr-4">CTA</th>
+              <th class="pb-3 pr-4">Products</th>
+              <th class="pb-3">GEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {brandPages.map(p => (
+              <tr class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="py-3 pr-4 font-medium text-gray-900">{p.title}</td>
+                <td class="py-3 pr-4">
+                  <span class={`px-2 py-0.5 rounded text-xs font-medium ${
+                    p.category === 'beginner' ? 'bg-sky-100 text-sky-700' :
+                    p.category === 'comparison' ? 'bg-purple-100 text-purple-700' :
+                    p.category === 'guide' ? 'bg-amber-100 text-amber-700' :
+                    p.category === 'brand' ? 'bg-green-100 text-green-700' :
+                    'bg-gray-100 text-gray-700'
+                  }`}>{p.category}</span>
+                </td>
+                <td class="py-3 pr-4 text-xs">
+                  <span class="text-sky-600">{p.cta.text}</span>
+                  <span class="text-gray-400 block">{p.cta.link}</span>
+                </td>
+                <td class="py-3 pr-4"><div class="flex gap-1 flex-wrap">{p.productSlugs.map(s => <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">{s}</span>)}</div></td>
+                <td class="py-3">{p.geoEnabled ? <span class="text-green-600 text-xs">✓</span> : <span class="text-gray-300 text-xs">—</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</Layout>

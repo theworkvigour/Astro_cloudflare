@@ -6,6 +6,7 @@ import { bundles } from '../data/bundles';
 import JsonLd from '~/components/common/JsonLd.astro';
 import TrustBadges from '~/components/common/TrustBadges.astro';
 import Tldr from '~/components/common/Tldr.astro';
+import { contentV2Records } from '~/data/content-v2';
 
 const metadata = {
   title: SITE.name,
@@ -214,6 +215,28 @@ const scenarioProducts = [
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Stable for Beginners</span>
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Travel-Ready Design</span>
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Ocean, Lake & River Tested</span>
+    </div>
+  </section>
+
+  <!-- Top Guides (SEO Entry) -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Top Guides</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Start here before you buy</h2>
+      <p class="mt-4 text-lg text-gray-500">Three beginner guides that cover the essentials — surfboard selection, wetsuit fit, and your first session.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {contentV2Records.filter(c => ['how-to-choose-a-surfboard-for-beginners', 'wetsuit-thickness-guide', 'surfing-for-beginners'].includes(c.slug)).map(c => (
+        <a href={`/v2/${c.slug}`} class="group block bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{c.type.replace('-', ' ')}</span>
+          <h3 class="mt-3 text-xl font-semibold text-gray-900 group-hover:text-sky-700 transition-colors">{c.title}</h3>
+          <p class="mt-2 text-sm text-gray-500 line-clamp-2">{c.description}</p>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">Read guide →</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href={`/v2`} class="text-sm font-medium text-sky-600 hover:text-sky-700">Browse all 20 guides and comparisons →</a>
     </div>
   </section>
 
@@ -629,6 +652,19 @@ const scenarioProducts = [
         <a href="https://www.instagram.com/wavefellaco" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors text-sm">
           Follow on Instagram →
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-24 px-6 bg-gradient-to-br from-sky-50 to-blue-50">
+    <div class="max-w-6xl mx-auto text-center">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Social × SEO × Brand</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900">Every guide, everywhere</h2>
+      <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">Each article automatically generates posts for TikTok, Instagram, X, Pinterest, and Reddit — so your content works across every platform.</p>
+      <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
+        <a href="/journal" class="px-8 py-4 bg-gray-900 text-white rounded-full font-semibold hover:bg-gray-800 transition">Browse Journal →</a>
+        <a href="/internal/seo/social" class="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full font-semibold hover:border-gray-400 transition">Social Pipeline</a>
       </div>
     </div>
   </section>

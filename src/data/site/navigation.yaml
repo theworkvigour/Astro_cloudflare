@@ -19,6 +19,8 @@ header:
       links:
         - text: Guides
           href: /guides
+        - text: Journal
+          href: /journal
         - text: Technology
           href: /technology
         - text: Safety
@@ -57,6 +59,8 @@ footer:
       links:
         - text: Guides
           href: /guides
+        - text: Journal
+          href: /journal
         - text: Technology
           href: /technology
         - text: Safety
@@ -69,6 +73,8 @@ footer:
       links:
         - text: About
           href: /about
+        - text: Brand
+          href: /brand
         - text: R&D Center
           href: /randdcenter
         - text: Contact

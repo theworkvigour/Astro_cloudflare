@@ -1,0 +1,124 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { BRAND } from '~/lib/seo/brand-os';
+import { getAllSocialPacks } from '~/lib/seo/social-engine';
+import { products } from '~/data/products';
+
+const metadata = {
+  title: `Brand — ${BRAND.name}`,
+  description: BRAND.description,
+  ignoreTitleTemplate: true,
+};
+
+const coreProducts = products.filter(p => ['sup-explorer-11', 'sup-tour-12', 'life-vest-pro', 'paddle-carbon'].includes(p.id));
+const socialPacks = getAllSocialPacks().slice(0, 3);
+const regions = BRAND.regions;
+---
+
+<Layout metadata={metadata}>
+  <!-- HERO -->
+  <section class="relative min-h-[70vh] flex items-center justify-center text-center text-white overflow-hidden bg-gradient-to-br from-[#001830] via-[#002d4a] to-[#003355]">
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24">
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]">{BRAND.name}</h1>
+      <p class="mt-4 text-xl text-white/80">{BRAND.tagline}</p>
+      <p class="mt-4 text-base text-white/60 max-w-2xl mx-auto">{BRAND.description}</p>
+      <div class="mt-10 flex justify-center gap-4 flex-wrap">
+        <a href="/products" class="px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-50 transition">Explore Gear →</a>
+        <a href="/guides" class="px-8 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition">Learn Surfing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND POSITION -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Position</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Ocean Performance for Every Surfer</h2>
+      <p class="mt-4 text-lg text-gray-500">{BRAND.description}</p>
+    </div>
+    <div class="mt-16 grid md:grid-cols-3 gap-8">
+      {BRAND.ethos.map(e => {
+        const [title, ...rest] = e.split(' — ');
+        return (
+          <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+            <h3 class="text-lg font-semibold text-gray-900">{title}</h3>
+            <p class="mt-3 text-sm text-gray-500">{rest.join(' — ')}</p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- CORE PRODUCTS -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Products</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">{BRAND.categories.join(' · ')}</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {coreProducts.map(p => (
+          <a href={`/products/${p.id}`} class="group block bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg transition-shadow">
+            <h3 class="font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{p.name}</h3>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{p.desc}</p>
+          </a>
+        ))}
+        <a href="/products" class="group block bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl border border-sky-200 p-6 flex items-center justify-center text-center hover:shadow-lg transition-shadow">
+          <span class="font-semibold text-sky-700">All Products →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL PRESENCE -->
+  <section class="max-w-6xl mx-auto py-24 px-6 text-center">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Global</span>
+    <h2 class="mt-4 text-3xl font-semibold text-gray-900">Available in {regions.length} Regions</h2>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      {regions.map(r => (
+        <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm">
+          <span>{r.flag}</span>
+          <span>{r.name}</span>
+          <span class="text-xs text-gray-400">({r.locale})</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Social</span>
+        <h2 class="mt-4 text-3xl font-semibold text-gray-900">What surfers are reading</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {socialPacks.map(pack => (
+          <div class="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow">
+            <h3 class="font-semibold text-gray-900">{pack.title}</h3>
+            <div class="mt-3 flex gap-2 flex-wrap">
+              {pack.posts.slice(0, 3).map(post => (
+                <span class={`px-2 py-0.5 rounded text-xs font-medium ${
+                  post.platform === 'instagram' ? 'bg-pink-100 text-pink-700' :
+                  post.platform === 'tiktok' ? 'bg-gray-100 text-gray-700' :
+                  'bg-sky-100 text-sky-700'
+                }`}>{post.platform}</span>
+              ))}
+            </div>
+            <a href={`/v2/${pack.slug}`} class="mt-4 inline-flex text-sm text-sky-600 hover:underline">Read guide →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6 text-center bg-white">
+    <h2 class="text-3xl font-semibold text-gray-900">Start your ocean journey</h2>
+    <p class="mt-4 text-lg text-gray-500">Every product CE certified. Backed by warranty. Designed for real surf.</p>
+    <div class="mt-10 flex justify-center gap-4">
+      <a href="/products" class="px-10 py-4 bg-gray-900 text-white rounded-full font-semibold hover:bg-gray-800 transition">{BRAND.cta.text} →</a>
+      <a href="/wavefella" class="px-10 py-4 border-2 border-gray-200 text-gray-700 rounded-full font-semibold hover:border-gray-400 transition">About {BRAND.name}</a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,97 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { sampleTopQueries } from '~/data/seo/sample-data';
+import { filterLowCtrQueries, filterOptimizableQueries } from '~/lib/seo/ctr-analysis';
+
+const lowCtr = filterLowCtrQueries(sampleTopQueries);
+const optimizable = filterOptimizableQueries(sampleTopQueries);
+
+const enrichedQueries = sampleTopQueries.map(q => ({
+  ...q,
+  needsCtr: q.ctr < 2,
+  isOptimizable: q.impressions > 100 && q.ctr < 3 && q.position >= 4 && q.position <= 20,
+}));
+---
+
+<Layout metadata={{ title: 'Query Analysis — SEO Dashboard' }}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/internal/seo" class="text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">Query-Level Analysis</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">GSC query data: impressions, CTR, position tracking</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Total Sample Queries</div>
+        <div class="text-3xl font-bold mt-1">{sampleTopQueries.length}</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Low CTR (&lt;2%)</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{lowCtr.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Needs title rewrite</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Optimizable Pool</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{optimizable.length}</div>
+        <div class="text-xs text-gray-400 mt-1">imp &gt;100 · CTR &lt;3% · pos 4-20</div>
+      </div>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold">All Queries</h2>
+        <p class="text-sm text-gray-500 mt-1">Sorted by impressions (descending)</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Query</th>
+              <th class="text-right px-6 py-3 font-medium text-gray-500">Impressions</th>
+              <th class="text-right px-6 py-3 font-medium text-gray-500">Clicks</th>
+              <th class="text-right px-6 py-3 font-medium text-gray-500">CTR</th>
+              <th class="text-right px-6 py-3 font-medium text-gray-500">Position</th>
+              <th class="text-center px-6 py-3 font-medium text-gray-500">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            {enrichedQueries.map(q => (
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-750">
+                <td class="px-6 py-3 font-medium">{q.query}</td>
+                <td class="px-6 py-3 text-right">{q.impressions.toLocaleString()}</td>
+                <td class="px-6 py-3 text-right">{q.clicks}</td>
+                <td class={`px-6 py-3 text-right font-medium ${q.needsCtr ? 'text-red-600' : q.ctr < 3 ? 'text-amber-600' : 'text-green-600'}`}>{q.ctr}%</td>
+                <td class="px-6 py-3 text-right">{q.position}</td>
+                <td class="px-6 py-3 text-center">
+                  {q.needsCtr && <span class="px-2 py-0.5 bg-red-50 text-red-600 rounded-full text-xs font-medium">Fix CTR</span>}
+                  {!q.needsCtr && q.isOptimizable && <span class="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-full text-xs font-medium">Optimizable</span>}
+                  {!q.needsCtr && !q.isOptimizable && <span class="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-xs font-medium">Healthy</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+      <h2 class="text-lg font-semibold mb-4">Optimization Priority — "Optimizable Pool"</h2>
+      <p class="text-sm text-gray-500 mb-4">Queries with impressions &gt;100, CTR &lt;3%, position 4-20 — the highest ROI targets.</p>
+      <div class="space-y-3">
+        {enrichedQueries.filter(q => q.isOptimizable).map(q => (
+          <div class="flex items-center justify-between p-3 bg-amber-50 dark:bg-amber-950 rounded-lg">
+            <div class="flex-1">
+              <span class="font-medium text-sm">{q.query}</span>
+              <div class="text-xs text-gray-500 mt-0.5">Target: improve CTR from {q.ctr}% to &gt;3% · current position #{q.position}</div>
+            </div>
+            <div class="flex gap-2 ml-4 shrink-0">
+              <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium">{q.impressions.toLocaleString()} imp</span>
+              <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium">{q.clicks} clicks</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

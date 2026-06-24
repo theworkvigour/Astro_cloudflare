@@ -1,0 +1,72 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { contentV2Records } from '~/data/content-v2';
+import { getAllSocialPacks } from '~/lib/seo/social-engine';
+
+const metadata = {
+  title: 'Journal — Wavefella',
+  description: 'Surf guides, gear comparisons, and ocean stories.',
+  ignoreTitleTemplate: true,
+};
+
+const socialPacks = getAllSocialPacks();
+const recentGuides = contentV2Records.filter(c => c.type === 'guide' || c.type === 'comparison').slice(0, 9);
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-24 px-6 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold">Journal</h1>
+    <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">Surf guides, gear comparisons, and ocean stories — written for real conditions.</p>
+  </section>
+
+  <!-- Recent Guides -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Latest</span>
+        <h2 class="mt-2 text-3xl font-semibold text-gray-900">Guides & Comparisons</h2>
+      </div>
+      <a href="/v2" class="text-sm text-sky-600 hover:underline">Browse all 20 →</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {recentGuides.map(guide => {
+        const pack = socialPacks.find(p => p.slug === guide.slug);
+        return (
+          <a href={`/v2/${guide.slug}`} class="group block bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{guide.type.replace('-', ' ')}</span>
+            <h3 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{guide.title}</h3>
+            <p class="mt-2 text-sm text-gray-500 line-clamp-2">{guide.description}</p>
+            {pack && (
+              <div class="mt-4 flex gap-2">
+                {pack.posts.slice(0, 3).map(post => (
+                  <span class={`px-2 py-0.5 rounded text-xs ${
+                    post.platform === 'instagram' ? 'bg-pink-100 text-pink-700' :
+                    post.platform === 'tiktok' ? 'bg-gray-100 text-gray-700' :
+                    post.platform === 'twitter' ? 'bg-sky-100 text-sky-700' :
+                    post.platform === 'pinterest' ? 'bg-red-100 text-red-700' :
+                    'bg-orange-100 text-orange-700'
+                  }`}>{post.platform}</span>
+                ))}
+              </div>
+            )}
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">Read →</span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Social Pipeline Stats -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Content × Social</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Every guide becomes 5 social posts</h2>
+      <p class="mt-4 text-lg text-gray-500">TikTok · Instagram · X · Pinterest · Reddit — from every article.</p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="/internal/seo/social" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition">Social Pipeline →</a>
+        <a href="/guides" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-gray-400 transition">Browse Guides</a>
+      </div>
+    </div>
+  </section>
+</Layout>

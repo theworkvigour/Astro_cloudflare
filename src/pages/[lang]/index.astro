@@ -6,6 +6,7 @@ import { bundles } from '~/data/bundles';
 import JsonLd from '~/components/common/JsonLd.astro';
 import TrustBadges from '~/components/common/TrustBadges.astro';
 import Tldr from '~/components/common/Tldr.astro';
+import { contentV2Records } from '~/data/content-v2';
 import { languages as langMap, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
@@ -180,6 +181,28 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Stable for Beginners</span>
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Travel-Ready Design</span>
       <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Ocean, Lake & River Tested</span>
+    </div>
+  </section>
+
+  <!-- Top Guides (SEO Entry) -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Top Guides</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Start here before you buy</h2>
+      <p class="mt-4 text-lg text-gray-500">Three beginner guides that cover the essentials — surfboard selection, wetsuit fit, and your first session.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {contentV2Records.filter(c => ['how-to-choose-a-surfboard-for-beginners', 'wetsuit-thickness-guide', 'surfing-for-beginners'].includes(c.slug)).map(c => (
+        <a href={`/${lang}/v2/${c.slug}`} class="group block bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{c.type.replace('-', ' ')}</span>
+          <h3 class="mt-3 text-xl font-semibold text-gray-900 group-hover:text-sky-700 transition-colors">{c.title}</h3>
+          <p class="mt-2 text-sm text-gray-500 line-clamp-2">{c.description}</p>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">Read guide →</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href={`/${lang}/v2`} class="text-sm font-medium text-sky-600 hover:text-sky-700">Browse all 20 guides and comparisons →</a>
     </div>
   </section>
 

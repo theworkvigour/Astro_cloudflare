@@ -7,23 +7,31 @@ main = "@astrojs/cloudflare/entrypoints/server"
 directory = "./dist/client"
 binding = "ASSETS"
 
+# ----------------------------------------------------------------
+# v3.6 — SEO Factory Production Deployment
+# ----------------------------------------------------------------
+# Two deployment modes:
+#
+# 1. Astro Site (this config):
+#    npx wrangler deploy
+#
+# 2. Standalone SEO Factory Worker (seo-worker):
+#    npx wrangler deploy workers/cron.js --name seo-worker
+#    npx wrangler deploy workers/cron.js --name seo-worker --triggers cron
+#    npx wrangler kv:namespace create SEO_KV
+#    npx wrangler secret put GSC_TOKEN
+#    npx wrangler secret put GSC_SITE_URL
+#
+# The standalone Worker runs daily at 9:00 UTC via GitHub Actions:
+#   .github/workflows/seo-factory.yml
+#
+# Run pipeline locally:
+#   npm run seo:pipeline
+#   # output/ contains tasks.json, tasks.md, tasks.csv, geo.json
+# ----------------------------------------------------------------
+
 # --- AI Infrastructure ---
-# Workers AI + Vectorize + AI_QUOTA KV bindings
-#
-# Workers AI Free tier: 10,000 neurons/day (across ALL models).
-# The app-level quota enforcer (ai-quota.ts) caps at 9,000 neurons/day
-# to leave a buffer.
-#
-# To enable persistent AI quota tracking across worker instances:
-#   npx wrangler kv:namespace create AI_QUOTA
-# Then add the following to this file:
-#   [[kv_namespaces]]
-#   binding = "AI_QUOTA"
-#   id = "<generated-id>"
-#   preview_id = "<generated-preview-id>"
-# Without KV, the quota resets per-worker-isolate (in-memory only).
-#
-# Vectorize index must exist with --dimensions=768 --metric=cosine:
+# Workers AI + Vectorize bindings
 #   npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
 
 [ai]

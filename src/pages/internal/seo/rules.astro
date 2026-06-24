@@ -1,0 +1,164 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { contentV2Records } from '~/data/content-v2';
+import { sampleTopQueries, sampleLowCtrPages } from '~/data/seo/sample-data';
+import { runAllRules } from '~/lib/seo/rule-engine';
+import { generateTaskList } from '~/lib/seo/task-list';
+
+const ruleResults = runAllRules(sampleTopQueries, sampleLowCtrPages, contentV2Records);
+const tasks = generateTaskList(sampleTopQueries, sampleLowCtrPages, contentV2Records);
+const highCount = tasks.high.length;
+const mediumCount = tasks.medium.length;
+const lowCount = tasks.low.length;
+---
+
+<Layout metadata={{ title: 'Rule Engine — SEO Dashboard' }}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/internal/seo" class="text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">Rule Engine · SEO Task List</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">v3.1 — Pure IF/ELSE deterministic rules · No AI dependency</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">🔥 High Priority</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{highCount}</div>
+        <div class="text-xs text-gray-400 mt-1">Do this week</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">🟡 Medium Priority</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{mediumCount}</div>
+        <div class="text-xs text-gray-400 mt-1">Next week</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">⚪ Low Priority</div>
+        <div class="text-3xl font-bold mt-1 text-gray-500">{lowCount}</div>
+        <div class="text-xs text-gray-400 mt-1">Monitor only</div>
+      </div>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold">🔥 HIGH PRIORITY — Must Do This Week</h2>
+        <p class="text-sm text-gray-500 mt-1">Rules: impressions > 100 AND ctr < 2% → TITLE_FIX · position 4-20 → CONTENT_EXPANSION · missing core link → LINK_INJECT</p>
+      </div>
+      {tasks.high.length > 0 ? (
+        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+          {tasks.high.map(task => (
+            <div class="p-6 hover:bg-red-50 dark:hover:bg-red-950 transition-colors">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="px-2 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-xs font-bold">{task.id}</span>
+                    <span class="px-2 py-0.5 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 rounded text-xs font-medium">{task.type}</span>
+                  </div>
+                  <div class="font-medium text-sm mt-1">{task.page}</div>
+                  <div class="text-xs text-gray-500 mt-1">{task.issue}</div>
+                  <div class="text-xs font-medium text-blue-600 dark:text-blue-400 mt-1">Action: {task.action}</div>
+                  <div class="text-xs text-gray-400 mt-0.5">Expected: {task.expectedImpact}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="p-6 text-sm text-green-600">No high-priority tasks — all pages are within healthy ranges.</div>
+      )}
+    </section>
+
+    {tasks.medium.length > 0 && (
+      <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 class="text-lg font-semibold">🟡 MEDIUM PRIORITY — Plan for Next Week</h2>
+        </div>
+        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+          {tasks.medium.map(task => (
+            <div class="p-6 hover:bg-amber-50 dark:hover:bg-amber-950 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="px-2 py-0.5 bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 rounded text-xs font-bold">{task.id}</span>
+                    <span class="px-2 py-0.5 bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 rounded text-xs font-medium">{task.type}</span>
+                  </div>
+                  <div class="font-medium text-sm mt-1">{task.page}</div>
+                  <div class="text-xs text-gray-500 mt-1">{task.issue}</div>
+                  <div class="text-xs text-blue-600 dark:text-blue-400 mt-1">Action: {task.action}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">Rule Engine — Active Rules</h2>
+        <div class="space-y-3">
+          {[
+            { rule: 'Rule 1: CTR Fix', condition: 'IF impressions > 100 AND ctr < 2%', action: 'TITLE_FIX', priority: 'HIGH' },
+            { rule: 'Rule 2: Content Expansion', condition: 'IF position >= 4 AND position <= 20', action: 'CONTENT_EXPANSION', priority: 'HIGH' },
+            { rule: 'Rule 3: Long-tail Section', condition: 'IF impressions < 50 AND query has 4+ words', action: 'NEW_SECTION', priority: 'MEDIUM' },
+            { rule: 'Rule 4: Core Link Missing', condition: 'IF page has no link to Tier A guide', action: 'LINK_INJECT', priority: 'HIGH' },
+            { rule: 'Rule 5: Stable Page', condition: 'IF position <= 3 AND ctr > 5%', action: 'NO_CHANGE', priority: '—' },
+          ].map(r => (
+            <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-sm">{r.rule}</span>
+                <span class={`px-2 py-0.5 rounded text-xs font-bold ${r.priority === 'HIGH' ? 'bg-red-100 text-red-700' : r.priority === 'MEDIUM' ? 'bg-amber-100 text-amber-700' : 'bg-gray-200 text-gray-600'}`}>{r.priority}</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 font-mono">{r.condition}</div>
+              <div class="text-xs text-gray-500 mt-0.5">→ <span class="font-medium">{r.action}</span></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">System Architecture</h2>
+        <div class="space-y-2 text-sm">
+          <div class="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-center font-medium">Google Search Console</div>
+          <div class="text-center text-gray-400">↓</div>
+          <div class="p-3 bg-green-50 dark:bg-green-950 rounded-lg text-center font-medium">Data Collector (GSC Extractor)</div>
+          <div class="text-center text-gray-400">↓</div>
+          <div class="p-3 bg-amber-50 dark:bg-amber-950 rounded-lg text-center font-medium">Rule Engine (IF/ELSE Logic)</div>
+          <div class="text-center text-gray-400">↓</div>
+          <div class="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg text-center font-medium">Priority Task List</div>
+          <div class="text-center text-gray-400">↓</div>
+          <div class="p-3 bg-red-50 dark:bg-red-950 rounded-lg text-center font-medium">Manual SEO Execution</div>
+        </div>
+      </section>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+      <h2 class="text-lg font-semibold mb-4">All Rule Engine Results (debug)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+              <th class="text-left px-4 py-2 font-medium text-gray-500">Page/Query</th>
+              <th class="text-left px-4 py-2 font-medium text-gray-500">Action</th>
+              <th class="text-left px-4 py-2 font-medium text-gray-500">Priority</th>
+              <th class="text-left px-4 py-2 font-medium text-gray-500">Reason</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            {ruleResults.map(r => (
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-750">
+                <td class="px-4 py-2 font-medium text-xs">{r.page}</td>
+                <td class="px-4 py-2">
+                  <span class={`px-2 py-0.5 rounded text-xs font-medium ${r.action === 'TITLE_FIX' ? 'bg-red-100 text-red-700' : r.action === 'CONTENT_EXPANSION' ? 'bg-amber-100 text-amber-700' : r.action === 'LINK_INJECT' ? 'bg-blue-100 text-blue-700' : r.action === 'NEW_SECTION' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>{r.action}</span>
+                </td>
+                <td class="px-4 py-2">
+                  <span class={`text-xs font-bold ${r.priority === 'HIGH' ? 'text-red-600' : r.priority === 'MEDIUM' ? 'text-amber-600' : 'text-gray-400'}`}>{r.priority}</span>
+                </td>
+                <td class="px-4 py-2 text-xs text-gray-500">{r.reason}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</Layout>

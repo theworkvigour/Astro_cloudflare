@@ -1,0 +1,142 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { contentV2Records } from '~/data/content-v2';
+import { computePageHealth } from '~/lib/seo/health-score';
+import { sampleWorkflows, sampleLowCtrPages } from '~/data/seo/sample-data';
+
+const healthScores = computePageHealth(contentV2Records);
+const needsCtrFix = healthScores.filter(h => h.ctrScore < 15);
+const needsContent = healthScores.filter(h => h.contentDepthScore < 10);
+const needsLinks = healthScores.filter(h => h.internalLinksScore < 5);
+---
+
+<Layout metadata={{ title: 'Weekly Workflow — SEO Dashboard' }}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/internal/seo" class="text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">Weekly SEO Workflow</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">v3.0 Week Cycle — Data → Decision → Optimization → Indexing → Growth</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Need CTR Fix</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{needsCtrFix.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Title rewrite required</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Need Content Depth</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{needsContent.length}</div>
+        <div class="text-xs text-gray-400 mt-1">FAQ + definition blocks</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Need More Links</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{needsLinks.length}</div>
+        <div class="text-xs text-gray-400 mt-1">Internal link density</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Low CTR Pages (GSC)</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{sampleLowCtrPages.length}</div>
+        <div class="text-xs text-gray-400 mt-1">From sample data</div>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Week Cycle — Standard Operating Procedure</h2>
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+        {[
+          { day: 'Day 1', label: 'Data Pull', color: 'bg-blue-500', tasks: ['Export GSC top queries', 'Identify low CTR pages', 'Track position 4-20 pool'] },
+          { day: 'Day 2', label: 'Decision', color: 'bg-amber-500', tasks: ['Classify issues: CTR / Content / Links', 'Assign priority', 'Plan changes per page'] },
+          { day: 'Day 3-4', label: 'Content Update', color: 'bg-purple-500', tasks: ['Title rewrite (highest priority)', 'Add FAQ blocks', 'Add internal links', 'Expand content +30%'] },
+          { day: 'Day 5', label: 'Reindex', color: 'bg-green-500', tasks: ['Google URL Inspection', 'Submit sitemap update', 'Request re-crawl'] },
+          { day: 'Day 6-7', label: 'Observe', color: 'bg-teal-500', tasks: ['Monitor impression changes', 'Track CTR shifts', 'Watch position 8→5 jumps'] },
+        ].map(phase => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+            <div class={`${phase.color} text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2`}>{phase.day}</div>
+            <h3 class="font-semibold text-sm mb-2">{phase.label}</h3>
+            <ul class="space-y-1">
+              {phase.tasks.map(t => (
+                <li class="text-xs text-gray-500 flex items-start gap-1.5">
+                  <span class="mt-0.5 w-1 h-1 bg-gray-400 rounded-full shrink-0"></span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold">Workflow History</h2>
+        <p class="text-sm text-gray-500 mt-1">Track weekly execution</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Week</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Day 1 — Data</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Day 2 — Decision</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Day 3-4 — Update</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Day 5 — Reindex</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-500">Day 6-7 — Observe</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            {sampleWorkflows.map(w => (
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-750">
+                <td class="px-6 py-4 font-medium">{w.week}</td>
+                {[w.day1, w.day2, w.day3_4, w.day5, w.day6_7].map(d => (
+                  <td class="px-6 py-4">
+                    <div class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{d.task}</div>
+                    <span class={`text-xs font-medium ${d.status === 'done' ? 'text-green-600' : 'text-amber-600'}`}>{d.status === 'done' ? 'Done' : 'Pending'}</span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+      <h2 class="text-lg font-semibold mb-4">Current Week Action Plan</h2>
+      <div class="space-y-4">
+        <div class="p-4 bg-blue-50 dark:bg-blue-950 rounded-xl">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded">Day 1</span>
+            <span class="font-medium text-sm">GSC Data Export</span>
+          </div>
+          <ul class="space-y-1 ml-1">
+            <li class="text-xs text-gray-600 dark:text-gray-300">Export last 7 days of query/page data from Google Search Console</li>
+            <li class="text-xs text-gray-600 dark:text-gray-300">Filter: impressions &gt; 100, position 4-20, CTR &lt; 3%</li>
+            <li class="text-xs text-gray-600 dark:text-gray-300">Identify: top 10 queries, bottom 5 pages by CTR</li>
+          </ul>
+        </div>
+        <div class="p-4 bg-amber-50 dark:bg-amber-950 rounded-xl">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded">Day 2</span>
+            <span class="font-medium text-sm">Optimization Decision</span>
+          </div>
+          <ul class="space-y-1 ml-1">
+            <li class="text-xs text-gray-600 dark:text-gray-300">Classify each low-performing page: <strong>CTR issue</strong> (title rewrite), <strong>Content issue</strong> (add FAQ/depth), <strong>Link issue</strong> (internal links)</li>
+            <li class="text-xs text-gray-600 dark:text-gray-300">Focus on "optimizable pool": pages with impressions but low CTR</li>
+          </ul>
+        </div>
+        <div class="p-4 bg-purple-50 dark:bg-purple-950 rounded-xl">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-purple-500 text-white text-xs font-bold px-2 py-0.5 rounded">Day 3-4</span>
+            <span class="font-medium text-sm">Execute Updates</span>
+          </div>
+          <ul class="space-y-1 ml-1">
+            <li class="text-xs text-gray-600 dark:text-gray-300">Top priority: title rewrite with emotional triggers + utility promise</li>
+            <li class="text-xs text-gray-600 dark:text-gray-300">Add FAQ block (3+ items with schema.org markup)</li>
+            <li class="text-xs text-gray-600 dark:text-gray-300">Inject internal links: low intent → high intent, guide → core guide</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

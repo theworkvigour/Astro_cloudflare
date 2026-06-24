@@ -1,0 +1,79 @@
+import type { GscQuery, GscPage, PositionChange, SeoSnapshot, WeeklyWorkflow } from './types';
+
+export const sampleTopQueries: GscQuery[] = [
+  { query: 'how to choose a surfboard', impressions: 1250, clicks: 18, ctr: 1.44, position: 8.3 },
+  { query: 'surfboard size guide', impressions: 980, clicks: 12, ctr: 1.22, position: 6.7 },
+  { query: 'wetsuit thickness guide', impressions: 720, clicks: 9, ctr: 1.25, position: 7.1 },
+  { query: 'surfing for beginners', impressions: 650, clicks: 8, ctr: 1.23, position: 9.4 },
+  { query: 'foam board vs hard surfboard', impressions: 420, clicks: 6, ctr: 1.43, position: 5.8 },
+  { query: 'what to wear for surfing', impressions: 380, clicks: 4, ctr: 1.05, position: 12.3 },
+  { query: 'ocean safety basics', impressions: 310, clicks: 3, ctr: 0.97, position: 14.1 },
+  { query: 'surfboard types explained', impressions: 290, clicks: 5, ctr: 1.72, position: 4.2 },
+  { query: 'cold water surfing gear', impressions: 250, clicks: 2, ctr: 0.80, position: 11.5 },
+  { query: 'surf etiquette rules', impressions: 200, clicks: 1, ctr: 0.50, position: 16.2 },
+  { query: 'longboard vs shortboard', impressions: 180, clicks: 3, ctr: 1.67, position: 6.1 },
+  { query: '3mm vs 5mm wetsuit', impressions: 160, clicks: 2, ctr: 1.25, position: 8.9 },
+  { query: 'best surf gear brands', impressions: 140, clicks: 1, ctr: 0.71, position: 13.4 },
+  { query: 'wavefella surfboard pro', impressions: 120, clicks: 4, ctr: 3.33, position: 3.2 },
+  { query: 'surfing safety tips', impressions: 110, clicks: 1, ctr: 0.91, position: 10.7 },
+];
+
+export const sampleLowCtrPages: GscPage[] = [
+  { path: '/en/v2/what-to-wear-for-surfing', impressions: 380, clicks: 4, ctr: 1.05, position: 12.3, category: 'mid-rank' },
+  { path: '/en/v2/ocean-safety-basics', impressions: 310, clicks: 3, ctr: 0.97, position: 14.1, category: 'mid-rank' },
+  { path: '/en/v2/cold-water-surfing-gear-guide', impressions: 250, clicks: 2, ctr: 0.80, position: 11.5, category: 'mid-rank' },
+  { path: '/en/v2/surf-etiquette-rules', impressions: 200, clicks: 1, ctr: 0.50, position: 16.2, category: 'no-exposure' },
+  { path: '/en/v2/wavefella-wetsuit-pro', impressions: 150, clicks: 2, ctr: 1.33, position: 9.8, category: 'mid-rank' },
+  { path: '/en/v2/ocean-conditions-explained', impressions: 130, clicks: 1, ctr: 0.77, position: 15.3, category: 'no-exposure' },
+  { path: '/en/v2/best-surf-gear-brands-compared', impressions: 140, clicks: 1, ctr: 0.71, position: 13.4, category: 'mid-rank' },
+  { path: '/en/v2/3mm-vs-5mm-wetsuit', impressions: 160, clicks: 2, ctr: 1.25, position: 8.9, category: 'high-impression-low-ctr' },
+  { path: '/en/v2/surfing-safety-tips', impressions: 110, clicks: 1, ctr: 0.91, position: 10.7, category: 'mid-rank' },
+  { path: '/en/v2/ocean-safety-and-responsibility', impressions: 90, clicks: 0, ctr: 0.00, position: 18.6, category: 'no-exposure' },
+];
+
+export const samplePositionChanges: PositionChange[] = [
+  { slug: 'how-to-choose-a-surfboard-for-beginners', title: 'How to Choose a Surfboard', previousPosition: 12.1, currentPosition: 8.3, delta: -3.8, week: 'W24' },
+  { slug: 'surfing-for-beginners', title: 'Surfing for Beginners', previousPosition: 14.5, currentPosition: 9.4, delta: -5.1, week: 'W24' },
+  { slug: 'wetsuit-thickness-guide', title: '3mm vs 5mm Wetsuit Guide', previousPosition: 10.2, currentPosition: 7.1, delta: -3.1, week: 'W24' },
+  { slug: 'foam-board-vs-hard-surfboard', title: 'Foam vs Hard Surfboard', previousPosition: 7.3, currentPosition: 5.8, delta: -1.5, week: 'W24' },
+  { slug: 'types-of-surfboards-explained', title: 'Types of Surfboards', previousPosition: 5.1, currentPosition: 4.2, delta: -0.9, week: 'W24' },
+  { slug: 'wavefella-surfboard-pro', title: 'Wavefella Surfboard Pro', previousPosition: 4.0, currentPosition: 3.2, delta: -0.8, week: 'W24' },
+];
+
+export const sampleWorkflows: WeeklyWorkflow[] = [
+  {
+    week: 'W24 (Jun 10-16)',
+    day1: { task: 'GSC data export — top queries, low CTR pages', status: 'done' },
+    day2: { task: 'Classify 8 low-CTR pages: CTR fix vs content fix', status: 'done' },
+    day3_4: { task: 'Title rewrite for 3 pages (surfing-safety, wetsuit, etiquette)', status: 'done' },
+    day5: { task: 'Reindex updated pages via Google URL Inspection', status: 'done' },
+    day6_7: { task: 'Monitor impression/CTR changes — no significant shift yet', status: 'done' },
+  },
+  {
+    week: 'W25 (Jun 17-23)',
+    day1: { task: 'GSC data export + compare vs W24 baseline', status: 'done' },
+    day2: { task: 'Identify pages with position 8-20 that dropped further', status: 'done' },
+    day3_4: { task: 'Add FAQ block + internal links to 2 pages (ocean-basics, conditions)', status: 'done' },
+    day5: { task: 'Submit sitemap update + reindex', status: 'pending' },
+    day6_7: { task: 'Track position changes daily', status: 'pending' },
+  },
+  {
+    week: 'W26 (Jun 24-30)',
+    day1: { task: 'GSC data export — week 3 comparison', status: 'pending' },
+    day2: { task: 'A/B test title variants on top 5 queries', status: 'pending' },
+    day3_4: { task: 'Expand content on 2 highest-potential pages (+30% depth)', status: 'pending' },
+    day5: { task: 'Full sitemap refresh + Google reindex request', status: 'pending' },
+    day6_7: { task: 'Analyze position changes for 8→5 and 20→10 jumps', status: 'pending' },
+  },
+];
+
+export const sampleSnapshot: SeoSnapshot = {
+  week: 'W25 (Jun 17-23)',
+  impressions: 5890,
+  clicks: 72,
+  avgCtr: 1.22,
+  avgPosition: 9.8,
+  topQueries: sampleTopQueries,
+  lowCtrPages: sampleLowCtrPages,
+  healthScores: [],
+};

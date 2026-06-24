@@ -1,0 +1,226 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { contentV2Records } from '~/data/content-v2';
+import { computePageHealth } from '~/lib/seo/health-score';
+import { analyzeLinkDensity } from '~/lib/seo/link-optimizer';
+import { sampleTopQueries, sampleLowCtrPages } from '~/data/seo/sample-data';
+import { generateTaskList } from '~/lib/seo/task-list';
+
+const healthScores = computePageHealth(contentV2Records);
+const avgHealth = Math.round(healthScores.reduce((s, h) => s + h.total, 0) / healthScores.length);
+const needsOptimization = healthScores.filter(h => h.total < 60).length;
+const aGradeCount = healthScores.filter(h => h.grade === 'A').length;
+const linkAnalysis = analyzeLinkDensity(contentV2Records);
+const poorLinks = linkAnalysis.filter(l => l.score === 'poor').length;
+const tasks = generateTaskList(sampleTopQueries, sampleLowCtrPages, contentV2Records);
+const totalTasks = tasks.high.length + tasks.medium.length + tasks.low.length;
+---
+
+<Layout metadata={{ title: 'SEO Dashboard — Wavefella' }}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">SEO Operations Dashboard</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">v4.0 — Global Brand OS · SEO + GEO + Brand + Multi-Region · No AI</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-6">
+      <span class="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium">v4.0 Brand OS</span>
+      <span class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium">✓ Free Tier</span>
+      <span class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium">✓ No AI</span>
+      <span class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium">✓ Global</span>
+      <a href="/internal/seo/brand-os" class="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200 transition font-bold">Brand OS</a>
+      <a href="/internal/seo/social" class="px-3 py-1.5 bg-pink-100 text-pink-700 rounded-lg text-xs font-medium hover:bg-pink-200 transition">Social Engine</a>
+      <a href="/internal/seo/rules" class="px-3 py-1.5 bg-amber-100 text-amber-700 rounded-lg text-xs font-medium hover:bg-amber-200 transition">Rule Engine</a>
+      <a href="/internal/seo/tasks" class="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200 transition">Tasks ({totalTasks})</a>
+      <a href="/internal/seo/queries" class="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200 transition">Queries</a>
+      <a href="/internal/seo/workflow" class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 transition">Workflow</a>
+      <a href="/internal/seo/geo" class="px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg text-xs font-medium hover:bg-purple-200 transition">GEO</a>
+      <a href="/api/seo/run" target="_blank" class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-xs font-medium hover:bg-gray-200 transition">API</a>
+      <a href="/journal" target="_blank" class="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium hover:bg-green-200 transition">Journal →</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Avg Page Health</div>
+        <div class="text-3xl font-bold mt-1">{avgHealth}<span class="text-lg font-normal text-gray-400">/100</span></div>
+        <div class="text-xs text-gray-400 mt-1">{aGradeCount} pages at grade A</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Need Optimization</div>
+        <div class="text-3xl font-bold mt-1 text-amber-600">{needsOptimization}</div>
+        <div class="text-xs text-gray-400 mt-1">pages scoring below 60</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Pages w/ Weak Links</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{poorLinks}</div>
+        <div class="text-xs text-gray-400 mt-1">below 4 internal links</div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">🔥 High Priority Tasks</div>
+        <div class="text-3xl font-bold mt-1 text-red-600">{tasks.high.length}</div>
+        <div class="text-xs text-gray-400 mt-1"><a href="/internal/seo/tasks" class="underline">View task list</a></div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+        <div class="text-sm text-gray-500 dark:text-gray-400">Content Library</div>
+        <div class="text-3xl font-bold mt-1">{contentV2Records.length}</div>
+        <div class="text-xs text-gray-400 mt-1">pages across 5 languages</div>
+      </div>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Four Engines: SEO + GEO + Brand + Social</h2>
+        <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-bold">v4.0</span>
+      </div>
+      <div class="grid grid-cols-4 gap-3 text-sm">
+        <div class="p-3 bg-sky-50 dark:bg-sky-950 rounded-lg border border-sky-200">
+          <div class="font-semibold text-sky-700">SEO</div>
+          <div class="text-xs text-gray-500">GSC → Rules → Tasks → Content updates (6 regions)</div>
+        </div>
+        <div class="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg border border-purple-200">
+          <div class="font-semibold text-purple-700">GEO</div>
+          <div class="text-xs text-gray-500">AI-readable TLDR + Definition + Steps + FAQ</div>
+        </div>
+        <div class="p-3 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200">
+          <div class="font-semibold text-green-700">Brand</div>
+          <div class="text-xs text-gray-500">Guide → CTAs → Brand memory → Return search</div>
+        </div>
+        <div class="p-3 bg-pink-50 dark:bg-pink-950 rounded-lg border border-pink-200">
+          <div class="font-semibold text-pink-700">Social</div>
+          <div class="text-xs text-gray-500">1 article → 5 posts (TikTok/IG/X/Pin/Reddit)</div>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-4 text-xs text-gray-400">
+        <a href="/internal/seo/brand-os" class="underline hover:text-blue-600">Brand OS</a>
+        <a href="/internal/seo/social" class="underline hover:text-pink-600">Social Pipeline</a>
+        <a href="/journal" target="_blank" class="underline hover:text-blue-600">Journal →</a>
+        <span class="text-gray-300">|</span>
+        <span class="text-green-600">6 Regions · 20 Pages · 0 AI</span>
+      </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Compound Growth Loop</h2>
+        <span class="text-xs text-blue-600 font-medium">SEO → Social → Brand → Return → Higher SEO</span>
+      </div>
+      <div class="grid grid-cols-5 gap-2 text-center text-sm">
+        <div class="p-3 bg-sky-50 dark:bg-sky-950 rounded-lg">
+          <div class="font-semibold text-sky-700 text-xs">Local SEO</div>
+          <div class="text-[10px] text-gray-500 mt-1">Region keywords</div>
+        </div>
+        <div class="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+          <div class="font-semibold text-purple-700 text-xs">AI Citations</div>
+          <div class="text-[10px] text-gray-500 mt-1">GEO for GPT</div>
+        </div>
+        <div class="p-3 bg-pink-50 dark:bg-pink-950 rounded-lg">
+          <div class="font-semibold text-pink-700 text-xs">Social</div>
+          <div class="text-[10px] text-gray-500 mt-1">5 platforms</div>
+        </div>
+        <div class="p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+          <div class="font-semibold text-green-700 text-xs">Brand</div>
+          <div class="text-[10px] text-gray-500 mt-1">Memory</div>
+        </div>
+        <div class="p-3 bg-amber-50 dark:bg-amber-950 rounded-lg">
+          <div class="font-semibold text-amber-700 text-xs">Return</div>
+          <div class="text-[10px] text-gray-500 mt-1">Brand search ↑</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">Health Score Distribution</h2>
+        <div class="space-y-3">
+          {['A', 'B', 'C', 'D', 'F'].map(grade => {
+            const count = healthScores.filter(h => h.grade === grade).length;
+            const pct = Math.round(count / healthScores.length * 100);
+            const colorMap = { A: 'bg-green-500', B: 'bg-blue-500', C: 'bg-amber-500', D: 'bg-orange-500', F: 'bg-red-500' };
+            return (
+              <div>
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="font-medium">Grade {grade}</span>
+                  <span class="text-gray-500">{count} ({pct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2">
+                  <div class={`${colorMap[grade]} h-2 rounded-full`} style={`width: ${pct}%`}></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">Top Queries (GSC Sample)</h2>
+        <div class="space-y-2">
+          {sampleTopQueries.slice(0, 6).map(q => (
+            <div class="flex items-center justify-between text-sm py-1.5 border-b border-gray-100 dark:border-gray-700 last:border-0">
+              <div class="truncate flex-1">
+                <a href="/internal/seo/queries" class="text-blue-600 hover:underline">{q.query}</a>
+              </div>
+              <div class="flex gap-4 text-xs text-gray-500 ml-4 shrink-0">
+                <span>{q.impressions.toLocaleString()} imp</span>
+                <span class={q.ctr < 2 ? 'text-red-600 font-medium' : 'text-green-600'}>{q.ctr}%</span>
+                <span>#{q.position}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <a href="/internal/seo/queries" class="mt-3 inline-block text-sm text-blue-600 hover:underline">View all queries →</a>
+      </section>
+
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">🔥 Next Tasks</h2>
+        <div class="space-y-2">
+          {tasks.high.slice(0, 4).map(task => (
+            <div class="p-2.5 bg-red-50 dark:bg-red-950 rounded-lg text-sm">
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full shrink-0"></span>
+                <span class="font-medium text-xs truncate">{task.page}</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-0.5 ml-3">{task.type}: {task.action.length > 60 ? task.action.slice(0, 60) + '...' : task.action}</div>
+            </div>
+          ))}
+        </div>
+        <a href="/internal/seo/tasks" class="mt-3 inline-block text-sm text-blue-600 hover:underline">Full task list ({totalTasks}) →</a>
+      </section>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">Pages Needing CTR Improvement</h2>
+        <div class="space-y-2">
+          {sampleLowCtrPages.filter(p => p.ctr < 1.5).slice(0, 5).map(p => (
+            <div class="flex items-center justify-between text-sm py-1.5 border-b border-gray-100 dark:border-gray-700 last:border-0">
+              <span class="truncate flex-1">{p.path.split('/').pop()}</span>
+              <div class="flex gap-4 text-xs ml-4 shrink-0">
+                <span>{p.impressions} imp</span>
+                <span class="text-red-600 font-medium">{p.ctr}%</span>
+                <span>#{p.position}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <a href="/internal/seo/pages" class="mt-3 inline-block text-sm text-blue-600 hover:underline">CTR analysis →</a>
+      </section>
+
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4">Weekly Workflow — Status</h2>
+        <div class="space-y-3">
+          {['Data Pull (Day 1)', 'Decision (Day 2)', 'Content Update (Day 3-4)', 'Reindex (Day 5)', 'Observe (Day 6-7)'].map((step, i) => {
+            const done = i < 2;
+            return (
+              <div class="flex items-center gap-3 text-sm">
+                <span class={`w-3 h-3 rounded-full ${done ? 'bg-green-500' : 'bg-gray-300'}`}></span>
+                <span class={done ? 'text-gray-900 dark:text-white' : 'text-gray-400'}>{step}</span>
+                <span class={`ml-auto text-xs font-medium ${done ? 'text-green-600' : 'text-gray-400'}`}>{done ? 'Done' : 'Pending'}</span>
+              </div>
+            );
+          })}
+        </div>
+        <a href="/internal/seo/workflow" class="mt-3 inline-block text-sm text-blue-600 hover:underline">Full workflow →</a>
+      </section>
+    </div>
+  </main>
+</Layout>

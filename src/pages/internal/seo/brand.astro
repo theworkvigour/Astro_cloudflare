@@ -1,0 +1,138 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getAllBrandPages, BRAND_SUMMARY } from '~/lib/seo/brand-layer';
+
+const brandPages = getAllBrandPages();
+const totalCtas = brandPages.length;
+const beginerCount = brandPages.filter(p => p.category === 'beginner').length;
+const guideCount = brandPages.filter(p => p.category === 'guide').length;
+const comparisonCount = brandPages.filter(p => p.category === 'comparison').length;
+---
+
+<Layout metadata={{ title: 'Brand Layer v3.7', description: 'Brand conversion hub status' }}>
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <h1 class="text-3xl font-bold text-gray-900">Brand Layer</h1>
+        <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">v3.7</span>
+      </div>
+      <p class="text-gray-500">Brand conversion hub — Guide → Product flow · CTA system · Brand memory</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-gray-900">{totalCtas}</div>
+        <div class="text-xs text-gray-500 mt-1">Pages with CTAs</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-sky-600">{beginerCount}</div>
+        <div class="text-xs text-gray-500 mt-1">Beginner Guides</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-amber-600">{guideCount}</div>
+        <div class="text-xs text-gray-500 mt-1">Gear Guides</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-purple-600">{comparisonCount}</div>
+        <div class="text-xs text-gray-500 mt-1">Comparisons</div>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+        <div class="text-2xl font-bold text-green-600">{BRAND_SUMMARY.categories.length}</div>
+        <div class="text-xs text-gray-500 mt-1">Product Categories</div>
+      </div>
+    </div>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Brand Identity</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <span class="text-gray-400 text-xs uppercase tracking-wider">Name</span>
+          <p class="font-semibold text-gray-900 mt-1">{BRAND_SUMMARY.name}</p>
+        </div>
+        <div>
+          <span class="text-gray-400 text-xs uppercase tracking-wider">Tagline</span>
+          <p class="font-semibold text-gray-900 mt-1">{BRAND_SUMMARY.tagline}</p>
+        </div>
+        <div>
+          <span class="text-gray-400 text-xs uppercase tracking-wider">Founded</span>
+          <p class="font-semibold text-gray-900 mt-1">{BRAND_SUMMARY.foundingYear}</p>
+        </div>
+        <div class="md:col-span-3">
+          <span class="text-gray-400 text-xs uppercase tracking-wider">Ethos</span>
+          <div class="flex gap-2 mt-1">
+            {BRAND_SUMMARY.ethos.map(e => (
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">{e}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Conversion Flow: Guide → Product</h2>
+        <span class="text-xs text-gray-400">{totalCtas} pages with product CTAs</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left text-gray-400 text-xs uppercase">
+              <th class="pb-3 pr-4">Page</th>
+              <th class="pb-3 pr-4">Category</th>
+              <th class="pb-3 pr-4">CTA Text</th>
+              <th class="pb-3 pr-4">CTA Link</th>
+              <th class="pb-3 pr-4">Products</th>
+              <th class="pb-3">Keywords</th>
+            </tr>
+          </thead>
+          <tbody>
+            {brandPages.map(p => (
+              <tr class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="py-3 pr-4 font-medium text-gray-900">{p.title}</td>
+                <td class="py-3 pr-4">
+                  <span class={`px-2 py-0.5 rounded text-xs font-medium ${
+                    p.category === 'beginner' ? 'bg-sky-100 text-sky-700' :
+                    p.category === 'comparison' ? 'bg-purple-100 text-purple-700' :
+                    p.category === 'guide' ? 'bg-amber-100 text-amber-700' :
+                    'bg-green-100 text-green-700'
+                  }`}>{p.category}</span>
+                </td>
+                <td class="py-3 pr-4 text-sky-600">{p.cta.text}</td>
+                <td class="py-3 pr-4 text-gray-500 text-xs">{p.cta.link}</td>
+                <td class="py-3 pr-4">
+                  <div class="flex gap-1 flex-wrap">
+                    {p.productSlugs.map(s => (
+                      <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">{s}</span>
+                    ))}
+                  </div>
+                </td>
+                <td class="py-3 text-xs text-gray-400">{p.brandKeywords.slice(0, 2).join(', ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="bg-white border border-gray-200 rounded-xl p-6">
+      <h2 class="text-lg font-semibold mb-3">Growth Layers</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="p-4 bg-sky-50 rounded-xl border border-sky-200">
+          <span class="text-xs font-bold uppercase tracking-wider text-sky-600">SEO Layer</span>
+          <p class="text-sm text-gray-700 mt-2">Traffic entry via guide pages, how-tos, and comparisons.</p>
+          <span class="text-xs text-sky-500 mt-2 block">{guideCount + comparisonCount} pages</span>
+        </div>
+        <div class="p-4 bg-purple-50 rounded-xl border border-purple-200">
+          <span class="text-xs font-bold uppercase tracking-wider text-purple-600">GEO Layer</span>
+          <p class="text-sm text-gray-700 mt-2">AI-readable structured blocks for ChatGPT, Perplexity, SGE.</p>
+          <span class="text-xs text-purple-500 mt-2 block">TLDR + Definition + Steps + FAQ</span>
+        </div>
+        <div class="p-4 bg-green-50 rounded-xl border border-green-200">
+          <span class="text-xs font-bold uppercase tracking-wider text-green-600">Brand Layer</span>
+          <p class="text-sm text-gray-700 mt-2">Guide → Product conversion, brand memory, return search.</p>
+          <span class="text-xs text-green-500 mt-2 block">{totalCtas} conversion paths</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

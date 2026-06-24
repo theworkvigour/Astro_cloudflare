@@ -1,0 +1,152 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { BRAND, getEngines } from '~/lib/seo/brand-os';
+import { products } from '~/data/products';
+
+const metadata = {
+  title: `Wavefella — ${BRAND.tagline}`,
+  description: BRAND.description,
+  ignoreTitleTemplate: true,
+};
+
+const coreProducts = products.filter(p => ['sup-explorer-11', 'sup-tour-12', 'life-vest-pro', 'paddle-carbon'].includes(p.id));
+
+const guideLinks = [
+  { href: '/guides/how-to-choose-your-sup', title: 'How to Choose Your SUP', desc: 'Find the right board for your skill and water conditions.' },
+  { href: '/guides/beginner-guide', title: "Beginner's Guide to Paddling", desc: 'First session essentials — from inflation to your first stroke.' },
+  { href: '/guides/sup-fitness', title: 'SUP Fitness & Training', desc: 'Full-body workouts on the water for all fitness levels.' },
+];
+---
+
+<Layout metadata={metadata}>
+  <meta name="ai-intent" content="brand-overview,ocean-performance,surf-equipment,water-sports" />
+  <meta name="last-modified" content="2026-06-24" />
+  <meta name="X-Robots-Tag" content="index, follow" />
+
+  <!-- HERO: Brand Identity -->
+  <section class="relative min-h-[80vh] flex items-center justify-center text-center text-white overflow-hidden bg-gradient-to-br from-[#001830] via-[#002d4a] to-[#003355]">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.08)_0%,transparent_60%)]"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24">
+      <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/60">Since {BRAND.foundingYear}</span>
+      <h1 class="mt-8 text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-balance">{BRAND.name}</h1>
+      <p class="mt-4 text-xl md:text-2xl text-white/90 font-light">{BRAND.tagline}</p>
+      <p class="mt-4 text-base text-white/70 max-w-2xl mx-auto">{BRAND.description}</p>
+      <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
+        <a href="/products" class="group px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl">
+          Explore Gear
+          <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+        </a>
+        <a href="/guides/how-to-choose-your-sup" class="px-8 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-all backdrop-blur-sm">
+          Learn Surfing
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND POSITION -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Brand Position</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900">Ocean Performance for Every Surfer</h2>
+      <p class="mt-4 text-lg text-gray-500 leading-relaxed">
+        {BRAND.name} engineers surfboards, wetsuits, and ocean accessories for surfers who demand performance in real conditions. Every product is designed, tested, and proven in the ocean — not in a lab.
+      </p>
+    </div>
+    <div class="mt-16 grid md:grid-cols-3 gap-8">
+      {BRAND.ethos.map(e => {
+        const [title, ...rest] = e.split(' — ');
+        return (
+          <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+            <h3 class="text-lg font-semibold text-gray-900">{title}</h3>
+            <p class="mt-3 text-sm text-gray-500 leading-relaxed">{rest.join(' — ')}</p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- CORE PRODUCTS -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Core Products</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900">Surfboards · Wetsuits · Accessories</h2>
+        <p class="mt-4 text-lg text-gray-500">Three product lines engineered for ocean performance.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {coreProducts.map(p => (
+          <a href={`/products/${p.id}`} class="group block bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 text-sm">{p.category}</div>
+            <div class="p-5">
+              <h3 class="font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{p.name}</h3>
+              <p class="text-sm text-gray-500 mt-1 line-clamp-2">{p.desc}</p>
+              <div class="mt-3 flex gap-2 text-xs">
+                <span class="px-2 py-1 bg-sky-50 text-sky-700 rounded-full">{p.skill}</span>
+                <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{p.safety_level}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+        <a href="/products" class="group block bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl border border-sky-200 p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-shadow">
+          <span class="text-3xl text-sky-400">+</span>
+          <span class="mt-2 font-semibold text-sky-700 group-hover:text-sky-800">All Products →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING SYSTEM -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Learning System</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900">Start Here Before You Buy</h2>
+      <p class="mt-4 text-lg text-gray-500">Expert guides written for real ocean conditions — from your first session to advanced techniques.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {guideLinks.map(g => (
+        <a href={g.href} class="group block bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-all hover:-translate-y-0.5">
+          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{g.title}</h3>
+          <p class="mt-3 text-sm text-gray-500">{g.desc}</p>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">Read guide →</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href="/guides" class="text-sm font-medium text-sky-600 hover:text-sky-700">Browse all guides →</a>
+    </div>
+  </section>
+
+  <!-- GLOBAL TRUST SIGNAL -->
+  <section class="bg-gray-900 text-white py-24 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/50">Global Trust Signal</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-semibold">Designed for Surfers Worldwide</h2>
+      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">CE-certified products trusted by surfers, instructors, and patrol teams across {BRAND.regions.length} regions globally.</p>
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-6">
+        {BRAND.regions.map(r => (
+          <div class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm">
+            <span>{r.flag}</span>
+            <span>{r.name}</span>
+            <span class="text-white/50 text-xs">({r.locale})</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6 text-center bg-white">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-semibold text-gray-900">Ready to get on the water?</h2>
+      <p class="mt-4 text-lg text-gray-500">Every product CE certified, every purchase backed by warranty. Start your ocean journey with {BRAND.name}.</p>
+      <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
+        <a href="/products" class="px-10 py-4 bg-gray-900 text-white rounded-full font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+          {BRAND.cta.text} →
+        </a>
+        <a href="/wavefella" class="px-10 py-4 border-2 border-gray-200 text-gray-700 rounded-full font-semibold hover:border-gray-400 transition-all">
+          About {BRAND.name}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

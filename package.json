@@ -12,6 +12,7 @@
     "start": "astro dev",
     "build": "node scripts/geo-build.mjs && astro build",
     "build:all": "node scripts/build-all.js",
+    "seo:pipeline": "node scripts/seo-pipeline.mjs",
     "geo:build": "node scripts/geo-build.mjs",
     "preview": "astro preview",
     "astro": "astro",
