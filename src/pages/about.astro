@@ -6,13 +6,13 @@ import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import TrustBadges from '~/components/common/TrustBadges.astro';
 import { SITE, I18N } from 'astrowind:config';
 
 import yamlData from '~/data/pages/about.yaml';
 
 const locale = I18N?.language || 'en';
 const entry = await getEntry('about', 'index');
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
 const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
 
@@ -26,9 +26,8 @@ const locations = data.features2_locations ?? {};
 
 const metadata = {
   title: `About ${SITE.name} — Inflatable Boat Manufacturer & Marine Engineering`,
-  description: `${SITE.name} designs and manufactures premium inflatable boats, RIBs and engineered products. Learn about our history, values and team. Get a quote today.`,
+  description: `${SITE.name} was founded with a simple belief: marine products should be engineered like they matter. Learn our story, ocean philosophy, and design principles.`,
 };
-
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'About' }];
 ---
 
@@ -36,6 +35,93 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'About' }];
   <Hero tagline={hero.tagline} image={hero.image} title={hero.title} subtitle={hero.subtitle} />
 
   <Stats title={stats.title} stats={stats.stats} />
+
+  <!-- Brand Origin Story -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Our Origin</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900 dark:text-slate-100 leading-tight">
+          Built on the water,<br />
+          <span class="text-sky-600">driven by purpose</span>
+        </h2>
+        <div class="mt-8 space-y-5 text-gray-600 dark:text-slate-400 leading-relaxed">
+          <p>Wavefella started in a coastal workshop with one boat and a stubborn belief: marine products should be engineered like they matter — because they do.</p>
+          <p>Our founders, two naval architects, saw an industry where corners were cut, materials were downgraded, and safety was treated as a checkbox. They built the first Wavefella hull not for profit, but to prove that affordable marine gear could also be genuinely reliable.</p>
+          <p>That first hull is still in service today. That principle never changed.</p>
+          <p>We are not the biggest manufacturer. We do not make the cheapest products. But every hull that leaves our workshop passes through the same hands that started the company — and meets the same standard that first hull set.</p>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800 aspect-[4/3]">
+        <img src="/images/wavefella/hero/hero-scenic.png" alt="Wavefella coastal workshop" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Ocean Philosophy -->
+  <section class="bg-gray-50 dark:bg-slate-900/50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Our Philosophy</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900 dark:text-slate-100">Rooted in the ocean</h2>
+        <p class="mt-4 text-lg text-gray-500 dark:text-slate-400">The ocean is not our workplace. It is our teacher. Every design decision starts with understanding how water behaves, how conditions change, and how gear must respond.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700">
+          <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-2xl">🌊</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900 dark:text-slate-100">Respect the Water</h3>
+          <p class="mt-3 text-gray-500 dark:text-slate-400 text-sm leading-relaxed">Water is unpredictable. Our products are engineered for the worst conditions, not the best. If a hull can handle a riptide, it will handle a lake. If a life vest works offshore, it is over-engineered for a river — and that is intentional.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700">
+          <div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/30 rounded-xl flex items-center justify-center text-2xl">🔄</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900 dark:text-slate-100">Built to Last, Not to Replace</h3>
+          <p class="mt-3 text-gray-500 dark:text-slate-400 text-sm leading-relaxed">The most sustainable product is the one that does not need replacing. Marine-grade PVC, Hypalon, and drop-stitch construction are chosen for longevity. We still ship spare parts for hulls we built a decade ago.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700">
+          <div class="w-14 h-14 bg-amber-50 dark:bg-amber-900/30 rounded-xl flex items-center justify-center text-2xl">🌍</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900 dark:text-slate-100">Accessible by Design</h3>
+          <p class="mt-3 text-gray-500 dark:text-slate-400 text-sm leading-relaxed">Water sports should not be a luxury. We engineer products that deliver professional-grade performance at a price that makes sense for families, guides, and small operators — not just commercial fleets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Philosophy -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800 aspect-[4/3] order-last md:order-first">
+        <img src="/images/wavefella/hero/hero-4.jpg" alt="Wavefella design and engineering" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Design Philosophy</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900 dark:text-slate-100 leading-tight">
+          Engineered for the edge<br />
+          <span class="text-sky-600">of conditions</span>
+        </h2>
+        <div class="mt-8 space-y-5 text-gray-600 dark:text-slate-400 leading-relaxed">
+          <p>Every Wavefella product starts with one question: <em>what is the worst condition this will face?</em> We design from the edge inward, not from the center outward.</p>
+          <p>Our drop-stitch cores are rated for 15 PSI — not because 12 PSI is insufficient for a lake, but because a 15 PSI board handles a sudden chop without flexing. Our Hypalon tubes are specified for commercial-grade UV resistance — not because every customer paddles in the tropics, but because UV degradation is the #1 cause of premature failure.</p>
+          <p>We do not design to a price point. We design to a failure point — then build well above it.</p>
+        </div>
+        <div class="mt-8 grid grid-cols-3 gap-4">
+          <div class="text-center p-4 bg-gray-50 dark:bg-slate-800 rounded-xl">
+            <div class="text-2xl font-bold text-sky-600">15</div>
+            <div class="text-xs text-gray-500 dark:text-slate-400 mt-1">PSI core<br/>rating</div>
+          </div>
+          <div class="text-center p-4 bg-gray-50 dark:bg-slate-800 rounded-xl">
+            <div class="text-2xl font-bold text-sky-600">1,500+</div>
+            <div class="text-xs text-gray-500 dark:text-slate-400 mt-1">UV hours<br/>tested</div>
+          </div>
+          <div class="text-center p-4 bg-gray-50 dark:bg-slate-800 rounded-xl">
+            <div class="text-2xl font-bold text-sky-600">10yr</div>
+            <div class="text-xs text-gray-500 dark:text-slate-400 mt-1">hull<br/>lifespan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges title="Built to standards that matter" subtitle="Every Wavefella product is certified, tested, and backed by a warranty that means something." />
 
   <Features3
     title={wwb.title}

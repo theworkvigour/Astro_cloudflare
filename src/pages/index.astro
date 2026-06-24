@@ -4,6 +4,7 @@ import { SITE } from 'astrowind:config';
 import { products } from '../data/products';
 import { bundles } from '../data/bundles';
 import JsonLd from '~/components/common/JsonLd.astro';
+import TrustBadges from '~/components/common/TrustBadges.astro';
 
 const metadata = {
   title: SITE.name,
@@ -524,7 +525,7 @@ const faqLd = faqItems.map(f => ({ question: f.q, answer: f.a }));
     </div>
   </section>
 
-  <!-- Proof Layer -->
+  <!-- Proof Points + Trust Layer -->
   <section class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-16">
@@ -541,15 +542,7 @@ const faqLd = faqItems.map(f => ({ question: f.q, answer: f.a }));
           </div>
         ))}
       </div>
-      <div class="grid md:grid-cols-4 gap-6">
-        {trustPoints.map(t => (
-          <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">✓</div>
-            <h3 class="mt-4 font-semibold text-gray-900">{t.title}</h3>
-            <p class="text-gray-500 mt-2 text-sm">{t.desc}</p>
-          </div>
-        ))}
-      </div>
+      <TrustBadges />
     </div>
   </section>
 

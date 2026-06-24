@@ -8,6 +8,7 @@ import ProductLayout from '~/layouts/ProductLayout.astro';
 import ProductCard from '~/components/widgets/ProductCard.astro';
 import ToBlogLink from '~/components/blog/ToBlogLink.astro';
 import JsonLd from '~/components/common/JsonLd.astro';
+import TrustBadges from '~/components/common/TrustBadges.astro';
 
 import { findRelatedProducts, getStaticPathsProduct } from '~/utils/products';
 import { findImage } from '~/utils/images';
@@ -150,6 +151,13 @@ const specRows = product.specs ?? [];
       </div>
     </section>
   )}
+
+  <!-- Trust Badges -->
+  <section class="section-premium bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <TrustBadges layout="row" />
+    </div>
+  </section>
 
   <!-- Gallery -->
   {gallery.length > 0 && (
