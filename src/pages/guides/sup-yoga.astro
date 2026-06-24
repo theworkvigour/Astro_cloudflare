@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `SUP Yoga Guide — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'SUP Yoga Guide',
+    description: 'Practice yoga on an inflatable SUP. Board selection, poses for beginners and advanced, anchoring tips, and the benefits of paddling plus yoga.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/sup-yoga' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'SUP Yoga Guide',
+    description: 'Practice yoga on an inflatable SUP. Board selection, poses for beginners and advanced, anchoring tips, and the benefits of paddling plus yoga.',
+    steps: [
+      { name: 'Choosing a Board for Yoga', text: 'Wider is better for yoga. Look for boards 32 inches or wider with a thick, comfortable EVA foam deck pad.' },
+      { name: 'Setting Up Your Floating Studio', text: 'Inflate your board to 12-15 PSI for a firm, stable platform. Anchor the board in a sheltered cove or shallow area.' },
+      { name: 'Beginner Poses', text: 'Start with Mountain Pose, Tree Pose, Warrior II, and Cat-Cow to warm up the spine. Practice near shore or in shallow water until you build confidence.' },
+      { name: 'Intermediate Poses', text: 'Try Downward-Facing Dog, Chair Pose, Half Moon using the paddle as support, and Pigeon Pose.' },
+      { name: 'Advanced Practice', text: 'Challenge yourself with Handstand near shore with a spotter, Crow Pose for arm balance, and Headstand once mastered on land.' },
+      { name: 'Benefits of SUP Yoga', text: 'SUP yoga activates more stabilizing muscles than land yoga. The calming effect of water reduces cortisol and enhances focus.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Yoga Guide</h1>

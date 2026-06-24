@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import { products } from '../data/products';
 import { bundles } from '../data/bundles';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: SITE.name,
@@ -140,6 +141,8 @@ const faqItems = [
     a: 'Yes. We offer curated bundles like the Explorer Starter Pack and Family Fun Pack that save you up to $198 compared to buying items separately. Browse all bundles at the Bundle Deals page.',
   },
 ];
+
+const faqLd = faqItems.map(f => ({ question: f.q, answer: f.a }));
 ---
 
 <Layout metadata={metadata}>
@@ -309,6 +312,19 @@ const faqItems = [
       </div>
     </div>
   </section>
+
+  <!-- AI Overview (visible + AI-crawlable) -->
+  <section class="ai-summary bg-blue-50/80 dark:bg-slate-800/50 border-l-4 border-blue-500 rounded-r-xl px-6 py-5 max-w-6xl mx-auto mt-8 mb-8" aria-label="AI overview">
+    <div class="flex items-start gap-3">
+      <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">AI Overview</span>
+      <div class="space-y-1.5 text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
+        <p><strong>Wavefella</strong> designs and manufactures professional-grade inflatable water sports equipment — SUP boards, kayaks, dinghies, RIBs, safety gear, and accessories.</p>
+        <p>Every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction for rigidity at 12-15 PSI. The product line covers six categories across all skill levels, from beginner SUP boards to professional patrol RIBs used by law enforcement and rescue teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <JsonLd type="FAQPage" faqs={faqLd} />
 
   <!-- Product System -->
   <section id="products" class="max-w-6xl mx-auto py-24 px-6">

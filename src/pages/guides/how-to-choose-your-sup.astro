@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import { products } from '../../data/products';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `How to Choose Your SUP — ${SITE.name}`,
@@ -11,6 +12,20 @@ const sups = products.filter(p => p.category === 'SUP');
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'How to Choose Your SUP Board',
+    description: 'Learn how to choose the right inflatable SUP board based on length, width, volume, skill level, and water environment.',
+    datePublished: '2025-01-10',
+  }} data={{ url: 'https://alluredna.com/guides/how-to-choose-your-sup' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'How to Choose Your SUP',
+    description: 'Select the right inflatable SUP board for your needs.',
+    steps: [
+      { name: 'Choose Length', text: 'Longer boards 11-12 ft track straighter for touring. Shorter boards 9-10 ft turn faster for surfing and maneuvering.' },
+      { name: 'Choose Width', text: 'Wider boards 32-34 in offer stability for beginners. Narrower boards 28-30 in are faster but require better balance.' },
+      { name: 'Match Skill Level', text: 'Wavefella offers boards for all levels from beginner to professional. Match the board specs to your experience.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">How to Choose Your SUP</h1>

@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `SUP Fishing Guide — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'SUP Fishing Guide',
+    description: 'Learn how to fish from an inflatable SUP. Board selection, gear setup, casting techniques, and safety tips for stand-up paddleboard fishing.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/sup-fishing' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'SUP Fishing Guide',
+    description: 'Learn how to fish from an inflatable SUP. Board selection, gear setup, casting techniques, and safety tips.',
+    steps: [
+      { name: 'Choosing a Board for Fishing', text: 'Stability is the priority. A wider board like the SUP Explorer 11 with 32-inch width provides a stable platform for gear and casting.' },
+      { name: 'Essential Gear', text: 'Start with a paddle leash, anchor system, dry bag, rod holder, and life vest. A milk crate bungeed to the deck organizes tackle.' },
+      { name: 'Casting from a SUP', text: 'Stand with feet wider than usual. Keep knees slightly bent. Cast parallel to the board\'s length to avoid falling sideways.' },
+      { name: 'Fighting & Landing Fish', text: 'Sit down on the board for stability. Let the fish tire itself out. Use a landing net with a long handle and keep the fish low to avoid tipping.' },
+      { name: 'Best Environments', text: 'SUP fishing excels in shallow flats, mangroves, and estuaries. Calm lakes and slow rivers are ideal for beginners.' },
+      { name: 'Safety Considerations', text: 'Always wear your life vest. Attach your leash. Carry a whistle or air horn. Tell someone your float plan.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Fishing Guide</h1>

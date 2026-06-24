@@ -1,0 +1,172 @@
+---
+import { SITE, SITE_SETTINGS } from 'astrowind:config';
+
+export interface BreadcrumbItem {
+  name: string;
+  item?: string;
+  href?: string;
+}
+
+export interface FaqItem {
+  question?: string;
+  answer?: string;
+  q?: string;
+  a?: string;
+}
+
+export interface ProductLd {
+  name: string;
+  description: string;
+  sku?: string;
+  image?: string;
+  url?: string;
+  category?: string;
+  price?: { amount?: string; currency?: string };
+  inStock?: boolean;
+  brandName?: string;
+}
+
+export interface ArticleLd {
+  headline: string;
+  description: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+  authorUrl?: string;
+}
+
+export interface HowToStep {
+  name: string;
+  text: string;
+  image?: string;
+  url?: string;
+}
+
+export interface HowToLd {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+  image?: string;
+  totalTime?: string;
+  estimatedCost?: string;
+}
+
+export interface Props {
+  type: 'Organization' | 'WebSite' | 'BreadcrumbList' | 'Product' | 'FAQPage' | 'Article' | 'HowTo';
+  data?: Record<string, unknown>;
+  breadcrumbs?: BreadcrumbItem[];
+  faqs?: FaqItem[];
+  product?: ProductLd;
+  article?: ArticleLd;
+  howto?: HowToLd;
+}
+
+const { type, data, breadcrumbs, faqs, product, article, howto } = Astro.props;
+const siteUrl = String(SITE.site).replace(/\/+$/, '');
+const name = SITE_SETTINGS?.siteName || SITE?.name || 'Wavefella';
+const authorName = 'Wavefella Team';
+
+let schema: Record<string, unknown> = { '@context': 'https://schema.org' };
+
+if (type === 'Organization') {
+  schema = { ...schema, '@type': 'Organization', name, url: siteUrl, ...(data || {}) };
+} else if (type === 'WebSite') {
+  schema = { ...schema, '@type': 'WebSite', name, url: siteUrl, ...(data || {}) };
+} else if (type === 'BreadcrumbList' && breadcrumbs) {
+  schema = {
+    ...schema,
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((b, i) => {
+      const href = b.item || b.href;
+      return {
+        '@type': 'ListItem',
+        position: i + 1,
+        name: b.name,
+        ...(href ? { item: href.startsWith('http') ? href : `${siteUrl}${href}` } : {}),
+      };
+    }),
+  };
+} else if (type === 'Product' && product) {
+  schema = {
+    ...schema,
+    '@type': 'Product',
+    '@id': product.url ? `${product.url}#product` : undefined,
+    name: product.name,
+    description: product.description,
+    ...(product.sku ? { sku: product.sku } : {}),
+    ...(product.image ? { image: product.image } : {}),
+    ...(product.url ? { url: product.url } : {}),
+    ...(product.category ? { category: product.category } : {}),
+    brand: { '@type': 'Brand', name: product.brandName || name },
+    ...(product.price
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: product.price.amount,
+            priceCurrency: product.price.currency || 'USD',
+            availability: product.inStock !== false
+              ? 'https://schema.org/InStock'
+              : 'https://schema.org/OutOfStock',
+            url: product.url || undefined,
+          },
+        }
+      : {}),
+  };
+} else if (type === 'FAQPage' && faqs && faqs.length > 0) {
+  schema = {
+    ...schema,
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question || f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer || f.a },
+    })),
+  };
+} else if (type === 'Article' && article) {
+  schema = {
+    ...schema,
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    ...(article.image ? { image: article.image } : {}),
+    ...(article.datePublished ? { datePublished: article.datePublished } : {}),
+    ...(article.dateModified ? { dateModified: article.dateModified } : {}),
+    author: {
+      '@type': 'Person',
+      name: article.authorName || authorName,
+      ...(article.authorUrl ? { url: article.authorUrl } : {}),
+    },
+    publisher: {
+      '@type': 'Organization',
+      name,
+      url: siteUrl,
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': data?.['url'] || siteUrl },
+  };
+} else if (type === 'HowTo' && howto) {
+  schema = {
+    ...schema,
+    '@type': 'HowTo',
+    name: howto.name,
+    description: howto.description,
+    ...(howto.image ? { image: howto.image } : {}),
+    ...(howto.totalTime ? { totalTime: howto.totalTime } : {}),
+    ...(howto.estimatedCost ? { estimatedCost: howto.estimatedCost } : {}),
+    step: howto.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.image ? { image: s.image } : {}),
+      ...(s.url ? { url: s.url } : {}),
+    })),
+  };
+}
+---
+
+{
+  schema && Object.keys(schema).length > 2 && (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )
+}

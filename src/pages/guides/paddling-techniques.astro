@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `SUP Paddling Techniques — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'SUP Paddling Techniques',
+    description: 'Master forward stroke, sweep turn, reverse stroke, cross-bow turn, and bracing techniques for efficient and confident SUP paddling.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/paddling-techniques' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'SUP Paddling Techniques',
+    description: 'Master forward stroke, sweep turn, reverse stroke, cross-bow turn, and bracing techniques.',
+    steps: [
+      { name: 'The Forward Stroke', text: 'The foundation of all SUP paddling. Reach forward with the paddle blade, submerge it fully, and pull it back alongside the board using torso rotation.' },
+      { name: 'The Sweep Turn', text: 'For wide, controlled turns. Reach the paddle wide to the side and sweep in a half-circle toward the tail. Practice on both sides.' },
+      { name: 'The Reverse Stroke', text: 'Used for slowing down, stopping, and backing up. Plant the paddle blade behind you and push forward close to the board.' },
+      { name: 'The Cross-Bow Turn', text: 'An advanced technique for quick direction changes. Reach across the nose of the board and plant the paddle on the opposite side.' },
+      { name: 'Bracing', text: 'A low brace slaps the blade flat on the water to prevent falling. A high brace keeps the paddle shaft horizontal above your head.' },
+      { name: 'Cadence & Pacing', text: 'For distance paddling find 40-50 strokes per minute. For recreational cruising 30-40 strokes per minute is comfortable.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP Paddling Techniques</h1>

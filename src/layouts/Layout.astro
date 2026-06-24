@@ -12,12 +12,14 @@ import SiteVerification from '~/components/common/SiteVerification.astro';
 import Analytics from '~/components/common/Analytics.astro';
 import BasicScripts from '~/components/common/BasicScripts.astro';
 import AIChat from '~/components/widgets/AIChat.astro';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 // Comment the line below to disable View Transitions
 import { ClientRouter } from 'astro:transitions';
 
 import type { MetaData as MetaDataType } from '~/types';
 import { getSeoSettings } from '~/utils/seo-settings';
+import langData from '~/data/site/languages.yaml';
 export interface Props {
   metadata?: MetaDataType;
 }
@@ -33,36 +35,13 @@ const sameAs = (seo.socialLinks || [])
   .map((s) => s?.url)
   .filter((u): u is string => typeof u === 'string' && u.length > 0);
 
-const orgJsonLd: Record<string, unknown> = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: orgName,
-  url: seo.siteUrl,
-  logo: orgLogo,
-  description: SITE_SETTINGS.siteDescription,
-};
-if (seo.organizationEmail) orgJsonLd.email = seo.organizationEmail;
-if (seo.organizationPhone) orgJsonLd.telephone = seo.organizationPhone;
-if (seo.organizationAddress) orgJsonLd.address = seo.organizationAddress;
-if (sameAs.length > 0) orgJsonLd.sameAs = sameAs;
-
-const websiteJsonLd: Record<string, unknown> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE_SETTINGS.siteName || orgName,
-  url: seo.siteUrl,
-  description: SITE_SETTINGS.siteDescription,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${seo.siteUrl.replace(/\/+$/, '')}/search?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
-};
-
 const siteUrlTrimmed = seo.siteUrl.replace(/\/+$/, '');
+
+const enabledLangs = (Array.isArray(langData) ? langData : []).filter((l: any) => l.enabled !== false);
+
+const hostname = Astro.url.hostname;
+const isSubdomain = hostname.split('.').length >= 3 && hostname !== 'localhost';
+const pathname = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -79,11 +58,50 @@ const siteUrlTrimmed = seo.siteUrl.replace(/\/+$/, '');
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-    <link rel="alternate" hreflang="en" href={`${siteUrlTrimmed}${Astro.url.pathname}`} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrlTrimmed}${Astro.url.pathname}`} />
+    {
+      enabledLangs.map((l: any) => (
+        <link
+          rel="alternate"
+          hreflang={l.locale}
+          href={isSubdomain
+            ? `${Astro.url.protocol}//${l.locale}.${hostname.split('.').slice(1).join('.')}${pathname}`
+            : `${siteUrlTrimmed}${pathname}`
+          }
+        />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={isSubdomain
+        ? `${Astro.url.protocol}//en.${hostname.split('.').slice(1).join('.')}${pathname}`
+        : `${siteUrlTrimmed}${pathname}`
+      }
+    />
 
-    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+    <JsonLd type="Organization" data={{
+      name: orgName,
+      url: seo.siteUrl,
+      logo: orgLogo,
+      description: SITE_SETTINGS.siteDescription,
+      ...(seo.organizationEmail ? { email: seo.organizationEmail } : {}),
+      ...(seo.organizationPhone ? { telephone: seo.organizationPhone } : {}),
+      ...(seo.organizationAddress ? { address: seo.organizationAddress } : {}),
+      ...(sameAs.length > 0 ? { sameAs } : {}),
+    }} />
+    <JsonLd type="WebSite" data={{
+      name: SITE_SETTINGS.siteName || orgName,
+      url: seo.siteUrl,
+      description: SITE_SETTINGS.siteDescription,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteUrlTrimmed}/search?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    }} />
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />

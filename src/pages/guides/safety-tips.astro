@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `Water Safety Tips — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'Water Safety Tips for SUP and Kayak Paddling',
+    description: 'Essential safety practices for SUP and kayak paddling: weather checks, PFD selection, leash use, cold water awareness, and navigation rules.',
+    datePublished: '2025-01-20',
+  }} data={{ url: 'https://alluredna.com/guides/safety-tips' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'Water Safety Tips',
+    description: 'Essential safety practices for paddling.',
+    steps: [
+      { name: 'Always Wear a PFD', text: 'A personal flotation device (life vest) is the most important piece of safety equipment. Choose a vest rated for your environment.' },
+      { name: 'Use a Leash', text: 'Always attach the leash to your ankle or calf. If you fall, your board stays within reach.' },
+      { name: 'Check Weather and Water Conditions', text: 'Check wind speed, direction, and forecast before launching. Wind above 15 mph makes paddling difficult and dangerous.' },
+      { name: 'Know Cold Water Risks', text: 'Water below 60°F (15°C) can cause cold water shock. Wear a wetsuit or drysuit in cold conditions.' },
+      { name: 'Navigation Rules', text: 'Paddlers are classified as vessels. Stay to the right in channels. Yield to motorized vessels.' },
+      { name: 'Tell Someone Your Plan', text: 'Share your float plan: where you are launching, where you are going, and when you expect to return.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">Water Safety Tips</h1>

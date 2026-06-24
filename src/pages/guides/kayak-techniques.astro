@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `Kayak Paddling Techniques — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'Kayak Paddling Techniques',
+    description: 'Learn proper kayak paddling technique: forward stroke, sweep stroke, draw stroke, bracing, and edging for inflatable kayaks.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/kayak-techniques' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'Kayak Paddling Techniques',
+    description: 'Learn proper kayak paddling technique: forward stroke, sweep stroke, draw stroke, bracing, and edging.',
+    steps: [
+      { name: 'The Forward Stroke', text: 'Unlike SUP, kayak paddling uses a double-bladed paddle with alternating strokes. Rotate your torso to drive the stroke.' },
+      { name: 'The Sweep Stroke', text: 'For turning the kayak, plant the paddle blade wide near the bow and sweep it in a wide arc toward the stern.' },
+      { name: 'The Draw Stroke', text: 'Moves the kayak sideways without turning. Reach out to the side, plant the blade parallel to the boat, and pull the water toward you.' },
+      { name: 'Bracing', text: 'A low brace uses the back of the paddle blade to slap the water and prevent tipping. A high brace holds the paddle overhead.' },
+      { name: 'Edging', text: 'Tilts the kayak slightly to carve turns. Shift your hips while keeping your upper body upright for sharper turning.' },
+      { name: 'Paddling with a Partner (Tandem)', text: 'The rear paddler sets cadence and steering. The front paddler follows the rhythm. Use sweep strokes for turning.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">Kayak Paddling Techniques</h1>

@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `SUP for Fitness & Cross-Training — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'SUP for Fitness & Cross-Training',
+    description: 'Use stand-up paddleboarding as a full-body workout. Learn SUP fitness routines, calorie burn, muscle groups engaged, and training plans.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/sup-fitness' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'SUP for Fitness & Cross-Training',
+    description: 'Use stand-up paddleboarding as a full-body workout.',
+    steps: [
+      { name: 'Muscle Groups Engaged', text: 'SUP paddling works your core, back, shoulders, arms, and legs. A 60-minute SUP session burns 400-700 calories depending on intensity.' },
+      { name: 'Endurance Training', text: 'Use the SUP Tour 12 for distance paddling. Maintain a steady cadence of 50-60 strokes per minute for 45-90 minutes with torso rotation.' },
+      { name: 'Interval Training', text: 'Alternate 2 minutes of sprint paddling with 2 minutes of active recovery. Repeat 8-10 times for cardiovascular fitness.' },
+      { name: 'SUP Yoga Cross-Training', text: 'Combine SUP paddling days with SUP yoga days for a balanced fitness routine. Paddling builds endurance, yoga develops flexibility.' },
+      { name: 'Recovery Paddling', text: 'On rest days, a gentle 30-minute paddle at low intensity promotes blood flow and recovery without taxing muscles.' },
+      { name: 'Building a Weekly Routine', text: 'Monday: 45-min endurance paddle. Wednesday: 30-min interval training. Friday: 30-min SUP yoga. Saturday: 60-min distance paddle. Sunday: 30-min recovery paddle.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">SUP for Fitness & Cross-Training</h1>

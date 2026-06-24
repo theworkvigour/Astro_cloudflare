@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `Inflatable Boat Care & Repair — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'Inflatable Boat Care & Repair Guide',
+    description: 'Complete guide to repairing inflatable SUPs, kayaks, and boats. Puncture repair, valve replacement, seam repair, and preventive maintenance.',
+    datePublished: '2025-02-01',
+  }} data={{ url: 'https://alluredna.com/guides/inflatable-repair' }} />
+  <JsonLd type="HowTo" howto={{
+    name: 'Inflatable Boat Care & Repair',
+    description: 'How to repair inflatable SUPs, kayaks, and boats.',
+    steps: [
+      { name: 'Finding a Leak', text: 'Inflate to 10 PSI. Spray soapy water and look for bubbles. Common leak areas: valve base, seam edges, and around fin boxes.' },
+      { name: 'Repairing Small Punctures', text: 'Clean with alcohol, apply PVC adhesive, place a patch, and press firmly. Weight the patch for 24 hours.' },
+      { name: 'Repairing Seam Separations', text: 'Clean both surfaces with acetone. Apply two thin coats of PVC adhesive to each surface. Press together firmly.' },
+      { name: 'Valve Replacement', text: 'Use a valve tool to unscrew the core. Apply PTFE tape to the new core threads and tighten.' },
+      { name: 'When to Seek Professional Repair', text: 'Large tears over 2 inches, drop-stitch thread damage, or valve base separation requires professional attention.' },
+      { name: 'Preventive Care', text: 'Avoid dragging on rough surfaces. Inflate to correct pressure 12-15 PSI. Rinse after saltwater use.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">Inflatable Boat Care & Repair</h1>

@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `Inflatable vs Hard SUP Board — ${SITE.name}`,
@@ -9,6 +10,11 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: 'Inflatable vs Hard SUP Board',
+    description: 'Compare inflatable drop-stitch SUP boards vs rigid epoxy/fiberglass boards. Portability, durability, performance, storage, and cost differences explained.',
+    datePublished: '2025-01-01',
+  }} data={{ url: 'https://alluredna.com/guides/inflatable-vs-hard' }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">Inflatable vs Hard SUP Board</h1>

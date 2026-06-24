@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 const metadata = {
   title: `Beginner's Guide to SUP Paddling — ${SITE.name}`,
@@ -9,6 +10,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <JsonLd type="Article" article={{
+    headline: "Beginner's Guide to SUP Paddling",
+    description: 'Step-by-step guide for first-time SUP paddlers. Learn stance, stroke technique, turning, safety checks, and how to launch.',
+    datePublished: '2025-01-15',
+  }} data={{ url: 'https://alluredna.com/guides/beginner-guide' }} />
+  <JsonLd type="HowTo" howto={{
+    name: "Beginner's Guide to SUP Paddling",
+    description: 'Step-by-step guide for first-time SUP paddlers.',
+    steps: [
+      { name: 'Choose the Right Board', text: 'Start with a wide, stable board like the Wavefella SUP Explorer 11 with 32" width for a stable platform.' },
+      { name: 'Safety First', text: 'Always wear a life vest (PFD). Attach the leash to your ankle. Check weather and wind conditions before launching.' },
+      { name: 'Basic Stance', text: 'Stand with feet shoulder-width apart, parallel to the carrying handle. Keep knees slightly bent. Look at the horizon.' },
+      { name: 'The Forward Stroke', text: 'Reach forward with the paddle blade, submerge it fully, and pull it back alongside the board. Switch sides every 5-10 strokes.' },
+      { name: 'Turning', text: 'For a sweep turn reach wide to the side and sweep in a half-circle toward the tail. For a reverse turn paddle backward on one side.' },
+      { name: 'Getting Back On', text: 'If you fall, stay with your board. Swim to the side, place your paddle on the board, and use a kick to push yourself up.' },
+    ],
+  }} />
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
     <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
     <h1 class="mt-4 text-4xl font-semibold text-gray-900">Beginner's Guide to Paddling</h1>

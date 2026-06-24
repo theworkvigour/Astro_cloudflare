@@ -7,6 +7,7 @@ import merge from 'lodash.merge';
 import ProductLayout from '~/layouts/ProductLayout.astro';
 import ProductCard from '~/components/widgets/ProductCard.astro';
 import ToBlogLink from '~/components/blog/ToBlogLink.astro';
+import JsonLd from '~/components/common/JsonLd.astro';
 
 import { findRelatedProducts, getStaticPathsProduct } from '~/utils/products';
 import { findImage } from '~/utils/images';
@@ -64,35 +65,20 @@ const productCrumbs = [
 ];
 
 const specRows = product.specs ?? [];
-const productJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  '@id': url ? `${url}#product` : undefined,
-  name: product.title,
-  description: product.summary ?? product.description,
-  sku: product.sku,
-  image: image ? String(image) : undefined,
-  brand: { '@type': 'Brand', name: SITE.name },
-  category: product.categoryLabel,
-  url: url || undefined,
-  ...(product.price?.amount
-    ? {
-        offers: {
-          '@type': 'Offer',
-          price: product.price.amount,
-          priceCurrency: product.price.currency || 'USD',
-          availability: product.inStock
-            ? 'https://schema.org/InStock'
-            : 'https://schema.org/OutOfStock',
-          url: url || undefined,
-        },
-      }
-    : {}),
-};
 ---
 
 <ProductLayout metadata={metadata} breadcrumbs={productCrumbs}>
-  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+  <JsonLd type="Product" product={{
+    name: product.title,
+    description: product.summary ?? product.description ?? '',
+    sku: product.sku,
+    image: image ? String(image) : undefined,
+    url: String(url || ''),
+    category: product.categoryLabel,
+    brandName: SITE.name,
+    ...(product.price ? { price: { amount: product.price.amount, currency: product.price.currency }, inStock: product.inStock } : {}),
+  }} />
+  <JsonLd type="BreadcrumbList" breadcrumbs={productCrumbs.map(c => ({ name: c.name, href: c.href }))} />
 
   <!-- Hero Image -->
   <section class="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden bg-gray-100 dark:bg-slate-900">
@@ -210,34 +196,78 @@ const productJsonLd = {
     </section>
   )}
 
-  <!-- AI Data Blocks -->
+  <!-- AI Summary (visible to users + AI crawlers) -->
   {rec && (
-    <section class="sr-only" aria-hidden="true">
-      <div data-ai-block="definition">
-        <p>{rec.definition}</p>
-        <p>Problem it solves: {rec.problem}</p>
-        <p>How it works: {rec.howItWorks}</p>
-        <p>Target audience: {rec.audience}</p>
-      </div>
-      <div data-ai-block="use-case">
-        <p>Use cases: {rec.ai_use_cases.join('; ')}</p>
-        <p>Environments: {rec.environment.join(', ')}</p>
-        <p>Water conditions: {rec.water_condition.join(', ')}</p>
-        <p>Skill level: {rec.skill}</p>
-      </div>
-      <div data-ai-block="specification">
-        {Object.entries(rec.ai_specs).map(([k, v]) => (<p data-spec={k}>{k}: {v}</p>))}
-      </div>
-      <div data-ai-block="comparison"><p>{rec.ai_comparison}</p></div>
-      <div data-ai-block="faq">
-        {rec.ai_faq.map(f => (<p><strong>Q:</strong> {f.q} <strong>A:</strong> {f.a}</p>))}
-      </div>
-      <div data-ai-block="constraint">
-        <p>Safety rules: {rec.safety_rules.join('; ')}</p>
-        <p>Safety level: {rec.safety_level}</p>
-        <p>Regions: {rec.region.join(', ')}</p>
-      </div>
-    </section>
+    <>
+      <section class="ai-summary bg-blue-50 dark:bg-slate-800/50 border-l-4 border-blue-500 rounded-r-xl px-6 py-5 max-w-6xl mx-auto mt-8" aria-label="AI summary">
+        <div class="flex items-start gap-3">
+          <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">AI Overview</span>
+          <div class="space-y-2 text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
+            <p>{rec.definition}</p>
+            <p><strong>How it works:</strong> {rec.howItWorks}</p>
+            <p><strong>Best for:</strong> {rec.audience}</p>
+            <p><strong>Use cases:</strong> {rec.ai_use_cases.join(' · ')}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      {rec.ai_faq.length > 0 && (
+        <section class="section-premium bg-white dark:bg-slate-950">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="reveal max-w-4xl mx-auto">
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-default dark:text-slate-100 mb-8 text-center">Frequently Asked Questions</h2>
+              <div class="space-y-4">
+                {rec.ai_faq.map(f => (
+                  <details class="group rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 open:bg-white dark:open:bg-slate-800 transition-colors">
+                    <summary class="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-semibold text-default dark:text-slate-200 list-none">
+                      {f.q}
+                      <span class="shrink-0 ml-2 text-gray-400 group-open:rotate-180 transition-transform">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </span>
+                    </summary>
+                    <div class="px-5 pb-4 text-sm text-gray-600 dark:text-slate-400 leading-relaxed border-t border-gray-100 dark:border-slate-700 pt-3 mt-0">
+                      {f.a}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Schema FAQ -->
+      <JsonLd type="FAQPage" faqs={rec.ai_faq} />
+
+      <!-- Hidden AI data blocks (machine-readable) -->
+      <section class="sr-only" aria-hidden="true">
+        <div data-ai-block="definition">
+          <p>{rec.definition}</p>
+          <p>Problem it solves: {rec.problem}</p>
+          <p>How it works: {rec.howItWorks}</p>
+          <p>Target audience: {rec.audience}</p>
+        </div>
+        <div data-ai-block="use-case">
+          <p>Use cases: {rec.ai_use_cases.join('; ')}</p>
+          <p>Environments: {rec.environment.join(', ')}</p>
+          <p>Water conditions: {rec.water_condition.join(', ')}</p>
+          <p>Skill level: {rec.skill}</p>
+        </div>
+        <div data-ai-block="specification">
+          {Object.entries(rec.ai_specs).map(([k, v]) => (<p data-spec={k}>{k}: {v}</p>))}
+        </div>
+        <div data-ai-block="comparison"><p>{rec.ai_comparison}</p></div>
+        <div data-ai-block="faq">
+          {rec.ai_faq.map(f => (<p><strong>Q:</strong> {f.q} <strong>A:</strong> {f.a}</p>))}
+        </div>
+        <div data-ai-block="constraint">
+          <p>Safety rules: {rec.safety_rules.join('; ')}</p>
+          <p>Safety level: {rec.safety_level}</p>
+          <p>Regions: {rec.region.join(', ')}</p>
+        </div>
+      </section>
+    </>
   )}
 
   <!-- Related Products -->
