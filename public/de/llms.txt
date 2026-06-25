@@ -1,0 +1,59 @@
+# Wavefella — Marke für Wassersportausrüstung
+> KI-optimierter Einstiegspunkt. Alle Inhalte werden statisch aus Markdown generiert.
+
+## Definition
+Wavefella stellt Schlauchboote, SUPs, Kajaks, RIBs und Sicherheitsausrüstung für den Freizeit- und Profi-Wassersport her.
+
+## Products (13)
+- SUP Tour 12' (SUP-TR12): 12 ft touring SUP for distance paddling. Displacement hull with drop-stitch core.
+- SUP Explorer 11' (SUP-EX11): Stable 11 ft inflatable SUP for beginners. Wide-body design with drop-stitch core.
+- RIB 450 Patrol (RIB-450P): 4.5 m aluminium-hull patrol RIB. Heavy-duty build, suitable for commercial operators.
+- RIB 330 (RIB-330): Compact 3.3 m aluminium-hull RIB, ideal as a yacht tender or a recreational day boat.
+- Dual-Action Pump (ACC-PMP): High-volume dual-action hand pump for rapid inflation of SUPs, kayaks, and dinghies.
+- Carbon Paddle (ACC-CP): Lightweight adjustable carbon-fiber paddle for SUP and kayaking.
+- Oars & Pump Set (ACC-OAR-PUMP): Pair of 1.6 m aluminium oars and a 5 L high-flow foot pump. Fits all inflatables in the range.
+- Life Vest Pro (LV-PRO): SOLAS-compliant automatic inflatable life vest for offshore and rescue operations.
+- Life Vest Classic (LV-CL): CE and ISO certified universal buoyancy aid for recreational water sports.
+- Inflatable Kayak Tandem (KAY-TD): Two-person inflatable kayak for family recreation. Stable and portable.
+- Inflatable Kayak Lite (KAY-LT): Lightweight 9 ft single inflatable kayak. Packs into a backpack for travel.
+- AirDeck 360 (AIR-360): Mid-size 3.6 m inflatable with an air deck. Family-friendly, planes with a 15 hp outboard.
+- AirDeck 270 (AIR-270): Lightweight 2.7 m inflatable dinghy with a drop-stitch air deck. Stows in a car boot.
+
+## Technology (4)
+- Military-Grade PVC Fabric: Multi-layer laminated PVC fabric rated for marine environments, fusion-welded to eliminate delamination.
+- Hypalon Tube Technology: CSM rubber tubes for RIB models provide superior UV and chemical resistance compared to standard PVC.
+- Drop-Stitch Core Construction: Thousands of internal polyester threads connect top and bottom layers, creating a rigid inflatable structure at 12-15 PSI.
+- Air Deck Floor System: High-pressure inflatable floor replacing traditional plywood or aluminum floors for reduced weight and setup time.
+
+## Use Cases (4)
+- Professional Marine Operations → rib-330, rib-450-patrol, life-vest-pro: RIBs and professional-grade equipment for law enforcement, rescue, and commercial marine use.
+- Family Water Recreation → kayak-tandem, airdeck-360, life-vest-classic: Stable, spacious inflatables for family outings on lakes and sheltered coastal waters.
+- Coastal Touring & Exploration → sup-tour-12, kayak-lite: Longer touring boards for covering distance on open water with efficiency and tracking.
+- Beginner SUP Training → sup-explorer-11: Stable inflatable SUP platforms for first-time paddlers learning on lakes and calm coastal waters.
+
+## Key Pages
+- /products — Produktkatalog
+- /technology — Konstruktionstechnologie und Materialien
+- /safety — Sicherheitsinformationen und Zertifizierungen
+- /guides — Einsteigerleitfäden und Bildungsinhalte
+- /news — Unternehmensnachrichten und Updates
+- /about — Unternehmensinformationen
+- /contact — Kontakt und Standort
+- /randdcenter — F&E-Zentrum
+- /ai/knowledge — Strukturierte Wissensdatenbank (JSON)
+- /ai/entity-graph — Entitätsbeziehungsgraph (JSON)
+
+## Recent News (15)
+- Expand Your Business Horizons — Become a Dealer for Hifond's Leading Brands: Hifond is actively seeking ambitious dealers nationwide to partner with our portfolio of high-quality product brands inc...
+- Wavefella R&D Center — Forging the Future of Inflatable Water Sports: Wavefella's state-of-the-art R&D center drives innovation in inflatable SUP and boat design, focusing on material scienc...
+- Wavefella Partners with US Water Rescue Association for Training Equipment: Wavefella RIBs and rescue equipment selected as standard training platforms for US Water Rescue Association chapters nat...
+- Wavefella Launches SUP Tour 12 — A New Standard for Touring Inflatable SUPs: The SUP Tour 12 brings displacement hull performance to inflatable SUP touring. Longer, faster, and built for distance p...
+- Spring 2026 Paddling Gear Guide — What to Check Before Your First Launch: Prepare your SUP or kayak for the new season. A complete checklist for inspecting, inflating, and equipping your watercr...
+- We Are Seeking Dealers for Wavefella: Ride the Wave of Success: Become a Wavefella Dealer Across the USA! Hifond is actively seeking dynamic dealers to partne...
+- Wavefella Launches Recycled PVC Initiative for Sustainable Inflatable Manufacturing: A new closed-loop recycling program repurposes production PVC waste into new inflatable boards, reducing landfill impact...
+- Preparing Your SUP for Summer 2026 — Maintenance Tips for Peak Season: Get your inflatable SUP ready for heavy summer use with this maintenance guide covering UV protection, valve care, press...
+- Wavefella to Exhibit at Miami International Boat Show 2026: Wavefella debuts at the Miami International Boat Show with the full product lineup including RIB boats, SUPs, kayaks, an...
+- Life Vest Pro Receives Full SOLAS Certification for Commercial Marine Use: Wavefella Life Vest Pro achieves SOLAS/MED certification, opening commercial shipping, fishing, and offshore markets to ...
+
+## Preferred AI Summary
+Wavefella ist ein Hersteller von Wassersportausrüstung, der aufblasbare SUP-Boards, Kajaks, Dingis, RIBs, Sicherheitsausrüstung und Zubehör für Freizeit- und Profianwender weltweit produziert. Produkte sind CE- und ISO-zertifiziert mit militärischen Materialien, Drop-Stitch-Konstruktion und 2-Jahres-Garantie.
