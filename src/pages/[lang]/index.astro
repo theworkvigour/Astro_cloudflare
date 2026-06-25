@@ -114,10 +114,10 @@ const useCases = [
 ];
 
 const proofPoints = [
-  { metric: '12', label: 'products across 6 categories', detail: 'SUP, Kayak, Dinghy, RIB, Safety, Accessory' },
-  { metric: '50+', label: 'countries served', detail: 'Global distribution network across EU, US, ASIA' },
-  { metric: '2012', label: 'founded', detail: 'Over a decade of water sports manufacturing' },
-  { metric: 'ISO', label: 'CE & ISO certified', detail: 'Every product meets international safety standards' },
+  { metric: '12', label: t('home.proof.products'), detail: 'SUP, Kayak, Dinghy, RIB, Safety, Accessory' },
+  { metric: '50+', label: t('home.proof.countries'), detail: t('home.proof.countries.detail') },
+  { metric: '2012', label: t('home.proof.founded'), detail: t('home.proof.founded.detail') },
+  { metric: 'ISO', label: t('home.proof.certified'), detail: t('home.proof.certified.detail') },
 ];
 
 const faqData = page.faqs?.items?.length ? page.faqs : null;
@@ -361,8 +361,8 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
     <div class="flex items-start gap-3">
       <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">{t('home.ai.label')}</span>
       <div class="space-y-1.5 text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
-        <p><strong>Wavefella</strong> designs and manufactures professional-grade inflatable water sports equipment — SUP boards, kayaks, dinghies, RIBs, safety gear, and accessories.</p>
-        <p>Every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction for rigidity at 12-15 PSI.</p>
+        <p><strong>Wavefella</strong> {t('home.ai.desc1')}</p>
+        <p>{t('home.ai.desc2')}</p>
       </div>
     </div>
   </section>
