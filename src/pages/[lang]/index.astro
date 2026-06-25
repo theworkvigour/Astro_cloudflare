@@ -19,6 +19,8 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const page = getPageContent(lang);
 
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+
 const metadata = {
   title: SITE.name,
   description: SITE?.description,
@@ -47,8 +49,8 @@ const categories = [...new Set(products.map(p => p.category))].map(cat => {
   const waters = [...new Set(items.flatMap(p => p.environment))];
   const skills = [...new Set(items.map(p => p.skill))];
   const names: Record<string, string> = {
-    SUP: 'SUP Boards', KAYAK: 'Inflatable Kayaks', DINGHY: 'Dinghies',
-    RIB: 'RIBs & Rigid Hulls', SAFETY: 'Safety Equipment', ACCESSORY: 'Accessories',
+    SUP: t('home.category.sups'), KAYAK: t('home.category.kayaks'), DINGHY: t('home.category.dinghies'),
+    RIB: t('home.category.ribs'), SAFETY: t('home.category.safety'), ACCESSORY: t('home.category.accessories'),
   };
   const meta = categoryMeta[cat] || { img: '', color: 'from-gray-400 to-gray-500' };
   return {
@@ -78,34 +80,34 @@ const productVisuals: Record<string, string> = {
 
 const useCases = [
   {
-    title: 'Beginner Water Sports',
-    desc: 'Stable SUP boards and kayaks for first-time users.',
-    scenario: 'A family visiting a lake for the weekend wants to try paddle boarding. They need stable, easy-to-launch equipment with clear safety guidance.',
-    solution: 'The SUP Explorer 11 provides wide-body stability for beginners. The Life Vest Classic ensures CE-certified flotation. The Dual-Action Pump inflates both boards in under 10 minutes.',
+    title: t('home.useCases.beginner.title'),
+    desc: t('home.useCases.beginner.desc'),
+    scenario: t('home.useCases.beginner.scenario'),
+    solution: t('home.useCases.beginner.solution'),
     products: ['SUP Explorer 11', 'Life Vest Classic', 'Dual-Action Pump'],
     img: '/images/wavefella/use-cases/beginner.jpg',
   },
   {
-    title: 'Outdoor Exploration',
-    desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.',
-    scenario: 'An outdoor enthusiast plans a week-long river trip and needs a boat that packs small, inflates at camp, and handles varying currents.',
-    solution: 'The Kayak Lite packs into a backpack and inflates in under 4 minutes. Its drop-stitch construction handles lakes, slow rivers, and coastal paddling.',
+    title: t('home.useCases.outdoor.title'),
+    desc: t('home.useCases.outdoor.desc'),
+    scenario: t('home.useCases.outdoor.scenario'),
+    solution: t('home.useCases.outdoor.solution'),
     products: ['Inflatable Kayak Lite', 'Carbon Paddle', 'Life Vest Classic'],
     img: '/images/wavefella/use-cases/outdoor.jpg',
   },
   {
-    title: 'Professional Operations',
-    desc: 'Commercial-grade RIBs for tour operators and emergency response.',
-    scenario: 'A coastal tour operator needs a fleet of durable boats that run daily trips in varying sea conditions and meet commercial safety regulations.',
-    solution: 'The RIB 330 and RIB 450 Patrol use fiberglass deep-V hulls with Hypalon tubes for all-weather durability. Multiple units can be deployed with consistent performance.',
+    title: t('home.useCases.pro.title'),
+    desc: t('home.useCases.pro.desc'),
+    scenario: t('home.useCases.pro.scenario'),
+    solution: t('home.useCases.pro.solution'),
     products: ['RIB 330', 'RIB 450 Patrol', 'Life Vest Pro'],
     img: '/images/wavefella/use-cases/professional.jpg',
   },
   {
-    title: 'Family Recreation',
-    desc: 'Spacious dinghies for day trips, fishing, and watersports.',
-    scenario: 'A family of four wants a stable boat for weekend lake outings, fishing trips, and towing a tube for the kids.',
-    solution: 'The AirDeck 360 seats up to five with a reinforced air deck floor. It inflates at the launch site, stores in the car, and handles both calm lakes and sheltered coastal waters.',
+    title: t('home.useCases.family.title'),
+    desc: t('home.useCases.family.desc'),
+    scenario: t('home.useCases.family.scenario'),
+    solution: t('home.useCases.family.solution'),
     products: ['AirDeck 360', 'Life Vest Classic', 'Dual-Action Pump'],
     img: '/images/wavefella/use-cases/family.jpg',
   },
@@ -124,8 +126,6 @@ const faqItems = faqData
   : [];
 
 const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, answer: f.a }));
-
-const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 ---
 
 <Layout metadata={metadata}>
@@ -158,7 +158,7 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
     </div>
     <div class="relative z-10 max-w-5xl mx-auto px-6 py-24">
       <div class="reveal">
-        <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/60">Since 2012</span>
+        <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/60">{t('hero.since')}</span>
         <h1 class="mt-8 text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-balance drop-shadow-xl" set:html={page.hero?.title || t('hero.title')}>
         </h1>
         <p class="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto text-pretty drop-shadow-lg leading-relaxed" set:html={page.hero?.subtitle || t('hero.subtitle')}>
@@ -187,18 +187,18 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- Trust Bar -->
   <section class="border-b border-gray-100 bg-white">
     <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-center gap-x-16 gap-y-3 text-sm font-medium text-gray-600">
-      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Stable for Beginners</span>
-      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Travel-Ready Design</span>
-      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Ocean, Lake & River Tested</span>
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> {t('home.trust.stable')}</span>
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> {t('home.trust.travel')}</span>
+      <span class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> {t('home.trust.tested')}</span>
     </div>
   </section>
 
   <!-- Top Guides (SEO Entry) -->
   <section class="max-w-6xl mx-auto py-24 px-6">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Top Guides</span>
-      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Start here before you buy</h2>
-      <p class="mt-4 text-lg text-gray-500">Three beginner guides that cover the essentials — surfboard selection, wetsuit fit, and your first session.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.guides.title')}</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.guides.subtitle')}</h2>
+      <p class="mt-4 text-lg text-gray-500">{t('home.guides.desc')}</p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       {contentV2Records.filter(c => ['how-to-choose-a-surfboard-for-beginners', 'wetsuit-thickness-guide', 'surfing-for-beginners'].includes(c.slug)).map(c => (
@@ -206,12 +206,12 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
           <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{c.type.replace('-', ' ')}</span>
           <h3 class="mt-3 text-xl font-semibold text-gray-900 group-hover:text-sky-700 transition-colors">{c.title}</h3>
           <p class="mt-2 text-sm text-gray-500 line-clamp-2">{c.description}</p>
-          <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">Read guide →</span>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 group-hover:text-sky-700">{t('home.guides.read')}</span>
         </a>
       ))}
     </div>
     <div class="mt-8 text-center">
-      <a href={`/${lang}/v2`} class="text-sm font-medium text-sky-600 hover:text-sky-700">Browse all 20 guides and comparisons →</a>
+      <a href={`/${lang}/v2`} class="text-sm font-medium text-sky-600 hover:text-sky-700">{t('home.guides.browse')}</a>
     </div>
   </section>
 
@@ -287,9 +287,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <section class="bg-gray-50 py-24 px-6" id="products">
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Find your match</span>
-        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Three scenarios, three solutions</h2>
-        <p class="mt-4 text-lg text-gray-500">Real product pairings for real situations — each matched to skill level, water type, and safety needs.</p>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.preview.tagline')}</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.preview.title')}</h2>
+        <p class="mt-4 text-lg text-gray-500">{t('home.preview.subtitle')}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -297,9 +297,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
             <img src="/images/wavefella/products/sup-allround.jpg" alt="Beginner" class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">Beginner</span>
-            <h3 class="mt-2 text-xl font-semibold text-gray-900">Taking your first strokes</h3>
-            <p class="mt-2 text-sm text-gray-500">You want to try paddle boarding on calm lakes. You need stability, clear safety guidance, and gear that won't sink your confidence.</p>
+            <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{t('home.preview.beginner.label')}</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">{t('home.preview.beginner.title')}</h3>
+            <p class="mt-2 text-sm text-gray-500">{t('home.preview.beginner.desc')}</p>
           </div>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -307,9 +307,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
             <img src="/images/wavefella/products/airdeck-360.jpg" alt="Family" class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">Family</span>
-            <h3 class="mt-2 text-xl font-semibold text-gray-900">A family day on the water</h3>
-            <p class="mt-2 text-sm text-gray-500">Weekend lake trips with the family. You need a stable, spacious boat that inflates at the launch site and packs in the car.</p>
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">{t('home.preview.family.label')}</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">{t('home.preview.family.title')}</h3>
+            <p class="mt-2 text-sm text-gray-500">{t('home.preview.family.desc')}</p>
           </div>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -317,9 +317,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
             <img src="/images/wavefella/products/rib-450-patrol.jpg" alt="Professional" class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-red-600">Professional</span>
-            <h3 class="mt-2 text-xl font-semibold text-gray-900">Patrol and rescue operations</h3>
-            <p class="mt-2 text-sm text-gray-500">Law enforcement or SAR teams need all-weather durability, consistent performance across multiple units, and commercial-grade reliability.</p>
+            <span class="text-xs font-semibold uppercase tracking-wider text-red-600">{t('home.preview.pro.label')}</span>
+            <h3 class="mt-2 text-xl font-semibold text-gray-900">{t('home.preview.pro.title')}</h3>
+            <p class="mt-2 text-sm text-gray-500">{t('home.preview.pro.desc')}</p>
           </div>
         </div>
       </div>
@@ -359,7 +359,7 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- AI Overview -->
   <section class="ai-summary bg-blue-50/80 dark:bg-slate-800/50 border-l-4 border-blue-500 rounded-r-xl px-6 py-5 max-w-6xl mx-auto mt-8 mb-8" aria-label="AI overview">
     <div class="flex items-start gap-3">
-      <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">AI Overview</span>
+      <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider flex-shrink-0 mt-0.5">{t('home.ai.label')}</span>
       <div class="space-y-1.5 text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
         <p><strong>Wavefella</strong> designs and manufactures professional-grade inflatable water sports equipment — SUP boards, kayaks, dinghies, RIBs, safety gear, and accessories.</p>
         <p>Every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction for rigidity at 12-15 PSI.</p>
@@ -372,9 +372,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- Product System -->
   <section id="product-system" class="max-w-6xl mx-auto py-24 px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
-      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
-      <p class="mt-4 text-lg text-gray-500">From paddleboards to rescue vessels — each category designed for specific environments, skill levels, and use cases.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.productSystem.tagline')}</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.productSystem.title').replace('{count}', String(products.length))}</h2>
+      <p class="mt-4 text-lg text-gray-500">{t('home.productSystem.subtitle')}</p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       {categories.map(cat => (
@@ -399,25 +399,25 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- Technology -->
   <section class="max-w-6xl mx-auto py-24 px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Technology</span>
-      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for Performance</h2>
-      <p class="mt-4 text-lg text-gray-500">Every Wavefella board is engineered with precision materials and construction methods.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.tech.tagline')}</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.tech.title')}</h2>
+      <p class="mt-4 text-lg text-gray-500">{t('home.tech.subtitle')}</p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
         <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">PVC</div>
-        <h3 class="mt-6 text-lg font-semibold text-gray-900">Military-Grade PVC Layer</h3>
-        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Multi-layer laminated PVC fabric rated for marine environments. Tested for UV, abrasion, and puncture resistance.</p>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">{t('home.tech.pvc.title')}</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.tech.pvc.desc')}</p>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
         <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">DS</div>
-        <h3 class="mt-6 text-lg font-semibold text-gray-900">Drop-Stitch Core</h3>
-        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Thousands of internal threads connect top and bottom layers, creating a rigid, high-pressure structure at 12–15 PSI.</p>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">{t('home.tech.ds.title')}</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.tech.ds.desc')}</p>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
         <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">RR</div>
-        <h3 class="mt-6 text-lg font-semibold text-gray-900">Reinforced Rail Edge</h3>
-        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Double-layered fusion-welded rail protects against dock scrapes, beach landings, and side impacts.</p>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">{t('home.tech.rr.title')}</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.tech.rr.desc')}</p>
       </div>
     </div>
   </section>
@@ -425,9 +425,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- Use Cases -->
   <section class="max-w-6xl mx-auto py-24 px-6" data-ai-block="use-case">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
-      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for real water experiences</h2>
-      <p class="mt-4 text-lg text-gray-500">From first-time paddlers to professional operators — Wavefella equips every water adventure.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.useCases.tagline')}</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.useCases.title')}</h2>
+      <p class="mt-4 text-lg text-gray-500">{t('home.useCases.subtitle')}</p>
     </div>
     <div class="grid md:grid-cols-2 gap-8">
       {useCases.map(u => (
@@ -439,11 +439,11 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
             <h3 class="text-xl font-semibold text-gray-900">{u.title}</h3>
             <p class="text-gray-500 mt-2">{u.desc}</p>
             <div class="mt-4 p-4 bg-gray-50 rounded-xl">
-              <p class="text-sm font-medium text-gray-700">Scenario</p>
+              <p class="text-sm font-medium text-gray-700">{t('home.useCases.scenario')}</p>
               <p class="mt-1 text-sm text-gray-600">{u.scenario}</p>
             </div>
             <div class="mt-3 p-4 bg-sky-50 rounded-xl">
-              <p class="text-sm font-medium text-sky-700">Solution</p>
+              <p class="text-sm font-medium text-sky-700">{t('home.useCases.solution')}</p>
               <p class="mt-1 text-sm text-gray-600">{u.solution}</p>
             </div>
             <div class="mt-3 flex flex-wrap gap-2">
@@ -460,9 +460,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <!-- Community -->
   <section class="max-w-6xl mx-auto py-24 px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Community</span>
-      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Real Riders. Real Adventures.</h2>
-      <p class="mt-4 text-lg text-gray-500">Join thousands of paddlers exploring lakes, rivers, and coastlines with Wavefella.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.community.tagline')}</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.community.title')}</h2>
+      <p class="mt-4 text-lg text-gray-500">{t('home.community.subtitle')}</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="rounded-2xl overflow-hidden aspect-[4/3]">
@@ -478,25 +478,25 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
     <div class="mt-12 grid md:grid-cols-3 gap-8">
       <div class="bg-white border border-gray-200 rounded-2xl p-6">
         <div class="flex text-amber-400 text-lg">★★★★★</div>
-        <p class="mt-4 text-gray-600 text-sm italic">"Stable even for a complete beginner. Took it out on the lake my first day and never fell."</p>
-        <p class="mt-3 text-sm font-semibold text-gray-900">— Sarah K.</p>
+        <p class="mt-4 text-gray-600 text-sm italic">{t('home.community.review1')}</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— {t('home.community.review1.author')}</p>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-6">
         <div class="flex text-amber-400 text-lg">★★★★★</div>
-        <p class="mt-4 text-gray-600 text-sm italic">"Took it to Bali — packed in a backpack, inflated in 5 minutes. Perfect travel companion."</p>
-        <p class="mt-3 text-sm font-semibold text-gray-900">— James T.</p>
+        <p class="mt-4 text-gray-600 text-sm italic">{t('home.community.review2')}</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— {t('home.community.review2.author')}</p>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-6">
         <div class="flex text-amber-400 text-lg">★★★★★</div>
-        <p class="mt-4 text-gray-600 text-sm italic">"Solid build quality. Handles coastal chop way better than I expected from an inflatable."</p>
-        <p class="mt-3 text-sm font-semibold text-gray-900">— Mike R.</p>
+        <p class="mt-4 text-gray-600 text-sm italic">{t('home.community.review3')}</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— {t('home.community.review3.author')}</p>
       </div>
     </div>
     <div class="text-center mt-10">
-      <p class="text-gray-500">Tag <span class="font-semibold text-gray-700">@wavefellaco</span> on Instagram to share your adventure.</p>
+      <p class="text-gray-500">{t('home.community.cta')}</p>
       <div class="mt-4 flex justify-center gap-4">
         <a href="https://www.instagram.com/wavefellaco" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors text-sm">
-          Follow on Instagram →
+          {t('home.community.follow')}
         </a>
       </div>
     </div>
@@ -506,26 +506,26 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <section class="bg-gray-50 py-24 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Learn</span>
-        <h2 class="mt-4 text-4xl font-semibold text-gray-900">New to SUP?</h2>
-        <p class="mt-4 text-lg text-gray-500">Everything you need to know before you hit the water.</p>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.learn.tagline')}</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.learn.title')}</h2>
+        <p class="mt-4 text-lg text-gray-500">{t('home.learn.subtitle')}</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6">
         <a href={`/${lang}/guides/how-to-choose-your-sup`} class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">🤔</div>
-          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">How to Choose Your SUP</h3>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{t('home.learn.guide1')}</h3>
         </a>
         <a href={`/${lang}/guides/beginner-guide`} class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">📖</div>
-          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Beginner's Guide to Paddling</h3>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{t('home.learn.guide2')}</h3>
         </a>
         <a href={`/${lang}/guides/inflatable-vs-hard`} class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">⚖️</div>
-          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Inflatable vs Hard Board</h3>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{t('home.learn.guide3')}</h3>
         </a>
         <a href={`/${lang}/guides/safety-tips`} class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">🛡️</div>
-          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Water Safety Tips</h3>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">{t('home.learn.guide4')}</h3>
         </a>
       </div>
     </div>
@@ -535,9 +535,9 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <section class="py-24 px-6 bg-white" id="bundles">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Bundles</span>
-        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Curated Packages. Better Value.</h2>
-        <p class="mt-3 text-lg text-gray-500">Complete kits with everything you need — at a better price than buying separately.</p>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.bundles.tagline')}</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.bundles.title')}</h2>
+        <p class="mt-3 text-lg text-gray-500">{t('home.bundles.subtitle')}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         {bundles.filter((b: any) => b.featured).slice(0, 3).map((b: any) => (
@@ -552,12 +552,12 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
               <span class="text-sm text-gray-400 line-through">${b.totalPrice}</span>
               <span class="text-sm font-semibold text-emerald-600">Save ${b.savings}</span>
             </div>
-            <div class="mt-4 text-sm text-sky-600 font-medium">View bundle →</div>
+            <div class="mt-4 text-sm text-sky-600 font-medium">{t('home.bundles.view')}</div>
           </a>
         ))}
       </div>
       <div class="mt-8 text-center">
-        <a href={`/${lang}/products/bundles`} class="inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700">View all bundles →</a>
+        <a href={`/${lang}/products/bundles`} class="inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700">{t('home.bundles.viewAll')}</a>
       </div>
     </div>
   </section>
@@ -614,23 +614,23 @@ const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?
   <section class="bg-gray-50 py-24 px-6" id="contact">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Get in touch</span>
-        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Contact Wavefella</h2>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('home.contact.label')}</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('home.contact.title')}</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         <div class="bg-white rounded-2xl p-8 border border-gray-200 text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-sky-600 text-xl">📍</div>
-          <h3 class="mt-4 font-semibold text-gray-900">Address</h3>
+          <h3 class="mt-4 font-semibold text-gray-900">{t('home.contact.address')}</h3>
           <p class="mt-2 text-gray-500 text-sm">5067 Saddleback St<br />Montclair, CA 91763<br />USA</p>
         </div>
         <div class="bg-white rounded-2xl p-8 border border-gray-200 text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-sky-600 text-xl">📞</div>
-          <h3 class="mt-4 font-semibold text-gray-900">Phone</h3>
+          <h3 class="mt-4 font-semibold text-gray-900">{t('home.contact.phone')}</h3>
           <p class="mt-2 text-gray-500 text-sm">213-557-7888</p>
         </div>
         <div class="bg-white rounded-2xl p-8 border border-gray-200 text-center">
           <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-sky-600 text-xl">✉</div>
-          <h3 class="mt-4 font-semibold text-gray-900">Email</h3>
+          <h3 class="mt-4 font-semibold text-gray-900">{t('home.contact.email')}</h3>
           <p class="mt-2 text-gray-500 text-sm">info@wavefella.com</p>
         </div>
       </div>
