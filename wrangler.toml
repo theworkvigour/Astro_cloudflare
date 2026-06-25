@@ -26,8 +26,17 @@ binding = "ASSETS"
 #   .github/workflows/seo-factory.yml
 #
 # Run pipeline locally:
-#   npm run seo:pipeline
-#   # output/ contains tasks.json, tasks.md, tasks.csv, geo.json
+#    npm run seo:pipeline
+#    # output/ contains tasks.json, tasks.md, tasks.csv, geo.json
+# ----------------------------------------------------------------
+#
+# 3. Subdomain Router (subdomain-router):
+#    npx wrangler deploy workers/subdomain-router.js --name alluredna-subdomain-router
+#    Then configure Cloudflare DNS:
+#      *.alluredna.com  CNAME  your-pages-project.pages.dev  (Proxied/橙色云)
+#    And add a route in Cloudflare Dashboard:
+#      *.alluredna.com/*  →  alluredna-subdomain-router
+#    (The root alluredna.com goes directly to Pages, no worker.)
 # ----------------------------------------------------------------
 
 # --- AI Infrastructure ---

@@ -10,12 +10,14 @@ import type { Post } from '~/types';
 import { getPermalink } from '~/utils/permalinks';
 import { findImage } from '~/utils/images';
 import { getFormattedDate } from '~/utils/utils';
+import { getLangFromUrl } from '~/i18n/utils';
 
 export interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
+const currentLang = getLangFromUrl(Astro.url);
 const image = (await findImage(post.image)) as ImageMetadata | undefined;
 
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
@@ -69,7 +71,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
       <div class="mb-1">
         <span class="text-sm">
           <Icon name="tabler:clock" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-          <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
+          <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate, currentLang)}</time>
           {
             post.author && (
               <>

@@ -9,7 +9,7 @@ import { getHomePermalink } from '~/utils/permalinks';
 import { trimSlash, getAsset } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
 
-import { I18N } from 'astrowind:config';
+import { getLangFromUrl } from '~/i18n/utils';
 import langData from '~/data/site/languages.yaml';
 
 interface Link {
@@ -72,7 +72,7 @@ const entityForHref = (href?: string): string => {
 
 const langs: Array<{ code: string; name: string; locale: string }> = Array.isArray(langData) ? langData : [];
 
-const currentLocale = I18N?.language || 'en';
+const currentLocale = getLangFromUrl(Astro.url);
 ---
 
 <header
