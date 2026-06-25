@@ -5,6 +5,7 @@ import { SEO } from 'astro-seo';
 import type { SEOProps } from 'astro-seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
+import { getLangFromUrl } from '~/i18n/utils';
 import type { MetaData, MetaDataOpenGraph } from '~/types';
 import { getCanonical } from '~/utils/permalinks';
 
@@ -35,12 +36,14 @@ const {
   seoSettings = {},
 } = Astro.props;
 
+const currentLang = getLangFromUrl(Astro.url);
+
 const mergedOg: MetaDataOpenGraph = merge(
   {
     url: canonical,
     siteName: SITE?.name,
     images: [],
-    locale: I18N?.language || 'en',
+    locale: currentLang || 'en',
     type: 'website',
   },
   METADATA?.openGraph,

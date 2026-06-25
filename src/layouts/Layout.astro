@@ -27,7 +27,7 @@ export interface Props {
 }
 
 const { metadata = {} } = Astro.props;
-const { language, textDirection } = I18N;
+const { textDirection: defaultTextDir } = I18N;
 
 const seo = await getSeoSettings();
 
@@ -46,6 +46,8 @@ const isSubdomain = hostname.split('.').length >= 3 && hostname !== 'localhost';
 const pathname = Astro.url.pathname;
 const pathWithoutLang = removeLang(pathname);
 const currentLang = getLangFromUrl(Astro.url);
+const language = currentLang;
+const textDirection = language === 'ar' ? 'rtl' : (defaultTextDir || 'ltr');
 ---
 
 <!doctype html>
