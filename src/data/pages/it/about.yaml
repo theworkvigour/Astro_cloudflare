@@ -6,7 +6,7 @@ hero:
   title: |
     Ingegneria navale, <br />
     alla <span class="text-accent dark:text-white">Wavefella</span>
-  subtitle: 'Siamo nati in un\'officina costiera con una barca e una convinzione incrollabile: i prodotti nautici dovrebbero essere costruiti come se la vita dipendesse da loro – perché è così. Oggi spediamo in oltre 40 paesi, ma ogni scafo passa ancora attraverso le stesse mani che hanno fondato l\'azienda.'
+  subtitle: "Siamo nati in un'officina costiera con una barca e una convinzione incrollabile: i prodotti nautici dovrebbero essere costruiti come se la vita dipendesse da loro – perché è così. Oggi spediamo in oltre 40 paesi, ma ogni scafo passa ancora attraverso le stesse mani che hanno fondato l'azienda."
 
 stats:
   title: In numeri
@@ -44,7 +44,7 @@ features3_more:
     - title: Accessori
       description: Cinghie, pompe, coperture, borse stagne, serbatoi carburante ed elettronica. Tutti compatibili con le nostre barche.
       icon: tabler:package
-    - title:改装 e riparazioni
+    - title: 改装 e riparazioni
       description: Riparazione tubolari interna, retrofit elettronico e upgrade motore.
       icon: tabler:tool
     - title: Costruzioni su misura
