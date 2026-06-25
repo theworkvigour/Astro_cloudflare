@@ -1,0 +1,179 @@
+hero:
+  tagline: ''
+  title: |
+    Für das Wasser entwickelt. <br class="hidden sm:inline" />
+    Für das <span class="text-accent dark:text-white">Leben an Bord</span> gebaut.
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> entwickelt und fertigt hochwertige Schlauchboote, RIBs und technische Produkte.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: gebaut, um zu performen.</span>
+    Geeignet für Marineprofis, gewerbliche Betreiber und Enthusiasten, die Zuverlässigkeit und Handwerkskunst verlangen.
+  actions:
+    - variant: primary
+      text: Produkte ansehen
+      href: /products
+      icon: tabler:shopping-bag
+    - text: Mehr erfahren
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Wavefella Titelbild
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Wavefella Werkstatt am Meer
+      tagline: Willkommen
+      title: |
+        Für das Wasser entwickelt. <br />
+        Für das <span class="text-sky-300">Leben an Bord</span> gebaut.
+      subtitle: Hochwertige Schlauchboote, RIBs und technische Produkte für Marineprofis und Enthusiasten.
+      actions:
+        - text: Produkte ansehen
+          href: /products
+          variant: primary
+        - text: Angebot anfordern
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Sonderanfertigung eines Bootes in Bearbeitung
+      tagline: Handwerkskunst
+      title: |
+        Rümpfe, die länger halten als die Garantie. <br />
+        Service, der länger hält als der Rumpf.
+      subtitle: Materialien in Marinequalität. Aluminiumschweißen. Zwanzig Jahre alte Boote rufen uns noch immer wegen Ersatzteilen an.
+      actions:
+        - text: Unsere Geschichte
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Schlauchboot auf dem Wasser
+      tagline: Support
+      title: |
+        Entwickelt vor dem Verkauf. <br />
+        Unterstützt lange danach.
+      subtitle: Autorisierte Servicepartner in 40+ Ländern. Zwanzig Jahre alte Rümpfe rufen uns noch immer an – und wir gehen noch immer ran.
+      actions:
+        - text: Kontaktieren Sie uns
+          href: /contact
+          variant: primary
+        - text: Preise ansehen
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: Warum Wavefella
+  title: Was Sie mit Wavefella bekommen
+  subtitle: Jahrzehnte der Schiffsbau-Erfahrung, gebündelt in einer fokussierten Produktlinie. Robust gebaut, auf See getestet, lebenslang unterstützt.
+  columns: 2
+  items:
+    - title: Materialien in Marinequalität
+      description: Hochbelastbares PVC, Hypalon und Aluminiumrümpfe, ausgewählt für UV-, Abrieb- und Salzwasserbeständigkeit.
+      icon: tabler:shield-check
+    - title: Produktionsreife Qualität
+      description: Jeder Rumpf wird druckgeprüft, jede Schweißnaht kontrolliert. Wir versenden nur, was wir selbst zu Wasser lassen würden.
+      icon: tabler:certificate
+    - title: Modular im Design
+      description: Passen Sie Schlauchanordnung, Konsolenposition, Kraftstoffkapazität und Zubehör an Ihren Einsatz an.
+      icon: tabler:layout-grid
+    - title: Ehrliche Spezifikationen
+      description: Echte Lastangaben, echte Maße, echtes Gewicht. Keine Marketing-Übertreibungen. Nie.
+      icon: tabler:ruler-measure
+    - title: Schnelle Lieferung & Ersatzteile
+      description: Standardmodelle werden in Tagen versandt. Original Ersatzteile und Verbrauchsmaterialien ganzjährig auf Lager.
+      icon: tabler:truck-delivery
+    - title: Lebenslanger Support
+      description: Direkte Leitung zu unserem Entwicklungsteam für technische Fragen, Reparaturen und Umbauberatung.
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: Ausgewählte Produkte
+  subtitle: Handverlesen aus unserem aktuellen Katalog – die beliebtesten Modelle dieser Saison.
+  linkText: Alle Produkte ansehen
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: Einblick in die Werkstatt
+  title: Vom Rumpfentwurf bis zur Auslieferung – jeder Schritt bleibt im Haus
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Qualität, die Sie sehen, fühlen und messen können</h3>
+  items:
+    - title: Entworfen von Schiffsarchitekten
+      description: Rumpflinien werden intern gezeichnet und vor dem ersten Prototypen durch CFD-Analysen iteriert.
+    - title: Geschweißt und montiert in unserer eigenen Anlage
+      description: Schlauchschweißen, Konsolenausbau und Rigging finden unter einem Dach statt, sodass wir die Qualität in jedem Schritt kontrollieren.
+    - title: Vor dem Versand auf See getestet
+      description: Jedes Modell absolviert eine mehrstündige Seetestfahrt mit Prüfung von Gleiten, Wenden, Höchstgeschwindigkeit und Lastverhalten.
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Werkstatt
+
+steps:
+  title: Vom Datenblatt zum Stapellauf in fünf Schritten
+  items:
+    - title: 'Schritt 1: <span class="font-medium">Konfigurieren</span>'
+      description: Wählen Sie ein Modell, legen Sie Optionen fest und fordern Sie online oder telefonisch ein Angebot an. Unser Team antwortet innerhalb eines Werktags.
+      icon: tabler:list-numbers
+    - title: 'Schritt 2: <span class="font-medium">Bestätigen</span>'
+      description: Wir bestätigen Spezifikationen, Lieferzeit und Gesamtkosten schriftlich. Keine Überraschungen, keine versteckten Gebühren.
+      icon: tabler:checks
+    - title: 'Schritt 3: <span class="font-medium">Bauen</span>'
+      description: Die Produktion beginnt in unserer Werkstatt. Wir senden Fortschrittsfotos bei wichtigen Meilensteinen.
+      icon: tabler:tool
+    - title: 'Schritt 4: <span class="font-medium">Liefern</span>'
+      description: Verstaut in einer Halterung, schrumpfverpackt und per See- oder Luftfracht versandt. Zollabwicklung komplett inklusive.
+      icon: tabler:truck-loading
+    - title: 'Schritt 5: <span class="font-medium">Support</span>'
+      description: Zwei Jahre Rumpfgarantie plus lebenslanger technischer Support. Ersatzteile werden innerhalb von 48 Stunden versandt.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Fertigungsprozess
+
+blog_latest:
+  title: Aus dem Journal
+  information: |
+    Artikel, technische Hinweise und Fallstudien aus dem Entwicklungsteam.
+    Neue Beiträge erscheinen, sobald ein Projekt ausgeliefert, ein Standard aktualisiert wurde oder jemand eine Geschichte erzählen möchte, die es wert ist, geteilt zu werden.
+
+faqs:
+  title: Häufig gestellte Fragen
+  subtitle: Die Fragen, die wir am häufigsten hören. Falls Ihre nicht dabei ist, schreiben Sie uns – wir melden uns schnell zurück.
+  columns: 2
+  items:
+    - title: Welches Modell soll ich wählen?
+      description: Das hängt von Ihrer Crewgröße, dem Gewässer und davon ab, ob Sie Geschwindigkeit, Nutzlast oder Kraftstoffeffizienz priorisieren. Senden Sie uns eine kurze Beschreibung und wir empfehlen zwei oder drei passende Modelle.
+      icon: tabler:anchor
+    - title: Liefern Sie international?
+      description: Ja – wir liefern in über 40 Länder. Seefracht ist die wirtschaftlichste Option für komplette Boote; Luftfracht steht für Eilbestellungen zur Verfügung.
+      icon: tabler:ship
+    - title: Welche Garantie bieten Sie?
+      description: Zwei Jahre auf den Rumpf, ein Jahr auf Zubehör, lebenslang auf unsere Schweißarbeiten. Die Garantieregistrierung ist bei jeder Lieferung inklusive.
+      icon: tabler:shield
+    - title: Kann ich ein bestehendes Modell anpassen?
+      description: Fast immer. Konsolenposition, Schlauchfarbe, Sitzanordnung, Elektronik und Motorpaket können alle angepasst werden. Sonderrümpfe werden projektbezogen kalkuliert.
+      icon: tabler:palette
+    - title: Bieten Sie Schulungen und Zertifizierungen an?
+      description: Für gewerbliche Betreiber können wir eine Seetest-Schulung in unserer Anlage arrangieren. Freizeitkunden erhalten eine kostenlose Einweisung bei der Übergabe.
+      icon: tabler:school
+    - title: Wie bekomme ich Ersatzteile?
+      description: Bestellen Sie über die Kontaktseite oder rufen Sie unsere Ersatzteil-Hotline an. Gängige Teile (Ventile, Riemen, Pumpen, Reparatursets) werden innerhalb von 48 Stunden weltweit versandt.
+      icon: tabler:settings
+
+cta:
+  title: |
+    Bereit, Ihr <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">nächstes Boot</span> zu konfigurieren?
+  subtitle: Teilen Sie uns mit, wie Sie Ihr Boot nutzen, und wir empfehlen Ihnen innerhalb eines Werktags ein Modell, Optionen und einen Preis.
+  actions:
+    - variant: primary
+      text: Angebot anfordern
+      href: /contact
+      icon: tabler:message-circle
+    - text: Katalog durchstöbern
+      href: /products

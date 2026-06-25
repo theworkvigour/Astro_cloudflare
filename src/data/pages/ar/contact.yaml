@@ -1,0 +1,79 @@
+hero_text:
+  tagline: اتصل بنا
+  title: تواصل معنا
+contact_form:
+  id: form
+  title: أرسل لنا رسالة
+  subtitle: للاستفسار عن الأسعار أو الأسئلة الفنية أو استفسارات الشراكة، أرسل لنا رسالة. نرد خلال يوم عمل واحد.
+  email_to: info@wavefella.com
+  submit_button: إرسال الرسالة
+  success_message: شكراً! رسالتك قد وصلت إلى صندوق الوارد لدينا. سنرد خلال يوم عمل واحد.
+  error_message: حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى أو مراسلتنا مباشرة عبر البريد الإلكتروني.
+  default_country_code: '+1'
+  captcha:
+    label: 'مكافحة البريد المزعج: يرجى حل ما يلي'
+  fields:
+    - name: firstName
+      label: الاسم الأول
+      row: 1
+    - name: lastName
+      label: اسم العائلة
+      row: 1
+    - name: companyName
+      label: اسم الشركة
+      row: 2
+    - name: address
+      label: العنوان
+      row: 3
+    - name: zip
+      label: الرمز البريدي
+      row: 4
+    - name: country
+      label: الدولة
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: البريد الإلكتروني
+      row: 5
+      type: email
+    - name: tel
+      label: الهاتف
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: الموضوع
+      row: 6
+    - name: message
+      label: الرسالة
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: طرق أخرى للتواصل معنا
+  columns: 3
+  items:
+    - title: استفسارات المبيعات
+      description: عروض الأسعار، التهيئة، طلبات الوكالة والطلبات بالجملة.
+      icon: tabler:shopping-bag
+    - title: الدعم الفني
+      description: الضمان، الإصلاحات، قطع الغيار وأسئلة التشغيل.
+      icon: tabler:tool
+    - title: الإعلام والشراكات
+      description: الحزم الإعلامية، الرعاية والتعاون الصناعي.
+      icon: tabler:news
+    - title: الهاتف
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: البريد الإلكتروني
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: المقر الرئيسي
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: موقعنا
+  subtitle: زرنا في مقرنا الرئيسي
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15

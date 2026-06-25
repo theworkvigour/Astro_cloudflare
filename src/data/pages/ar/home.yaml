@@ -1,0 +1,179 @@
+hero:
+  tagline: ''
+  title: |
+    مُهندَس من أجل الماء. <br class="hidden sm:inline" />
+    مصمم <span class="text-accent dark:text-white">للحياة على متن القارب</span>.
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> تصمم وتصنع القوارب القابلة للنفخ الفاخرة، وقوارب RIB، والمنتجات الهندسية.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: مصممة للأداء.</span>
+    مناسبة للمحترفين البحريين والمشغلين التجاريين والهواة الذين يطلبون الموثوقية والحرفية.
+  actions:
+    - variant: primary
+      text: تصفح المنتجات
+      href: /products
+      icon: tabler:shopping-bag
+    - text: اعرف المزيد
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: الصورة الرئيسية لـ Wavefella
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: ورشة Wavefella بجانب البحر
+      tagline: مرحباً
+      title: |
+        مُهندَس من أجل الماء. <br />
+        مصمم <span class="text-sky-300">للحياة على متن القارب</span>.
+      subtitle: قوارب قابلة للنفخ فاخرة، وقوارب RIB، ومنتجات هندسية للمحترفين البحريين والهواة.
+      actions:
+        - text: تصفح المنتجات
+          href: /products
+          variant: primary
+        - text: اطلب عرض سعر
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: بناء قارب حسب الطلب قيد التنفيذ
+      tagline: حرفية
+      title: |
+        هياكل تفوق مدة الضمان. <br />
+        خدمة تفوق عمر الهيكل.
+      subtitle: مواد بحرية. لحام ألومنيوم. قوارب عمرها عشرون عاماً لا تزال تتصل بنا لطلب قطع الغيار.
+      actions:
+        - text: قصتنا
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: قارب قابل للنفخ على الماء
+      tagline: دعم
+      title: |
+        مُهندَس قبل البيع. <br />
+        مدعوم لفترة طويلة بعده.
+      subtitle: شركاء خدمة معتمدون في 40+ دولة. هياكل عمرها عشرون عاماً لا تزال تتصل بنا لطلب قطع الغيار —وما زلنا نجيب.
+      actions:
+        - text: اتصل بنا
+          href: /contact
+          variant: primary
+        - text: شاهد الأسعار
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: لماذا Wavefella
+  title: ما تحصل عليه مع Wavefella
+  subtitle: عقود من الخبرة في الهندسة البحرية، مركّزة في تشكيلة منتجات محددة. مصنوعة بقوة، مُختبرة في البحر، مدعومة مدى الحياة.
+  columns: 2
+  items:
+    - title: مواد بحرية
+      description: هياكل من PVC الثقيل وHypalon والألومنيوم مقاومة للأشعة فوق البنفسجية والتآكل والمياه المالحة.
+      icon: tabler:shield-check
+    - title: جودة جاهزة للإنتاج
+      description: كل هيكل يخضع لاختبار الضغط، وكل لحمة تُفحص. نشحن فقط ما نضعه على الماء بأنفسنا.
+      icon: tabler:certificate
+    - title: تصميم معياري
+      description: خصص تخطيط الأنابيب وموقع المقصورة وسعة الوقود والإكسسوارات لتناسب مهمتك.
+      icon: tabler:layout-grid
+    - title: مواصفات صادقة
+      description: تصنيفات حمولة حقيقية، أبعاد حقيقية، وزن حقيقي. لا تضخيم تسويقي، أبداً.
+      icon: tabler:ruler-measure
+    - title: توصيل سريع وقطع غيار
+      description: الموديلات الشائعة تُشحن في أيام. قطع الغيار الأصلية والمستهلكات متوفرة طوال العام.
+      icon: tabler:truck-delivery
+    - title: دعم مدى الحياة
+      description: خط مباشر لفريقنا الهندسي للاستفسارات الفنية والإصلاحات ونصائح إعادة التأهيل.
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: منتجات مميزة
+  subtitle: منتقاة من كتالوجنا الحالي —أكثر الموديلات طلباً هذا الموسم.
+  linkText: عرض جميع المنتجات
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: داخل الورشة
+  title: من رسم الهيكل إلى التسليم، كل خطوة تبقى داخل المنزل
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">جودة يمكنك رؤيتها وشعورها وقياسها</h3>
+  items:
+    - title: مصممة من قبل مهندسين بحريين
+      description: تُرسَم خطوط الهيكل داخل المنزل وتُختبر عبر تحليل CFD قبل أن يلامس النموذج الأولي الماء.
+    - title: ملحومة ومجمعة في منشأتنا
+      description: لحام الأنابيب وتجهيز المقصورة والتجهيزات تتم تحت سقف واحد لنضمن الجودة في كل خطوة.
+    - title: مُختبرة في البحر قبل الشحن
+      description: كل موديل يكمل تجربة بحرية متعددة الساعات تغطي الانزلاق والانعطاف والسرعة القصوى ومعالجة الأحمال.
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: ورشة
+
+steps:
+  title: من ورقة المواصفات إلى الإطلاق في خمس خطوات
+  items:
+    - title: 'الخطوة 1: <span class="font-medium">تهيئة</span>'
+      description: اختر موديلاً، وحدد خياراتك، واطلب عرض سعر عبر الإنترنت أو الهاتف. فريقنا يرد خلال يوم عمل واحد.
+      icon: tabler:list-numbers
+    - title: 'الخطوة 2: <span class="font-medium">تأكيد</span>'
+      description: نؤكد المواصفات والمدة الزمنية والتكلفة الإجمالية كتابياً. لا مفاجآت، لا رسوم خفية.
+      icon: tabler:checks
+    - title: 'الخطوة 3: <span class="font-medium">بناء</span>'
+      description: يبدأ الإنتاج في ورشتنا. نرسل صور التقدم في المحطات الرئيسية.
+      icon: tabler:tool
+    - title: 'الخطوة 4: <span class="font-medium">توصيل</span>'
+      description: مثبت في حامل، مغلف بالبلاستيك الانكماشي، ومشحون بحاً أو جواً. مستندات الجمارك مُنجزة بالكامل.
+      icon: tabler:truck-loading
+    - title: 'الخطوة 5: <span class="font-medium">دعم</span>'
+      description: ضمان هيكل لمدة سنتين بالإضافة إلى دعم فني مدى الحياة. قطع الغيار تُشحن خلال 48 ساعة.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: عملية التصنيع
+
+blog_latest:
+  title: من المدوّنة
+  information: |
+    مقالات وملاحظات فنية ودراسات حالة من الفريق الهندسي.
+    تضاف إدخالات جديدة كلما تم شحن مشروع، أو تحديث معيار، أو كان لدى أحدهم قصة تستحق الرواية.
+
+faqs:
+  title: الأسئلة الشائعة
+  subtitle: الأسئلة التي نسمعها كثيراً. إذا لم تجد سؤالك هنا، أرسل لنا رسالة وسنعود إليك سريعاً.
+  columns: 2
+  items:
+    - title: أي موديل يجب أن أختار؟
+      description: يعتمد ذلك على حجم طاقمك ونوع المياه التي تعمل فيها، وما إذا كنت تفضل السرعة أو سعة الحمولة أو الاقتصاد في الوقود. أرسل لنا موجزاً قصيراً وسنرشح لك موديلين أو ثلاثة تناسبك.
+      icon: tabler:anchor
+    - title: هل تشحنون دولياً؟
+      description: نعم —نشحن إلى أكثر من 40 دولة. الشحن البحري هو الخيار الأكثر اقتصادية للقوارب الكاملة؛ الشحن الجوي متاح للطلبات العاجلة.
+      icon: tabler:ship
+    - title: ما هو الضمان الذي تقدمونه؟
+      description: سنتان على الهيكل، سنة واحدة على الإكسسوارات، ضمان مدى الحياة على اللحام. تسجيل الضمان مرفق مع كل تسليم.
+      icon: tabler:shield
+    - title: هل يمكنني تخصيص موديل موجود؟
+      description: دائماً تقريباً. يمكن تخصيص موقع المقصورة ولون الأنابيب وتخطيط المقاعد والإلكترونيات وحزمة المحرك. الهياكل المخصصة تُسعّر مشروعاً بمشروع.
+      icon: tabler:palette
+    - title: هل تقدمون تدريباً وشهادة؟
+      description: للمشغلين التجاريين يمكننا ترتيب تدريب على التجارب البحرية في منشأتنا. العملاء الترفيهيون يحصلون على جلسة تسليم مجانية عند الاستلام.
+      icon: tabler:school
+    - title: كيف أحصل على قطع الغيار؟
+      description: اطلب عبر صفحة الاتصال أو اتصل بخط قطع الغيار. العناصر الشائعة (صمامات، مجاديف، مضخات، عدة إصلاح) تُشحن خلال 48 ساعة حول العالم.
+      icon: tabler:settings
+
+cta:
+  title: |
+    مستعد لتحديد مواصفات <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">قاربك التالي</span>؟
+  subtitle: أخبرنا كيف تستخدم قاربك وسنرشح لك موديلاً وخيارات وسعراً في يوم عمل واحد.
+  actions:
+    - variant: primary
+      text: اطلب عرض سعر
+      href: /contact
+      icon: tabler:message-circle
+    - text: تصفح الكتالوج
+      href: /products

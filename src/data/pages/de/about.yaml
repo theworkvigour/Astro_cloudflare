@@ -1,0 +1,96 @@
+hero:
+  tagline: Über uns
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Wavefella Werkstatt
+  title: |
+    Schiffstechnik, <br />
+    auf die <span class="text-accent dark:text-white">Wavefella</span>-Art
+  subtitle: 'Wir begannen in einer Küstenwerkstatt mit einem Boot und einer unbeirrbaren Überzeugung: Marineprodukte sollten so konstruiert sein, als ob es darauf ankommt – denn das tun sie. Heute liefern wir in über 40 Länder, aber jeder Rumpf durchläuft noch immer dieselben Hände, die das Unternehmen gegründet haben.'
+
+stats:
+  title: In Zahlen
+  columns: 4
+  stats:
+    - title: Ausgelieferte Rümpfe
+      amount: '2,400+'
+    - title: Belieferte Länder
+      amount: '40'
+    - title: Jahre kombinierte Erfahrung
+      amount: '60'
+    - title: Durchschnittliche Reaktionszeit (Std.)
+      amount: '24'
+
+features3_what_we_build:
+  title: Was wir bauen
+  subtitle: Eine fokussierte Produktlinie, die wir in- und auswendig kennen – keine halbfertigen Experimente, kein Badge-Engineering.
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: RIB-Boote
+      description: Aluminiumrumpf-RIBs von 3,3 m bis 7,5 m. Konzipiert für Patrouillen-, Tauch-, Angel- und Familiennutzung.
+      icon: tabler:ship
+    - title: Schlauchboote
+      description: PVC- und Hypalon-Schlauchboote von 2,4 m bis 4,2 m. Leicht, robust und einfach zu verstauen.
+      icon: tabler:speedboat
+    - title: Superyacht-Tender
+      description: Kompakte, hochspezifizierte RIBs, maßgeschneidert auf das Design Ihres Mutterschiffs.
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: Zubehör
+      description: Riemen, Pumpen, Abdeckungen, Trockentaschen, Kraftstofftanks und Elektronik. Alle auf unsere Boote abgestimmt.
+      icon: tabler:package
+    - title: Umbau & Reparatur
+      description: Interne Schlauchreparatur, Elektroniknachrüstung und Motor-Upgrades.
+      icon: tabler:tool
+    - title: Sonderanfertigungen
+      description: Projektbezogenes Design für gewerbliche, wissenschaftliche und militärische Kunden.
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Sonderanfertigung eines Bootes
+
+steps2_values:
+  title: Unsere Werte
+  subtitle: Drei Grundsätze, die jedes Produkt von Anfang an geprägt haben.
+  items:
+    - title: Bauen, als ob Ihre Familie darin sitzt
+      description: Jeder Rumpf, jede Schweißnaht und jedes Bauteil wird so behandelt, als ob unsere eigenen Familien es nutzen würden.
+      icon: tabler:heart
+    - title: Technik vor dem Verkauf
+      description: Wenn eine Spezifikation falsch ist, ändern wir die Spezifikation – niemals den Kunden.
+      icon: tabler:settings
+    - title: Support, der über die Garantie hinausgeht
+      description: Zwanzig Jahre alte Rümpfe rufen uns noch immer wegen Ersatzteilen an – und wir gehen noch immer ran.
+      icon: tabler:headset
+
+steps2_milestones:
+  title: Meilensteine
+  subtitle: Eine kurze Version der Wavefella-Geschichte.
+  isReversed: true
+  items:
+    - title: Gegründet in einer Küstenwerkstatt
+      description: Gestartet von zwei Schiffsarchitekten mit einer CNC-Fräse und einer unbeirrbaren Idee.
+      icon: tabler:building-factory
+    - title: Erste 1.000 ausgelieferte Rümpfe
+      description: Im siebten Jahr erreicht, hauptsächlich durch Mundpropaganda und Stammkunden.
+      icon: tabler:circle-check
+    - title: Internationales Exportprogramm
+      description: Lieferung in 40+ Länder mit lokalen Support-Partnern auf fünf Kontinenten.
+      icon: tabler:world
+
+features2_locations:
+  title: Unsere Standorte
+  tagline: Finden Sie uns
+  columns: 3
+  items:
+    - title: Hauptsitz & Werkstatt
+      description: Küstenindustriepark, Gebäude 4 – geöffnet Mo–Fr für Besuche nach Vereinbarung.
+    - title: EU-Servicezentrum
+      description: Mittelmeerhafen – Umbau, Reparatur und Garantiesupport für europäische Kunden.
+    - title: APAC-Partnernetzwerk
+      description: Autorisierte Servicepartner in Australien, Japan, Singapur und Hongkong.

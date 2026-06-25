@@ -1,0 +1,123 @@
+hero_text:
+  tagline: Preise
+  title: Ehrliche Preise, für jedes Modell
+  subtitle: Der Preis, den Sie sehen, ist der Preis, den Sie zahlen. Individuelle Optionen werden vorab aufgeschlüsselt.
+
+pricing_packages:
+  title: Servicepakete
+  subtitle: Wählen Sie einen Ausgangspunkt – wir erstellen ein maßgeschneidertes Angebot für Ihren Bau
+  prices:
+    - title: recreational
+      subtitle: Für Privatbesitzer
+      price: 'ab 4.800 $'
+      period: einmalig
+      items:
+        - description: Standardkonfiguration
+        - description: Seetest-Übergabe in unserer Anlage
+        - description: Zwei Jahre Rumpfgarantie
+        - description: Lebenslanger technischer Support
+      callToAction:
+        target: _blank
+        text: Freizeitboote ansehen
+        href: /products?category=inflatable
+    - title: commercial
+      subtitle: Für gewerbliche Betreiber
+      price: 'ab 18.500 $'
+      period: einmalig
+      items:
+        - description: Hochbelastbare Bauoptionen
+        - description: Individuelle Konsole und Elektronik
+        - description: Drei Jahre gewerbliche Garantie
+        - description: 48-Stunden-Ersatzteilgarantie
+        - description: Bedienerschulung inklusive
+      callToAction:
+        target: _blank
+        text: RIB-Boote ansehen
+        href: /products?category=rib
+      hasRibbon: true
+      ribbonTitle: beliebt
+    - title: custom
+      subtitle: Für einzigartige Projekte
+      price: POA
+      period: projektbasiert
+      items:
+        - description: Schiffsarchitektur-Design
+        - description: Technische Prüfung
+        - description: Meilensteinbasierte Produktion
+        - description: Lieferung vor Ort möglich
+        - description: Dedizierter Projektmanager
+      callToAction:
+        target: _blank
+        text: Mit dem Ingenieurteam sprechen
+        href: /contact
+
+features3_included:
+  title: Was Sie bei jedem Bau erhalten
+  subtitle: Standards, keine Upgrades.
+  columns: 2
+  items:
+    - title: Druckgeprüfter Rumpf
+      description: Jeder Rumpf durchläuft einen 30-minütigen Drucktest, bevor er die Werkstatt verlässt.
+      icon: tabler:gauge
+    - title: Beschläge in Marinequalität
+      description: 316 Edelstahlbefestigungen, Messingventile, UV-beständiges Schlauchgewebe.
+      icon: tabler:shield
+    - title: Motor angepasst und installiert
+      description: Außenborder wird an den Rumpf angepasst und in unserer Anlage vorinstalliert.
+      icon: tabler:engine
+    - title: Seetestbericht
+      description: Jedes Boot wird mit einem unterschriebenen Seetestbericht zu Leistungs- und Sicherheitsprüfungen ausgeliefert.
+      icon: tabler:clipboard-check
+    - title: Übergabepaket für den Eigentümer
+      description: Bedienungsanleitung, Wartungsplan, Teilekatalog und Kontaktkarte.
+      icon: tabler:book
+    - title: Zwei Jahre Garantie
+      description: Plus lebenslanger technischer Support von unserem Entwicklungsteam.
+      icon: tabler:certificate
+
+steps_process:
+  title: Vom Angebot zur Lieferung
+  tagline: So funktioniert es
+  isReversed: true
+  items:
+    - title: Konfigurieren oder anrufen
+      icon: tabler:number-1
+    - title: Aufgeschlüsseltes Angebot erhalten
+      icon: tabler:number-2
+    - title: Bestätigen und Anzahlung leisten
+      icon: tabler:number-3
+    - title: Produktionsupdates per Foto
+      icon: tabler:number-4
+    - title: Seetest in unserer Anlage
+      icon: tabler:number-5
+    - title: Weltweite Lieferung
+      icon: tabler:number-6
+  image:
+    src: https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80
+    alt: Prozess
+
+faqs:
+  title: Preis-FAQ
+  subtitle: Die Fragen, die wir am häufigsten zu Preisen und Zahlung erhalten.
+  columns: 1
+  items:
+    - title: Gibt es versteckte Gebühren?
+      description: Nein. Das Angebot, das wir senden, listet das Boot, Optionen, Motor, Fracht, Zoll und Steuern auf. Es gibt keine Extras bei der Lieferung.
+    - title: Bieten Sie Finanzierung an?
+      description: Wir finanzieren nicht direkt, arbeiten aber mit zwei bevorzugten Kreditgebern für gewerbliche Betreiber in der EU, Großbritannien und dem APAC-Raum zusammen.
+    - title: Welche Zahlungsmethoden akzeptieren Sie?
+      description: Banküberweisung für Anzahlungen und Restzahlungen. Kreditkarten für Anzahlungen bis zu 10.000 USD.
+    - title: Kann ich mein altes Boot in Zahlung geben?
+      description: Ja, von Fall zu Fall. Senden Sie uns Marke, Modell, Baujahr und aktuellen Zustand für einen unverbindlichen Inzahlungnahmewert.
+    - title: Berechnen Sie Angebote?
+      description: Standardkonfigurationsangebote sind kostenlos. Angebote für technische Sonderkonstruktionen können eine kleine Designgebühr enthalten, die bei Bestellung verrechnet wird.
+
+cta:
+  title: Bereit, Ihr Boot zu konfigurieren?
+  subtitle: Nutzen Sie die Produktseiten, um ein Standardmodell zu konfigurieren, oder senden Sie uns eine Beschreibung für einen Sonderbau.
+  actions:
+    - variant: primary
+      text: Produkte ansehen
+      href: /products
+    - text: Mit dem Vertrieb sprechen
+      href: /contact

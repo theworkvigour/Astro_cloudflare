@@ -1,0 +1,86 @@
+hero:
+  tagline: الخدمات
+  title: خدمات بحرية طوال عمر قاربك
+  subtitle: من أول عرض سعر إلى الخدمة العشرين، فريقنا على الخط. نصمم ونبني ونُسلّم ونُدرّب وندعم —من البداية إلى النهاية.
+  actions:
+    - variant: primary
+      text: اطلب عرض سعر
+      href: /contact
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: الخدمات
+
+features2_what_we_do:
+  title: ما نقوم به
+  subtitle: كتالوج خدمات مركّز يعكس المنتجات التي نشحنها.
+  columns: 3
+  items:
+    - title: تهيئة مخصصة
+      description: حدد مواصفات القارب عبر الإنترنت باستخدام أداة التهيئة، أو تحدث إلى مهندس مبيعات حول بناء غير تقليدي.
+      icon: tabler:settings-2
+    - title: إعادة تأهيل وإصلاح
+      description: استبدال الأنابيب، تحديث الإلكترونيات، ترقية المحركات وترميم طبقة الجل كوت في مركز الخدمة.
+      icon: tabler:tool
+    - title: تدريب على التجارب البحرية
+      description: تدريب تشغيلي وسلامة للمشغلين التجاريين، تسليم مجاني للمشترين الترفيهيين.
+      icon: tabler:school
+    - title: توصيل عالمي
+      description: شحن بحري وجوي مع معالجة جميع مستندات الجمارك من قبلنا.
+      icon: tabler:truck-loading
+    - title: الضمان والدعم
+      description: ضمان هيكل لمدة سنتين، سنة واحدة للإكسسوارات، دعم فني مدى الحياة.
+      icon: tabler:shield-check
+    - title: قطع الغيار
+      description: قطع غيار أصلية ومستهلكات متوفرة طوال العام، تُشحن خلال 48 ساعة.
+      icon: tabler:package
+
+content_service:
+  isReversed: true
+  items:
+    - title: جودة على مستوى هندسي
+      description: كل خدمة تتبع نفس الرسومات والإجراءات التي نستخدمها في المصنع.
+      icon: tabler:ruler
+    - title: قطع غيار أصلية فقط
+      description: لا بدائل من السوق الثانوي. إذا كان الجزء يحمل اسمنا، فقد جاء من عندنا.
+      icon: tabler:certificate
+    - title: تسعير شفاف
+      description: ترى القطع والعمالة والمدة الزمنية قبل بدء العمل.
+      icon: tabler:receipt
+    - title: دعم فني مدى الحياة
+      description: هياكل عمرها عشرون عاماً لا تزال تتصل بنا. وما زلنا نجيب.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80
+    alt: مركز الخدمة
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">خدمة تستحق اسمها</h3>
+
+testimonials:
+  title: ماذا يقول العملاء
+  testimonials:
+    - testimonial: استلمنا قارب RIB بطول 5.5 م في لشبونة واستخدمناه بقوة لثلاثة مواسم. رد فريق ما بعد البيع على مكالمة نهاية أسبوع بخصوص مفتاح معطل في غضون عشرين دقيقة.
+      name: Henrik L.
+      job: مشغل غوص تجاري، البرتغال
+      image:
+        src: https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=930&q=80
+        alt: Henrik L.
+    - testimonial: بنت لنا Wavefella قارب RIB دورية بطول 7.5 م بتخطيط مقصورة مخصص. كانت الرسومات دقيقة والبناء في الوقت المحدد، والقارب في الخدمة منذ أكثر من أربع سنوات دون أي مشكلة في الهيكل.
+      name: Coastguard Service
+      job: عقد حكومي
+      image:
+        src: https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80
+        alt: Coastguard
+    - testimonial: اشتريت زورقاً ليختي في سنغافورة. هَيأته عبر الإنترنت، وتم تنفيذ مستندات الشحن بواسطة Wavefella، ووصل على حامل بعد ستة أسابيع.
+      name: Mark W.
+      job: مالك يخت، آسيا والمحيط الهادئ
+      image:
+        src: https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=824&q=80
+        alt: Mark W.
+
+cta:
+  actions:
+    - variant: primary
+      text: اطلب عرض سعر
+      href: /contact
+  title: هل تحتاج إلى عرض سعر أو تقدير إعادة تأهيل؟
+  subtitle: أرسل لنا موجزاً قصيراً وسنرد بسعر ومدة زمنية وتوصياتنا.

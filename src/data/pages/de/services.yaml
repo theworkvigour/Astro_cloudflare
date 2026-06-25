@@ -1,0 +1,86 @@
+hero:
+  tagline: Dienstleistungen
+  title: Marine-Serviceleistungen für die gesamte Lebensdauer Ihres Bootes
+  subtitle: Vom ersten Angebot bis zur zwanzigsten Wartung – unser Team ist für Sie da. Wir entwerfen, bauen, liefern, schulen und unterstützen – von Anfang bis Ende.
+  actions:
+    - variant: primary
+      text: Angebot anfordern
+      href: /contact
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Dienstleistungen
+
+features2_what_we_do:
+  title: Was wir tun
+  subtitle: Ein fokussierter Servicekatalog, der die Produkte widerspiegelt, die wir ausliefern.
+  columns: 3
+  items:
+    - title: Individuelle Konfiguration
+      description: Konfigurieren Sie ein Boot online mit unserem Konfigurator oder sprechen Sie mit einem Vertriebsingenieur über eine Sonderanfertigung.
+      icon: tabler:settings-2
+    - title: Umbau & Reparatur
+      description: Schlauchreparatur, Elektroniknachrüstung, Motor-Upgrades und Gelcoat-Restauration in unserem Servicezentrum.
+      icon: tabler:tool
+    - title: Seetest-Schulung
+      description: Betriebs- und Sicherheitsschulungen für gewerbliche Betreiber, kostenlose Einweisung für Freizeitkäufer.
+      icon: tabler:school
+    - title: Weltweite Lieferung
+      description: See- und Luftfracht mit kompletter Zollabwicklung durch uns.
+      icon: tabler:truck-loading
+    - title: Garantie & Support
+      description: Zwei Jahre Rumpfgarantie, ein Jahr auf Zubehör, lebenslanger technischer Support.
+      icon: tabler:shield-check
+    - title: Ersatzteile
+      description: Original Ersatzteile und Verbrauchsmaterialien ganzjährig auf Lager, Versand innerhalb von 48 Stunden.
+      icon: tabler:package
+
+content_service:
+  isReversed: true
+  items:
+    - title: Qualität auf Ingenieurniveau
+      description: Jede Serviceleistung folgt denselben Zeichnungen und Verfahren, die wir in der Fabrik verwenden.
+      icon: tabler:ruler
+    - title: Nur Originalteile
+      description: Keine Aftermarket-Ersatzteile. Wenn ein Teil unseren Namen trägt, stammt es von uns.
+      icon: tabler:certificate
+    - title: Transparente Preise
+      description: Sie sehen die Teile, die Arbeitszeit und die Lieferzeit, bevor die Arbeit beginnt.
+      icon: tabler:receipt
+    - title: Lebenslanger technischer Support
+      description: Zwanzig Jahre alte Rümpfe rufen uns an. Wir gehen ran.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80
+    alt: Servicezentrum
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Service, der seinen Namen verdient</h3>
+
+testimonials:
+  title: Was Kunden sagen
+  testimonials:
+    - testimonial: Wir haben unser 5,5 m RIB in Lissabon in Empfang genommen und seit drei Saisons intensiv genutzt. Das Kundendienstteam beantwortete einen Wochenendanruf wegen eines defekten Schalters innerhalb von zwanzig Minuten.
+      name: Henrik L.
+      job: Gewerblicher Tauchbetreiber, Portugal
+      image:
+        src: https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=930&q=80
+        alt: Henrik L.
+    - testimonial: Wavefella baute für uns ein 7,5 m Patrouillen-RIB mit einem individuellen Konsolenlayout. Die Zeichnungen waren exakt, der Bau war pünktlich, und das Boot ist seit über vier Jahren im Einsatz ohne ein einziges Rumpfproblem.
+      name: Coastguard Service
+      job: Regierungsauftrag
+      image:
+        src: https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80
+        alt: Coastguard
+    - testimonial: Habe ein Tender für unsere Yacht in Singapur gekauft. Online konfiguriert, die Versandpapiere wurden von Wavefella erledigt, und es kam sechs Wochen später auf einem Gestell an.
+      name: Mark W.
+      job: Yachtbesitzer, APAC
+      image:
+        src: https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=824&q=80
+        alt: Mark W.
+
+cta:
+  actions:
+    - variant: primary
+      text: Angebot anfordern
+      href: /contact
+  title: Benötigen Sie ein Angebot oder einen Kostenvoranschlag für den Umbau?
+  subtitle: Senden Sie uns eine kurze Beschreibung und wir antworten mit einem Preis, einer Lieferzeit und unseren Empfehlungen.

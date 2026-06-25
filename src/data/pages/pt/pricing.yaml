@@ -1,0 +1,123 @@
+hero_text:
+  tagline: Preços
+  title: Preços honestos, em cada modelo
+  subtitle: O preço que vê é o preço que paga. As opções personalizadas são discriminadas antecipadamente.
+
+pricing_packages:
+  title: Pacotes de serviço
+  subtitle: Escolha um ponto de partida —adaptaremos um orçamento à sua construção
+  prices:
+    - title: recreational
+      subtitle: Para proprietários particulares
+      price: 'a partir de 4 800 €'
+      period: pagamento único
+      items:
+        - description: Configuração standard
+        - description: Entrega com teste de mar nas nossas instalações
+        - description: Garantia de dois anos no casco
+        - description: Apoio técnico vitalício
+      callToAction:
+        target: _blank
+        text: Ver barcos recreativos
+        href: /products?category=inflatable
+    - title: commercial
+      subtitle: Para operadores profissionais
+      price: 'a partir de 18 500 €'
+      period: pagamento único
+      items:
+        - description: Opções de construção robusta
+        - description: Consola e eletrónica personalizadas
+        - description: Garantia comercial de três anos
+        - description: Garantia de peças em 48 horas
+        - description: Formação de operador incluída
+      callToAction:
+        target: _blank
+        text: Ver barcos RIB
+        href: /products?category=rib
+      hasRibbon: true
+      ribbonTitle: popular
+    - title: custom
+      subtitle: Para projetos únicos
+      price: POA
+      period: por projeto
+      items:
+        - description: Projeto de arquitetura naval
+        - description: Revisão de engenharia
+        - description: Produção por fases
+        - description: Entrega no local disponível
+        - description: Gestor de projeto dedicado
+      callToAction:
+        target: _blank
+        text: Falar com engenharia
+        href: /contact
+
+features3_included:
+  title: O que obtém em cada construção
+  subtitle: Normas, não upgrades.
+  columns: 2
+  items:
+    - title: Casco testado à pressão
+      description: Cada casco passa por um teste de pressão de 30 minutos antes de sair da oficina.
+      icon: tabler:gauge
+    - title: Acessórios de qualidade naval
+      description: Fixadores de aço inoxidável 316, válvulas de latão, tecido para tubos estável aos UV.
+      icon: tabler:shield
+    - title: Motor correspondente e aparelhado
+      description: O motor de popa é correspondido ao casco e pré-aparelhado nas nossas instalações.
+      icon: tabler:engine
+    - title: Relatório de teste de mar
+      description: Cada barco vem com um relatório de teste de mar assinado que cobre os controlos de desempenho e segurança.
+      icon: tabler:clipboard-check
+    - title: Pack de entrega ao proprietário
+      description: Manual do proprietário, plano de manutenção, catálogo de peças e cartão de contacto.
+      icon: tabler:book
+    - title: Garantia de dois anos
+      description: Mais apoio técnico vitalício da nossa equipa de engenharia.
+      icon: tabler:certificate
+
+steps_process:
+  title: Do orçamento à entrega
+  tagline: Como funciona
+  isReversed: true
+  items:
+    - title: Configurar ou ligar
+      icon: tabler:number-1
+    - title: Receber orçamento detalhado
+      icon: tabler:number-2
+    - title: Confirmar e pagar sinal
+      icon: tabler:number-3
+    - title: Atualizações da produção com fotos
+      icon: tabler:number-4
+    - title: Teste de mar nas nossas instalações
+      icon: tabler:number-5
+    - title: Entrega mundial
+      icon: tabler:number-6
+  image:
+    src: https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80
+    alt: Processo
+
+faqs:
+  title: FAQs sobre preços
+  subtitle: As perguntas que mais recebemos sobre preços e pagamento.
+  columns: 1
+  items:
+    - title: Há taxas escondidas?
+      description: Não. O orçamento que enviamos discrimina o barco, opções, motor, frete, alfândega e impostos. Não há extras à entrega.
+    - title: Oferecem financiamento?
+      description: Não financiamos diretamente, mas trabalhamos com dois financiadores preferenciais para operadores comerciais na UE, RU e APAC.
+    - title: Que métodos de pagamento aceitam?
+      description: Transferência bancária para depósitos e saldos. Cartões de crédito para depósitos até 10 000 USD.
+    - title: Posso trocar o meu barco antigo?
+      description: Sim, caso a caso. Envie-nos a marca, modelo, ano e estado atual para um valor de troca indicativo.
+    - title: Cobram pelos orçamentos?
+      description: Orçamentos de configuração standard são gratuitos. Orçamentos de engenharia personalizada para construções não standard podem ter uma pequena taxa de projeto, reembolsável contra a encomenda.
+
+cta:
+  title: Pronto para especificar o seu barco?
+  subtitle: Use as páginas de produtos para configurar um modelo standard, ou envie-nos uma descrição para uma construção personalizada.
+  actions:
+    - variant: primary
+      text: Ver produtos
+      href: /products
+    - text: Falar com vendas
+      href: /contact

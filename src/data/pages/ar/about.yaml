@@ -1,0 +1,96 @@
+hero:
+  tagline: عنّا
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: ورشة Wavefella
+  title: |
+    هندسة بحرية، <br />
+    تُبنى بطريقة <span class="text-accent dark:text-white">Wavefella</span>
+  subtitle: 'بدأنا في ورشة ساحلية بقارب واحد وإيمان راسخ: المنتجات البحرية يجب أن تُهندَس وكأنها مهمة، لأنها بالفعل كذلك. واليوم نُصدّر إلى أكثر من 40 دولة، لكن كل هيكل لا يزال يمر عبر الأيدي نفسها التي أسست الشركة.'
+
+stats:
+  title: بالأرقام
+  columns: 4
+  stats:
+    - title: هياكل تم تسليمها
+      amount: '2,400+'
+    - title: دول تم الشحن إليها
+      amount: '40'
+    - title: سنوات الخبرة المجمعة
+      amount: '60'
+    - title: متوسط وقت الاستجابة للضمان (ساعات)
+      amount: '24'
+
+features3_what_we_build:
+  title: ما نبني
+  subtitle: تشكيلة منتجات مركّزة نعرفها من الداخل والخارج —لا تجارب نصف مكتملة، ولا علامات تجارية مستعارة.
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: قوارب RIB
+      description: قوارب RIB بهياكل ألومنيوم من 3.3 م إلى 7.5 م. مصممة للدوريات والغوص والصيد والاستخدام العائلي.
+      icon: tabler:ship
+    - title: قوارب قابلة للنفخ
+      description: زوارق قابلة للنفخ من PVC وHypalon من 2.4 م إلى 4.2 م. خفيفة ومتينة وسهلة التخزين.
+      icon: tabler:speedboat
+    - title: زوارق اليخوت الفاخرة
+      description: قوارب RIB مدمجة عالية المواصفات مبنية حسب الطلب لتتناسب مع مظهر يختك الأم.
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: الإكسسوارات
+      description: مجاديف، مضخات، أغطية، أكياس جافة، خزانات وقود وإلكترونيات. جميعها متوافقة مع قواربنا.
+      icon: tabler:package
+    - title: إعادة التأهيل والإصلاح
+      description: استبدال الأنابيب الداخلي، تحديث الإلكترونيات وترقية المحركات.
+      icon: tabler:tool
+    - title: تصنيع حسب الطلب
+      description: تصميم مشروع بمشروع للعملاء التجاريين والعلميين والعسكريين.
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: بناء قارب حسب الطلب
+
+steps2_values:
+  title: قيمنا
+  subtitle: ثلاثة مبادئ شكلت كل منتج منذ اليوم الأول.
+  items:
+    - title: ابنِ وكأنه يحمل عائلتك
+      description: كل هيكل ولحمة ومثبت يُعامل كما لو كانت عوائلنا ستستخدمه.
+      icon: tabler:heart
+    - title: ادرس قبل أن تبيع
+      description: إذا كانت المواصفة خاطئة، نغير المواصفة —وليس العميل.
+      icon: tabler:settings
+    - title: دعم يتجاوز مدة الضمان
+      description: هياكل عمرها عشرون عاماً لا تزال تتصل بنا لطلب قطع الغيار، وما زلنا نجيب.
+      icon: tabler:headset
+
+steps2_milestones:
+  title: المحطات البارزة
+  subtitle: نسخة مختصرة من قصة Wavefella.
+  isReversed: true
+  items:
+    - title: تأسست في ورشة ساحلية
+      description: بدأها مهندسان بحريان بماكينة CNC وفكرة راسخة.
+      icon: tabler:building-factory
+    - title: تسليم أول 1,000 هيكل
+      description: تحقق في عامنا السابع، معظمه عن طريق السمعة والتوصيات والعملاء المتكررين.
+      icon: tabler:circle-check
+    - title: برنامج التصدير الدولي
+      description: الآن نشحن إلى 40+ دولة مع شركاء دعم محليين في خمس قارات.
+      icon: tabler:world
+
+features2_locations:
+  title: مواقعنا
+  tagline: اعثر علينا
+  columns: 3
+  items:
+    - title: المقر الرئيسي والورشة
+      description: المجمع الصناعي الساحلي، المبنى 4 —مفتوح من الاثنين إلى الجمعة للزيارات بالموعد.
+    - title: مركز الخدمة الأوروبي
+      description: ميناء متوسطي —إعادة تأهيل وإصلاح ودعم الضمان للعملاء الأوروبيين.
+    - title: شبكة شركاء آسيا والمحيط الهادئ
+      description: شركاء خدمة معتمدون في أستراليا واليابان وسنغافورة وهونغ كونغ.

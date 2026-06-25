@@ -1,0 +1,86 @@
+hero:
+  tagline: Serviços
+  title: Serviços navais para a vida útil do seu barco
+  subtitle: Desde o primeiro orçamento até à vigésima revisão, a nossa equipa está ao seu dispor. Projetamos, construímos, entregamos, formamos e apoiamos —de ponta a ponta.
+  actions:
+    - variant: primary
+      text: Pedir orçamento
+      href: /contact
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Serviços
+
+features2_what_we_do:
+  title: O que fazemos
+  subtitle: Um catálogo de serviços focado que reflete os produtos que enviamos.
+  columns: 3
+  items:
+    - title: Configuração personalizada
+      description: Especifique um barco online com o nosso configurador, ou fale com um engenheiro comercial sobre uma construção não standard.
+      icon: tabler:settings-2
+    - title: Reequipamento e reparação
+      description: Substituição de tubos, retrofitting de eletrónica, upgrades de motor e restauro de gel-coat no nosso centro de assistência.
+      icon: tabler:tool
+    - title: Formação em teste de mar
+      description: Formação operacional e de segurança para operadores comerciais, entrega gratuita para compradores recreativos.
+      icon: tabler:school
+    - title: Entrega mundial
+      description: Frete marítimo e aéreo com toda a documentação alfandegária tratada por nós.
+      icon: tabler:truck-loading
+    - title: Garantia e apoio
+      description: Garantia de dois anos no casco, um ano nos acessórios, apoio técnico vitalício.
+      icon: tabler:shield-check
+    - title: Peças sobresselentes
+      description: Peças genuínas e consumíveis em stock todo o ano, expedidas em 48 horas.
+      icon: tabler:package
+
+content_service:
+  isReversed: true
+  items:
+    - title: Qualidade de engenharia
+      description: Cada serviço segue os mesmos desenhos e procedimentos que usamos na fábrica.
+      icon: tabler:ruler
+    - title: Apenas peças genuínas
+      description: Sem substitutos de aftermarket. Se uma peça tem o nosso nome, veio de nós.
+      icon: tabler:certificate
+    - title: Preços transparentes
+      description: Vê as peças, a mão de obra e o prazo de entrega antes do trabalho começar.
+      icon: tabler:receipt
+    - title: Apoio técnico vitalício
+      description: Cascos com vinte anos ainda nos ligam. Nós continuamos a atender.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80
+    alt: Centro de assistência
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Serviço que faz jus ao nome</h3>
+
+testimonials:
+  title: O que os clientes dizem
+  testimonials:
+    - testimonial: Recebemos o nosso RIB de 5,5 m em Lisboa e usámo-lo intensamente durante três temporadas. A equipa de pós-venda atendeu uma chamada de fim de semana sobre um interruptor avariado em vinte minutos.
+      name: Henrik L.
+      job: Operador de mergulho comercial, Portugal
+      image:
+        src: https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=930&q=80
+        alt: Henrik L.
+    - testimonial: A Wavefella construiu-nos um RIB de patrulha de 7,5 m com uma consola personalizada. Os desenhos eram exatos, a construção foi dentro do prazo, e o barco está ao serviço há mais de quatro anos sem qualquer problema no casco.
+      name: Coastguard Service
+      job: Contrato governamental
+      image:
+        src: https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80
+        alt: Coastguard
+    - testimonial: Comprei um tender para o nosso iate em Singapura. Configurei-o online, o processo de envio foi tratado pela Wavefella, e chegou num berço seis semanas depois.
+      name: Mark W.
+      job: Proprietário de iate, APAC
+      image:
+        src: https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=824&q=80
+        alt: Mark W.
+
+cta:
+  actions:
+    - variant: primary
+      text: Pedir orçamento
+      href: /contact
+  title: Precisa de um orçamento ou de uma estimativa de reequipamento?
+  subtitle: Envie-nos uma breve descrição e responderemos com um preço, prazo de entrega e as nossas recomendações.

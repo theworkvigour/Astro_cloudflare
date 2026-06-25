@@ -1,0 +1,179 @@
+hero:
+  tagline: ''
+  title: |
+    Projetado para a água. <br class="hidden sm:inline" />
+    Construído para a <span class="text-accent dark:text-white">vida a bordo</span>.
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> concebe e fabrica barcos insufláveis, RIBs e produtos de engenharia de qualidade superior.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: construído para desempenhar.</span>
+    Adequado para profissionais marítimos, operadores comerciais e entusiastas que exigem fiabilidade e artesanato.
+  actions:
+    - variant: primary
+      text: Ver produtos
+      href: /products
+      icon: tabler:shopping-bag
+    - text: Saber mais
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Imagem principal Wavefella
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Oficina Wavefella junto ao mar
+      tagline: Bem-vindo
+      title: |
+        Projetado para a água. <br />
+        Construído para a <span class="text-sky-300">vida a bordo</span>.
+      subtitle: Barcos insufláveis, RIBs e produtos de engenharia de qualidade superior para profissionais e entusiastas do mar.
+      actions:
+        - text: Ver produtos
+          href: /products
+          variant: primary
+        - text: Pedir orçamento
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Construção de barco personalizado em curso
+      tagline: Artesanato
+      title: |
+        Cascos que superam a garantia. <br />
+        Apoio que supera o casco.
+      subtitle: Materiais de qualidade naval. Soldadura de alumínio. Barcos com vinte anos ainda nos ligam a pedir peças.
+      actions:
+        - text: A nossa história
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Barco insuflável na água
+      tagline: Apoio
+      title: |
+        Projetado antes de vender. <br />
+        Apoiado muito depois.
+      subtitle: Parceiros de assistência autorizados em mais de 40 países. Cascos com vinte anos ainda nos ligam a pedir peças —e nós continuamos a atender.
+      actions:
+        - text: Contacte-nos
+          href: /contact
+          variant: primary
+        - text: Ver preços
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: Porquê a Wavefella
+  title: O que obtém com a Wavefella
+  subtitle: Décadas de experiência em engenharia naval, concentradas numa linha de produtos focada. Construídos para durar, testados no mar, apoiados para a vida.
+  columns: 2
+  items:
+    - title: Materiais de qualidade naval
+      description: PVC resistente, Hypalon e cascos de alumínio selecionados para resistência a UV, abrasão e água salgada.
+      icon: tabler:shield-check
+    - title: Qualidade pronta a produzir
+      description: Cada casco é testado à pressão, cada soldadura é inspecionada. Enviamos apenas o que colocaríamos na água nós próprios.
+      icon: tabler:certificate
+    - title: Modular por natureza
+      description: Personalize a disposição dos tubos, posição da consola, capacidade de combustível e acessórios para a sua missão.
+      icon: tabler:layout-grid
+    - title: Especificações honestas
+      description: Capacidades de carga reais, dimensões reais, peso real. Nunca inflacionamento de marketing.
+      icon: tabler:ruler-measure
+    - title: Entrega rápida e peças sobresselentes
+      description: Modelos comuns enviam-se em dias. Peças genuínas e consumíveis em stock todo o ano.
+      icon: tabler:truck-delivery
+    - title: Apoio vitalício
+      description: Linha direta para a nossa equipa de engenharia para questões técnicas, reparações e aconselhamento de reequipamento.
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: Produtos em destaque
+  subtitle: Selecionados do nosso catálogo atual —os modelos mais populares desta estação.
+  linkText: Ver todos os produtos
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: Dentro da oficina
+  title: Do desenho do casco à entrega, cada etapa fica dentro de portas
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Qualidade que se vê, sente e mede</h3>
+  items:
+    - title: Projetado por arquitetos navais
+      description: As linhas do casco são desenhadas internamente e iteradas através de análise CFD antes de o primeiro protótipo tocar na água.
+    - title: Soldado e montado nas nossas instalações
+      description: A soldadura dos tubos, montagem da consola e aparelhagem acontecem sob o mesmo teto para controlarmos a qualidade em cada etapa.
+    - title: Testado no mar antes do envio
+      description: Cada modelo completa um teste de mar de várias horas que abrange planagem, viragem, velocidade máxima e manuseamento de carga.
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Oficina
+
+steps:
+  title: Da ficha técnica ao batismo em cinco passos
+  items:
+    - title: 'Passo 1: <span class="font-medium">Configurar</span>'
+      description: Escolha um modelo, selecione as opções, peça um orçamento online ou por telefone. A nossa equipa responde num dia útil.
+      icon: tabler:list-numbers
+    - title: 'Passo 2: <span class="font-medium">Confirmar</span>'
+      description: Confirmamos as especificações, prazo de entrega e custo total por escrito. Sem surpresas, sem taxas escondidas.
+      icon: tabler:checks
+    - title: 'Passo 3: <span class="font-medium">Construir</span>'
+      description: A produção arranca na nossa oficina. Enviamos fotos do progresso nos principais marcos.
+      icon: tabler:tool
+    - title: 'Passo 4: <span class="font-medium">Entregar</span>'
+      description: Colocado em berço, embalado em filme retrátil e enviado por via marítima ou aérea. Documentação alfandegária tratada de ponta a ponta.
+      icon: tabler:truck-loading
+    - title: 'Passo 5: <span class="font-medium">Apoiar</span>'
+      description: Garantia de dois anos no casco mais apoio técnico vitalício. Peças expedidas em 48 horas.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Processo de fabrico
+
+blog_latest:
+  title: Do diário
+  information: |
+    Artigos, notas técnicas e casos de estudo da equipa de engenharia.
+    Novas entradas são adicionadas sempre que um projeto é entregue, uma norma é atualizada, ou alguém tem uma história que vale a pena contar.
+
+faqs:
+  title: Perguntas frequentes
+  subtitle: As perguntas que mais ouvimos. Se a sua não está aqui, envie-nos uma mensagem e responderemos rapidamente.
+  columns: 2
+  items:
+    - title: Qual modelo devo escolher?
+      description: Depende do tamanho da tripulação, do tipo de águas onde navega, e se prioriza velocidade, carga ou economia de combustível. Envie-nos uma breve descrição e recomendaremos dois ou três modelos adequados.
+      icon: tabler:anchor
+    - title: Fazem envios internacionais?
+      description: Sim —enviamos para mais de 40 países. O frete marítimo é a opção mais económica para barcos completos; o frete aéreo está disponível para encomendas urgentes.
+      icon: tabler:ship
+    - title: Que garantia oferecem?
+      description: Dois anos no casco, um ano nos acessórios, vitalícia nas nossas soldaduras. O registo de garantia está incluído em cada entrega.
+      icon: tabler:shield
+    - title: Posso personalizar um modelo existente?
+      description: Quase sempre. A posição da consola, cor dos tubos, disposição dos assentos, eletrónica e motor podem ser adaptados. Cascos personalizados são orçamentados projeto a projeto.
+      icon: tabler:palette
+    - title: Oferecem formação e certificação?
+      description: Para operadores comerciais podemos organizar formação em teste de mar nas nossas instalações. Clientes recreativos recebem uma sessão de entrega gratuita.
+      icon: tabler:school
+    - title: Como obtenho peças sobresselentes?
+      description: Encomende através da página de contacto ou ligue para a nossa linha de peças. Artigos comuns (válvulas, remos, bombas, kits de reparação) são expedidos para todo o mundo em 48 horas.
+      icon: tabler:settings
+
+cta:
+  title: |
+    Pronto para especificar o seu <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">próximo barco</span>?
+  subtitle: Diga-nos como usa o seu barco e recomendaremos um modelo, opções e um preço num dia útil.
+  actions:
+    - variant: primary
+      text: Pedir orçamento
+      href: /contact
+      icon: tabler:message-circle
+    - text: Ver catálogo
+      href: /products

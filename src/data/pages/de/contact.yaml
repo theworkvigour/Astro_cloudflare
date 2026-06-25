@@ -1,0 +1,79 @@
+hero_text:
+  tagline: Kontakt
+  title: NEHMEN SIE KONTAKT AUF
+contact_form:
+  id: form
+  title: Senden Sie uns eine Nachricht
+  subtitle: Für Angebote, technische Fragen oder Partnerschaftsanfragen schreiben Sie uns. Wir antworten innerhalb eines Werktags.
+  email_to: info@wavefella.com
+  submit_button: Nachricht senden
+  success_message: Vielen Dank! Ihre Nachricht ist in unserem Posteingang gelandet. Wir werden innerhalb eines Werktags antworten.
+  error_message: Beim Senden Ihrer Nachricht ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt eine E-Mail.
+  default_country_code: '+1'
+  captcha:
+    label: 'Anti-Spam: Bitte lösen Sie die folgende Aufgabe'
+  fields:
+    - name: firstName
+      label: Vorname
+      row: 1
+    - name: lastName
+      label: Nachname
+      row: 1
+    - name: companyName
+      label: Unternehmen
+      row: 2
+    - name: address
+      label: Adresse
+      row: 3
+    - name: zip
+      label: PLZ / Postleitzahl
+      row: 4
+    - name: country
+      label: Land
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: E-Mail
+      row: 5
+      type: email
+    - name: tel
+      label: TEL
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: Betreff
+      row: 6
+    - name: message
+      label: Nachricht
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: Weitere Möglichkeiten, uns zu erreichen
+  columns: 3
+  items:
+    - title: Verkaufsanfragen
+      description: Angebote, Konfigurationen, Händlerbewerbungen und Großbestellungen.
+      icon: tabler:shopping-bag
+    - title: Technischer Support
+      description: Garantie, Reparaturen, Ersatzteile und Betriebsfragen.
+      icon: tabler:tool
+    - title: Presse & Partnerschaften
+      description: Medienpakete, Sponsoring und Branchenkooperationen.
+      icon: tabler:news
+    - title: Telefon
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: E-Mail
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: Hauptsitz
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: Unser Standort
+  subtitle: Besuchen Sie uns am Hauptsitz
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15

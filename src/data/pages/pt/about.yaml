@@ -1,0 +1,96 @@
+hero:
+  tagline: Sobre nós
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Oficina Wavefella
+  title: |
+    Engenharia naval, <br />
+    feita à <span class="text-accent dark:text-white">Wavefella</span>
+  subtitle: 'Começámos numa oficina costeira com um barco e uma convicção teimosa: os produtos navais devem ser projetados como se fizessem diferença, porque fazem. Hoje enviamos para mais de 40 países, mas cada casco ainda passa pelas mesmas mãos que fundaram a empresa.'
+
+stats:
+  title: Em números
+  columns: 4
+  stats:
+    - title: Cascos entregues
+      amount: '2,400+'
+    - title: Países de destino
+      amount: '40'
+    - title: Anos de experiência combinada
+      amount: '60'
+    - title: Resposta média de garantia (horas)
+      amount: '24'
+
+features3_what_we_build:
+  title: O que construímos
+  subtitle: Uma linha de produtos focada que conhecemos de fio a pavio —sem experiências a meio, sem engenharia de fachada.
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: Barcos RIB
+      description: RIBs de casco de alumínio de 3,3 m a 7,5 m. Projetados para patrulha, mergulho, pesca e uso familiar.
+      icon: tabler:ship
+    - title: Barcos insufláveis
+      description: Dinghies insufláveis em PVC e Hypalon de 2,4 m a 4,2 m. Leves, resistentes e fáceis de arrumar.
+      icon: tabler:speedboat
+    - title: Tenders para superiates
+      description: RIBs compactos e de alta especificação construídos à medida para combinar com o visual do seu iate.
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: Acessórios
+      description: Remos, bombas, capas, sacos estanques, depósitos de combustível e eletrónica. Tudo compatível com os nossos barcos.
+      icon: tabler:package
+    - title: Reequipamento e reparação
+      description: Substituição de tubos, retrofitting de eletrónica e upgrades de motor na nossa oficina.
+      icon: tabler:tool
+    - title: Construções personalizadas
+      description: Projeto projeto-a-projeto para clientes comerciais, científicos e militares.
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Construção de barco personalizado
+
+steps2_values:
+  title: Os nossos valores
+  subtitle: Três princípios que moldam cada produto desde o primeiro dia.
+  items:
+    - title: Construir como se levasse a sua família
+      description: Cada casco, soldadura e fixador é tratado como se fosse para a nossa própria família usar.
+      icon: tabler:heart
+    - title: Projetar antes de vender
+      description: Se uma especificação está errada, alteramos a especificação —nunca o cliente.
+      icon: tabler:settings
+    - title: Apoio que supera a garantia
+      description: Cascos com vinte anos ainda nos ligam a pedir peças, e nós continuamos a atender.
+      icon: tabler:headset
+
+steps2_milestones:
+  title: Marcos
+  subtitle: Uma versão resumida da história da Wavefella.
+  isReversed: true
+  items:
+    - title: Fundada numa oficina costeira
+      description: Começada por dois arquitetos navais com uma CNC e uma ideia teimosa.
+      icon: tabler:building-factory
+    - title: Primeiros 1 000 cascos entregues
+      description: Atingido no sétimo ano, sobretudo pelo passa-palavra e clientes recorrentes.
+      icon: tabler:circle-check
+    - title: Programa de exportação internacional
+      description: Agora a enviar para mais de 40 países com parceiros de apoio localizados em cinco continentes.
+      icon: tabler:world
+
+features2_locations:
+  title: As nossas localizações
+  tagline: Encontre-nos
+  columns: 3
+  items:
+    - title: Sede e oficina
+      description: Parque industrial costeiro, edifício 4 —aberto Seg–Sex para visitas marcadas.
+    - title: Centro de assistência UE
+      description: Porto mediterrânico —reequipamento, reparação e apoio de garantia para clientes europeus.
+    - title: Rede de parceiros APAC
+      description: Parceiros de assistência autorizados na Austrália, Japão, Singapura e Hong Kong.
