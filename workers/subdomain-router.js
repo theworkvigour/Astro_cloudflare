@@ -32,11 +32,11 @@ export default {
         return fetch(url.toString(), request);
       }
 
-      const firstSegment = path.split('/')[1] || '';
-
       // Strip lang prefix if already present (e.g. /de/products/ from nav click)
+      let firstSegment = path.split('/')[1] || '';
       if (firstSegment === lang) {
         path = '/' + path.split('/').slice(2).join('/');
+        firstSegment = path.split('/')[1] || '';
       }
 
       if (LANG_PREFIX_ROUTES.has(firstSegment)) {
