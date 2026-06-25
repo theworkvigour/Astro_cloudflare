@@ -3,7 +3,7 @@ import { authorizeAdmin, errorResponse, jsonResponse } from './_guard';
 
 export const prerender = false;
 
-const PAGE_FILES_GLOB = ['home.yaml', 'about.yaml', 'services.yaml', 'pricing.yaml', 'contact.yaml', 'news.yaml'];
+const PAGE_FILES_GLOB = ['home.yaml', 'about.yaml', 'contact.yaml', 'news.yaml'];
 const ALLOWED_SECTION_TYPES = [
   'hero', 'hero_text', 'hero_carousel', 'features', 'features2', 'features3',
   'content', 'steps', 'steps2', 'stats', 'faqs', 'testimonials', 'pricing',

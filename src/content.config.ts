@@ -170,25 +170,6 @@ const testimonialsSection = z.object({
   })).optional(),
 }).optional();
 
-const pricingSection = z.object({
-  title: z.string().optional(),
-  subtitle: z.string().optional(),
-  prices: z.array(z.object({
-    title: z.string().optional(),
-    subtitle: z.string().optional(),
-    price: z.string().optional(),
-    period: z.string().optional(),
-    hasRibbon: z.boolean().optional(),
-    ribbonTitle: z.string().optional(),
-    items: z.array(z.object({ description: z.string().optional() })).optional(),
-    callToAction: z.object({
-      text: z.string().optional(),
-      href: z.string().optional(),
-      target: z.string().optional(),
-    }).optional(),
-  })).optional(),
-}).optional();
-
 const ctaSection = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
@@ -340,29 +321,6 @@ const aboutCollection = defineCollection({
   }),
 });
 
-const servicesCollection = defineCollection({
-  loader: file('src/content/services/index.json'),
-  schema: createLocaleSchema({
-    hero: heroSection,
-    features2_what_we_do: features2Section,
-    content_service: contentSection,
-    testimonials: testimonialsSection,
-    cta: ctaSection,
-  }),
-});
-
-const pricingCollection = defineCollection({
-  loader: file('src/content/pricing/index.json'),
-  schema: createLocaleSchema({
-    hero_text: heroTextSection,
-    pricing_packages: pricingSection,
-    features3_included: features3Section,
-    steps_process: stepsSection,
-    faqs: faqsSection,
-    cta: ctaSection,
-  }),
-});
-
 const contactCollection = defineCollection({
   loader: file('src/content/contact/index.json'),
   schema: createLocaleSchema({
@@ -455,8 +413,6 @@ export const collections = {
   product: productCollection,
   homepage: homepageCollection,
   about: aboutCollection,
-  services: servicesCollection,
-  pricing: pricingCollection,
   contact: contactCollection,
   news: newsCollection,
   navigation: navigationCollection,

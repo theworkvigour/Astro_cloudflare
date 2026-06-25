@@ -9,8 +9,6 @@ const FILES = [
   'src/data/site/branding.yaml',
   'src/data/pages/home.yaml',
   'src/data/pages/about.yaml',
-  'src/data/pages/services.yaml',
-  'src/data/pages/pricing.yaml',
   'src/data/pages/contact.yaml',
   'src/data/pages/news.yaml',
 ] as const;
@@ -130,14 +128,6 @@ function navTemplate(name: string): string {
           href: /products?category=inflatable
         - text: Accessories
           href: /products?category=accessory
-    - text: Solutions
-      links:
-        - text: Features
-          href: /#features
-        - text: Services
-          href: /services
-        - text: Pricing
-          href: /pricing
     - text: Resources
       links:
         - text: Blog
@@ -172,14 +162,6 @@ footer:
           href: /products?category=inflatable
         - text: Accessories
           href: /products?category=accessory
-    - title: Solutions
-      links:
-        - text: Features
-          href: /#features
-        - text: Services
-          href: /services
-        - text: Pricing
-          href: /pricing
     - title: Resources
       links:
         - text: Blog

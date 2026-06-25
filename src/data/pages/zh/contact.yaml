@@ -1,0 +1,79 @@
+hero_text:
+  tagline: 联系方式
+  title: 联系我们
+contact_form:
+  id: form
+  title: 发送消息
+  subtitle: 如需报价、技术咨询或合作垂询，请给我们留言。我们会在一个工作日内回复。
+  email_to: info@wavefella.com
+  submit_button: 发送消息
+  success_message: 谢谢！您的消息已收到。我们会在一个工作日内回复。
+  error_message: 发送消息时出错。请重试或直接给我们发送邮件。
+  default_country_code: '+1'
+  captcha:
+    label: '反垃圾：请解答以下问题'
+  fields:
+    - name: firstName
+      label: 名字
+      row: 1
+    - name: lastName
+      label: 姓氏
+      row: 1
+    - name: companyName
+      label: 公司
+      row: 2
+    - name: address
+      label: 地址
+      row: 3
+    - name: zip
+      label: 邮政编码
+      row: 4
+    - name: country
+      label: 国家
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: 邮箱
+      row: 5
+      type: email
+    - name: tel
+      label: 电话
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: 主题
+      row: 6
+    - name: message
+      label: 留言
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: 其他联系方式
+  columns: 3
+  items:
+    - title: 销售咨询
+      description: 报价、配置、经销商申请和大宗订单。
+      icon: tabler:shopping-bag
+    - title: 技术支持
+      description: 保修、维修、配件和操作问题。
+      icon: tabler:tool
+    - title: 媒体与合作伙伴
+      description: 媒体资料包、赞助和行业合作。
+      icon: tabler:news
+    - title: 电话
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: 邮箱
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: 总部地址
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: 我们的位置
+  subtitle: 欢迎光临总部
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15

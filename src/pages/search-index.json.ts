@@ -104,7 +104,7 @@ export const GET: APIRoute = async () => {
     }
   } catch {}
 
-  const pageSlugs = ['home', 'about', 'services', 'pricing', 'contact'];
+  const pageSlugs = ['home', 'about', 'contact'];
   for (const slug of pageSlugs) {
     const modulePath = `/src/data/pages/${slug}.yaml`;
     const raw = pageRawModules[modulePath];
@@ -114,7 +114,7 @@ export const GET: APIRoute = async () => {
         data = yaml.load(raw) || {};
       } catch {}
     }
-    const heroKey = (slug === 'home' || slug === 'about' || slug === 'services') ? 'hero' : 'hero_text';
+    const heroKey = (slug === 'home' || slug === 'about') ? 'hero' : 'hero_text';
     const hero = data[heroKey] || {};
     const sectionTitles: string[] = [];
     for (const [k, v] of Object.entries(data)) {

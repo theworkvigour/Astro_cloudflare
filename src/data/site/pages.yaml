@@ -28,31 +28,6 @@
     - { key: steps2_milestones, type: steps2, label: 'Milestones' }
     - { key: features2_locations, type: features2, label: 'Our locations' }
 
-- slug: services
-  label: Services
-  path: /services
-  permalink: /services
-  file: src/data/pages/services.yaml
-  sections:
-    - { key: hero, type: hero, label: 'Top Hero' }
-    - { key: features2_what_we_do, type: features2, label: 'What we do' }
-    - { key: content_service, type: content, label: 'Service Details' }
-    - { key: testimonials, type: testimonials, label: 'Testimonials' }
-    - { key: cta, type: cta, label: 'Bottom CTA' }
-
-- slug: pricing
-  label: Pricing
-  path: /pricing
-  permalink: /pricing
-  file: src/data/pages/pricing.yaml
-  sections:
-    - { key: hero_text, type: hero_text, label: 'Top HeroText' }
-    - { key: pricing_packages, type: pricing, label: 'Service Packages' }
-    - { key: features3_included, type: features3, label: 'What you get on every build' }
-    - { key: steps_process, type: steps, label: 'From quote to delivery' }
-    - { key: faqs, type: faqs, label: 'Pricing FAQs' }
-    - { key: cta, type: cta, label: 'Bottom CTA' }
-
 - slug: contact
   label: Contact
   path: /contact

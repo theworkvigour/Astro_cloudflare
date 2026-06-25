@@ -1,0 +1,180 @@
+hero:
+  tagline: ''
+  title: |
+    为水上而生。<br class="hidden sm:inline" />
+    为<span class="text-accent dark:text-white">船上生活</span>而造。
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> 设计并制造高品质充气艇、RIB 硬底充气艇及技术产品。</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella：为性能而生。</span>
+    面向海事专业人员、商业运营商及追求可靠性与工艺的爱好者。
+
+  actions:
+    - variant: primary
+      text: 查看产品
+      href: /products
+      icon: tabler:shopping-bag
+    - text: 了解更多
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Wavefella 封面图片
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Wavefella 海滨工坊
+      tagline: 欢迎
+      title: |
+        为水上而生。<br />
+        为<span class="text-sky-300">船上生活</span>而造。
+      subtitle: 为海事专业人员和爱好者打造的高品质充气艇、RIB 硬底充气艇及技术产品。
+      actions:
+        - text: 查看产品
+          href: /products
+          variant: primary
+        - text: 获取报价
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: 定制船舶制造中
+      tagline: 工艺
+      title: |
+        船体比保修期更耐用。<br />
+        服务比船体更长久。
+      subtitle: 船用级材料。铝合金焊接。二十年的老船仍在向我们订购配件。
+      actions:
+        - text: 了解我们的故事
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: 水上充气艇
+      tagline: 支持
+      title: |
+        销售之前先研发。<br />
+        售后长期支持。
+      subtitle: 在 40 多个国家设有授权服务合作伙伴。二十年的老船仍在联系我们——我们仍然接听。
+      actions:
+        - text: 联系我们
+          href: /contact
+          variant: primary
+        - text: 查看价格
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: 为什么选择 Wavefella
+  title: 选择 Wavefella 的理由
+  subtitle: 数十年的造船经验，凝聚于一条专注的产品线。坚固耐用，经过海上测试，终身支持。
+  columns: 2
+  items:
+    - title: 船用级材料
+      description: 高强度 PVC、Hypalon 和铝合金船体，精选抗紫外线、耐磨损和耐海水腐蚀的材料。
+      icon: tabler:shield-check
+    - title: 出厂级品质
+      description: 每个船体经过压力测试，每条焊缝经过检验。我们自己敢下水的产品才会发货。
+      icon: tabler:certificate
+    - title: 模块化设计
+      description: 可根据您的需求调整气囊布局、操控台位置、燃油容量和配件。
+      icon: tabler:layout-grid
+    - title: 真实的规格参数
+      description: 真实载荷、真实尺寸、真实重量。绝不夸大宣传。
+      icon: tabler:ruler-measure
+    - title: 快速交货与配件供应
+      description: 标准型号数天内发货。原装配件和耗材全年库存。
+      icon: tabler:truck-delivery
+    - title: 终身支持
+      description: 直接联系我们的研发团队，获取技术咨询、维修和改装建议。
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: 精选产品
+  subtitle: 从我们当前产品目录中精心挑选——本季度最受欢迎的型号。
+  linkText: 查看全部产品
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: 工坊探秘
+  title: 从船体设计到交付——每一步都在厂内完成
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">品质可见、可感、可测</h3>
+  items:
+    - title: 由船舶工程师设计
+      description: 船体线型内部绘制，首艘原型前经过 CFD 分析反复迭代。
+    - title: 在我们的工厂焊接组装
+      description: 气囊焊接、操控台安装和舾装在同一个屋檐下完成，确保每一步品质可控。
+    - title: 发货前经过海上测试
+      description: 每个型号完成数小时海上试航，测试滑行、转向、极速和载荷表现。
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: 工坊
+
+steps:
+  title: 从选型到下水，只需五步
+  items:
+    - title: '第一步：<span class="font-medium">配置</span>'
+      description: 选择型号、确定选项，在线或致电索取报价。我们的团队在一个工作日内回复。
+      icon: tabler:list-numbers
+    - title: '第二步：<span class="font-medium">确认</span>'
+      description: 我们以书面形式确认规格、交货时间和总费用。无 surprises，无隐藏费用。
+      icon: tabler:checks
+    - title: '第三步：<span class="font-medium">制造</span>'
+      description: 生产在我们的工坊开始。关键节点我们会发送进度照片。
+      icon: tabler:tool
+    - title: '第四步：<span class="font-medium">交付</span>'
+      description: 置于托架中，收缩包装，通过海运或空运发货。清关手续全包。
+      icon: tabler:truck-loading
+    - title: '第五步：<span class="font-medium">支持</span>'
+      description: 两年船体保修加终身技术支持。配件 48 小时内发货。
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: 制造流程
+
+blog_latest:
+  title: 来自日志
+  information: |
+    来自研发团队的文章、技术笔记和案例研究。
+    每当项目交付、标准更新，或有人分享值得讲述的故事时，新文章就会发布。
+
+faqs:
+  title: 常见问题
+  subtitle: 我们最常听到的问题。如果您的疑问不在列表中，请给我们留言——我们会尽快回复。
+  columns: 2
+  items:
+    - title: 我应该选择哪个型号？
+      description: 取决于您的船员数量、水域环境，以及您是优先考虑速度、载荷还是燃油效率。给我们简要描述，我们会推荐两到三个合适的型号。
+      icon: tabler:anchor
+    - title: 你们提供国际配送吗？
+      description: 是的——我们配送至 40 多个国家。海运是整船运输最经济的选择；紧急订单可选用空运。
+      icon: tabler:ship
+    - title: 保修政策是什么？
+      description: 船体两年保修，配件一年保修，焊接工艺终身保修。每次交付时包含保修注册。
+      icon: tabler:shield
+    - title: 可以定制现有型号吗？
+      description: 几乎都可以。操控台位置、气囊颜色、座椅布局、电子设备和发动机配置均可调整。特殊船体按项目报价。
+      icon: tabler:palette
+    - title: 提供培训与认证吗？
+      description: 针对商业运营商，我们可在工厂安排海上试航培训。休闲客户可在交付时获得免费指导。
+      icon: tabler:school
+    - title: 如何获取配件？
+      description: 通过联系页面下单或拨打我们的配件热线。常用配件（气阀、绑带、泵、维修套件）48 小时内全球发货。
+      icon: tabler:settings
+
+cta:
+  title: |
+    准备配置您的<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">下一艘船</span>了吗？
+  subtitle: 告诉我们您将如何使用您的船，我们会在一个工作日内推荐型号、选项和价格。
+  actions:
+    - variant: primary
+      text: 获取报价
+      href: /contact
+      icon: tabler:message-circle
+    - text: 浏览目录
+      href: /products

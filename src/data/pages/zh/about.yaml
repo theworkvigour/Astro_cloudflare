@@ -1,0 +1,96 @@
+hero:
+  tagline: 关于我们
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Wavefella 工坊
+  title: |
+    船舶工程，<br />
+    <span class="text-accent dark:text-white">Wavefella</span> 之道
+  subtitle: '我们始于一间海滨工坊，只有一艘船和一个不可动摇的信念：船用产品应以使命必达的标准来制造——事实也确实如此。如今我们向 40 多个国家发货，但每个船体仍然经过创始团队的亲手检验。'
+
+stats:
+  title: 数据一览
+  columns: 4
+  stats:
+    - title: 交付船体
+      amount: '2,400+'
+    - title: 覆盖国家
+      amount: '40'
+    - title: 累计经验年限
+      amount: '60'
+    - title: 平均响应时间（小时）
+      amount: '24'
+
+features3_what_we_build:
+  title: 我们的产品
+  subtitle: 一条专注的产品线，我们对其了如指掌——没有半成品实验，没有贴牌工程。
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: RIB 硬底充气艇
+      description: 铝合金船体 RIB，3.3m 到 7.5m。专为巡逻、潜水、钓鱼和家庭使用设计。
+      icon: tabler:ship
+    - title: 充气艇
+      description: PVC 和 Hypalon 充气艇，2.4m 到 4.2m。轻便、坚固、易于存放。
+      icon: tabler:speedboat
+    - title: 超级游艇小艇
+      description: 紧凑型高规格 RIB，根据母船设计量身定制。
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: 配件
+      description: 绑带、泵、罩子、干袋、油箱和电子设备。均适配我们的船型。
+      icon: tabler:package
+    - title: 改装与维修
+      description: 内部气囊维修、电子设备升级和发动机改装。
+      icon: tabler:tool
+    - title: 定制制造
+      description: 为商业、科研和军事客户提供项目级设计。
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: 定制船舶制造
+
+steps2_values:
+  title: 我们的价值观
+  subtitle: 三个基本原则，从第一天起塑造每一件产品。
+  items:
+    - title: 像为家人制造一样建造
+      description: 每个船体、每条焊缝、每个部件，都像为自己的家人使用一样对待。
+      icon: tabler:heart
+    - title: 技术优先于销售
+      description: 如果规格有误，我们修改规格——绝不欺骗客户。
+      icon: tabler:settings
+    - title: 超越保修期的支持
+      description: 二十年的老船仍在联系我们订购配件——我们仍然接听。
+      icon: tabler:headset
+
+steps2_milestones:
+  title: 里程碑
+  subtitle: Wavefella 故事的简短版本。
+  isReversed: true
+  items:
+    - title: 在海滨工坊创立
+      description: 由两位船舶工程师凭借一台 CNC 铣床和一个坚定的想法起家。
+      icon: tabler:building-factory
+    - title: 交付首个 1,000 个船体
+      description: 在第七年达成，主要依靠口碑和回头客。
+      icon: tabler:circle-check
+    - title: 国际出口计划
+      description: 配送至 40 多个国家，在五大洲设有本地支持合作伙伴。
+      icon: tabler:world
+
+features2_locations:
+  title: 我们的位置
+  tagline: 找到我们
+  columns: 3
+  items:
+    - title: 总部与工坊
+      description: 海滨工业园区，4 号楼——周一至周五开放，需预约参观。
+    - title: 欧盟服务中心
+      description: 地中海港口——为欧洲客户提供改装、维修和保修支持。
+    - title: 亚太合作伙伴网络
+      description: 在澳大利亚、日本、新加坡和香港设有授权服务合作伙伴。

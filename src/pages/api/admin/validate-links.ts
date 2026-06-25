@@ -5,7 +5,7 @@ import { shouldScanPath } from '~/lib/link-refactor';
 
 export const prerender = false;
 
-const STATIC_PAGES = new Set(['/', '/about', '/services', '/pricing', '/contact', '/news', '/products', '/terms', '/privacy', '/keystatic', '/login', '/rss.xml', '/sitemap-index.xml', '/search-index.json']);
+const STATIC_PAGES = new Set(['/', '/about', '/contact', '/news', '/products', '/terms', '/privacy', '/keystatic', '/login', '/rss.xml', '/sitemap-index.xml', '/search-index.json']);
 const PAGE_SLUG_RE = /^\/(blog|products|category|tag)\/[^/?#]+/;
 
 const HREF_PATTERNS: RegExp[] = [

@@ -14,14 +14,6 @@ header:
           href: /products?category=inflatable
         - text: Accesorios
           href: /products?category=accessory
-    - text: Soluciones
-      links:
-        - text: Características
-          href: /#features
-        - text: Servicios
-          href: /services
-        - text: Precios
-          href: /pricing
     - text: Recursos
       links:
         - text: Último artículo
@@ -56,14 +48,6 @@ footer:
           href: /products?category=inflatable
         - text: Accesorios
           href: /products?category=accessory
-    - title: Soluciones
-      links:
-        - text: Características
-          href: /#features
-        - text: Servicios
-          href: /services
-        - text: Precios
-          href: /pricing
     - title: Recursos
       links:
         - text: Blog
