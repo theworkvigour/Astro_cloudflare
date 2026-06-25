@@ -80,13 +80,13 @@ const q = Astro.url.searchParams.get('q') || '';
 
         if (matches.length === 0) {
           container.innerHTML = '<div class="py-12 text-center"><p class="text-gray-500 dark:text-gray-400 text-lg">No results found for <strong>' + escapeHtml(q) + '</strong>.</p><p class="text-gray-400 dark:text-gray-500 text-sm mt-2">Try a different keyword or browse <a href="/guides" class="text-sky-600 hover:underline">guides</a> or <a href="/products" class="text-sky-600 hover:underline">products</a>.</p></div>';
-          filterBar.classList.add('hidden');
+          filterBar!.classList.add('hidden');
           return;
         }
 
         var activeFilter = '';
-        filterBar.classList.remove('hidden');
-        filterBar.innerHTML = typeKeys.map(function (t) {
+        filterBar!.classList.remove('hidden');
+        filterBar!.innerHTML = typeKeys.map(function (t) {
           var label = t.charAt(0).toUpperCase() + t.slice(1) + 's';
           var count = types[t];
           var isActive = activeFilter === t;
@@ -95,7 +95,7 @@ const q = Astro.url.searchParams.get('q') || '';
 
         function render(filter) {
           var filtered = filter ? matches.filter(function (m) { return m.type === filter; }) : matches;
-          container.innerHTML = '<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">' + filtered.length + ' result' + (filtered.length !== 1 ? 's' : '') + ' for <strong>' + escapeHtml(q) + '</strong></p>'
+          container!.innerHTML = '<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">' + filtered.length + ' result' + (filtered.length !== 1 ? 's' : '') + ' for <strong>' + escapeHtml(q) + '</strong></p>'
             + filtered.map(function (m) {
               var img = m.image ? '<div class="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700"><img src="' + escapeAttr(m.image) + '" alt="" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display=\'none\'"></div>' : '';
               var priceHtml = (m.price && m.currency === 'USD') ? '<span class="text-sm font-semibold text-gray-900 dark:text-white">$' + escapeHtml(String(m.price)) + '</span>' : '';
@@ -112,12 +112,12 @@ const q = Astro.url.searchParams.get('q') || '';
 
         render(activeFilter);
 
-        filterBar.addEventListener('click', function (e) {
+        filterBar!.addEventListener('click', function (e) {
           var btn = e.target instanceof Element ? e.target.closest('[data-filter]') : null;
           if (!btn) return;
           var t = btn.getAttribute('data-filter');
-          activeFilter = activeFilter === t ? '' : t;
-          filterBar.querySelectorAll('[data-filter]').forEach(function (b) {
+          activeFilter = activeFilter === t ? '' : (t ?? '');
+          filterBar!.querySelectorAll('[data-filter]').forEach(function (b) {
             var isActive = b.getAttribute('data-filter') === activeFilter;
             b.className = 'px-3 py-1.5 text-xs font-medium rounded-full border transition ' + (isActive ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900 border-gray-900 dark:border-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500');
           });

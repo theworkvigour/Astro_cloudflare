@@ -16,7 +16,7 @@ type CategoryPageProps = {
   categoryTitle: string;
 };
 
-export const getStaticPaths: GetStaticPaths = (async () => {
+export const getStaticPaths = (async () => {
   const posts = await fetchPosts();
   const pageSize = blogPostsPerPage;
 

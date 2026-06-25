@@ -56,8 +56,8 @@ document.addEventListener('click', (e) => {
   modal.querySelector('[data-quick-view-title]')!.textContent = data.title || '';
   modal.querySelector('[data-quick-view-category]')!.textContent = data.categoryLabel || '';
   modal.querySelector('[data-quick-view-desc]')!.textContent = data.summary || '';
-  modal.querySelector('[data-quick-view-image]')!.src = data.image || '';
-  modal.querySelector('[data-quick-view-image]')!.alt = data.title || '';
+  (modal.querySelector('[data-quick-view-image]') as HTMLImageElement).src = data.image || '';
+  (modal.querySelector('[data-quick-view-image]') as HTMLImageElement).alt = data.title || '';
 
   const specsEl = modal.querySelector('[data-quick-view-specs]')!;
   specsEl.innerHTML = '';

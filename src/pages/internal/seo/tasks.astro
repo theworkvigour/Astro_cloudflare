@@ -148,8 +148,8 @@ const csvOutput = exportTasksCsv(tasks);
     copyButtons.forEach(btn => {
       btn.addEventListener('click', async () => {
         let text = '';
-        if (btn.id === 'copy-md') text = mdPreview.textContent;
-        else if (btn.id === 'copy-json') text = jsonPreview.textContent.replace(/\.\.\.$/, '');
+        if (btn.id === 'copy-md') text = mdPreview!.textContent!;
+        else if (btn.id === 'copy-json') text = jsonPreview!.textContent!.replace(/\.\.\.$/, '');
 
         try {
           await navigator.clipboard.writeText(text);

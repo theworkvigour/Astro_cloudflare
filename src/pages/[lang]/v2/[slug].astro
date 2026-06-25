@@ -24,13 +24,15 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { lang } = Astro.params;
 
+function notNull<T>(x: T | null | undefined): x is T { return x != null; }
+
 const resolvedGuides = entry.relatedGuides
   .map(slug => contentV2Records.find(c => c.slug === slug) || guides.find(g => g.slug === slug))
-  .filter(Boolean);
+  .filter(notNull);
 
 const resolvedProducts = entry.relatedProducts
   .map(id => products.find(p => p.id === id))
-  .filter(Boolean);
+  .filter(notNull);
 
 const isTierA = ['how-to-choose-a-surfboard-for-beginners', 'surfing-for-beginners', 'wetsuit-thickness-guide'].includes(entry.slug);
 

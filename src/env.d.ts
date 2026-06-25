@@ -9,6 +9,28 @@
 declare module '@fontsource-variable/*';
 declare module '@fontsource/*';
 
+// Astro AI virtual module (used at Cloudflare edge)
+declare module '/.astro/ai' {
+  export interface Ai {
+    run(model: string, input: Record<string, unknown>): Promise<unknown>;
+  }
+  export const getEmbeddings: (text: string) => Promise<number[]>;
+}
+
+// Cloudflare Workers runtime types
+declare module 'cloudflare:workers' {
+  export const env: Record<string, unknown>;
+  export interface WorkerEntrypoint {
+    fetch(request: Request): Promise<Response>;
+  }
+}
+
+// Cloudflare ScheduledEvent for cron triggers
+interface ScheduledEvent {
+  type: 'scheduled';
+  scheduledTime: number;
+}
+
 // ─── Cloudflare Runtime Types ──────────────────────────────────
 
 interface FnVectorize {
@@ -56,6 +78,8 @@ interface KVNamespace {
 declare namespace App {
   interface Locals {
     lang: string;
+    locale: string;
+    isEN: boolean;
     runtime: {
       env: {
         VECTORIZE: FnVectorize;

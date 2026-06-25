@@ -19,13 +19,15 @@ export interface Props {
 
 const { guide } = Astro.props;
 
+function notNull<T>(x: T | null | undefined): x is T { return x != null; }
+
 const relatedProducts = guide.relatedProducts
   .map(id => products.find(p => p.id === id))
-  .filter(Boolean);
+  .filter(notNull);
 
 const relatedGuides = guide.relatedGuides
   .map(slug => guides.find(g => g.slug === slug))
-  .filter(Boolean);
+  .filter(notNull);
 
 const metadata = {
   title: `${guide.title} — ${SITE.name}`,

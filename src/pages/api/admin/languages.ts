@@ -351,7 +351,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       if (Array.isArray(parsed)) existingList = parsed;
     } catch {}
     existingList = existingList.filter((l) => l.locale !== code);
-    existingList.push({ code: code.toUpperCase(), name, locale: code, textDirection, enabled: false });
+    existingList.push({ code: code.toUpperCase(), name, locale: code, textDirection, enabled: false } as never);
     existingList.sort((a, b) => a.locale.localeCompare(b.locale));
     const yamlMod = await import('js-yaml');
     const newYamlContent = yamlMod.dump(existingList, { lineWidth: 120, noRefs: true, sortKeys: false, quotingType: "'" });

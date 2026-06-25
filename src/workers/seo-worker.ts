@@ -51,7 +51,7 @@ export default {
     if (url.pathname === '/run') {
       const gscData = await fetchGscData(env);
       const pages = gscData.map(q => ({
-        path: q.page,
+        path: q.page ?? '',
         impressions: q.impressions,
         clicks: q.clicks,
         ctr: q.ctr,
@@ -104,7 +104,7 @@ export default {
   async scheduled(_event: ScheduledEvent, env: Env): Promise<void> {
     const gscData = await fetchGscData(env);
     const pages = gscData.map(q => ({
-      path: q.page,
+      path: q.page ?? '',
       impressions: q.impressions,
       clicks: q.clicks,
       ctr: q.ctr,

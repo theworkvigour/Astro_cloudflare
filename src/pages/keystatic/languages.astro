@@ -12,16 +12,16 @@ if (!verified) return Astro.redirect('/login');
 const token = readTokenFromCookies(Astro.cookies);
 const file = 'src/data/site/languages.yaml';
 
-let initialLangs = [];
+let initialLangs: Array<{ code: string; name: string; locale: string; textDirection?: string; enabled?: boolean }> = [];
 let sha = '';
-let loadError = null;
+let loadError: string | null = null;
 if (token) {
   try {
     const client = new GitHubClient(token);
     const f = await client.readFile(file);
     const yamlMod = await import('js-yaml');
     const parsed = yamlMod.load(f.content);
-    if (Array.isArray(parsed)) initialLangs = parsed;
+    if (Array.isArray(parsed)) initialLangs = parsed as typeof initialLangs;
     sha = f.sha;
   } catch (err) {
     loadError = err instanceof Error ? err.message : 'Load failed';

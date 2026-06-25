@@ -1,5 +1,6 @@
 export interface GscQuery {
   query: string;
+  page?: string;
   impressions: number;
   clicks: number;
   ctr: number;
