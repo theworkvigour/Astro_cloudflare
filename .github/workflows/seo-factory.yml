@@ -1,8 +1,6 @@
-name: Wavefella SEO Factory v4.0 — Social × SEO × GEO
+name: Deploy
 
 on:
-  schedule:
-    - cron: "0 9 * * *"
   push:
     branches: [main]
   workflow_dispatch:
@@ -11,7 +9,7 @@ env:
   NODE_VERSION: "22"
 
 jobs:
-  seo-pipeline:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,20 +21,10 @@ jobs:
       - run: corepack enable
       - run: yarn install --immutable
 
-      - name: Run SEO Pipeline (Tasks + GEO + Social)
-        run: node scripts/seo-pipeline.mjs
-
-      - name: Upload SEO + Social output
-        uses: actions/upload-artifact@v4
-        with:
-          name: seo-output
-          path: output/
-          retention-days: 7
-
       - name: Build Astro Site
         run: yarn run build
 
-      - name: Deploy to Cloudflare Workers
+      - name: Deploy Main Site
         run: |
           cd dist/server
           yarn wrangler deploy --config wrangler.json --name wavefella > /tmp/deploy.log 2>&1
