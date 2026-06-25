@@ -21,37 +21,9 @@ jobs:
       - run: yarn install --immutable
       - run: yarn run check:astro
 
-  enabled-locales:
-    runs-on: ubuntu-latest
-    outputs:
-      locales: ${{ steps.get-locales.outputs.locales }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - run: corepack enable
-      - run: yarn install --immutable
-      - id: get-locales
-        run: |
-          LOCALES=$(node -e "
-            const yaml = require('js-yaml');
-            const fs = require('fs');
-            const data = yaml.load(fs.readFileSync('src/data/site/languages.yaml','utf8'));
-            const enabled = Array.isArray(data) ? data.filter(function(l) { return l.enabled; }).map(function(l) { return l.locale; }) : [];
-            if (enabled.length === 0) enabled.push('en');
-            console.log(JSON.stringify(enabled));
-          ")
-          echo "locales=$LOCALES" >> $GITHUB_OUTPUT
-
   build-and-deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: [check-astro, enabled-locales]
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        locale: ${{ fromJSON(needs.enabled-locales.outputs.locales) }}
+    needs: [check-astro]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,21 +33,16 @@ jobs:
       - run: corepack enable
       - run: yarn install --immutable
 
-      - name: Build (${{ matrix.locale }})
+      - name: Build
         run: yarn run build
-        env:
-          SITE_LOCALE: ${{ matrix.locale }}
 
       - name: Inject bindings into wrangler.ci.json
         run: |
           cd dist/server
-          # strip absolute Windows paths
           node -e "
             const c = require('./wrangler.json');
             delete c.configPath; delete c.userConfigPath;
-            // Vectorize binding (array of objects)
             c.vectorize = [{ binding: 'VECTORIZE', index_name: 'ai-index' }];
-            // Workers AI binding (single object, NOT array)
             c.ai = { binding: 'AI' };
             require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c, null, 2));
             console.log('✓ Injected VECTORIZE + AI bindings');
@@ -83,14 +50,14 @@ jobs:
 
       - name: Ensure KV namespace exists
         run: |
-          yarn wrangler kv namespace create "wavefella-${{ matrix.locale }}-session" 2>/dev/null || true
+          yarn wrangler kv namespace create "wavefella-session" 2>/dev/null || true
 
       - name: Inject KV namespace ID
         run: |
           cd dist/server
           KV_ID=$(yarn wrangler kv namespace list 2>/dev/null | node -e "
             let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='wavefella-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){}
+              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='wavefella-session'); if(ns) process.stdout.write(ns.id); } catch(e){}
             })
           ")
           if [ -n "$KV_ID" ]; then
@@ -105,11 +72,11 @@ jobs:
             exit 1
           fi
 
-      - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
+      - name: Deploy to Cloudflare Workers
         run: |
           cd dist/server
-          yarn wrangler deploy --config wrangler.ci.json --name wavefella-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
-          rc=$?; cat /tmp/deploy-${{ matrix.locale }}.log; exit $rc
+          yarn wrangler deploy --config wrangler.ci.json --name wavefella > /tmp/deploy.log 2>&1
+          rc=$?; cat /tmp/deploy.log; exit $rc
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -118,63 +85,24 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: deploy-log-${{ matrix.locale }}
-          path: /tmp/deploy-${{ matrix.locale }}.log
+          name: deploy-log
+          path: /tmp/deploy.log
 
-      - name: Set SESSION_SECRET on Worker (${{ matrix.locale }})
+      - name: Set SESSION_SECRET on Worker
         run: |
           cd dist/server && \
           echo "${{ secrets.SESSION_SECRET }}" | \
             yarn wrangler secret put SESSION_SECRET \
               --config wrangler.ci.json \
-              --name wavefella-${{ matrix.locale }} 2>&1
+              --name wavefella 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - name: Map custom domain ${{ matrix.locale }}.alluredna.com → wavefella-${{ matrix.locale }}
-        if: ${{ vars.CUSTOM_DOMAIN == 'true' }}
+      - name: Deploy Subdomain Router
         run: |
-          DOMAIN="${{ matrix.locale }}.alluredna.com"
-          WORKER="wavefella-${{ matrix.locale }}"
-          API="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains"
-
-          # find existing entry for this hostname
-          EXISTING=$(curl -s -X GET "$API" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            -H "Content-Type: application/json" | node -e "
-            let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-              try {
-                const r = JSON.parse(d);
-                const m = (r.result||[]).find(e => e.hostname === '$DOMAIN');
-                if (m) process.stdout.write(m.id);
-              } catch(e){}
-            })
-          ")
-
-          if [ -n "$EXISTING" ]; then
-            echo "Updating existing domain mapping $DOMAIN → $WORKER (id=$EXISTING)"
-            curl -s -X PUT "$API/$EXISTING" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "{\"service\":\"$WORKER\",\"environment\":\"production\"}" | node -e "
-              let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-                const r=JSON.parse(d); console.log(r.success ? '✓ Updated' : '✗ Failed: '+(r.errors||[]).map(e=>e.message).join(', '));
-                if(!r.success) process.exit(1);
-              })
-            "
-          else
-            echo "Creating new domain mapping $DOMAIN → $WORKER"
-            curl -s -X POST "$API" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "{\"hostname\":\"$DOMAIN\",\"service\":\"$WORKER\",\"environment\":\"production\"}" | node -e "
-              let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-                const r=JSON.parse(d); console.log(r.success ? '✓ Created' : '✗ Failed: '+(r.errors||[]).map(e=>e.message).join(', '));
-                if(!r.success) process.exit(1);
-              })
-            "
-          fi
+          npx wrangler deploy workers/subdomain-router.js --name alluredna-subdomain-router > /tmp/subdomain-deploy.log 2>&1
+          rc=$?; cat /tmp/subdomain-deploy.log; exit $rc
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
