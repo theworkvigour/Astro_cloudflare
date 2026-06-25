@@ -1,0 +1,79 @@
+hero_text:
+  tagline: お問い合わせ
+  title: お問い合わせ
+contact_form:
+  id: form
+  title: メッセージを送信
+  subtitle: 見積もり、技術的な質問、パートナーシップのお問い合わせはこちらから。1営業日以内に返信します。
+  email_to: info@wavefella.com
+  submit_button: 送信
+  success_message: ありがとうございます！メッセージを受信しました。1営業日以内に返信します。
+  error_message: 送信中にエラーが発生しました。もう一度お試しいただくか、直接メールをお送りください。
+  default_country_code: '+1'
+  captcha:
+    label: 'アンチスパム：次の問題を解いてください'
+  fields:
+    - name: firstName
+      label: 名
+      row: 1
+    - name: lastName
+      label: 姓
+      row: 1
+    - name: companyName
+      label: 会社名
+      row: 2
+    - name: address
+      label: 住所
+      row: 3
+    - name: zip
+      label: 郵便番号
+      row: 4
+    - name: country
+      label: 国
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: メールアドレス
+      row: 5
+      type: email
+    - name: tel
+      label: 電話番号
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: 件名
+      row: 6
+    - name: message
+      label: メッセージ
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: その他の連絡方法
+  columns: 3
+  items:
+    - title: 営業に関するお問い合わせ
+      description: 見積もり、設定、ディーラー申込、大口注文。
+      icon: tabler:shopping-bag
+    - title: テクニカルサポート
+      description: 保証、修理、部品、運用に関する質問。
+      icon: tabler:tool
+    - title: プレス＆パートナーシップ
+      description: メディアキット、スポンサーシップ、業界コラボレーション。
+      icon: tabler:news
+    - title: 電話
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: メール
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: 本社
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: 所在地
+  subtitle: 本社へお越しください
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15

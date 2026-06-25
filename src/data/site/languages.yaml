@@ -33,6 +33,16 @@
   locale: it
   textDirection: ltr
   enabled: true
+- code: JA
+  name: 日本語
+  locale: ja
+  textDirection: ltr
+  enabled: true
+- code: KO
+  name: 한국어
+  locale: ko
+  textDirection: ltr
+  enabled: true
 - code: ZH
   name: 中文
   locale: zh

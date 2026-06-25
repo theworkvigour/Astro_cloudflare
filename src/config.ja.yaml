@@ -1,0 +1,87 @@
+site:
+  name: Wavefella
+  site: 'https://alluredna.com'
+  base: '/'
+  trailingSlash: false
+  googleSiteVerificationId: ''
+metadata:
+  title:
+    default: Wavefella — インフレータブルボートと技術製品の最新ソリューション
+    template: '%s — Wavefella'
+  description: 'Wavefellaは高品質のインフレータブルボート、RIB、技術製品を設計・製造しています。カタログ、仕様、リソースをご覧ください。'
+  keywords:
+    - Wavefella
+    - インフレータブルボート
+    - RIB
+    - PVC
+    - マリン
+    - エンジニアリング
+  author: Wavefella
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Wavefella
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+    locale: ja_JP
+  twitter:
+    handle: '@Wavefella'
+    site: '@Wavefella'
+    cardType: summary_large_image
+i18n:
+  textDirection: ltr
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 6
+    post:
+      isEnabled: true
+      permalink: '/news/%slug%'
+      robots:
+        index: true
+        follow: true
+    list:
+      isEnabled: true
+      pathname: 'news'
+      robots:
+        index: true
+        follow: true
+    category:
+      isEnabled: true
+      pathname: 'category'
+      robots:
+        index: true
+        follow: true
+    tag:
+      isEnabled: true
+      pathname: 'tag'
+      robots:
+        index: false
+        follow: true
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 4
+  products:
+    isEnabled: true
+    productsPerPage: 12
+    product:
+      isEnabled: true
+      permalink: '/products/%slug%'
+      robots:
+        index: true
+        follow: true
+    list:
+      isEnabled: true
+      pathname: 'products'
+      robots:
+        index: true
+        follow: true
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+ui:
+  theme: 'system'

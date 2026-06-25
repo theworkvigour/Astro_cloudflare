@@ -1,0 +1,96 @@
+hero:
+  tagline: 会社概要
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Wavefella 工房
+  title: |
+    船舶工学、<br />
+    <span class="text-accent dark:text-white">Wavefella</span>流
+  subtitle: '私たちは海辺の工房で、1隻のボートと揺るぎない信念から始まりました：マリン製品は使命を果たすために設計されるべきです—そして実際にそうなっています。現在では40カ国以上に出荷していますが、すべての船体は今も創業者たちと同じ手を通過しています。'
+
+stats:
+  title: 数字で見る
+  columns: 4
+  stats:
+    - title: 納入船体数
+      amount: '2,400+'
+    - title: 対応国数
+      amount: '40'
+    - title: 累積経験年数
+      amount: '60'
+    - title: 平均応答時間（時間）
+      amount: '24'
+
+features3_what_we_build:
+  title: 私たちが作るもの
+  subtitle: 熟知している集中的な製品ライン—中途半端な実験も、バッジエンジニアリングもありません。
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: RIBボート
+      description: 3.3m～7.5mのアルミ船体RIB。巡視、ダイビング、釣り、ファミリー用に設計。
+      icon: tabler:ship
+    - title: インフレータブルボート
+      description: 2.4m～4.2mのPVCおよびHypalonインフレータブルボート。軽量で頑丈、収納も簡単。
+      icon: tabler:speedboat
+    - title: スーパーヨットテンダー
+      description: コンパクトで高仕様のRIB、母船のデザインに合わせてオーダーメイド。
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: アクセサリー
+      description: ストラップ、ポンプ、カバー、ドライバッグ、燃料タンク、電子機器。すべて当社のボートに対応。
+      icon: tabler:package
+    - title: 改装と修理
+      description: 社内でのチューブ修理、電子機器アップグレード、エンジン改装。
+      icon: tabler:tool
+    - title: 特注製作
+      description: 商業、科学、軍事向けのプロジェクトベース設計。
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: 特注ボート製作
+
+steps2_values:
+  title: 私たちの価値観
+  subtitle: 初日からすべての製品を形作ってきた3つの原則。
+  items:
+    - title: 家族が乗ると思って造る
+      description: すべての船体、溶接部、部品を、自分の家族が使うかのように扱います。
+      icon: tabler:heart
+    - title: 販売より先にエンジニアリング
+      description: 仕様が間違っている場合は仕様を変更します—決してお客様を変えません。
+      icon: tabler:settings
+    - title: 保証を超えたサポート
+      description: 20年前の船体が今でも部品を求めて連絡してきます—そして私たちは今も応えます。
+      icon: tabler:headset
+
+steps2_milestones:
+  title: マイルストーン
+  subtitle: Wavefellaのストーリーの簡略版。
+  isReversed: true
+  items:
+    - title: 海辺の工房で創業
+      description: 2人の船舶設計者が1台のCNCフライス盤と揺るぎないアイデアでスタート。
+      icon: tabler:building-factory
+    - title: 最初の1,000船体納入
+      description: 7年目に達成。主に口コミとリピート顧客による。
+      icon: tabler:circle-check
+    - title: 国際輸出プログラム
+      description: 5大陸の現地サポートパートナーと共に40カ国以上に出荷。
+      icon: tabler:world
+
+features2_locations:
+  title: 拠点
+  tagline: お問い合わせ
+  columns: 3
+  items:
+    - title: 本社兼工房
+      description: 沿岸産業団地4号棟—月～金、予約制で見学可能。
+    - title: EUサービスセンター
+      description: 地中海港湾—欧州顧客向け改装、修理、保証サポート。
+    - title: APACパートナーネットワーク
+      description: オーストラリア、日本、シンガポール、香港の認定サービスパートナー。

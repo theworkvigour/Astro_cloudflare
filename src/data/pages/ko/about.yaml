@@ -1,0 +1,96 @@
+hero:
+  tagline: 회사 소개
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Wavefella 작업장
+  title: |
+    선박 공학,<br />
+    <span class="text-accent dark:text-white">Wavefella</span> 방식
+  subtitle: '우리는 해변 작업장에서 한 척의 보트와 흔들리지 않는 신념으로 시작했습니다: 해양 제품은 임무를 수행할 수 있도록 설계되어야 합니다—그리고 실제로 그렇습니다. 현재 40개국 이상으로 출하하고 있지만, 모든 선체는 여전히 회사를 설립한 그 손길을 거치고 있습니다.'
+
+stats:
+  title: 숫자로 보는 Wavefella
+  columns: 4
+  stats:
+    - title: 납품 선체 수
+      amount: '2,400+'
+    - title: 서비스 국가
+      amount: '40'
+    - title: 누적 경험 연수
+      amount: '60'
+    - title: 평균 응답 시간(시간)
+      amount: '24'
+
+features3_what_we_build:
+  title: 우리가 만드는 것
+  subtitle: 잘 알고 있는 집중된 제품 라인—미완성 실험도, 배지 엔지니어링도 없습니다.
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: RIB 보트
+      description: 3.3m~7.5m 알루미늄 선체 RIB. 순찰, 다이빙, 낚시, 가족용으로 설계.
+      icon: tabler:ship
+    - title: 인플레이터블 보트
+      description: 2.4m~4.2m PVC 및 Hypalon 인플레이터블 보트. 가볍고 튼튼하며 보관이 쉽습니다.
+      icon: tabler:speedboat
+    - title: 슈퍼요트 텐더
+      description: 모선 디자인에 맞춰 제작된 컴팩트한 고사양 RIB.
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: 액세서리
+      description: 스트랩, 펌프, 커버, 드라이백, 연료 탱크, 전자 장비. 모든 제품이 당사 보트와 호환됩니다.
+      icon: tabler:package
+    - title: 개조 및 수리
+      description: 자체 튜브 수리, 전자 장비 업그레이드, 엔진 개조.
+      icon: tabler:tool
+    - title: 주문 제작
+      description: 상업, 과학, 군사 고객을 위한 프로젝트 기반 설계.
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: 맞춤형 보트 제작
+
+steps2_values:
+  title: 우리의 가치
+  subtitle: 첫날부터 모든 제품을 형성해 온 세 가지 원칙.
+  items:
+    - title: 가족이 탄다고 생각하고 만듭니다
+      description: 모든 선체, 모든 용접부, 모든 부품을 우리 가족이 사용한다고 생각하고 다룹니다.
+      icon: tabler:heart
+    - title: 판매보다 엔지니어링 우선
+      description: 사양이 잘못되었다면 사양을 변경합니다—절대 고객을 변경하지 않습니다.
+      icon: tabler:settings
+    - title: 보증을 넘어선 지원
+      description: 20년 된 선체도 여전히 부품을 문의합니다—그리고 우리는 여전히 응답합니다.
+      icon: tabler:headset
+
+steps2_milestones:
+  title: 이정표
+  subtitle: Wavefella 이야기의 간략한 버전.
+  isReversed: true
+  items:
+    - title: 해변 작업장에서 창업
+      description: 두 명의 선박 설계자가 CNC 조각기 하나와 흔들리지 않는 아이디어로 시작했습니다.
+      icon: tabler:building-factory
+    - title: 첫 1,000선체 납품
+      description: 7년 차에 달성, 주로 입소문과 단골 고객을 통해.
+      icon: tabler:circle-check
+    - title: 국제 수출 프로그램
+      description: 5대륙의 현지 지원 파트너와 함께 40개국 이상으로 출하.
+      icon: tabler:world
+
+features2_locations:
+  title: 위치
+  tagline: 찾아오시는 길
+  columns: 3
+  items:
+    - title: 본사 및 작업장
+      description: 해안 산업단지, 4동—월~금, 예약 방문 가능.
+    - title: EU 서비스 센터
+      description: 지중해 항구—유럽 고객을 위한 개조, 수리 및 보증 지원.
+    - title: APAC 파트너 네트워크
+      description: 호주, 일본, 싱가포르, 홍콩의 공인 서비스 파트너.

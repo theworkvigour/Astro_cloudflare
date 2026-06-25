@@ -1,0 +1,179 @@
+hero:
+  tagline: ''
+  title: |
+    水のために設計。<br class="hidden sm:inline" />
+    <span class="text-accent dark:text-white">船上の生活</span>のために構築。
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span>は高品質のインフレータブルボート、RIB、技術製品を設計・製造しています。</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella：性能のために作られています。</span>
+    信頼性と職人技を求める海洋専門家、商業事業者、愛好家に最適です。
+  actions:
+    - variant: primary
+      text: 製品を見る
+      href: /products
+      icon: tabler:shopping-bag
+    - text: もっと詳しく
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Wavefella カバー画像
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Wavefella 海辺の工房
+      tagline: ようこそ
+      title: |
+        水のために設計。<br />
+        <span class="text-sky-300">船上の生活</span>のために構築。
+      subtitle: 海洋専門家と愛好家のための高品質インフレータブルボート、RIB、技術製品。
+      actions:
+        - text: 製品を見る
+          href: /products
+          variant: primary
+        - text: 見積もりを依頼
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: カスタムボート製造中
+      tagline: 職人技
+      title: |
+        保証期間より長持ちする船体。<br />
+        船体より長く続くサービス。
+      subtitle: マリングレードの素材。アルミ溶接。20年前のボートが今でも部品を求めて連絡してきます。
+      actions:
+        - text: 私たちの物語
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: 水上のインフレータブルボート
+      tagline: サポート
+      title: |
+        販売前に設計。<br />
+        その後も長期サポート。
+      subtitle: 40ヶ国以上の認定サービスパートナー。20年前の船体からも連絡があります—そして私たちは今も応えます。
+      actions:
+        - text: お問い合わせ
+          href: /contact
+          variant: primary
+        - text: 価格を見る
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: Wavefellaを選ぶ理由
+  title: Wavefellaで得られるもの
+  subtitle: 数十年の造船経験を1つの集中的な製品ラインに凝縮。堅牢に構築され、海上でテストされ、生涯サポート。
+  columns: 2
+  items:
+    - title: マリングレードの素材
+      description: 耐紫外線、耐摩耗性、耐海水性に優れた高強度PVC、Hypalon、アルミ船体。
+      icon: tabler:shield-check
+    - title: 生産品質
+      description: すべての船体は圧力テスト済み、すべての溶接部は検査済み。私たち自身が進水させるものだけを出荷します。
+      icon: tabler:certificate
+    - title: モジュラーデザイン
+      description: チューブ配置、コンソール位置、燃料容量、アクセサリーをお客様の用途に合わせて調整可能。
+      icon: tabler:layout-grid
+    - title: 正直な仕様
+      description: 実際の耐荷重、実際の寸法、実際の重量。マーケティングの誇張は一切ありません。
+      icon: tabler:ruler-measure
+    - title: 迅速な納品と部品供給
+      description: 標準モデルは数日で発送。純正部品と消耗品は年間在庫。
+      icon: tabler:truck-delivery
+    - title: 生涯サポート
+      description: 技術相談、修理、改造アドバイスのための設計チームへの直通回線。
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: 厳選製品
+  subtitle: 現在のカタログから厳選—今シーズン最も人気のモデル。
+  linkText: すべての製品を見る
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: 工房探訪
+  title: 船体設計から納品まで—すべての工程を社内で
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">見て、感じて、測定できる品質</h3>
+  items:
+    - title: 船舶設計者による設計
+      description: 船体ラインは社内で描かれ、最初のプロトタイプの前にCFD解析で繰り返し改良されます。
+    - title: 自社工場で溶接・組立
+      description: チューブ溶接、コンソール取付、艤装が同一建屋内で行われ、すべての工程で品質を管理。
+    - title: 出荷前に海上テスト
+      description: 各モデルは数時間の海上試験を完了し、滑走、旋回、最高速度、積載時の挙動を確認。
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: 工房
+
+steps:
+  title: スペックシートから進水まで5ステップ
+  items:
+    - title: 'ステップ1：<span class="font-medium">設定</span>'
+      description: モデルを選び、オプションを決め、オンラインまたは電話で見積もりを依頼。チームが1営業日以内に回答。
+      icon: tabler:list-numbers
+    - title: 'ステップ2：<span class="font-medium">確認</span>'
+      description: 仕様、納期、総費用を書面で確認。驚きも隠れた費用もありません。
+      icon: tabler:checks
+    - title: 'ステップ3：<span class="font-medium">製造</span>'
+      description: 工房で生産開始。主要マイルストーンで進捗写真をお送りします。
+      icon: tabler:tool
+    - title: 'ステップ4：<span class="font-medium">納品</span>'
+      description: クレードルに格納、シュリンクラップ、海上または航空貨物で発送。通関手続きはすべて含まれています。
+      icon: tabler:truck-loading
+    - title: 'ステップ5：<span class="font-medium">サポート</span>'
+      description: 2年間の船体保証と生涯技術サポート。部品は48時間以内に発送。
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: 製造工程
+
+blog_latest:
+  title: ブログから
+  information: |
+    設計チームからの記事、テクニカルノート、ケーススタディ。
+    プロジェクトが納品されたとき、規格が更新されたとき、または誰かが共有する価値のあるストーリーを持っているときに新しい投稿が公開されます。
+
+faqs:
+  title: よくある質問
+  subtitle: 最もよく寄せられる質問。あなたの質問がここにない場合は、メッセージをお送りください—すぐに返信します。
+  columns: 2
+  items:
+    - title: どのモデルを選べばよいですか？
+      description: 乗組員の人数、水域、速度・積載量・燃費のどれを優先するかによります。簡単な説明をお送りいただければ、適切なモデルを2～3つご提案します。
+      icon: tabler:anchor
+    - title: 国際配送は可能ですか？
+      description: はい—40カ国以上に配送しています。海上輸送が完成艇には最も経済的で、緊急注文には航空貨物が利用可能です。
+      icon: tabler:ship
+    - title: 保証内容は？
+      description: 船体2年、付属品1年、溶接部は永久保証。保証登録は納品時に含まれています。
+      icon: tabler:shield
+    - title: 既存モデルのカスタマイズは可能ですか？
+      description: ほとんどの場合可能です。コンソール位置、チューブカラー、シート配置、電子機器、エンジンパッケージを調整できます。特殊船体はプロジェクトベースで見積もります。
+      icon: tabler:palette
+    - title: トレーニングや認定は提供していますか？
+      description: 商業事業者向けに、弊社工場での海上試験トレーニングを手配可能です。レクリエーションのお客様は納品時に無料説明を受けられます。
+      icon: tabler:school
+    - title: 部品はどうやって入手できますか？
+      description: お問い合わせページから注文するか、部品ホットラインにお電話ください。一般的な部品（バルブ、ストラップ、ポンプ、修理キット）は48時間以内に世界中に発送されます。
+      icon: tabler:settings
+
+cta:
+  title: |
+    次のボートを<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">設定しませんか</span>？
+  subtitle: ボートの使用方法をお知らせください。1営業日以内にモデル、オプション、価格をご提案します。
+  actions:
+    - variant: primary
+      text: 見積もりを依頼
+      href: /contact
+      icon: tabler:message-circle
+    - text: カタログを見る
+      href: /products
