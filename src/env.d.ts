@@ -9,6 +9,12 @@
 declare module '@fontsource-variable/*';
 declare module '@fontsource/*';
 
+// Astro virtual module injected by pageContentPlugin — all YAML page data
+declare module 'astro:page-content' {
+  const content: Record<string, any>;
+  export default content;
+}
+
 // Astro AI virtual module (used at Cloudflare edge)
 declare module '/.astro/ai' {
   export interface Ai {
