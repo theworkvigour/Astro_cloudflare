@@ -12,7 +12,7 @@
   name: Deutsch
   locale: de
   textDirection: ltr
-  enabled: false
+  enabled: true
 - code: ES
   name: Español
   locale: es
@@ -22,14 +22,14 @@
   name: Português
   locale: pt
   textDirection: ltr
-  enabled: false
+  enabled: true
 - code: AR
   name: العربية
   locale: ar
   textDirection: rtl
-  enabled: false
+  enabled: true
 - code: ZH
   name: 中文
   locale: zh
   textDirection: ltr
-  enabled: false
+  enabled: true
