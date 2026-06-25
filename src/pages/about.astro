@@ -11,8 +11,9 @@ import { SITE } from 'astrowind:config';
 import { getPageContent } from '~/i18n/page-content';
 import { languages, defaultLang } from '~/i18n/config';
 
+const xLang = Astro.request.headers.get('X-Original-Lang') || '';
 const acceptLang = Astro.request.headers.get('Accept-Language') || '';
-const lang: string = acceptLang.split(',').map(s => s.split(';')[0].split('-')[0]).find(l => l in languages) || defaultLang;
+const lang: string = xLang || acceptLang.split(',').map(s => s.split(';')[0].split('-')[0]).find(l => l in languages) || defaultLang;
 const page = getPageContent(lang, 'about');
 
 const hero = page.hero ?? {};

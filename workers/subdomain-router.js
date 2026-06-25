@@ -47,6 +47,12 @@ export default {
       // else: SSR/admin/api route without [lang]/ — proxy as-is
 
       url.hostname = host.replace(`${subdomain}.`, '');
+
+      // Pass the original subdomain lang to upstream SSR pages
+      // so they can show the correct language even if browser Accept-Language differs
+      const headers = new Headers(request.headers);
+      headers.set('X-Original-Lang', lang);
+      return fetch(url.toString(), { method: request.method, headers, body: request.body });
     }
 
     return fetch(url.toString(), request);
