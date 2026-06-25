@@ -114,7 +114,7 @@ const useCases = [
 ];
 
 const proofPoints = [
-  { metric: '12', label: t('home.proof.products'), detail: 'SUP, Kayak, Dinghy, RIB, Safety, Accessory' },
+  { metric: '12', label: t('home.proof.products'), detail: t('home.proof.products.detail') },
   { metric: '50+', label: t('home.proof.countries'), detail: t('home.proof.countries.detail') },
   { metric: '2012', label: t('home.proof.founded'), detail: t('home.proof.founded.detail') },
   { metric: 'ISO', label: t('home.proof.certified'), detail: t('home.proof.certified.detail') },
@@ -135,10 +135,10 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
 
   <!-- AI Semantic Blocks -->
   <section class="sr-only" data-ai-block="definition" aria-hidden="true">
-    <p>Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports. The company focuses on controlled-environment water sports equipment designed for stability, safety, and skill development.</p>
+    <p><strong>Wavefella</strong> {t('home.tldr.summary')}</p>
   </section>
   <section class="sr-only" data-ai-block="use-case" aria-hidden="true">
-    <p>Wavefella products are used in beginner SUP training, long-distance touring, family recreation on lakes and sheltered waters, professional marine patrol and rescue operations, and water safety training programs.</p>
+    <p><strong>Wavefella</strong> {t('home.tldr.point2')}</p>
   </section>
 
   <!-- Hero -->
@@ -236,28 +236,29 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
   ) : (
     <section class="max-w-6xl mx-auto py-24 px-6" id="philosophy">
       <Tldr
-        summary="Wavefella designs and manufactures inflatable watercraft and safety equipment for controlled water environments — lakes, sheltered bays, rivers, training facilities, and coastal waters. Founded in 2012, every product is CE and ISO certified, built from marine-grade PVC or Hypalon with drop-stitch construction."
+        label={t('tldr.label')}
+        summary={t('home.tldr.summary')}
         points={[
-          '12 products across 6 categories: SUP, Kayak, Dinghy, RIB, Safety, Accessory',
-          'Serves recreational, commercial, and professional users in 50+ countries',
-          'All products rated for specific skill levels, water conditions, and safety requirements',
+          t('home.tldr.point1'),
+          t('home.tldr.point2'),
+          t('home.tldr.point3'),
         ]}
       />
       <div class="mt-16 grid md:grid-cols-3 gap-8">
         <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">🌊</div>
-          <h3 class="mt-5 text-lg font-semibold text-gray-900">Environment-First Design</h3>
-          <p class="mt-3 text-gray-500 text-sm leading-relaxed">Every product is rated for specific water conditions — calm, moderate, or challenging — with clear safety guidelines.</p>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">{t('home.philosophy.env.title')}</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.philosophy.env.desc')}</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">⚙️</div>
-          <h3 class="mt-5 text-lg font-semibold text-gray-900">Controlled-Skill Progression</h3>
-          <p class="mt-3 text-gray-500 text-sm leading-relaxed">Products organized by skill — beginner, intermediate, advanced — so every user finds the right platform for their ability.</p>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">{t('home.philosophy.skill.title')}</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.philosophy.skill.desc')}</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl">🛡️</div>
-          <h3 class="mt-5 text-lg font-semibold text-gray-900">Safety-as-Standard</h3>
-          <p class="mt-3 text-gray-500 text-sm leading-relaxed">CE certification is not optional. Every vessel undergoes pressure, buoyancy, and load testing.</p>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">{t('home.philosophy.safety.title')}</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">{t('home.philosophy.safety.desc')}</p>
         </div>
       </div>
     </section>
@@ -294,7 +295,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
           <div class="h-52 bg-gradient-to-br from-sky-400 to-blue-500 overflow-hidden">
-            <img src="/images/wavefella/products/sup-allround.jpg" alt="Beginner" class="w-full h-full object-cover opacity-80" loading="lazy" />
+            <img src="/images/wavefella/products/sup-allround.jpg" alt={t('home.alt.beginner')} class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
             <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">{t('home.preview.beginner.label')}</span>
@@ -304,7 +305,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
           <div class="h-52 bg-gradient-to-br from-amber-400 to-orange-500 overflow-hidden">
-            <img src="/images/wavefella/products/airdeck-360.jpg" alt="Family" class="w-full h-full object-cover opacity-80" loading="lazy" />
+            <img src="/images/wavefella/products/airdeck-360.jpg" alt={t('home.alt.family')} class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
             <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">{t('home.preview.family.label')}</span>
@@ -314,7 +315,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
           <div class="h-52 bg-gradient-to-br from-red-400 to-rose-500 overflow-hidden">
-            <img src="/images/wavefella/products/rib-450-patrol.jpg" alt="Professional" class="w-full h-full object-cover opacity-80" loading="lazy" />
+            <img src="/images/wavefella/products/rib-450-patrol.jpg" alt={t('home.alt.professional')} class="w-full h-full object-cover opacity-80" loading="lazy" />
           </div>
           <div class="p-6">
             <span class="text-xs font-semibold uppercase tracking-wider text-red-600">{t('home.preview.pro.label')}</span>
@@ -342,14 +343,14 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
         <TrustBadges />
       </div>
       <div class="text-center">
-        <h2 class="text-3xl font-semibold">{page.cta?.title || 'Start your water journey today'}</h2>
-        <p class="mt-3 text-white/70">{page.cta?.subtitle || 'Every product CE certified, every purchase backed by warranty.'}</p>
+        <h2 class="text-3xl font-semibold">{page.cta?.title || t('home.cta.title')}</h2>
+        <p class="mt-3 text-white/70">{page.cta?.subtitle || t('home.cta.subtitle')}</p>
         <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
           <a href={`/${lang}/${(page.cta?.actions?.[0]?.href || 'products').replace(/^\//, '')}`} class="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-            {page.cta?.actions?.[0]?.text || 'Browse all products'}
+            {page.cta?.actions?.[0]?.text || t('home.cta.action1')}
           </a>
           <a href={`/${lang}/${(page.cta?.actions?.[1]?.href || 'products').replace(/^\//, '')}`} class="px-8 py-4 border-2 border-white/30 text-white rounded-xl font-semibold hover:border-white transition-colors">
-            {page.cta?.actions?.[1]?.text || 'View bundle deals'}
+            {page.cta?.actions?.[1]?.text || t('home.cta.action2')}
           </a>
         </div>
       </div>
@@ -385,7 +386,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
           </div>
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900">{cat.name}</h3>
-            <p class="text-sm text-gray-400 mt-1">{cat.count} products</p>
+            <p class="text-sm text-gray-400 mt-1">{cat.count} {t('home.productSystem.unit')}</p>
             <div class="mt-3 flex flex-wrap gap-2 text-xs">
               <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.waters}</span>
               <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.skill}</span>
@@ -466,13 +467,13 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src="/images/wavefella/use-cases/beginner.jpg" alt="Paddling at sunset" class="w-full h-full object-cover" loading="lazy" />
+        <img src="/images/wavefella/use-cases/beginner.jpg" alt={t('home.alt.community1')} class="w-full h-full object-cover" loading="lazy" />
       </div>
       <div class="rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src="/images/wavefella/use-cases/outdoor.jpg" alt="Lake adventure" class="w-full h-full object-cover" loading="lazy" />
+        <img src="/images/wavefella/use-cases/outdoor.jpg" alt={t('home.alt.community2')} class="w-full h-full object-cover" loading="lazy" />
       </div>
       <div class="rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src="/images/wavefella/use-cases/family.jpg" alt="River exploration" class="w-full h-full object-cover" loading="lazy" />
+        <img src="/images/wavefella/use-cases/family.jpg" alt={t('home.alt.community3')} class="w-full h-full object-cover" loading="lazy" />
       </div>
     </div>
     <div class="mt-12 grid md:grid-cols-3 gap-8">
@@ -550,7 +551,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
             <div class="mt-4 flex items-center gap-3">
               <span class="text-2xl font-bold text-gray-900">${b.bundlePrice}</span>
               <span class="text-sm text-gray-400 line-through">${b.totalPrice}</span>
-              <span class="text-sm font-semibold text-emerald-600">Save ${b.savings}</span>
+              <span class="text-sm font-semibold text-emerald-600">{t('home.bundles.save').replace('{amount}', '$' + b.savings)}</span>
             </div>
             <div class="mt-4 text-sm text-sky-600 font-medium">{t('home.bundles.view')}</div>
           </a>
@@ -568,7 +569,7 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-16">
           <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('faq.title')}</span>
-          <h2 class="mt-4 text-4xl font-semibold text-gray-900">{faqData?.title || 'Frequently asked questions'}</h2>
+          <h2 class="mt-4 text-4xl font-semibold text-gray-900">{faqData?.title || t('faq.title')}</h2>
           {faqData?.subtitle && <p class="mt-4 text-lg text-gray-500">{faqData.subtitle}</p>}
         </div>
         <div class="space-y-4">
@@ -590,8 +591,8 @@ const faqLd = faqItems.map((f: { q: string; a: string }) => ({ question: f.q, an
     <section class="bg-gray-50 py-24 px-6" id="faq" data-ai-block="faq">
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-16">
-          <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>
-          <h2 class="mt-4 text-4xl font-semibold text-gray-900">Frequently asked questions</h2>
+          <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('faq.title')}</span>
+          <h2 class="mt-4 text-4xl font-semibold text-gray-900">{t('faq.title')}</h2>
         </div>
         <div class="space-y-4">
           {faqItems.map((item: { q: string; a: string }, i: number) => (
