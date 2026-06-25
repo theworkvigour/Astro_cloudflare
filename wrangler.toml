@@ -31,12 +31,15 @@ binding = "ASSETS"
 # ----------------------------------------------------------------
 #
 # 3. Subdomain Router (subdomain-router):
+#    Auto-deployed via GitHub Actions. Manual deploy:
 #    npx wrangler deploy workers/subdomain-router.js --name alluredna-subdomain-router
-#    Then configure Cloudflare DNS:
-#      *.alluredna.com  CNAME  your-pages-project.pages.dev  (Proxied/橙色云)
-#    And add a route in Cloudflare Dashboard:
-#      *.alluredna.com/*  →  alluredna-subdomain-router
-#    (The root alluredna.com goes directly to Pages, no worker.)
+#
+#    Required setup (one time only):
+#    ┌─────────────────────────────────────────────────────────┐
+#    │ 1. DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)    │
+#    │ 2. Route: *.alluredna.com/* → alluredna-subdomain-router │
+#    │    (Cloudflare Dashboard → Workers → Triggers → Routes) │
+#    └─────────────────────────────────────────────────────────┘
 # ----------------------------------------------------------------
 
 # --- AI Infrastructure ---

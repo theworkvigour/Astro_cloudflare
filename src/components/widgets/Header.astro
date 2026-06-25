@@ -366,13 +366,18 @@ Type a keyword to start searching
         e.preventDefault();
         var locale = t.getAttribute('data-locale') || 'en';
         var path = window.location.pathname;
-        var newPath = '/' + locale + path.replace(/^\/[a-z]{2}(\/|$)/, '/$1');
-        newPath = newPath.replace(/\/+/g, '/').replace(/\/$/, '') || '/' + locale + '/';
+        var host = window.location.hostname;
+        var parts = host.split('.');
 
         try { localStorage.setItem('locale', locale); } catch (e) {}
         document.cookie = 'x-user-locale=' + locale + '; path=/; max-age=31536000; SameSite=Lax';
 
-        window.location.href = window.location.origin + newPath;
+        if (parts.length >= 3) {
+          parts[0] = locale;
+        } else if (parts.length >= 2) {
+          parts.unshift(locale);
+        }
+        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
       });
     }
 
