@@ -55,7 +55,7 @@ hero_carousel:
       title: |
         Engineered before sold. <br />
         Supported long after.
-      subtitle: Authorised service partners in 40+ countries. Twenty-year-old hulls still call us for parts â€?and we still pick up.
+      subtitle: Authorised service partners in 40+ countries. Twenty-year-old hulls still call us for parts â€”?and we still pick up.
       actions:
         - text: Contact us
           href: /contact
@@ -93,7 +93,7 @@ features:
 featured_products:
   id: featured
   title: Featured products
-  subtitle: Hand-picked from our current catalog â€?the most popular models this season.
+  subtitle: Hand-picked from our current catalog â€”?the most popular models this season.
   linkText: View all products
   linkUrl: /products
 
@@ -151,7 +151,7 @@ faqs:
       description: It depends on your crew size, the water you run, and whether you prioritise speed, payload or fuel economy. Send us a short brief and we will recommend two or three models that fit.
       icon: tabler:anchor
     - title: Do you ship internationally?
-      description: Yes â€?we ship to over 40 countries. Sea freight is the most economical option for full boats; air freight is available for urgent orders.
+      description: Yes â€”?we ship to over 40 countries. Sea freight is the most economical option for full boats; air freight is available for urgent orders.
       icon: tabler:ship
     - title: What warranty do you provide?
       description: Two years on the hull, one year on accessories, lifetime on our welding. Warranty registration is included with every delivery.
