@@ -4,6 +4,12 @@ const LANG_MAP = {
   ar: 'ar', zh: 'zh',
 };
 
+// Routes that exist under [lang]/ and should get /{lang}/ prefix
+const LANG_PREFIX_ROUTES = new Set([
+  '', 'faq', 'guides', 'use-cases', 'products', 'compare',
+  'geo-report', 'llms.txt', 'sitemap.xml', 'v2',
+]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -20,19 +26,26 @@ export default {
     if (parts.length >= 3 && lang) {
       let path = url.pathname;
 
-      // Skip static assets — they are NOT in lang subdirectories
+      // Static assets — proxy without lang prefix
       if (/\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff2?|ttf|eot|json|xml|mp4|webm)$/i.test(path)) {
         url.hostname = host.replace(`${subdomain}.`, '');
         return fetch(url.toString(), request);
       }
 
+      const firstSegment = path.split('/')[1] || '';
+
       // Strip lang prefix if already present (e.g. /de/products/ from nav click)
-      const pathLang = path.split('/')[1];
-      if (pathLang === lang) {
-        path = path.slice(3) || '/';
+      if (firstSegment === lang) {
+        path = '/' + path.split('/').slice(2).join('/');
       }
 
-      url.pathname = `/${lang}${path}`;
+      if (LANG_PREFIX_ROUTES.has(firstSegment)) {
+        // Route has [lang]/ equivalent — add /{lang}/ prefix
+        const rest = path === '/' ? '' : path;
+        url.pathname = `/${lang}${rest}`;
+      }
+      // else: SSR/admin/api route without [lang]/ — proxy as-is
+
       url.hostname = host.replace(`${subdomain}.`, '');
     }
 
