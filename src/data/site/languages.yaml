@@ -54,11 +54,6 @@
   textDirection: ltr
   enabled: true
 - code: ZH
-  name: 한국어
-  locale: ko
-  textDirection: ltr
-  enabled: true
-- code: ZH
   name: 中文
   locale: zh
   textDirection: ltr

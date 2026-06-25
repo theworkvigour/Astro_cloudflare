@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { verifySessionToken } from '~/lib/auth';
 import { languages, defaultLang } from '~/i18n/config';
-import { getLangFromUrl, removeLang, localizePath } from '~/i18n/utils';
+import { resolveLocale, getCookieLocale } from '~/lib/geo/localeResolver';
 
 const protectedPrefixes = ['/keystatic', '/admin'];
 const publicPaths = [
@@ -22,35 +22,33 @@ function shouldSkipI18n(url: string): boolean {
   return i18nExcludedPrefixes.some(p => url === p || url.startsWith(p + '/'));
 }
 
-function getPreferredLang(accept: string | null): string {
-  if (!accept) return defaultLang;
-  const tags = accept.split(',').map(t => {
-    const parts = t.trim().split(';q=');
-    return { lang: parts[0].split('-')[0], q: parseFloat(parts[1]) || 1 };
-  });
-  tags.sort((a, b) => b.q - a.q);
-  for (const t of tags) {
-    if (languages[t.lang]) return t.lang;
-  }
-  return defaultLang;
+function detectLocale(request: Request): string {
+  const cookie = request.headers.get('cookie') || '';
+
+  // Priority 1: user manual override (cookie)
+  const cookieLocale = getCookieLocale(cookie);
+  if (cookieLocale && languages[cookieLocale]) return cookieLocale;
+
+  // Priority 2: Geo IP + Accept-Language
+  const country = request.headers.get('cf-ipcountry');
+  const accept = request.headers.get('accept-language');
+  const detected = resolveLocale(country, accept);
+
+  return detected in languages ? detected : defaultLang;
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = context.url.pathname;
 
-  // Auth protection
   const isProtected = protectedPrefixes.some((p) => url === p || url.startsWith(p + '/') || (p.endsWith('/') && url.startsWith(p)));
   const isPublic = publicPaths.some((p) => url === p || url.startsWith(p + '/'));
 
   if (isProtected && !isPublic) {
     const sessionCookie = context.cookies.get('ks-admin-session')?.value;
     const session = sessionCookie ? verifySessionToken(sessionCookie) : null;
-    if (!session) {
-      return context.redirect('/login');
-    }
+    if (!session) return context.redirect('/login');
   }
 
-  // GEO API auth
   const isGeoApi = geoApiPaths.some((p) => url === p || url.startsWith(p + '/'));
   const isGeoInternal = geoInternalPrefixes.some((p) => url === p || url.startsWith(p + '/'));
 
@@ -80,23 +78,33 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   }
 
-  // i18n: root path redirect to preferred language
-  if (!shouldSkipI18n(url) && !languages[url.split('/')[1]?.split('?')[0] || '']) {
-    // If it's not a language-prefixed path, check Accept-Language and redirect
-    if (url === '/' || url === '') {
-      const preferredLang = getPreferredLang(context.request.headers.get('accept-language'));
-      const targetPath = localizePath('/', preferredLang);
-      if (targetPath !== '/') {
-        return context.redirect(targetPath, 302);
+  if (!shouldSkipI18n(url)) {
+    const pathLang = url.split('/')[1]?.split('?')[0] || '';
+    const hasLangPrefix = pathLang in languages;
+
+    if (!hasLangPrefix) {
+      const detected = detectLocale(context.request);
+
+      if (url === '/' || url === '') {
+        if (detected !== defaultLang) {
+          return context.redirect(`/${detected}/`, 302);
+        }
+      } else {
+        if (detected !== defaultLang) {
+          return context.redirect(`/${detected}${url}`, 302);
+        }
       }
     }
-    // For non-root paths without lang prefix, we still render them as-is
-    // (backward compatibility with existing URLs)
-  }
 
-  // Store language in locals for downstream use
-  const lang = getLangFromUrl(context.url);
-  context.locals.lang = lang;
+    const lang = hasLangPrefix ? pathLang : defaultLang;
+    context.locals.lang = lang;
+    context.locals.locale = lang;
+    context.locals.isEN = lang === 'en';
+  } else {
+    context.locals.lang = defaultLang;
+    context.locals.locale = defaultLang;
+    context.locals.isEN = true;
+  }
 
   return next();
 });

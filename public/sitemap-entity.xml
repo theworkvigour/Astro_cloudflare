@@ -1,290 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:x="https://wavefella.com/geo">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:x="https://wavefella.com/geo">
   <url>
-    <loc>https://en.alluredna.com/products/sup-tour-12.mdx</loc>
-    <x:entity>sup-tour-12.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.9</priority>
+    <loc>https://alluredna.com/guides/inflatable-sup</loc>
+    <x:entity>inflatable-sup</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/sup-explorer-11.mdx</loc>
-    <x:entity>sup-explorer-11.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.9</priority>
+    <loc>https://alluredna.com/guides/inflatable-kayak</loc>
+    <x:entity>inflatable-kayak</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/rib-450-patrol.mdx</loc>
-    <x:entity>rib-450-patrol.mdx</x:entity>
-    <x:type>rib</x:type>
-    <priority>0.9</priority>
+    <loc>https://alluredna.com/guides/dinghy</loc>
+    <x:entity>dinghy</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/rib-330.mdx</loc>
-    <x:entity>rib-330.mdx</x:entity>
-    <x:type>rib</x:type>
-    <priority>0.9</priority>
+    <loc>https://alluredna.com/guides/rib</loc>
+    <x:entity>rib</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/pump-dual.mdx</loc>
-    <x:entity>pump-dual.mdx</x:entity>
-    <x:type>accessory</x:type>
-    <priority>0.7</priority>
+    <loc>https://alluredna.com/guides/safety-equipment</loc>
+    <x:entity>safety-equipment</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/paddle-carbon.mdx</loc>
-    <x:entity>paddle-carbon.mdx</x:entity>
-    <x:type>accessory</x:type>
-    <priority>0.7</priority>
+    <loc>https://alluredna.com/guides/accessory</loc>
+    <x:entity>accessory</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/oars-pump-set.mdx</loc>
-    <x:entity>oars-pump-set.mdx</x:entity>
-    <x:type>accessory</x:type>
-    <priority>0.7</priority>
+    <loc>https://alluredna.com/guides/paddle</loc>
+    <x:entity>paddle</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/life-vest-pro.mdx</loc>
-    <x:entity>life-vest-pro.mdx</x:entity>
-    <x:type>accessory</x:type>
-    <priority>0.7</priority>
+    <loc>https://alluredna.com/guides/carbon-paddle</loc>
+    <x:entity>carbon-paddle</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products/life-vest-classic.mdx</loc>
-    <x:entity>life-vest-classic.mdx</x:entity>
-    <x:type>accessory</x:type>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/kayak-tandem.mdx</loc>
-    <x:entity>kayak-tandem.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/kayak-lite.mdx</loc>
-    <x:entity>kayak-lite.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/airdeck-360.mdx</loc>
-    <x:entity>airdeck-360.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/airdeck-270.mdx</loc>
-    <x:entity>airdeck-270.mdx</x:entity>
-    <x:type>inflatable</x:type>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/wavefella-supply-chain-2025</loc>
-    <x:entity>wavefella-supply-chain-2025</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/wavefella-rd-center-innovation</loc>
-    <x:entity>wavefella-rd-center-innovation</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/us-water-rescue-partnership</loc>
-    <x:entity>us-water-rescue-partnership</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/sup-tour-12-launch</loc>
-    <x:entity>sup-tour-12-launch</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/spring-2026-gear-guide</loc>
-    <x:entity>spring-2026-gear-guide</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/seeking-dealers-for-wavefella</loc>
-    <x:entity>seeking-dealers-for-wavefella</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/recycled-pvc-initiative</loc>
-    <x:entity>recycled-pvc-initiative</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/preparing-sup-summer</loc>
-    <x:entity>preparing-sup-summer</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/miami-boat-show-2026</loc>
-    <x:entity>miami-boat-show-2026</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/life-vest-pro-solas</loc>
-    <x:entity>life-vest-pro-solas</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/lake-tahoe-paddle-club</loc>
-    <x:entity>lake-tahoe-paddle-club</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/kayak-tandem-best-family</loc>
-    <x:entity>kayak-tandem-best-family</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/iso-14001-certification</loc>
-    <x:entity>iso-14001-certification</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/great-lake-sup-challenge</loc>
-    <x:entity>great-lake-sup-challenge</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/news/drop-stitch-2-0</loc>
-    <x:entity>drop-stitch-2-0</x:entity>
-    <x:type>article</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/technology</loc>
-    <x:entity>military-grade-pvc</x:entity>
-    <x:type>technology</x:type>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/technology</loc>
-    <x:entity>hypalon-tubes</x:entity>
-    <x:type>technology</x:type>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/technology</loc>
+    <loc>https://alluredna.com/guides/drop-stitch-core</loc>
     <x:entity>drop-stitch-core</x:entity>
-    <x:type>technology</x:type>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/air-deck</loc>
+    <x:entity>air-deck</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/dual-action-pump</loc>
+    <x:entity>dual-action-pump</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/military-grade-pvc</loc>
+    <x:entity>military-grade-pvc</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/hypalon-fabric</loc>
+    <x:entity>hypalon-fabric</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/eva-deck</loc>
+    <x:entity>eva-deck</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/carbon-fiber</loc>
+    <x:entity>carbon-fiber</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/buoyancy-foam</loc>
+    <x:entity>buoyancy-foam</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/deep-v-hull</loc>
+    <x:entity>deep-v-hull</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/guides/outboard-motor</loc>
+    <x:entity>outboard-motor</x:entity>
+    <x:type>guide</x:type>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/use-cases/touring</loc>
+    <x:entity>touring</x:entity>
+    <x:type>use-case</x:type>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/technology</loc>
-    <x:entity>air-deck-floor</x:entity>
-    <x:type>technology</x:type>
+    <loc>https://alluredna.com/use-cases/beginner</loc>
+    <x:entity>beginner</x:entity>
+    <x:type>use-case</x:type>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products</loc>
-    <x:entity>marine-professional-operations</x:entity>
-    <x:type>case-use</x:type>
+    <loc>https://alluredna.com/use-cases/fishing</loc>
+    <x:entity>fishing</x:entity>
+    <x:type>use-case</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/use-cases/family-recreation</loc>
+    <x:entity>family-recreation</x:entity>
+    <x:type>use-case</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/use-cases/professional-operations</loc>
+    <x:entity>professional-operations</x:entity>
+    <x:type>use-case</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/use-cases/river-touring</loc>
+    <x:entity>river-touring</x:entity>
+    <x:type>use-case</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/use-cases/rescue</loc>
+    <x:entity>rescue</x:entity>
+    <x:type>use-case</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/inflatable-sup-vs-inflatable-kayak</loc>
+    <x:entity>inflatable-sup-vs-inflatable-kayak</x:entity>
+    <x:type>compare</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products</loc>
-    <x:entity>family-water-recreation</x:entity>
-    <x:type>case-use</x:type>
+    <loc>https://alluredna.com/compare/inflatable-sup-vs-dinghy</loc>
+    <x:entity>inflatable-sup-vs-dinghy</x:entity>
+    <x:type>compare</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products</loc>
-    <x:entity>coastal-touring</x:entity>
-    <x:type>case-use</x:type>
+    <loc>https://alluredna.com/compare/inflatable-sup-vs-rib</loc>
+    <x:entity>inflatable-sup-vs-rib</x:entity>
+    <x:type>compare</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/products</loc>
-    <x:entity>beginner-sup-training</x:entity>
-    <x:type>case-use</x:type>
+    <loc>https://alluredna.com/compare/inflatable-sup-vs-safety-equipment</loc>
+    <x:entity>inflatable-sup-vs-safety-equipment</x:entity>
+    <x:type>compare</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/</loc>
+    <loc>https://alluredna.com/compare/inflatable-sup-vs-accessory</loc>
+    <x:entity>inflatable-sup-vs-accessory</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/inflatable-kayak-vs-dinghy</loc>
+    <x:entity>inflatable-kayak-vs-dinghy</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/inflatable-kayak-vs-rib</loc>
+    <x:entity>inflatable-kayak-vs-rib</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/inflatable-kayak-vs-safety-equipment</loc>
+    <x:entity>inflatable-kayak-vs-safety-equipment</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/inflatable-kayak-vs-accessory</loc>
+    <x:entity>inflatable-kayak-vs-accessory</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/dinghy-vs-rib</loc>
+    <x:entity>dinghy-vs-rib</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/dinghy-vs-safety-equipment</loc>
+    <x:entity>dinghy-vs-safety-equipment</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/dinghy-vs-accessory</loc>
+    <x:entity>dinghy-vs-accessory</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/rib-vs-safety-equipment</loc>
+    <x:entity>rib-vs-safety-equipment</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/rib-vs-accessory</loc>
+    <x:entity>rib-vs-accessory</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/compare/safety-equipment-vs-accessory</loc>
+    <x:entity>safety-equipment-vs-accessory</x:entity>
+    <x:type>compare</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/</loc>
     <x:entity>wavefella</x:entity>
     <x:type>brand</x:type>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/safety</loc>
-    <x:entity>safety</x:entity>
-    <x:type>safety</x:type>
-    <priority>0.7</priority>
+    <loc>https://alluredna.com/products</loc>
+    <x:entity>products</x:entity>
+    <x:type>product</x:type>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/guides</loc>
+    <loc>https://alluredna.com/guides</loc>
     <x:entity>guides</x:entity>
     <x:type>guide</x:type>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/news</loc>
+    <loc>https://alluredna.com/technology</loc>
+    <x:entity>technology</x:entity>
+    <x:type>technology</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/safety</loc>
+    <x:entity>safety</x:entity>
+    <x:type>safety</x:type>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/news</loc>
     <x:entity>news</x:entity>
     <x:type>article</x:type>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/about</loc>
+    <loc>https://alluredna.com/about</loc>
     <x:entity>about</x:entity>
     <x:type>brand</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/services</loc>
-    <x:entity>services</x:entity>
-    <x:type>service</x:type>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/contact</loc>
+    <loc>https://alluredna.com/contact</loc>
     <x:entity>contact</x:entity>
     <x:type>service</x:type>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/randdcenter</loc>
+    <loc>https://alluredna.com/brand</loc>
+    <x:entity>brand</x:entity>
+    <x:type>brand</x:type>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alluredna.com/randdcenter</loc>
     <x:entity>randd</x:entity>
     <x:type>technology</x:type>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://en.alluredna.com/distributors</loc>
-    <x:entity>distributors</x:entity>
-    <x:type>service</x:type>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/compare</loc>
-    <x:entity>compare</x:entity>
-    <x:type>product</x:type>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/products/bundles</loc>
-    <x:entity>bundles</x:entity>
-    <x:type>product</x:type>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://en.alluredna.com/size-guide</loc>
+    <loc>https://alluredna.com/size-guide</loc>
     <x:entity>size-guide</x:entity>
     <x:type>product</x:type>
     <priority>0.5</priority>

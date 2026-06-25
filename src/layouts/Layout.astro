@@ -20,6 +20,8 @@ import { ClientRouter } from 'astro:transitions';
 import type { MetaData as MetaDataType } from '~/types';
 import { getSeoSettings } from '~/utils/seo-settings';
 import langData from '~/data/site/languages.yaml';
+import { defaultLang } from '~/i18n/config';
+import { getLangFromUrl, removeLang, localizePath } from '~/i18n/utils';
 export interface Props {
   metadata?: MetaDataType;
 }
@@ -42,6 +44,8 @@ const enabledLangs = (Array.isArray(langData) ? langData : []).filter((l: any) =
 const hostname = Astro.url.hostname;
 const isSubdomain = hostname.split('.').length >= 3 && hostname !== 'localhost';
 const pathname = Astro.url.pathname;
+const pathWithoutLang = removeLang(pathname);
+const currentLang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
@@ -64,8 +68,8 @@ const pathname = Astro.url.pathname;
           rel="alternate"
           hreflang={l.locale}
           href={isSubdomain
-            ? `${Astro.url.protocol}//${l.locale}.${hostname.split('.').slice(1).join('.')}${pathname}`
-            : `${siteUrlTrimmed}${pathname}`
+            ? `${Astro.url.protocol}//${l.locale}.${hostname.split('.').slice(1).join('.')}${pathWithoutLang}`
+            : `${siteUrlTrimmed}${localizePath(pathWithoutLang, l.locale)}`
           }
         />
       ))
@@ -74,8 +78,8 @@ const pathname = Astro.url.pathname;
       rel="alternate"
       hreflang="x-default"
       href={isSubdomain
-        ? `${Astro.url.protocol}//en.${hostname.split('.').slice(1).join('.')}${pathname}`
-        : `${siteUrlTrimmed}${pathname}`
+        ? `${Astro.url.protocol}//en.${hostname.split('.').slice(1).join('.')}${pathWithoutLang}`
+        : `${siteUrlTrimmed}${localizePath(pathWithoutLang, defaultLang)}`
       }
     />
 

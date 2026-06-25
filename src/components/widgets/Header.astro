@@ -73,7 +73,6 @@ const entityForHref = (href?: string): string => {
 const langs: Array<{ code: string; name: string; locale: string }> = Array.isArray(langData) ? langData : [];
 
 const currentLocale = I18N?.language || 'en';
-const currentLang = langs.find((l) => l.locale === currentLocale) || langs[0] || { code: 'EN', name: 'English', locale: 'en' };
 ---
 
 <header
@@ -132,36 +131,15 @@ const currentLang = langs.find((l) => l.locale === currentLocale) || langs[0] ||
         >
           <Icon name="tabler:search" class="w-5 h-5" />
         </button>
-        <div class="relative" data-lang-switcher-mobile>
-          <button
-            type="button"
-            data-lang-button-mobile
-            aria-haspopup="true"
-            aria-expanded="false"
-            class="inline-flex items-center gap-1 px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <Icon name="tabler:language" class="w-5 h-5" />
-          </button>
-          <ul
-            data-lang-menu-mobile
-            class="hidden absolute right-0 mt-1 min-w-[10rem] rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg z-50 py-1"
-          >
-            {langs.map((l) => (
-              <li>
-                <a
-                  href="javascript:void(0)"
-                  data-locale={l.locale}
-                  data-lang-code={l.code}
-                  data-lang-name={l.name}
-                  class="block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between"
-                >
-                  <span>{l.name}</span>
-                  <span class="text-xs text-gray-400 font-mono">{l.code}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <button
+          type="button"
+          data-lang-button
+          data-lang-trigger
+          aria-label="Choose language"
+          class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <Icon name="tabler:language" class="w-5 h-5" />
+        </button>
       </div>
     </div>
     <nav
@@ -250,38 +228,15 @@ const currentLang = langs.find((l) => l.locale === currentLocale) || langs[0] ||
             )
           }
         </div>
-        <div class="relative" data-lang-switcher>
-          <button
-            type="button"
-            data-lang-button
-            aria-haspopup="true"
-            aria-expanded="false"
-            class="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <Icon name="tabler:language" class="w-4 h-4" />
-            <span data-lang-current>{currentLang.code}</span>
-            <Icon name="tabler:chevron-down" class="w-3.5 h-3.5" />
-          </button>
-          <ul
-            data-lang-menu
-            class="hidden absolute right-0 mt-1 min-w-[10rem] rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg z-50 py-1"
-          >
-            {langs.map((l) => (
-              <li>
-                <a
-                  href="javascript:void(0)"
-                  data-locale={l.locale}
-                  data-lang-code={l.code}
-                  data-lang-name={l.name}
-                  class="block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between"
-                >
-                  <span>{l.name}</span>
-                  <span class="text-xs text-gray-400 font-mono">{l.code}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <button
+          type="button"
+          data-lang-button-desktop
+          data-lang-trigger
+          aria-label="Choose language"
+          class="hidden md:inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <Icon name="tabler:language" class="w-5 h-5" />
+        </button>
         {
           actions?.length ? (
             <span class="ml-1 rtl:ml-0 rtl:mr-1">
@@ -327,50 +282,103 @@ Type a keyword to start searching
   </div>
 </div>
 
+<div
+  id="lang-dialog"
+  data-lang-dialog
+  class="hidden fixed inset-0 z-[70] bg-black/50"
+  aria-hidden="true"
+>
+  <div class="flex items-start justify-center min-h-full pt-[12vh] px-4 pb-8">
+    <div class="bg-white dark:bg-gray-950 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
+      <div class="flex items-center justify-between px-5 pt-5 pb-2">
+        <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100">Language</h2>
+        <button type="button" data-lang-close class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors -mr-2 -mt-1">
+          <Icon name="tabler:x" class="w-4 h-4" />
+        </button>
+      </div>
+      <ul class="pb-2 px-2">
+        {langs.map((l) => (
+          <li>
+            <a
+              href="javascript:void(0)"
+              data-locale={l.locale}
+              data-lang-code={l.code}
+              data-lang-name={l.name}
+              class:list={[
+                'flex items-center justify-between px-3 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm font-medium',
+                l.locale === currentLocale
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                  : 'text-gray-700 dark:text-gray-300',
+              ]}
+            >
+              <span>{l.name}</span>
+              {l.locale === currentLocale && (
+                <Icon name="tabler:check" class="w-5 h-5 text-blue-600" />
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
+
 <meta name="x-locale" content={currentLocale} />
 <script is:inline data-astro-rerun>
   (function () {
-    function setupLangSwitcher(switcher, btnSel, menuSel, labelSel) {
-      if (!switcher) return null;
-      const btn = switcher.querySelector(btnSel);
-      const menu = switcher.querySelector(menuSel);
-      const label = labelSel ? switcher.querySelector(labelSel) : null;
-      if (!btn || !menu) return null;
+    var dialog = document.getElementById('lang-dialog');
+    var triggers = document.querySelectorAll('[data-lang-trigger]');
+    var closeBtn = dialog ? dialog.querySelector('[data-lang-close]') : null;
 
-      btn.setAttribute('aria-expanded', 'false');
-      if (label) {
-        const meta = document.querySelector('meta[name="x-locale"]');
-        const locale = meta ? meta.getAttribute('content') : 'en';
-        label.textContent = locale.toUpperCase();
-      }
+    function openDialog() {
+      if (!dialog) return;
+      dialog.classList.remove('hidden');
+      dialog.setAttribute('aria-hidden', 'false');
+    }
 
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const open = menu.classList.toggle('hidden') === false;
-        btn.setAttribute('aria-expanded', String(open));
-        document.querySelectorAll('[data-lang-menu], [data-lang-menu-mobile]').forEach(function (m) {
-          if (m !== menu) { m.classList.add('hidden'); }
+    function closeDialog() {
+      if (!dialog) return;
+      dialog.classList.add('hidden');
+      dialog.setAttribute('aria-hidden', 'true');
+    }
+
+    if (triggers.length) {
+      triggers.forEach(function (t) {
+        t.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openDialog();
         });
       });
+    }
 
-      menu.addEventListener('click', function (e) {
-        const t = e.target instanceof Element ? e.target.closest('[data-locale]') : null;
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () { closeDialog(); });
+    }
+
+    if (dialog) {
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) closeDialog();
+      });
+
+      dialog.addEventListener('click', function (e) {
+        var t = e.target instanceof Element ? e.target.closest('[data-locale]') : null;
         if (!t) return;
         e.preventDefault();
-        const locale = t.getAttribute('data-locale') || 'en';
-        const path = window.location.pathname;
-        const host = window.location.hostname;
-        const parts = host.split('.');
+        var locale = t.getAttribute('data-locale') || 'en';
+        var path = window.location.pathname;
+        var host = window.location.hostname;
+        var parts = host.split('.');
 
-        // Local dev: use path-based switching
+        // Save user preference to localStorage and cookie
+        try { localStorage.setItem('locale', locale); } catch (e) {}
+        document.cookie = 'x-user-locale=' + locale + '; path=/; max-age=31536000; SameSite=Lax';
+
         if (host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0') {
-          window.location.href = window.location.origin + '/' + locale + path;
+          var newPath = '/' + locale + path.replace(/^\/[a-z]{2}(\/|$)/, '/$1');
+          window.location.href = window.location.origin + newPath;
           return;
         }
 
-        // parts.length >= 3 means there's a subdomain (e.g. "en.alluredna.com")
-        // parts.length === 2 means bare apex domain (e.g. "alluredna.com")
-        // Replace the subdomain part with the target locale
         if (parts.length >= 3) {
           if (parts[0].indexOf('Wavefella-') === 0) {
             parts[0] = 'Wavefella-' + locale;
@@ -378,37 +386,16 @@ Type a keyword to start searching
             parts[0] = locale;
           }
         } else {
-          // Bare domain: prepend locale as subdomain
           parts.unshift(locale);
         }
         window.location.href = window.location.protocol + '//' + parts.join('.') + path;
       });
-
-      return { btn, menu, label };
     }
 
-    setupLangSwitcher(
-      document.querySelector('[data-lang-switcher]'),
-      '[data-lang-button]',
-      '[data-lang-menu]',
-      '[data-lang-current]'
-    );
-    setupLangSwitcher(
-      document.querySelector('[data-lang-switcher-mobile]'),
-      '[data-lang-button-mobile]',
-      '[data-lang-menu-mobile]',
-      null
-    );
-
-    document.addEventListener('click', function (e) {
-      document.querySelectorAll('[data-lang-switcher], [data-lang-switcher-mobile]').forEach(function (sw) {
-        if (!sw.contains(e.target)) {
-          const menu = sw.querySelector('[data-lang-menu], [data-lang-menu-mobile]');
-          const btn = sw.querySelector('[data-lang-button], [data-lang-button-mobile]');
-          if (menu) menu.classList.add('hidden');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-        }
-      });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && dialog && !dialog.classList.contains('hidden')) {
+        closeDialog();
+      }
     });
   })();
 

@@ -1,0 +1,73 @@
+---
+export const prerender = true;
+
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getLangFromUrl } from '~/i18n/utils';
+import { languages } from '~/i18n/config';
+import { nodes } from '~/content/graph/nodes';
+import { compareTemplate } from '~/lib/geo-v4/templates';
+import { articleSchema } from '~/lib/seo/schema';
+
+export function getStaticPaths() {
+  const productNodes = nodes.filter(n => n.type === 'product-category');
+  const paths: { params: { lang: string; slug: string } }[] = [];
+  for (const lang of Object.keys(languages)) {
+    for (let i = 0; i < productNodes.length; i++) {
+      for (let j = i + 1; j < productNodes.length; j++) {
+        const slug = `${productNodes[i].id}-vs-${productNodes[j].id}`;
+        paths.push({ params: { lang, slug } });
+      }
+    }
+  }
+  return paths;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { slug } = Astro.params;
+const [aId, , bId] = (slug || '').split('-vs-');
+const nodeA = nodes.find(n => n.id === aId);
+const nodeB = nodes.find(n => n.id === bId);
+const page = nodeA && nodeB ? compareTemplate(nodeA, nodeB, lang) : null;
+
+const graphJsonLd = page ? {
+  '@context': 'https://schema.org',
+  '@graph': [
+    articleSchema({
+      headline: page.title,
+      description: page.description,
+      datePublished: '2024-03-01',
+      dateModified: '2026-06-01',
+      author: 'Wavefella',
+      publisher: 'Wavefella',
+    }),
+  ],
+} : null;
+---
+
+<PageLayout>
+  <script slot="before" is:inline type="application/ld+json" set:html={graphJsonLd ? JSON.stringify(graphJsonLd) : ''} />
+  <section class="mx-auto max-w-4xl px-6 py-16">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Compare</span>
+    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">{page?.title}</h1>
+    {page && (
+    <>
+    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">{page.description}</p>
+    <div class="mt-12 prose prose-gray dark:prose-invert max-w-none">
+      {page.sections.map(s => (
+        <><h2>{s.h2}</h2>
+        {Array.isArray(s.content) ? (
+          s.content[0]?.startsWith('|') ? (
+            <table><tbody>{s.content.slice(2).map(row => row.startsWith('|') ? <tr>{row.split('|').filter(Boolean).map(c => <td>{c.trim()}</td>)}</tr> : null)}</tbody></table>
+          ) : (
+            s.content.map(item => <p set:html={item} />)
+          )
+        ) : (
+          <p set:html={s.content} />
+        )}
+        </>
+      ))}
+    </div>
+    </>
+    )}
+  </section>
+</PageLayout>

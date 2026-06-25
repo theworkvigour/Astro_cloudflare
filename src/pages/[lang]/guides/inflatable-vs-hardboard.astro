@@ -1,0 +1,101 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getLangFromUrl } from '~/i18n/utils';
+import { languages } from '~/i18n/config';
+import { articleSchema } from '~/lib/seo/schema';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+
+const graphJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    articleSchema({
+      headline: 'Inflatable SUP vs Hard Board: Complete Comparison Guide',
+      description: 'Compare inflatable SUPs and hard paddle boards across portability, durability, performance, and use cases to find the right board for your needs.',
+      datePublished: '2024-02-10',
+      dateModified: '2026-06-01',
+      author: 'Wavefella',
+      publisher: 'Wavefella',
+    }),
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'Which is more durable: inflatable or hard SUP?', acceptedAnswer: { '@type': 'Answer', text: 'Inflatable SUPs are generally more durable because they resist dings, cracks, and impact damage that would permanently damage a hard board.' } },
+        { '@type': 'Question', name: 'Is an inflatable SUP better for beginners?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Inflatable SUPs are recommended for beginners because they are more forgiving, easier to transport, and less likely to cause injury during falls.' } },
+        { '@type': 'Question', name: 'Can inflatable SUPs perform as well as hard boards?', acceptedAnswer: { '@type': 'Answer', text: 'For recreational paddling and touring, inflatable SUPs match hard board performance. Hard boards still excel in racing and advanced surfing due to their lighter weight.' } },
+      ],
+    },
+  ],
+};
+---
+
+<PageLayout>
+  <script slot="before" is:inline type="application/ld+json" set:html={JSON.stringify(graphJsonLd)} />
+
+  <section class="mx-auto max-w-4xl px-6 py-16">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Compare</span>
+    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">Inflatable SUP vs Hard Board: Which One Is Right for You?</h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">An in-depth comparison of inflatable and hard stand-up paddle boards across portability, durability, performance, and use cases.</p>
+
+    <div class="mt-12 prose prose-gray dark:prose-invert max-w-none">
+      <h2>Core Differences</h2>
+      <p>Inflatable SUPs (iSUPs) and hard boards serve the same fundamental purpose — standing and paddling on water — but they achieve it through completely different construction methods. The right choice depends on how you plan to use the board.</p>
+
+      <table>
+        <tr><th>Factor</th><th>Inflatable SUP</th><th>Hard SUP</th></tr>
+        <tr><td>Construction</td><td>Drop-stitch PVC, inflated to 12-15 PSI</td><td>EPS foam core wrapped in fiberglass or epoxy</td></tr>
+        <tr><td>Weight</td><td>18-28 lbs (board only)</td><td>20-30 lbs (board only)</td></tr>
+        <tr><td>Packed Size</td><td>Backpack (30 x 15 x 10 in)</td><td>Full length (10-14 ft)</td></tr>
+        <tr><td>Setup</td><td>3-5 minutes inflation</td><td>Ready to use</td></tr>
+        <tr><td>Lifespan</td><td>5-10 years with care</td><td>3-8 years (prone to dings)</td></tr>
+      </table>
+
+      <h2>Portability</h2>
+      <p><strong>Inflatable wins.</strong> This is the clearest advantage. An inflatable SUP packs into a backpack that fits in a car trunk, apartment closet, or airline overhead bin. Travelers, apartment dwellers, and anyone without roof rack storage will find inflatable SUPs far more practical.</p>
+      <p>Hard boards require a roof rack, large vehicle, or dedicated storage space. They are difficult to transport and cannot be taken on airplanes without specialty shipping cases.</p>
+
+      <h2>Durability</h2>
+      <p><strong>Inflatable wins.</strong> Inflatable SUPs are made from military-grade PVC that resists impacts, punctures, and UV damage. When you drop an inflatable board or hit a rock, it bounces. A hard board would chip, crack, or delaminate from the same impact.</p>
+      <p>Hard boards are more susceptible to everyday wear and tear. A single drop on concrete can cause a permanent ding that affects performance and water intrusion.</p>
+
+      <h2>Performance</h2>
+      <p><strong>Hard board wins at the top end.</strong> For recreational paddling and touring at moderate speeds, both board types perform similarly. Hard boards have the edge in:</p>
+      <ul>
+        <li><strong>Speed</strong> — Hard boards are lighter and more rigid, translating to better glide and higher top speed</li>
+        <li><strong>Surfing</strong> — Hard boards offer more responsive rail-to-rail transitions and better wave performance</li>
+        <li><strong>Racing</strong> — Competitive racing almost exclusively uses hard boards for their weight and stiffness advantages</li>
+      </ul>
+      <p>For the average recreational paddler, these performance differences are marginal. Most paddlers will not out-perform a quality inflatable board.</p>
+
+      <h2>Beginner Friendliness</h2>
+      <p><strong>Inflatable wins.</strong> Inflatable SUPs are easier for beginners because:</p>
+      <ul>
+        <li>The softer deck surface is more comfortable and less likely to cause injury during falls</li>
+        <li>Wider, thicker inflatable boards offer more primary stability</li>
+        <li>Lower investment cost makes entry more accessible</li>
+        <li>Easy transport means more opportunities to paddle</li>
+      </ul>
+
+      <h2>Storage and Maintenance</h2>
+      <p>Inflatable SUPs require drying and proper folding before storage. Hard boards can be stored assembled but need protection from sun, heat, and impacts. Both benefit from rinsing with fresh water after saltwater use.</p>
+
+      <h2>Recommendation</h2>
+      <p><strong>Choose an inflatable SUP if:</strong> You travel, have limited storage, paddle recreationally, or are a beginner. 90% of paddlers will be well-served by a quality inflatable board.</p>
+      <p><strong>Choose a hard board if:</strong> You race competitively, surf advanced waves, or prioritize maximum performance over portability and durability.</p>
+
+      <h2>FAQ</h2>
+      <h3>Which is more durable: inflatable or hard SUP?</h3>
+      <p>Inflatable SUPs are generally more durable because they resist dings, cracks, and impact damage that would permanently damage a hard board.</p>
+
+      <h3>Is an inflatable SUP better for beginners?</h3>
+      <p>Yes. Inflatable SUPs are recommended for beginners because they are more forgiving, easier to transport, and less likely to cause injury during falls.</p>
+
+      <h3>Can inflatable SUPs perform as well as hard boards?</h3>
+      <p>For recreational paddling and touring, inflatable SUPs match hard board performance. Hard boards still excel in racing and advanced surfing due to their lighter weight and refined flex.</p>
+    </div>
+  </section>
+</PageLayout>

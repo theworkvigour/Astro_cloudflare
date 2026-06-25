@@ -1,0 +1,111 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { languages } from '~/i18n/config';
+import { generateReport } from '../../lib/geo-v5/report';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const report = generateReport();
+---
+
+<PageLayout>
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">GEO v5 Report</span>
+    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">Knowledge System Health</h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">AI semantic analysis of all {report.summary.totalNodes} knowledge graph nodes.</p>
+
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{report.summary.totalNodes}</div>
+        <div class="text-sm text-gray-500">Nodes</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{report.summary.totalRelations}</div>
+        <div class="text-sm text-gray-500">Relations</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <div class="text-2xl font-bold {report.healthScore >= 80 ? 'text-green-600' : report.healthScore >= 60 ? 'text-yellow-600' : 'text-red-600'}">{report.healthScore}%</div>
+        <div class="text-sm text-gray-500">System Health</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <div class="text-2xl font-bold {report.health.averageTotal}">
+          <span class="text-lg ml-1">{report.health.aCount}A / {report.health.bCount}B / {report.health.cCount}C</span>
+        </div>
+        <div class="text-sm text-gray-500">Grade Distribution</div>
+      </div>
+    </div>
+
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Node Scores</h2>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b border-gray-200 dark:border-gray-700">
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Node</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">SEO</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">AI Readability</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Structure</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Total</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {report.scores.map(s => (
+            <tr class="border-b border-gray-100 dark:border-gray-800">
+              <td class="py-2 text-gray-900 dark:text-gray-100">{s.id}</td>
+              <td class="py-2 text-gray-500">{s.seo}</td>
+              <td class="py-2 text-gray-500">{s.ai}</td>
+              <td class="py-2 text-gray-500">{s.structure}</td>
+              <td class="py-2 font-medium {s.total >= 80 ? 'text-green-600' : s.total >= 60 ? 'text-yellow-600' : 'text-red-600'}">{s.total}</td>
+              <td class="py-2"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium {s.grade === 'A' ? 'bg-green-100 text-green-800' : s.grade === 'B' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}">{s.grade}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Content Gaps</h2>
+    <div class="mt-4 space-y-4">
+      {report.gapsBySeverity.high.length > 0 && (
+        <div>
+          <h3 class="text-lg font-medium text-red-600 mb-2">High Severity ({report.gapsBySeverity.high.length})</h3>
+          <ul class="space-y-1">
+            {report.gapsBySeverity.high.map(g => (
+              <li class="text-sm text-gray-600 dark:text-gray-400"><span class="font-mono text-xs">{g.node}</span> — {g.issue}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {report.gapsBySeverity.medium.length > 0 && (
+        <div>
+          <h3 class="text-lg font-medium text-yellow-600 mb-2">Medium Severity ({report.gapsBySeverity.medium.length})</h3>
+          <ul class="space-y-1">
+            {report.gapsBySeverity.medium.map(g => (
+              <li class="text-sm text-gray-600 dark:text-gray-400"><span class="font-mono text-xs">{g.node}</span> — {g.issue}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Topic Clusters</h2>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      {Object.entries(report.clusters).map(([name, clusterNodes]) => (
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+          <div class="text-lg font-medium text-gray-900 dark:text-gray-100">{name}</div>
+          <div class="text-sm text-gray-500">{clusterNodes.length} nodes</div>
+          <ul class="mt-2 space-y-1">
+            {clusterNodes.map(n => (
+              <li class="text-xs text-gray-600 dark:text-gray-400">{n.name.en}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 text-xs text-gray-400 dark:text-gray-600">
+      Report generated: {report.generatedAt}
+    </div>
+  </section>
+</PageLayout>

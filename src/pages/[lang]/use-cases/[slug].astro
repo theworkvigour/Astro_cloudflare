@@ -3,15 +3,15 @@ import PageLayout from '~/layouts/PageLayout.astro';
 import { getLangFromUrl } from '~/i18n/utils';
 import { languages } from '~/i18n/config';
 import { nodes } from '~/content/graph/nodes';
-import { guideFromNode } from '~/lib/geo-v4/templates';
+import { useCaseFromNode } from '~/lib/geo-v4/templates';
 import { articleSchema } from '~/lib/seo/schema';
 
 export function getStaticPaths() {
   const paths: { params: { lang: string; slug: string } }[] = [];
   for (const lang of Object.keys(languages)) {
-    for (const node of nodes) {
-      const guide = guideFromNode(node, lang);
-      if (guide) {
+    for (const node of nodes.filter(n => n.type === 'use-case')) {
+      const page = useCaseFromNode(node, lang);
+      if (page) {
         const slug = (node.slug && node.slug[lang]) || node.id;
         paths.push({ params: { lang, slug } });
       }
@@ -23,15 +23,15 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const { slug } = Astro.params;
 const node = nodes.find(n => (n.slug && (n.slug[lang] || n.id)) === slug);
-const guide = node ? guideFromNode(node, lang) : null;
+const page = node ? useCaseFromNode(node, lang) : null;
 
-const graphJsonLd = guide ? {
+const graphJsonLd = page ? {
   '@context': 'https://schema.org',
   '@graph': [
     articleSchema({
-      headline: guide.title,
-      description: guide.description,
-      datePublished: '2024-01-15',
+      headline: page.title,
+      description: page.description,
+      datePublished: '2024-02-01',
       dateModified: '2026-06-01',
       author: 'Wavefella',
       publisher: 'Wavefella',
@@ -40,25 +40,25 @@ const graphJsonLd = guide ? {
 } : null;
 ---
 
-{guide && (
+{page && (
 <PageLayout>
   <script slot="before" is:inline type="application/ld+json" set:html={graphJsonLd ? JSON.stringify(graphJsonLd) : ''} />
   <section class="mx-auto max-w-4xl px-6 py-16">
-    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Guide</span>
-    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">{guide.title}</h1>
-    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">{guide.description}</p>
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Case</span>
+    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">{page.title}</h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">{page.description}</p>
     <div class="mt-12 prose prose-gray dark:prose-invert max-w-none">
-      {guide.sections.map(s => (
-        <>{s.h2 === 'Definition' ? <h2 set:html={s.h2} /> : <h2 set:html={s.h2} />}
+      {page.sections.map(s => (
+        <><h2>{s.h2}</h2>
         {Array.isArray(s.content) ? (
-          s.content[0]?.startsWith('|') ? <table><tbody>{s.content.map(row => <tr>{row}</tr>)}</tbody></table> : <ul>{s.content.map(item => <li set:html={item.replace(/^- /, '')} />)}</ul>
+          <ul>{s.content.map(item => <li set:html={item.replace(/^- /, '')} />)}</ul>
         ) : (
           <p set:html={s.content} />
         )}
         </>
       ))}
-      {guide.faq.length > 0 && <h2>FAQ</h2>}
-      {guide.faq.map(f => (
+      {page.faq.length > 0 && <h2>FAQ</h2>}
+      {page.faq.map(f => (
         <><h3>{f.q}</h3><p>{f.a}</p></>
       ))}
     </div>
