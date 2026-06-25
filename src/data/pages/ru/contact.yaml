@@ -1,0 +1,79 @@
+hero_text:
+  tagline: Контакты
+  title: СВЯЖИТЕСЬ С НАМИ
+contact_form:
+  id: form
+  title: Отправьте нам сообщение
+  subtitle: По вопросам цен, техническим вопросам или партнёрству — напишите нам. Мы отвечаем в течение одного рабочего дня.
+  email_to: info@wavefella.com
+  submit_button: Отправить
+  success_message: Спасибо! Ваше сообщение получено. Мы ответим в течение одного рабочего дня.
+  error_message: Произошла ошибка при отправке. Попробуйте снова или напишите нам напрямую по электронной почте.
+  default_country_code: '+1'
+  captcha:
+    label: 'Антиспам: решите следующую задачу'
+  fields:
+    - name: firstName
+      label: Имя
+      row: 1
+    - name: lastName
+      label: Фамилия
+      row: 1
+    - name: companyName
+      label: Компания
+      row: 2
+    - name: address
+      label: Адрес
+      row: 3
+    - name: zip
+      label: Индекс
+      row: 4
+    - name: country
+      label: Страна
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: Email
+      row: 5
+      type: email
+    - name: tel
+      label: Телефон
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: Тема
+      row: 6
+    - name: message
+      label: Сообщение
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: Другие способы связаться с нами
+  columns: 3
+  items:
+    - title: Отдел продаж
+      description: Цены, конфигурации, заявки дилеров и оптовые заказы.
+      icon: tabler:shopping-bag
+    - title: Техподдержка
+      description: Гарантия, ремонт, запчасти и вопросы эксплуатации.
+      icon: tabler:tool
+    - title: Пресса и партнёрства
+      description: Медиа-киты, спонсорство и отраслевое сотрудничество.
+      icon: tabler:news
+    - title: Телефон
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: Email
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: Головной офис
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: Наше местоположение
+  subtitle: Приезжайте в гости
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15

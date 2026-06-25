@@ -1,0 +1,179 @@
+hero:
+  tagline: ''
+  title: |
+    Zaprojektowane do wody. <br class="hidden sm:inline" />
+    Zbudowane do <span class="text-accent dark:text-white">życia na pokładzie</span>.
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> projektuje i produkuje wysokiej jakości łodzie pneumatyczne, RIB i produkty techniczne.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: stworzone do wydajności.</span>
+    Dla profesjonalistów morskich, operatorów komercyjnych i entuzjastów wymagających niezawodności i rzemiosła.
+  actions:
+    - variant: primary
+      text: Zobacz produkty
+      href: /products
+      icon: tabler:shopping-bag
+    - text: Dowiedz się więcej
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Wavefella okładka
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Warsztat Wavefella nad morzem
+      tagline: Witamy
+      title: |
+        Zaprojektowane do wody. <br />
+        Zbudowane do <span class="text-sky-300">życia na pokładzie</span>.
+      subtitle: Wysokiej jakości łodzie pneumatyczne, RIB i produkty techniczne dla profesjonalistów morskich i entuzjastów.
+      actions:
+        - text: Zobacz produkty
+          href: /products
+          variant: primary
+        - text: Zapytaj o cenę
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Budowa łodzi na zamówienie
+      tagline: Rzemiosło
+      title: |
+        Kadłuby trwalsze niż gwarancja. <br />
+        Serwis trwalszy niż kadłub.
+      subtitle: Materiały klasy morskiej. Spawanie aluminium. Dwudziestoletnie łodzie wciąż dzwonią do nas po części.
+      actions:
+        - text: Nasza historia
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Łódź pneumatyczna na wodzie
+      tagline: Wsparcie
+      title: |
+        Zaprojektowane przed sprzedażą. <br />
+        Wspierane długo po niej.
+      subtitle: Autoryzowani partnerzy serwisowi w 40+ krajach. Dwudziestoletnie kadłuby wciąż dzwonią – i wciąż odbieramy.
+      actions:
+        - text: Skontaktuj się
+          href: /contact
+          variant: primary
+        - text: Zobacz ceny
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: Dlaczego Wavefella
+  title: Co zyskujesz z Wavefella
+  subtitle: Dziesięciolecia doświadczenia stoczniowego skondensowane w jednej skoncentrowanej linii produktów. Solidna konstrukcja, testy na morzu, dożywotnie wsparcie.
+  columns: 2
+  items:
+    - title: Materiały klasy morskiej
+      description: Wysokowytrzymały PVC, Hypalon i kadłuby aluminiowe wybrane pod kątem odporności na UV, ścieranie i słoną wodę.
+      icon: tabler:shield-check
+    - title: Jakość produkcyjna
+      description: Każdy kadłub przechodzi test ciśnieniowy, każdy spaw jest kontrolowany. Wysyłamy tylko to, co sami zwodowalibyśmy.
+      icon: tabler:certificate
+    - title: Modułowa konstrukcja
+      description: Dostosuj układ przedziałów, pozycję konsoli, pojemność paliwa i akcesoria do swoich potrzeb.
+      icon: tabler:layout-grid
+    - title: Uczciwe specyfikacje
+      description: Rzeczywiste obciążenie, rzeczywiste wymiary, rzeczywista waga. Żadnych marketingowych przesady. Nigdy.
+      icon: tabler:ruler-measure
+    - title: Szybka dostawa i części
+      description: Standardowe modele wysyłane w ciągu dni. Oryginalne części i materiały eksploatacyjne w magazynie przez cały rok.
+      icon: tabler:truck-delivery
+    - title: Dożywotnie wsparcie
+      description: Bezpośrednia linia z naszym zespołem projektowym do porad technicznych, napraw i modernizacji.
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: Polecane produkty
+  subtitle: Wybrane z naszego aktualnego katalogu – najpopularniejsze modele tego sezonu.
+  linkText: Zobacz wszystkie produkty
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: Wewnątrz warsztatu
+  title: Od projektu kadłuba do dostawy – każdy krok we własnym zakresie
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Jakość, którą widzisz, czujesz i możesz zmierzyć</h3>
+  items:
+    - title: Zaprojektowane przez inżynierów okrętowych
+      description: Linie kadłuba są rysowane wewnętrznie i iterowane poprzez analizę CFD przed pierwszym prototypem.
+    - title: Spawane i montowane we własnym zakładzie
+      description: Spawanie przedziałów pneumatycznych, montaż konsoli i osprzętu odbywa się pod jednym dachem.
+    - title: Testy morskie przed wysyłką
+      description: Każdy model przechodzi wielogodzinny test morski sprawdzający ślizg, skręty, prędkość maksymalną i zachowanie pod obciążeniem.
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Warsztat
+
+steps:
+  title: Od specyfikacji do wodowania w pięciu krokach
+  items:
+    - title: 'Krok 1: <span class="font-medium">Konfiguracja</span>'
+      description: Wybierz model, określ opcje i poproś o wycenę online lub telefonicznie. Zespół odpowie w ciągu jednego dnia roboczego.
+      icon: tabler:list-numbers
+    - title: 'Krok 2: <span class="font-medium">Potwierdzenie</span>'
+      description: Potwierdzamy specyfikację, termin i całkowity koszt na piśmie. Żadnych niespodzianek, żadnych ukrytych opłat.
+      icon: tabler:checks
+    - title: 'Krok 3: <span class="font-medium">Produkcja</span>'
+      description: Produkcja rozpoczyna się w naszym warsztacie. Wysyłamy zdjęcia postępu na kluczowych etapach.
+      icon: tabler:tool
+    - title: 'Krok 4: <span class="font-medium">Dostawa</span>'
+      description: Pakowane na stojaku, termokurczliwie i wysyłane transportem morskim lub lotniczym. Odprawa celna w pełni wliczona.
+      icon: tabler:truck-loading
+    - title: 'Krok 5: <span class="font-medium">Wsparcie</span>'
+      description: Dwa lata gwarancji na kadłub plus dożywotnie wsparcie techniczne. Części wysyłane w ciągu 48 godzin.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Proces produkcji
+
+blog_latest:
+  title: Z bloga
+  information: |
+    Artykuły, notatki techniczne i studia przypadków od zespołu projektowego.
+    Nowe wpisy pojawiają się, gdy projekt zostaje dostarczony, standard zaktualizowany lub gdy ktoś ma historię wartą opowiedzenia.
+
+faqs:
+  title: Często zadawane pytania
+  subtitle: Pytania, które słyszymy najczęściej. Jeśli twojego tu nie ma, napisz do nas – odpowiemy szybko.
+  columns: 2
+  items:
+    - title: Który model wybrać?
+      description: Zależy od wielkości załogi, akwenu i priorytetów – prędkość, ładowność czy ekonomia paliwowa. Wyślij krótki opis, a polecimy 2-3 odpowiednie modele.
+      icon: tabler:anchor
+    - title: Czy dostarczacie międzynarodowo?
+      description: Tak – dostarczamy do 40+ krajów. Transport morski jest najekonomiczniejszy dla całych łodzi; transport lotniczy dostępny dla pilnych zamówień.
+      icon: tabler:ship
+    - title: Jaką dajecie gwarancję?
+      description: Dwa lata na kadłub, rok na akcesoria, dożywotnia na nasze spawy. Rejestracja gwarancji jest dołączona do każdej dostawy.
+      icon: tabler:shield
+    - title: Czy można dostosować istniejący model?
+      description: Prawie zawsze. Pozycja konsoli, kolor przedziałów, układ siedzeń, elektronika i silnik mogą być dostosowane. Specjalne kadłuby wyceniane są indywidualnie.
+      icon: tabler:palette
+    - title: Czy oferujecie szkolenia i certyfikację?
+      description: Dla operatorów komercyjnych możemy zorganizować szkolenie na wodzie w naszym zakładzie. Klienci indywidualni otrzymują bezpłatne instrukcje przy odbiorze.
+      icon: tabler:school
+    - title: Jak zdobyć części zamienne?
+      description: Zamów przez stronę kontaktową lub zadzwoń na infolinię części. Typowe elementy (zawory, pasy, pompy, zestawy naprawcze) wysyłamy w 48 godzin na cały świat.
+      icon: tabler:settings
+
+cta:
+  title: |
+    Gotowy skonfigurować <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">swoją następną łódź</span>?
+  subtitle: Powiedz nam, jak będziesz używać łodzi, a w ciągu jednego dnia roboczego zaproponujemy model, opcje i cenę.
+  actions:
+    - variant: primary
+      text: Zapytaj o cenę
+      href: /contact
+      icon: tabler:message-circle
+    - text: Przeglądaj katalog
+      href: /products

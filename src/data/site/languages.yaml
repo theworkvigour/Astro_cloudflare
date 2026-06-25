@@ -43,6 +43,21 @@
   locale: ko
   textDirection: ltr
   enabled: true
+- code: RU
+  name: Русский
+  locale: ru
+  textDirection: ltr
+  enabled: true
+- code: PL
+  name: Polski
+  locale: pl
+  textDirection: ltr
+  enabled: true
+- code: ZH
+  name: 한국어
+  locale: ko
+  textDirection: ltr
+  enabled: true
 - code: ZH
   name: 中文
   locale: zh

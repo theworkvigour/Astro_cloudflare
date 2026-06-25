@@ -1,0 +1,79 @@
+hero_text:
+  tagline: Kontakt
+  title: SKONTAKTUJ SIĘ Z NAMI
+contact_form:
+  id: form
+  title: Wyślij wiadomość
+  subtitle: W sprawie wyceny, pytań technicznych lub partnerstwa – napisz do nas. Odpowiadamy w ciągu jednego dnia roboczego.
+  email_to: info@wavefella.com
+  submit_button: Wyślij
+  success_message: Dziękujemy! Twoja wiadomość została odebrana. Odpowiemy w ciągu jednego dnia roboczego.
+  error_message: Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na adres e-mail.
+  default_country_code: '+1'
+  captcha:
+    label: 'Antyspam: rozwiąż następujące zadanie'
+  fields:
+    - name: firstName
+      label: Imię
+      row: 1
+    - name: lastName
+      label: Nazwisko
+      row: 1
+    - name: companyName
+      label: Firma
+      row: 2
+    - name: address
+      label: Adres
+      row: 3
+    - name: zip
+      label: Kod pocztowy
+      row: 4
+    - name: country
+      label: Kraj
+      row: 4
+      type: select
+      optionsKey: countries
+    - name: email
+      label: Email
+      row: 5
+      type: email
+    - name: tel
+      label: Telefon
+      row: 5
+      type: tel
+      withCountryCode: true
+    - name: subject
+      label: Temat
+      row: 6
+    - name: message
+      label: Wiadomość
+      row: 7
+      type: textarea
+      rows: 6
+features2_other_ways:
+  title: Inne sposoby kontaktu
+  columns: 3
+  items:
+    - title: Zapytania handlowe
+      description: Wyceny, konfiguracje, zgłoszenia dealerskie i zamówienia hurtowe.
+      icon: tabler:shopping-bag
+    - title: Wsparcie techniczne
+      description: Gwarancja, naprawy, części i pytania eksploatacyjne.
+      icon: tabler:tool
+    - title: Prasa i partnerstwa
+      description: Pakiety medialne, sponsoring i współpraca branżowa.
+      icon: tabler:news
+    - title: Telefon
+      description: '+1 (213) 557-7888'
+      icon: tabler:headset
+    - title: Email
+      description: info@wavefella.com
+      icon: tabler:mail
+    - title: Siedziba główna
+      description: 5067 Saddleback St, Montclair, CA 91763, USA
+      icon: tabler:map-pin
+map:
+  title: Nasza lokalizacja
+  subtitle: Odwiedź nas
+  address: 5067 Saddleback St, Montclair, CA 91763, USA
+  zoom: 15
