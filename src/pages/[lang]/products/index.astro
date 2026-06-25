@@ -2,7 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import { products } from '~/data/products';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -11,6 +11,7 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 const metadata = {
   title: `Products — ${SITE.name}`,
   description: `Browse the full Wavefella product catalog. Inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.`,
@@ -45,9 +46,9 @@ const categoryNames: Record<string, string> = {
 <Layout metadata={metadata}>
   <section class="max-w-6xl mx-auto py-24 px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Catalog</span>
-      <h1 class="mt-4 text-4xl font-semibold text-gray-900">Wavefella products</h1>
-      <p class="mt-4 text-lg text-gray-500">Premium inflatable boats, SUPs, kayaks, RIBs, and safety equipment — built for life on the water.</p>
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('product.catalog')}</span>
+      <h1 class="mt-4 text-4xl font-semibold text-gray-900">{t('product.pageTitle')}</h1>
+      <p class="mt-4 text-lg text-gray-500">{t('product.pageDesc')}</p>
     </div>
 
     {categories.map(cat => (

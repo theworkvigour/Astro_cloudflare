@@ -6,7 +6,7 @@ import Tldr from '~/components/common/Tldr.astro';
 import { contentV2Records } from '~/data/content-v2';
 import { guides } from '~/data/guides';
 import { products } from '~/data/products';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
   const paths: Array<{
@@ -23,6 +23,8 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { lang } = Astro.params;
+
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 
 function notNull<T>(x: T | null | undefined): x is T { return x != null; }
 
@@ -61,10 +63,10 @@ const categoryLabels: Record<string, string> = {
   <article class="max-w-3xl mx-auto py-24 px-6">
 
     <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-      <a href={`/${lang}/v2`} class="text-sky-600 hover:text-sky-700">Library</a>
+      <a href={`/${lang}/v2`} class="text-sky-600 hover:text-sky-700">{t('v2.library')}</a>
       <span aria-hidden="true">/</span>
       <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs font-medium capitalize">{categoryLabels[entry.category] || entry.category}</span>
-      {isTierA && <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full text-xs font-medium">Most Read</span>}
+      {isTierA && <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full text-xs font-medium">{t('v2.mostRead')}</span>}
     </div>
 
     <h1 class="text-4xl font-semibold text-gray-900 leading-tight">{entry.title}</h1>
@@ -73,37 +75,37 @@ const categoryLabels: Record<string, string> = {
 
     <!-- AI Definition Block -->
     <section class="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-2xl" data-ai-block="definition">
-      <span class="text-xs font-semibold uppercase tracking-wider text-blue-600">TLDR</span>
+      <span class="text-xs font-semibold uppercase tracking-wider text-blue-600">{t('v2.tldr')}</span>
       <p class="mt-2 text-gray-700 leading-relaxed">{entry.tldr}</p>
       <hr class="my-4 border-blue-100" />
-      <span class="text-xs font-semibold uppercase tracking-wider text-blue-600">Definition</span>
+      <span class="text-xs font-semibold uppercase tracking-wider text-blue-600">{t('v2.definition')}</span>
       <p class="mt-2 text-gray-700 leading-relaxed">{entry.definition || entry.tldr}</p>
     </section>
 
     <section class="mt-12 space-y-16" data-ai-block="content">
 
       <section data-ai-block="problem">
-        <h2 class="text-2xl font-semibold text-gray-900">The problem</h2>
+        <h2 class="text-2xl font-semibold text-gray-900">{t('v2.problem')}</h2>
         <p class="mt-3 text-gray-600 leading-relaxed">{entry.problem}</p>
       </section>
 
       <section data-ai-block="explanation">
-        <h2 class="text-2xl font-semibold text-gray-900">How it works</h2>
+        <h2 class="text-2xl font-semibold text-gray-900">{t('v2.howItWorks')}</h2>
         <p class="mt-3 text-gray-600 leading-relaxed">{entry.explanation}</p>
       </section>
 
       <section data-ai-block="solution">
-        <h2 class="text-2xl font-semibold text-gray-900">The solution</h2>
+        <h2 class="text-2xl font-semibold text-gray-900">{t('v2.solution')}</h2>
         <p class="mt-3 text-gray-600 leading-relaxed">{entry.solution}</p>
       </section>
 
       <!-- Comparison -->
       <section data-ai-block="comparison">
-        <h2 class="text-2xl font-semibold text-gray-900">Key comparisons</h2>
+        <h2 class="text-2xl font-semibold text-gray-900">{t('v2.keyComparisons')}</h2>
         <div class="mt-4 space-y-4">
           {entry.relatedGuides.length > 0 && (
             <div class="p-5 bg-white border border-gray-200 rounded-xl">
-              <p class="text-sm font-semibold text-gray-900">Related guides</p>
+              <p class="text-sm font-semibold text-gray-900">{t('v2.relatedGuides')}</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 {entry.relatedGuides.map(slug => {
                   const g = contentV2Records.find(c => c.slug === slug) || guides.find(gg => gg.slug === slug);
@@ -116,7 +118,7 @@ const categoryLabels: Record<string, string> = {
           )}
           {entry.relatedProducts.length > 0 && (
             <div class="p-5 bg-white border border-gray-200 rounded-xl">
-              <p class="text-sm font-semibold text-gray-900">Shop related products</p>
+              <p class="text-sm font-semibold text-gray-900">{t('v2.shopProducts')}</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 {entry.relatedProducts.map(id => {
                   const p = products.find(pr => pr.id === id);
@@ -131,7 +133,7 @@ const categoryLabels: Record<string, string> = {
       </section>
 
       <section data-ai-block="recommendation">
-        <h2 class="text-2xl font-semibold text-gray-900">Our recommendation</h2>
+        <h2 class="text-2xl font-semibold text-gray-900">{t('v2.recommendation')}</h2>
         <div class="mt-4 p-6 bg-sky-50 border border-sky-100 rounded-2xl">
           <p class="text-gray-700 leading-relaxed">{entry.recommendation}</p>
         </div>
@@ -141,7 +143,7 @@ const categoryLabels: Record<string, string> = {
 
     {entry.faq.length > 0 && (
       <section class="mt-16" data-ai-block="faq">
-        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Frequently asked questions</h2>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">{t('v2.faq')}</h2>
         <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
           {entry.faq.map(item => (
             <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -160,7 +162,7 @@ const categoryLabels: Record<string, string> = {
 
     {(resolvedGuides.length > 0 || resolvedProducts.length > 0) && (
       <section class="mt-16 p-8 bg-gray-50 rounded-2xl border border-gray-200">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Keep reading</h2>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">{t('v2.keepReading')}</h2>
         <div class="flex flex-wrap gap-3">
           {resolvedGuides.map(g => (
             <a href={`/${lang}/v2/${g.slug}`}

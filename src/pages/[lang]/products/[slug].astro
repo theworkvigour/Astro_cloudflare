@@ -6,7 +6,7 @@ import Tldr from '~/components/common/Tldr.astro';
 import TrustBadges from '~/components/common/TrustBadges.astro';
 import { products } from '~/data/products';
 import { guides } from '~/data/guides';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
   const paths: Array<{ params: { lang: string; slug: string }; props: { rec: typeof products[number] } }> = [];
@@ -20,6 +20,7 @@ export async function getStaticPaths() {
 
 const { rec } = Astro.props;
 const { lang } = Astro.params;
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 
 const relatedGuides = guides.filter(g => g.relatedProducts.includes(rec.id)).slice(0, 3);
 const metadata = {
@@ -69,8 +70,8 @@ const metadata = {
   <section class="section-premium bg-white" data-ai-block="problem">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl mx-auto">
-        <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">Why this exists</span>
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">The problem it solves</h2>
+        <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">{t('product.whyExists')}</span>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">{t('product.problem')}</h2>
         <p class="text-lg text-gray-600 leading-relaxed">{rec.problem}</p>
       </div>
     </div>
@@ -81,7 +82,7 @@ const metadata = {
     <section class="section-premium bg-gray-50/50" data-ai-block="use-case">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">Use cases</h2>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.useCases')}</h2>
           <div class="grid md:grid-cols-2 gap-4">
             {rec.ai_use_cases.map(uc => (
               <div class="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-100">
@@ -100,7 +101,7 @@ const metadata = {
     <section class="section-premium bg-white">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">Specifications</h2>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.specifications')}</h2>
           <div class="grid md:grid-cols-2 gap-4">
             {Object.entries(rec.ai_specs).map(([k, v]) => (
               <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100">
@@ -119,8 +120,8 @@ const metadata = {
     <section class="section-premium bg-gray-50/50" data-ai-block="comparison">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
-          <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">Comparison</span>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">How it compares</h2>
+          <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">{t('product.comparison')}</span>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">{t('product.howCompares')}</h2>
           <p class="text-lg text-gray-600 leading-relaxed">{rec.ai_comparison}</p>
         </div>
       </div>
@@ -134,7 +135,7 @@ const metadata = {
     <section class="section-premium bg-white" data-ai-block="faq">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">FAQ</h2>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.faq')}</h2>
           <div class="space-y-4">
             {rec.ai_faq.map(f => (
               <details class="group rounded-xl border border-gray-200 bg-gray-50 open:bg-white transition-colors">
@@ -157,13 +158,13 @@ const metadata = {
   {relatedGuides.length > 0 && (
     <section class="section-premium bg-gray-50/50">
       <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">Related guides</h2>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.relatedGuides')}</h2>
         <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {relatedGuides.map(g => (
             <a href={`/${lang}/guides/${g.slug}`} class="block p-6 bg-white rounded-2xl border border-gray-200 hover:shadow-md transition-shadow">
               <h3 class="text-base font-semibold text-gray-900">{g.title}</h3>
               <p class="mt-1 text-sm text-gray-500 line-clamp-2">{g.description}</p>
-              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sky-600">Read guide →</span>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sky-600">{t('product.readGuide')}</span>
             </a>
           ))}
         </div>

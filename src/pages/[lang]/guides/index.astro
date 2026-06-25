@@ -3,7 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import JsonLd from '~/components/common/JsonLd.astro';
 import { guides } from '~/data/guides';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 const metadata = {
   title: `Guides — ${SITE.name}`,
   description: 'Beginner guides for SUP and water sports. Learn how to choose your SUP, safety tips, inflatable vs hard board comparisons, paddling techniques, and more.',
@@ -37,20 +38,20 @@ const catNames: Record<string, string> = {
   }} />
 
   <section class="max-w-4xl mx-auto py-24 px-6" data-ai-block="definition">
-    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Guides</span>
-    <h1 class="mt-4 text-4xl font-semibold text-gray-900">New to SUP?</h1>
-    <p class="mt-4 text-lg text-gray-500">Practical guides to help you choose, use, and enjoy inflatable water sports equipment.</p>
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('guides.pageLabel')}</span>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">{t('guides.pageTitle')}</h1>
+    <p class="mt-4 text-lg text-gray-500">{t('guides.pageDesc')}</p>
     <div class="mt-6 flex flex-wrap gap-2 text-xs">
-      <span class="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full font-medium">{guides.length} guides</span>
-      <span class="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full font-medium">{categories.length} categories</span>
+      <span class="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full font-medium">{t('guides.count').replace('{count}', String(guides.length))}</span>
+      <span class="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full font-medium">{t('guides.categories').replace('{count}', String(categories.length))}</span>
     </div>
   </section>
 
   <section class="max-w-4xl mx-auto pb-8 px-6">
     <div class="p-6 bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-100 rounded-2xl">
-      <h2 class="text-lg font-semibold text-gray-900">Looking for surfing guides?</h2>
-      <p class="mt-1 text-sm text-gray-500">We also cover surfboard selection, wetsuit thickness, ocean safety, and gear comparisons.</p>
-      <a href={`/${lang}/v2`} class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Browse surfing content →</a>
+      <h2 class="text-lg font-semibold text-gray-900">{t('guides.surfingCta')}</h2>
+      <p class="mt-1 text-sm text-gray-500">{t('guides.surfingDesc')}</p>
+      <a href={`/${lang}/v2`} class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">{t('guides.browseSurfing')}</a>
     </div>
   </section>
 
@@ -66,7 +67,7 @@ const catNames: Record<string, string> = {
             </div>
             <h3 class="text-xl font-semibold text-gray-900">{g.title}</h3>
             <p class="mt-2 text-gray-500 text-sm">{g.description}</p>
-            <a href={`/${lang}/guides/${g.slug}`} class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Read guide →</a>
+            <a href={`/${lang}/guides/${g.slug}`} class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">{t('guides.readGuide')}</a>
           </div>
         ))}
       </div>

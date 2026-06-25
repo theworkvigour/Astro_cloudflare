@@ -5,7 +5,7 @@ import JsonLd from '~/components/common/JsonLd.astro';
 import Tldr from '~/components/common/Tldr.astro';
 import { faqs } from '~/data/faq';
 import { guides } from '~/data/guides';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 const metadata = {
   title: `FAQ — ${SITE.name}`,
   description: 'Frequently asked questions about inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and water sports.',
@@ -33,12 +34,12 @@ const catNames: Record<string, string> = {
   <meta name="ai-intent" content="faq,water-sports-questions,sup-buying-faq" />
 
   <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="faq">
-    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>
-    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Frequently asked questions</h1>
-    <p class="mt-4 text-lg text-gray-500">Common questions about Wavefella products, water sports equipment, safety, and more.</p>
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('faq.pageLabel')}</span>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">{t('faq.title')}</h1>
+    <p class="mt-4 text-lg text-gray-500">{t('faq.pageDesc')}</p>
 
     <Tldr
-      summary="Wavefella manufactures CE-certified inflatable SUP boards, kayaks, dinghies, RIBs, and safety equipment. Products are designed for controlled water environments — lakes, sheltered bays, rivers, and coastal waters."
+      summary={t('home.tldr.summary')}
       className="mt-8"
     />
   </section>

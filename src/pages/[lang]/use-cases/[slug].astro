@@ -1,7 +1,7 @@
 ---
 import PageLayout from '~/layouts/PageLayout.astro';
 import { getLangFromUrl } from '~/i18n/utils';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
 import { nodes } from '~/content/graph/nodes';
 import { useCaseFromNode } from '~/lib/geo-v4/templates';
 import { articleSchema } from '~/lib/seo/schema';
@@ -21,6 +21,7 @@ export function getStaticPaths() {
 }
 
 const lang = getLangFromUrl(Astro.url);
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 const { slug } = Astro.params;
 const node = nodes.find(n => (n.slug && (n.slug[lang] || n.id)) === slug);
 const page = node ? useCaseFromNode(node, lang) : null;
@@ -44,7 +45,7 @@ const graphJsonLd = page ? {
 <PageLayout>
   <script slot="before" is:inline type="application/ld+json" set:html={graphJsonLd ? JSON.stringify(graphJsonLd) : ''} />
   <section class="mx-auto max-w-4xl px-6 py-16">
-    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Case</span>
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('useCase.label')}</span>
     <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">{page.title}</h1>
     <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">{page.description}</p>
     <div class="mt-12 prose prose-gray dark:prose-invert max-w-none">
@@ -57,7 +58,7 @@ const graphJsonLd = page ? {
         )}
         </>
       ))}
-      {page.faq.length > 0 && <h2>FAQ</h2>}
+      {page.faq.length > 0 && <h2>{t('faq.title')}</h2>}
       {page.faq.map(f => (
         <><h3>{f.q}</h3><p>{f.a}</p></>
       ))}
