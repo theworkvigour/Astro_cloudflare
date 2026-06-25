@@ -211,7 +211,7 @@ const getLoadError = () => loadError;
 
         const gaId = String(form.querySelector('[name="google_analytics_id"]')?.value || '').trim();
 
-        // Only the fields managed by this form —?deep-merged into existing config
+        // Only the fields managed by this form —deep-merged into existing config
         const override = {
           site: {
             googleSiteVerificationId: String(form.querySelector('[name="google_site_verification_id"]')?.value || '').trim(),

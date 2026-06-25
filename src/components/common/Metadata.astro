@@ -119,8 +119,8 @@ const resolveNofollow = (): boolean => {
 };
 
 // Avoid double-branding: if the title already contains the site name,
-// skip the template (e.g. "OARS Pump Set —?Wavefella" + "%s —?Wavefella"
-// would produce "OARS Pump Set —?Wavefella —?Wavefella").
+// skip the template (e.g. "OARS Pump Set —Wavefella" + "%s —Wavefella"
+// would produce "OARS Pump Set —Wavefella —Wavefella").
 const siteBrand = SITE?.name || 'Wavefella';
 const rawTitle = title || METADATA?.title?.default || '';
 const titleAlreadyBranded = rawTitle.includes(siteBrand);

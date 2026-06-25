@@ -26,9 +26,9 @@ function configTemplate(locale: string, name: string, dir: string): string {
 
 metadata:
   title:
-    default: Wavefella —?${name}
-    template: '%s —?Wavefella'
-  description: 'Wavefella —?${name}'
+    default: Wavefella —${name}
+    template: '%s —Wavefella'
+  description: 'Wavefella —${name}'
   keywords:
     - Wavefella
   author: Wavefella

@@ -7,9 +7,9 @@ site:
 
 metadata:
   title:
-    default: Wavefella —?العربية
-    template: '%s —?Wavefella'
-  description: 'Wavefella —?العربية'
+    default: Wavefella —العربية
+    template: '%s —Wavefella'
+  description: 'Wavefella —العربية'
   keywords:
     - Wavefella
   author: Wavefella
