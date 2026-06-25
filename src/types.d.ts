@@ -298,3 +298,8 @@ export interface Content extends Omit<Headline, 'classes'>, Widget {
 }
 
 export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
+
+declare module 'astro:page-content' {
+  const content: Record<string, any>;
+  export default content;
+}

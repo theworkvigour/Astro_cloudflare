@@ -1,179 +1,179 @@
 hero:
   tagline: ''
   title: |
-    Engineered for the water. <br class="hidden sm:inline" />
-    Built for <span class="text-accent dark:text-white">life on board</span>.
+    Conçu pour l'eau. <br class="hidden sm:inline" />
+    Construit pour <span class="text-accent dark:text-white">la vie à bord</span>.
   subtitle: |
-    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> designs and manufactures premium inflatable boats, RIBs and engineered products.</span>
-    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: built to perform.</span>
-    Suitable for marine professionals, commercial operators, and enthusiasts who demand reliability and craftsmanship.
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> conçoit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualité supérieure.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella : construit pour performer.</span>
+    Idéal pour les professionnels maritimes, les opérateurs commerciaux et les passionnés exigeant fiabilité et savoir-faire.
   actions:
     - variant: primary
-      text: Browse products
+      text: Voir les produits
       href: /products
       icon: tabler:shopping-bag
-    - text: Learn more
+    - text: En savoir plus
       href: '#features'
   image:
     src: ~/assets/images/hero-image.png
-    alt: Wavefella hero image
+    alt: Image principale Wavefella
 
 hero_carousel:
   autoplay_interval: 5000
   slides:
     - image:
         src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
-        alt: Wavefella workshop by the sea
-      tagline: Welcome
+        alt: Atelier Wavefella au bord de la mer
+      tagline: Bienvenue
       title: |
-        Engineered for the water. <br />
-        Built for <span class="text-sky-300">life on board</span>.
-      subtitle: Premium inflatable boats, RIBs and engineered products for marine professionals and enthusiasts.
+        Conçu pour l'eau. <br />
+        Construit pour <span class="text-sky-300">la vie à bord</span>.
+      subtitle: Bateaux pneumatiques, RIB et produits techniques haut de gamme pour professionnels et passionnés.
       actions:
-        - text: Browse products
+        - text: Voir les produits
           href: /products
           variant: primary
-        - text: Get a quote
+        - text: Demander un devis
           href: /contact
           variant: secondary
     - image:
         src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
-        alt: Custom boat build in progress
-      tagline: Craftsmanship
+        alt: Construction de bateau personnalisé en cours
+      tagline: Artisanat
       title: |
-        Hulls that outlast the warranty. <br />
-        Service that outlasts the hull.
-      subtitle: Marine-grade materials. Aluminium welding. Twenty-year-old boats still call us for parts.
+        Des coques qui durent plus longtemps que la garantie. <br />
+        Un service qui dure plus longtemps que la coque.
+      subtitle: Matériaux de qualité marine. Soudure aluminium. Des bateaux de vingt ans nous appellent encore pour des pièces.
       actions:
-        - text: Our story
+        - text: Notre histoire
           href: /about
           variant: primary
     - image:
         src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
-        alt: Inflatable boat on the water
-      tagline: Support
+        alt: Bateau pneumatique sur l'eau
+      tagline: Assistance
       title: |
-        Engineered before sold. <br />
-        Supported long after.
-      subtitle: Authorised service partners in 40+ countries. Twenty-year-old hulls still call us for parts —and we still pick up.
+        Conçu avant d'être vendu. <br />
+        Assistent longtemps après.
+      subtitle: Partenaires de service agréés dans plus de 40 pays. Des coques de vingt ans nous appellent encore — et nous répondons toujours présents.
       actions:
-        - text: Contact us
+        - text: Nous contacter
           href: /contact
           variant: primary
-        - text: See pricing
+        - text: Voir les tarifs
           href: /pricing
           variant: secondary
 
 features:
   id: features
-  tagline: Why Wavefella
-  title: What you get with Wavefella
-  subtitle: Decades of marine-engineering experience, distilled into a focused product line. Built tough, tested at sea, supported for life.
+  tagline: Pourquoi Wavefella
+  title: Ce que vous obtenez avec Wavefella
+  subtitle: Des décennies d'expérience en ingénierie marine, distillées dans une gamme de produits ciblée. Construit robuste, testé en mer, assisté à vie.
   columns: 2
   items:
-    - title: Marine-grade materials
-      description: Heavy-duty PVC, Hypalon and aluminium hulls sourced for UV, abrasion and saltwater resistance.
+    - title: Matériaux de qualité marine
+      description: PVC haute résistance, Hypalon et coques en aluminium sélectionnés pour leur résistance aux UV, à l'abrasion et à l'eau salée.
       icon: tabler:shield-check
-    - title: Production-ready quality
-      description: Every hull is pressure-tested, every weld inspected. We ship only what we would put on the water ourselves.
+    - title: Qualité prête à produire
+      description: Chaque coque est testée sous pression, chaque soudure inspectée. Nous expédions uniquement ce que nous mettrions nous-mêmes à l'eau.
       icon: tabler:certificate
-    - title: Modular by design
-      description: Customise tube layout, console position, fuel capacity and accessories to match your mission.
+    - title: Conception modulaire
+      description: Personnalisez la disposition des tubes, la position de la console, la capacité carburant et les accessoires selon votre mission.
       icon: tabler:layout-grid
-    - title: Honest specifications
-      description: Real load ratings, real dimensions, real weight. No marketing inflation, ever.
+    - title: Spécifications honnêtes
+      description: Charges réelles, dimensions réelles, poids réel. Aucune exagération marketing, jamais.
       icon: tabler:ruler-measure
-    - title: Fast delivery & spare parts
-      description: Common models ship in days. Genuine spares and consumables in stock year-round.
+    - title: Livraison rapide et pièces détachées
+      description: Les modèles courants sont expédiés en quelques jours. Pièces d'origine et consommables en stock toute l'année.
       icon: tabler:truck-delivery
-    - title: Lifetime support
-      description: Direct line to our engineering team for technical questions, repairs and refit advice.
+    - title: Assistance à vie
+      description: Ligne directe avec notre équipe d'ingénierie pour les questions techniques, réparations et conseils de rénovation.
       icon: tabler:lifebuoy
 
 featured_products:
   id: featured
-  title: Featured products
-  subtitle: Hand-picked from our current catalog —the most popular models this season.
-  linkText: View all products
+  title: Produits en vedette
+  subtitle: Sélectionnés dans notre catalogue actuel — les modèles les plus populaires de la saison.
+  linkText: Voir tous les produits
   linkUrl: /products
 
 content_workshop:
   isReversed: true
-  tagline: Inside the workshop
-  title: From hull drawing to delivery, every step stays in-house
+  tagline: Dans l'atelier
+  title: Du dessin de la coque à la livraison, chaque étape reste en interne
   content: |
-    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Quality you can see, feel and measure</h3>
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Une qualité que vous pouvez voir, ressentir et mesurer</h3>
   items:
-    - title: Designed by naval architects
-      description: Hull lines are drawn in-house and iterated through CFD analysis before the first prototype hits the water.
-    - title: Welded and assembled in our own facility
-      description: Tube welding, console fit-out and rigging happen under one roof so we control quality at every step.
-    - title: Tested at sea before shipment
-      description: Every model completes a multi-hour sea trial covering planing, turning, top speed and load handling.
+    - title: Conçu par des architectes navals
+      description: Les lignes de coque sont dessinées en interne et itérées par analyse CFD avant que le premier prototype ne touche l'eau.
+    - title: Soudé et assemblé dans notre propre installation
+      description: Soudure des tubes, aménagement de la console et gréement se font sous un même toit pour contrôler la qualité à chaque étape.
+    - title: Testé en mer avant expédition
+      description: Chaque modèle effectue un essai en mer de plusieurs heures couvrant le déjaugeage, les virages, la vitesse maximale et la manutention de charge.
   image:
     src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
-    alt: Workshop
+    alt: Atelier
 
 steps:
-  title: From spec sheet to splash in five steps
+  title: De la fiche technique au lancement en cinq étapes
   items:
-    - title: 'Step 1: <span class="font-medium">Configure</span>'
-      description: Pick a model, choose your options, request a quote online or by phone. Our team responds within one business day.
+    - title: 'Étape 1 : <span class="font-medium">Configurer</span>'
+      description: Choisissez un modèle, définissez vos options, demandez un devis en ligne ou par téléphone. Notre équipe répond sous un jour ouvrable.
       icon: tabler:list-numbers
-    - title: 'Step 2: <span class="font-medium">Confirm</span>'
-      description: We confirm specifications, lead time and total cost in writing. No surprises, no hidden fees.
+    - title: 'Étape 2 : <span class="font-medium">Confirmer</span>'
+      description: Nous confirmons les spécifications, le délai de livraison et le coût total par écrit. Pas de surprises, pas de frais cachés.
       icon: tabler:checks
-    - title: 'Step 3: <span class="font-medium">Build</span>'
-      description: Production kicks off in our workshop. We send progress photos at major milestones.
+    - title: 'Étape 3 : <span class="font-medium">Construire</span>'
+      description: La production démarre dans notre atelier. Nous envoyons des photos d'avancement aux étapes clés.
       icon: tabler:tool
-    - title: 'Step 4: <span class="font-medium">Deliver</span>'
-      description: Cradled, shrink-wrapped and shipped by sea or air. Customs paperwork handled end to end.
+    - title: 'Étape 4 : <span class="font-medium">Livrer</span>'
+      description: Emballé sur berceau, sous film rétractable et expédié par mer ou par air. Paperasse douanière gérée de bout en bout.
       icon: tabler:truck-loading
-    - title: 'Step 5: <span class="font-medium">Support</span>'
-      description: Two-year hull warranty plus lifetime technical support. Spares ship within 48 hours.
+    - title: 'Étape 5 : <span class="font-medium">Assister</span>'
+      description: Garantie coque de deux ans plus assistance technique à vie. Pièces détachées expédiées sous 48 heures.
       icon: tabler:headset
   image:
     src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
-    alt: Manufacturing process
+    alt: Processus de fabrication
 
 blog_latest:
-  title: From the journal
+  title: Du journal
   information: |
-    Articles, technical notes and case studies from the engineering team.
-    New entries are added whenever a project is shipped, a standard is updated, or someone has a story worth telling.
+    Articles, notes techniques et études de cas de l'équipe d'ingénierie.
+    De nouveaux articles sont ajoutés à chaque fois qu'un projet est expédié, qu'une norme est mise à jour ou que quelqu'un a une histoire qui mérite d'être racontée.
 
 faqs:
-  title: Frequently asked questions
-  subtitle: The questions we hear most often. If yours is not here, drop us a line and we will get back to you fast.
+  title: Foire aux questions
+  subtitle: Les questions que nous entendons le plus souvent. Si la vôtre n'est pas ici, écrivez-nous et nous vous répondrons rapidement.
   columns: 2
   items:
-    - title: Which model should I choose?
-      description: It depends on your crew size, the water you run, and whether you prioritise speed, payload or fuel economy. Send us a short brief and we will recommend two or three models that fit.
+    - title: Quel modèle choisir ?
+      description: Cela dépend de la taille de votre équipage, des eaux où vous naviguez et de vos priorités (vitesse, charge utile ou économie de carburant). Envoyez-nous une brève description et nous vous recommanderons deux ou trois modèles adaptés.
       icon: tabler:anchor
-    - title: Do you ship internationally?
-      description: Yes —we ship to over 40 countries. Sea freight is the most economical option for full boats; air freight is available for urgent orders.
+    - title: Expédiez-vous à l'international ?
+      description: Oui — nous livrons dans plus de 40 pays. Le fret maritime est l'option la plus économique pour les bateaux complets ; le fret aérien est disponible pour les commandes urgentes.
       icon: tabler:ship
-    - title: What warranty do you provide?
-      description: Two years on the hull, one year on accessories, lifetime on our welding. Warranty registration is included with every delivery.
+    - title: Quelle garantie offrez-vous ?
+      description: Deux ans sur la coque, un an sur les accessoires, à vie sur nos soudures. L'enregistrement de la garantie est inclus avec chaque livraison.
       icon: tabler:shield
-    - title: Can I customise an existing model?
-      description: Almost always. Console position, tube colour, seating layout, electronics and engine package can all be tailored. Custom hulls are quoted project by project.
+    - title: Puis-je personnaliser un modèle existant ?
+      description: Presque toujours. La position de la console, la couleur des tubes, l'agencement des sièges, l'électronique et le moteur peuvent tous être adaptés. Les coques sur mesure sont devisées projet par projet.
       icon: tabler:palette
-    - title: Do you offer training and certification?
-      description: For commercial operators we can arrange sea-trial training at our facility. Recreational customers get a free handover session on delivery.
+    - title: Proposez-vous des formations et certifications ?
+      description: Pour les opérateurs commerciaux, nous pouvons organiser une formation en essai maritime dans notre installation. Les clients particuliers reçoivent une séance de prise en main gratuite à la livraison.
       icon: tabler:school
-    - title: How do I get spare parts?
-      description: Order through the contact page or call our spares line. Common items (valves, oars, pumps, repair kits) ship within 48 hours worldwide.
+    - title: Comment obtenir des pièces détachées ?
+      description: Commandez via la page de contact ou appelez notre ligne pièces détachées. Les articles courants (soupapes, avirons, pompes, kits de réparation) sont expédiés sous 48 heures dans le monde entier.
       icon: tabler:settings
 
 cta:
   title: |
-    Ready to spec your <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">next boat</span>?
-  subtitle: Tell us how you use your boat and we will recommend a model, options and a price in one business day.
+    Prêt à configurer votre <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">prochain bateau</span> ?
+  subtitle: Dites-nous comment vous utilisez votre bateau et nous vous recommanderons un modèle, des options et un prix en un jour ouvrable.
   actions:
     - variant: primary
-      text: Request a quote
+      text: Demander un devis
       href: /contact
       icon: tabler:message-circle
-    - text: Browse the catalog
+    - text: Parcourir le catalogue
       href: /products

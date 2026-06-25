@@ -1,30 +1,28 @@
 ---
 export const prerender = false;
-import { getEntry } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import Map from '~/components/widgets/Map.astro';
-import { SITE, I18N } from 'astrowind:config';
-
-import yamlData from '~/data/pages/contact.yaml';
+import { SITE } from 'astrowind:config';
+import { getPageContent } from '~/i18n/page-content';
+import { languages, defaultLang } from '~/i18n/config';
 import branding from '~/data/site/branding.yaml';
 import countryData from '~/data/site/countries.yaml';
 import formTextData from '~/data/site/contact-form-text.yaml';
 import { generateChallenge, buildCookieValue, cookieName, cookieTtlSeconds } from '~/lib/contact-captcha';
 
-const locale = I18N?.language || 'en';
-const entry = await getEntry('contact', 'index');
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
-const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
+const acceptLang = Astro.request.headers.get('Accept-Language') || '';
+const lang: string = acceptLang.split(',').map(s => s.split(';')[0].split('-')[0]).find(l => l in languages) || defaultLang;
+const page = getPageContent(lang, 'contact');
+const data = page && Object.keys(page).length > 0 ? page : {};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ft: any = formTextData ?? {};
 
 function t(record: Record<string, string> | undefined, fallback = ''): string {
-  return record?.[locale] || record?.en || fallback;
+  return record?.[lang] || record?.en || fallback;
 }
 
 const ht = data.hero_text ?? {};
@@ -48,13 +46,13 @@ const fields = (form.fields ?? []).map((f: any) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const countries = (countryData as any).countries?.map((c: any) => ({
   value: c.value,
-  label: c.label?.[locale] || c.label?.en || c.value,
+  label: c.label?.[lang] || c.label?.en || c.value,
 })) ?? [];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const countryCodes = (countryData as any).countries?.map((c: any) => ({
   code: c.tel,
-  label: `${c.label?.[locale] || c.label?.en || c.value} ${c.tel}`,
+  label: `${c.label?.[lang] || c.label?.en || c.value} ${c.tel}`,
 })) ?? [];
 
 const submitButton = t(ft.submit_button) || form.submit_button || 'Send message';

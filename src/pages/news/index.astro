@@ -1,13 +1,20 @@
 ---
+export const prerender = false;
 import Layout from '~/layouts/PageLayout.astro';
 import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
 import Timeline from '~/components/blog/Timeline.astro';
 
 import { fetchPosts, blogPostsPerPage, blogListRobots } from '~/utils/blog';
-import pageData from '~/data/pages/news.yaml';
+import { getPageContent } from '~/i18n/page-content';
+import { languages, defaultLang } from '~/i18n/config';
 
-export const prerender = true;
+const acceptLang = Astro.request.headers.get('Accept-Language') || '';
+const lang: string = acceptLang.split(',').map(s => s.split(';')[0].split('-')[0]).find(l => l in languages) || defaultLang;
+const page = getPageContent(lang, 'news');
+const newsHeader = page?.hero_text ?? {};
+const pageTitle = newsHeader.title || 'News';
+const pageSubtitle = newsHeader.subtitle || '';
 
 const posts = await fetchPosts();
 const pageSize = blogPostsPerPage;
@@ -17,10 +24,6 @@ const pagePosts = posts.slice(0, pageSize);
 
 const prevUrl = undefined;
 const nextUrl = currentPage < totalPages ? `/news/page/${currentPage + 1}/` : undefined;
-
-const newsHeader = pageData?.hero_text ?? {};
-const pageTitle = newsHeader.title || 'News';
-const pageSubtitle = newsHeader.subtitle || '';
 
 const metadata = {
   title: `${pageTitle}`,

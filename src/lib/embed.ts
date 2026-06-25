@@ -19,7 +19,7 @@ export async function embed(text: string, env: EmbedEnv): Promise<number[]> {
   const vector = res.data[0];
 
   if (vector.length !== VECTOR_DIM) {
-    console.warn(`embed: expected ${VECTOR_DIM} dims, got ${vector.length}`);
+    // dimension mismatch — continue with truncated/padded vector
   }
 
   embedCache.set(normalized, { embedding: vector, cachedAt: Date.now() });

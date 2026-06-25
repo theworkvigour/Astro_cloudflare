@@ -1,5 +1,5 @@
 import { contentV2Records } from '../data/content-v2';
-import { sampleTopQueries, sampleLowCtrPages } from '../data/seo/sample-data';
+import { sampleTopQueries } from '../data/seo/sample-data';
 import { runAllRules } from '../lib/seo/rule-engine';
 import { generateTaskList } from '../lib/seo/task-list';
 import { generateGeoBlocks } from '../lib/seo/geo-generator';

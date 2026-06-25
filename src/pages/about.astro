@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content';
+export const prerender = false;
 import Features2 from '~/components/widgets/Features2.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Hero from '~/components/widgets/Hero.astro';
@@ -7,22 +7,21 @@ import Stats from '~/components/widgets/Stats.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Layout from '~/layouts/PageLayout.astro';
 import TrustBadges from '~/components/common/TrustBadges.astro';
-import { SITE, I18N } from 'astrowind:config';
+import { SITE } from 'astrowind:config';
+import { getPageContent } from '~/i18n/page-content';
+import { languages, defaultLang } from '~/i18n/config';
 
-import yamlData from '~/data/pages/about.yaml';
+const acceptLang = Astro.request.headers.get('Accept-Language') || '';
+const lang: string = acceptLang.split(',').map(s => s.split(';')[0].split('-')[0]).find(l => l in languages) || defaultLang;
+const page = getPageContent(lang, 'about');
 
-const locale = I18N?.language || 'en';
-const entry = await getEntry('about', 'index');
-const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
-const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
-
-const hero = data.hero ?? {};
-const stats = data.stats ?? {};
-const wwb = data.features3_what_we_build ?? {};
-const more = data.features3_more ?? {};
-const values = data.steps2_values ?? {};
-const milestones = data.steps2_milestones ?? {};
-const locations = data.features2_locations ?? {};
+const hero = page.hero ?? {};
+const stats = page.stats ?? {};
+const wwb = page.features3_what_we_build ?? {};
+const more = page.features3_more ?? {};
+const values = page.steps2_values ?? {};
+const milestones = page.steps2_milestones ?? {};
+const locations = page.features2_locations ?? {};
 
 const metadata = {
   title: `About ${SITE.name} — Inflatable Boat Manufacturer & Marine Engineering`,

@@ -1,40 +1,40 @@
 hero_text:
-  tagline: Contact
-  title: GET IN TOUCH
+  tagline: Contacto
+  title: PONTE EN CONTACTO
 contact_form:
   id: form
-  title: Send us a message
-  subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
-  email_to: hello@Wavefella.com
-  submit_button: Send message
-  success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
-  error_message: Something went wrong sending your message. Please try again or email us directly.
+  title: Envíanos un mensaje
+  subtitle: Para presupuestos, preguntas técnicas o consultas de asociación, escríbenos. Respondemos en un día hábil.
+  email_to: hello@wavefella.com
+  submit_button: Enviar mensaje
+  success_message: ¡Gracias! Tu mensaje ha llegado a nuestra bandeja de entrada. Responderemos en un día hábil.
+  error_message: Algo salió mal al enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente.
   default_country_code: '+1'
   captcha:
-    label: 'Anti-spam: please solve the following'
+    label: 'Anti-spam: resuelve el siguiente cálculo'
   fields:
     - name: firstName
-      label: First Name
+      label: Nombre
       row: 1
     - name: lastName
-      label: Last Name
+      label: Apellidos
       row: 1
     - name: companyName
-      label: Company Name
+      label: Empresa
       row: 2
     - name: address
-      label: Address
+      label: Dirección
       row: 3
     - name: zip
-      label: Zip / Postal Code
+      label: Código postal
       row: 4
     - name: country
-      label: Country
+      label: País
       row: 4
       type: select
       optionsKey: countries
     - name: email
-      label: E-mail
+      label: Correo electrónico
       row: 5
       type: email
     - name: tel
@@ -43,37 +43,37 @@ contact_form:
       type: tel
       withCountryCode: true
     - name: subject
-      label: Subject
+      label: Asunto
       row: 6
     - name: message
-      label: Message
+      label: Mensaje
       row: 7
       type: textarea
       rows: 6
 features2_other_ways:
-  title: Other ways to reach us
+  title: Otras formas de contactarnos
   columns: 3
   items:
-    - title: Sales enquiries
-      description: Quotes, configurations, dealer applications and bulk orders.
+    - title: Ventas
+      description: Presupuestos, configuraciones, solicitudes de distribuidor y pedidos al por mayor.
       icon: tabler:shopping-bag
-    - title: Technical support
-      description: Warranty, repairs, spare parts and operating questions.
+    - title: Soporte técnico
+      description: Garantía, reparaciones, repuestos y preguntas de funcionamiento.
       icon: tabler:tool
-    - title: Press & partnerships
-      description: Media kits, sponsorship and industry collaboration.
+    - title: Prensa y asociaciones
+      description: Kits de prensa, patrocinio y colaboración industrial.
       icon: tabler:news
-    - title: Phone
+    - title: Teléfono
       description: '+8613305324192'
       icon: tabler:headset
-    - title: Email
-      description: hello@Wavefella.com
+    - title: Correo electrónico
+      description: hello@wavefella.com
       icon: tabler:mail
-    - title: Headquarters
-      description: Coastal industrial park, building 4, EU time zone
+    - title: Sede central
+      description: Parque industrial costero, edificio 4, huso horario UE
       icon: tabler:map-pin
 map:
-  title: Our Location
-  subtitle: Visit us at our headquarters
-  address: Coastal industrial park, building 4, EU time zone
+  title: Nuestra ubicación
+  subtitle: Visítanos en nuestra sede central
+  address: Parque industrial costero, edificio 4, huso horario UE
   zoom: 15

@@ -57,6 +57,38 @@ function yamlPlugin(): Plugin {
   };
 }
 
+const PAGE_LANGS = ['en', 'zh', 'fr', 'de', 'es', 'pt', 'ar', 'it', 'ja', 'ko', 'ru', 'pl'];
+const PAGE_NAMES = ['home', 'about', 'news', 'contact'];
+
+function pageContentPlugin(): Plugin {
+  return {
+    name: 'page-content-loader',
+    resolveId(id) {
+      if (id === 'astro:page-content') return '\0astro:page-content';
+      return null;
+    },
+    async load(id) {
+      if (id !== '\0astro:page-content') return null;
+      const pagesDir = path.resolve(__dirname, 'src/data/pages');
+      const data: Record<string, any> = {};
+      for (const lang of PAGE_LANGS) {
+        for (const pname of PAGE_NAMES) {
+          const filePath = lang === 'en'
+            ? path.resolve(pagesDir, `${pname}.yaml`)
+            : path.resolve(pagesDir, lang, `${pname}.yaml`);
+          try {
+            const content = await fs.readFile(filePath, 'utf8');
+            data[`${lang}/${pname}`] = yaml.load(content);
+          } catch {
+            // file not found, skip
+          }
+        }
+      }
+      return { code: `export default ${JSON.stringify(data)};`, map: null };
+    },
+  };
+}
+
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
@@ -129,7 +161,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [yamlPlugin()],
+    plugins: [yamlPlugin(), pageContentPlugin()],
     server: {
       watch: {
         ignored: ['**/tina/**', '**/.tina/**', '**/tina-lock.json'],
