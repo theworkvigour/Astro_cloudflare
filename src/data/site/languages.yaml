@@ -28,6 +28,11 @@
   locale: ar
   textDirection: rtl
   enabled: true
+- code: IT
+  name: Italiano
+  locale: it
+  textDirection: ltr
+  enabled: true
 - code: ZH
   name: 中文
   locale: zh

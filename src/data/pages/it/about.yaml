@@ -1,0 +1,96 @@
+hero:
+  tagline: Chi siamo
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Officina Wavefella
+  title: |
+    Ingegneria navale, <br />
+    alla <span class="text-accent dark:text-white">Wavefella</span>
+  subtitle: 'Siamo nati in un\'officina costiera con una barca e una convinzione incrollabile: i prodotti nautici dovrebbero essere costruiti come se la vita dipendesse da loro – perché è così. Oggi spediamo in oltre 40 paesi, ma ogni scafo passa ancora attraverso le stesse mani che hanno fondato l\'azienda.'
+
+stats:
+  title: In numeri
+  columns: 4
+  stats:
+    - title: Scafi consegnati
+      amount: '2,400+'
+    - title: Paesi serviti
+      amount: '40'
+    - title: Anni di esperienza combinata
+      amount: '60'
+    - title: Tempo medio di risposta (ore)
+      amount: '24'
+
+features3_what_we_build:
+  title: Cosa costruiamo
+  subtitle: Una linea di prodotti mirata che conosciamo a fondo – niente esperimenti a metà, niente badge engineering.
+  columns: 3
+  isBeforeContent: true
+  items:
+    - title: RIB
+      description: RIB con scafo in alluminio da 3,3 m a 7,5 m. Progettati per pattugliamento, immersione, pesca e uso familiare.
+      icon: tabler:ship
+    - title: Gommoni
+      description: Gommoni in PVC e Hypalon da 2,4 m a 4,2 m. Leggeri, robusti e facili da riporre.
+      icon: tabler:speedboat
+    - title: Tender per superyacht
+      description: RIB compatti e altamente specificati, su misura per il design della vostra nave madre.
+      icon: tabler:crown
+
+features3_more:
+  columns: 3
+  isAfterContent: true
+  items:
+    - title: Accessori
+      description: Cinghie, pompe, coperture, borse stagne, serbatoi carburante ed elettronica. Tutti compatibili con le nostre barche.
+      icon: tabler:package
+    - title:改装 e riparazioni
+      description: Riparazione tubolari interna, retrofit elettronico e upgrade motore.
+      icon: tabler:tool
+    - title: Costruzioni su misura
+      description: Progettazione su progetto per clienti commerciali, scientifici e militari.
+      icon: tabler:hammer
+  image:
+    src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
+    alt: Costruzione personalizzata
+
+steps2_values:
+  title: I nostri valori
+  subtitle: Tre principi che hanno plasmato ogni prodotto fin dal primo giorno.
+  items:
+    - title: Costruisci come se la tua famiglia ci salisse sopra
+      description: Ogni scafo, ogni saldatura e ogni componente è trattato come se fosse per le nostre stesse famiglie.
+      icon: tabler:heart
+    - title: Ingegneria prima della vendita
+      description: Se una specifica è sbagliata, modifichiamo la specifica – mai il cliente.
+      icon: tabler:settings
+    - title: Supporto oltre la garanzia
+      description: Scafi di vent'anni ci chiamano ancora per ricambi – e rispondiamo ancora.
+      icon: tabler:headset
+
+steps2_milestones:
+  title: Tappe fondamentali
+  subtitle: Una versione breve della storia Wavefella.
+  isReversed: true
+  items:
+    - title: Fondata in un'officina costiera
+      description: Iniziata da due architetti navali con una CNC e un'idea incrollabile.
+      icon: tabler:building-factory
+    - title: Primi 1.000 scafi consegnati
+      description: Raggiunto al settimo anno, principalmente tramite passaparola e clienti abituali.
+      icon: tabler:circle-check
+    - title: Programma di esportazione internazionale
+      description: Consegna in oltre 40 paesi con partner di supporto locali in cinque continenti.
+      icon: tabler:world
+
+features2_locations:
+  title: Le nostre sedi
+  tagline: Trovaci
+  columns: 3
+  items:
+    - title: Sede centrale e officina
+      description: Parco industriale costiero, Edificio 4 – aperto lun–ven per visite su appuntamento.
+    - title: Centro assistenza UE
+      description: Porto mediterraneo –改装, riparazione e supporto garanzia per clienti europei.
+    - title: Rete partner APAC
+      description: Partner di assistenza autorizzati in Australia, Giappone, Singapore e Hong Kong.

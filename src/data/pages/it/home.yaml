@@ -1,0 +1,180 @@
+hero:
+  tagline: ''
+  title: |
+    Progettato per l'acqua. <br class="hidden sm:inline" />
+    Costruito per la <span class="text-accent dark:text-white">vita a bordo</span>.
+  subtitle: |
+    <span class="hidden sm:inline"><span class="font-semibold">Wavefella</span> progetta e produce gommoni, RIB e prodotti tecnici di alta qualità.</span>
+    <span class="block mb-1 sm:hidden font-bold text-blue-600">Wavefella: costruito per performare.</span>
+    Ideale per professionisti del mare, operatori commerciali e appassionati che esigono affidabilità e artigianalità.
+
+  actions:
+    - variant: primary
+      text: Vedi prodotti
+      href: /products
+      icon: tabler:shopping-bag
+    - text: Scopri di più
+      href: '#features'
+  image:
+    src: ~/assets/images/hero-image.png
+    alt: Copertina Wavefella
+
+hero_carousel:
+  autoplay_interval: 5000
+  slides:
+    - image:
+        src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Officina Wavefella sul mare
+      tagline: Benvenuti
+      title: |
+        Progettato per l'acqua. <br />
+        Costruito per la <span class="text-sky-300">vita a bordo</span>.
+      subtitle: Gommoni, RIB e prodotti tecnici di alta qualità per professionisti del mare e appassionati.
+      actions:
+        - text: Vedi prodotti
+          href: /products
+          variant: primary
+        - text: Richiedi preventivo
+          href: /contact
+          variant: secondary
+    - image:
+        src: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Costruzione personalizzata in corso
+      tagline: Artigianalità
+      title: |
+        Scafi che durano più della garanzia. <br />
+        Assistenza che dura più dello scafo.
+      subtitle: Materiali di qualità nautica. Saldatura alluminio. Barche di vent'anni ci chiamano ancora per ricambi.
+      actions:
+        - text: La nostra storia
+          href: /about
+          variant: primary
+    - image:
+        src: https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+        alt: Gommoni sull'acqua
+      tagline: Supporto
+      title: |
+        Progettato prima di vendere. <br />
+        Supportato molto dopo.
+      subtitle: Partner di assistenza autorizzati in oltre 40 paesi. Scafi di vent'anni ci chiamano ancora – e rispondiamo ancora.
+      actions:
+        - text: Contattaci
+          href: /contact
+          variant: primary
+        - text: Vedi prezzi
+          href: /pricing
+          variant: secondary
+
+features:
+  id: features
+  tagline: Perché Wavefella
+  title: Cosa ottieni con Wavefella
+  subtitle: Decenni di esperienza cantieristica, condensati in una linea di prodotti mirata. Costruita solida, testata in mare, supportata a vita.
+  columns: 2
+  items:
+    - title: Materiali di qualità nautica
+      description: PVC, Hypalon e scafi in alluminio ad alta resistenza, selezionati per resistenza a UV, abrasione e acqua salata.
+      icon: tabler:shield-check
+    - title: Qualità da produzione
+      description: Ogni scafo è testato a pressione, ogni saldatura controllata. Spediamo solo ciò che vareremmo noi stessi.
+      icon: tabler:certificate
+    - title: Design modulare
+      description: Personalizza disposizione tubolari, posizione console, capacità carburante e accessori per le tue esigenze.
+      icon: tabler:layout-grid
+    - title: Specifiche oneste
+      description: Carichi reali, misure reali, peso reale. Nessuna esagerazione di marketing. Mai.
+      icon: tabler:ruler-measure
+    - title: Consegna rapida e ricambi
+      description: I modelli standard vengono spediti in giorni. Ricambi originali e materiali di consumo in magazzino tutto l'anno.
+      icon: tabler:truck-delivery
+    - title: Supporto a vita
+      description: Linea diretta con il nostro team di progettazione per consulenze tecniche, riparazioni e改装.
+      icon: tabler:lifebuoy
+
+featured_products:
+  id: featured
+  title: Prodotti in evidenza
+  subtitle: Selezionati dal nostro catalogo – i modelli più popolari di questa stagione.
+  linkText: Vedi tutti i prodotti
+  linkUrl: /products
+
+content_workshop:
+  isReversed: true
+  tagline: Dentro l'officina
+  title: Dalla progettazione alla consegna – ogni passo in casa
+  content: |
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Qualità che vedi, senti e misuri</h3>
+  items:
+    - title: Progettato da architetti navali
+      description: Le linee di scafo sono disegnate internamente e iterate attraverso analisi CFD prima del primo prototipo.
+    - title: Saldato e assemblato nel nostro stabilimento
+      description: Saldatura tubolari, montaggio console e allestimento avvengono sotto lo stesso tetto.
+    - title: Testato in mare prima della spedizione
+      description: Ogni modello completa un collaudo in mare di diverse ore, verificando planata, virata, velocità massima e comportamento a carico.
+  image:
+    src: https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Officina
+
+steps:
+  title: Dalla scheda tecnica al varo in cinque passi
+  items:
+    - title: 'Passo 1: <span class="font-medium">Configura</span>'
+      description: Scegli un modello, definisci le opzioni e richiedi un preventivo online o per telefono. Il team risponde entro un giorno lavorativo.
+      icon: tabler:list-numbers
+    - title: 'Passo 2: <span class="font-medium">Conferma</span>'
+      description: Confermiamo specifiche, tempi di consegna e costo totale per iscritto. Nessuna sorpresa, nessuna tassa nascosta.
+      icon: tabler:checks
+    - title: 'Passo 3: <span class="font-medium">Costruisci</span>'
+      description: La produzione inizia in officina. Inviiamo foto di avanzamento alle tappe principali.
+      icon: tabler:tool
+    - title: 'Passo 4: <span class="font-medium">Consegna</span>'
+      description: Imballato su supporto, termoretto e spedito via mare o aria. Sdoganamento completamente incluso.
+      icon: tabler:truck-loading
+    - title: 'Passo 5: <span class="font-medium">Supporto</span>'
+      description: Due anni di garanzia sullo scafo più assistenza tecnica a vita. Ricambi spediti entro 48 ore.
+      icon: tabler:headset
+  image:
+    src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80
+    alt: Processo produttivo
+
+blog_latest:
+  title: Dal blog
+  information: |
+    Articoli, note tecniche e case study dal team di progettazione.
+    Nuovi post vengono pubblicati quando un progetto viene consegnato, uno standard viene aggiornato o qualcuno ha una storia che vale la pena condividere.
+
+faqs:
+  title: Domande frequenti
+  subtitle: Le domande che sentiamo più spesso. Se la tua non è qui, scrivici – ti risponderemo rapidamente.
+  columns: 2
+  items:
+    - title: Quale modello scegliere?
+      description: Dipende dalle dimensioni dell'equipaggio, dal tipo di acque e se dai priorità a velocità, carico o efficienza carburante. Inviaci una breve descrizione e ti consiglieremo due o tre modelli adatti.
+      icon: tabler:anchor
+    - title: Consegnate a livello internazionale?
+      description: Sì – consegniamo in oltre 40 paesi. Il trasporto marittimo è l'opzione più economica per barche complete; il trasporto aereo è disponibile per ordini urgenti.
+      icon: tabler:ship
+    - title: Quale garanzia offrite?
+      description: Due anni sullo scafo, un anno sugli accessori, a vita sulle nostre saldature. La registrazione della garanzia è inclusa in ogni consegna.
+      icon: tabler:shield
+    - title: Posso personalizzare un modello esistente?
+      description: Quasi sempre. Posizione console, colore tubolari, disposizione sedili, elettronica e motore possono essere personalizzati. Scafi speciali vengono quotati su progetto.
+      icon: tabler:palette
+    - title: Offrite formazione e certificazione?
+      description: Per operatori commerciali possiamo organizzare formazione in mare presso il nostro stabilimento. Clienti privati ricevono istruzioni gratuite alla consegna.
+      icon: tabler:school
+    - title: Come ottenere ricambi?
+      description: Ordina tramite la pagina contatti o chiama la nostra hotline ricambi. Parti comuni (valvole, cinghie, pompe, kit riparazione) spedite in 48 ore in tutto il mondo.
+      icon: tabler:settings
+
+cta:
+  title: |
+    Pronto a configurare la tua <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">prossima barca</span>?
+  subtitle: Dicci come userai la tua barca e ti consiglieremo modello, opzioni e prezzo entro un giorno lavorativo.
+  actions:
+    - variant: primary
+      text: Richiedi preventivo
+      href: /contact
+      icon: tabler:message-circle
+    - text: Sfoglia catalogo
+      href: /products
