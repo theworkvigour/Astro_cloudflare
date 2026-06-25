@@ -366,29 +366,13 @@ Type a keyword to start searching
         e.preventDefault();
         var locale = t.getAttribute('data-locale') || 'en';
         var path = window.location.pathname;
-        var host = window.location.hostname;
-        var parts = host.split('.');
+        var newPath = '/' + locale + path.replace(/^\/[a-z]{2}(\/|$)/, '/$1');
+        newPath = newPath.replace(/\/+/g, '/').replace(/\/$/, '') || '/' + locale + '/';
 
-        // Save user preference to localStorage and cookie
         try { localStorage.setItem('locale', locale); } catch (e) {}
         document.cookie = 'x-user-locale=' + locale + '; path=/; max-age=31536000; SameSite=Lax';
 
-        if (host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0') {
-          var newPath = '/' + locale + path.replace(/^\/[a-z]{2}(\/|$)/, '/$1');
-          window.location.href = window.location.origin + newPath;
-          return;
-        }
-
-        if (parts.length >= 3) {
-          if (parts[0].indexOf('Wavefella-') === 0) {
-            parts[0] = 'Wavefella-' + locale;
-          } else {
-            parts[0] = locale;
-          }
-        } else {
-          parts.unshift(locale);
-        }
-        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
+        window.location.href = window.location.origin + newPath;
       });
     }
 
