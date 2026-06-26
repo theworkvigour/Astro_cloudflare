@@ -88,7 +88,14 @@ function extractLinks(html: string, baseUrl: string): { href: string; text: stri
   const base = new URL(baseUrl).origin;
   while ((match = regex.exec(html)) !== null) {
     const href = match[1].trim();
-    if (!href || href.startsWith('#') || href.startsWith('javascript:')) continue;
+    const normalizedHref = href.toLowerCase();
+    if (
+      !href ||
+      href.startsWith('#') ||
+      normalizedHref.startsWith('javascript:') ||
+      normalizedHref.startsWith('data:') ||
+      normalizedHref.startsWith('vbscript:')
+    ) continue;
     const isInternal = href.startsWith('/') || href.startsWith(base);
     links.push({ href, text: stripHtml(match[2]).trim().slice(0, 60), isInternal });
   }
