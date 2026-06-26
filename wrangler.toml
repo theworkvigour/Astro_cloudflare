@@ -10,15 +10,11 @@ binding = "ASSETS"
 # ----------------------------------------------------------------
 # Single Worker Deployment — Astro Site
 # ----------------------------------------------------------------
-# Subdomain routing ({locale}.alluredna.com → alluredna.com/{lang}/)
-# is injected into the built Worker by scripts/patch-worker.mjs
-# during the build step.
+# All locale URLs use path-based format: /de/, /fr/, /ja/, etc.
+# Language switcher navigates to alluredna.com/{locale}/...
 #
 # Manual deploy:
 #   npx wrangler deploy
-#
-# Cloudflare Dashboard one-time setup:
-#   DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)
 # ----------------------------------------------------------------
 
 # --- AI Infrastructure ---

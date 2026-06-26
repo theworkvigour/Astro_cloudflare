@@ -47,9 +47,8 @@ jobs:
             delete c.configPath; delete c.userConfigPath;
             c.vectorize = [{ binding: 'VECTORIZE', index_name: 'ai-index' }];
             c.ai = { binding: 'AI' };
-            c.routes = [{ pattern: '*.alluredna.com/*', zone_name: 'alluredna.com' }];
             require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c, null, 2));
-            console.log('✓ Injected VECTORIZE + AI bindings + subdomain routes');
+            console.log('✓ Injected VECTORIZE + AI bindings');
           "
 
       - name: Ensure KV namespace exists
@@ -103,6 +102,5 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # Note: Subdomain routing is now built into the main Worker
-      # via scripts/patch-worker.mjs during the build step.
-      # The separate alluredna-subdomain-router is no longer needed.
+      # Note: All locale URLs use path-based format: /de/, /fr/, etc.
+      # No subdomain routing is needed.
