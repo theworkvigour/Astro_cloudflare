@@ -376,7 +376,8 @@ Keystatic CMS at `/keystatic/` (GitHub API-backed):
 | `npm run dev` / `yarn dev` | Astro dev server at `localhost:4321` |
 | `npm run build` / `yarn build` | Full production build |
 | `npm run preview` / `yarn preview` | Preview production build |
-| `npm run check` / `yarn check` | `astro check → eslint → prettier` |
+| `npm run check` / `yarn check` | `astro check → eslint → prettier → check:i18n` |
+| `npm run check:i18n` / `yarn check:i18n` | Translation audit (12-language coverage, TODO detection) |
 | `npm run fix` / `yarn fix` | Auto-fix ESLint + Prettier |
 
 ### 10.2 Build Process
@@ -400,7 +401,31 @@ Keystatic CMS at `/keystatic/` (GitHub API-backed):
 
 ---
 
-## 11. Deployment
+## 11. Translation Self-Check
+
+Run before each push to verify all 12 languages are complete:
+
+```bash
+npm run check:i18n
+```
+
+### What it checks
+
+| Check | Scope | Fail if |
+|-------|-------|---------|
+| **Navigation files** | `src/data/site/navigation.{lang}.yaml` | Missing for any of 12 locales |
+| **Config siteSettings** | `src/config.{lang}.yaml` | Missing `siteSettings` block |
+| **Page content YAML** | `src/data/pages/{lang}/{home,about,contact,news}.yaml` | File missing or empty |
+| **Product texts** | `src/data/product-texts.ts` | Any product × language lacks translation |
+| **TODO placeholders** | All YAML + config files | Any `# TODO` comment remains |
+| **Knowledge graph nodes** | `src/content/graph/nodes.ts` | Node missing `name`/`slug` for any locale |
+| **Hardcoded English** | `src/pages/[lang]/*.astro` | Page with `getStaticPaths()` but no `t()` lookup |
+
+Supports `--json` (CI integration) and `--fail` (exit code 1 on issues).
+
+---
+
+## 12. Deployment
 
 ### 11.1 CI/CD (GitHub Actions)
 
