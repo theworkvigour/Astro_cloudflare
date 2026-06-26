@@ -11,7 +11,7 @@ import type { CallToAction } from '~/types';
 
 import { getLangFromUrl, removeLang } from '~/i18n/utils';
 import langData from '~/data/site/languages.yaml';
-import { defaultLang } from '~/i18n/config';
+import { defaultLang, ui } from '~/i18n/config';
 
 interface Link {
   text?: string;
@@ -58,6 +58,52 @@ const cleanPath = removeLang(new URL(Astro.url).pathname);
 
 const LOCALIZED_ROUTES = new Set(['/products', '/guides', '/faq', '/v2', '/use-cases', '/compare', '/geo-report']);
 const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
+
+const navTextMap: Record<string, string> = {
+  'Products': 'nav.products',
+  'Resources': 'nav.resources',
+  'Company': 'nav.company',
+  'Support': 'nav.support',
+  'All Products': 'nav.allProducts',
+  'RIB Boats': 'nav.ribBoats',
+  'Inflatable Boats': 'nav.inflatableBoats',
+  'Accessories': 'nav.accessories',
+  'Compare': 'nav.compare',
+  'Guides': 'nav.guides',
+  'Journal': 'nav.journal',
+  'Technology': 'nav.technology',
+  'Safety': 'nav.safety',
+  'Size Guide': 'nav.sizeGuide',
+  'News': 'nav.news',
+  'About': 'nav.about',
+  'Brand': 'nav.brand',
+  'R&D Center': 'nav.randd',
+  'Contact': 'nav.contact',
+  'Login': 'nav.login',
+  'Sign In': 'nav.signIn',
+  'Get a quote': 'cta.quote',
+  'Explore products': 'cta.explore',
+  'View bundles': 'cta.bundles',
+  'Ask AI': 'cta.ask',
+  'Shop Now': 'cta.shop',
+  'Learn More': 'cta.learn',
+  'Terms': 'nav.terms',
+  'Privacy Policy': 'nav.privacy',
+  'Medical Disclaimer': 'nav.disclaimer',
+  'All Guides': 'nav.allGuides',
+  'FAQ': 'nav.faq',
+  'Bundles': 'nav.bundles',
+  'V2 Library': 'nav.v2',
+};
+
+function t(text: string, locale: string): string {
+  const key = navTextMap[text];
+  if (key) {
+    const translated = (ui as any)[locale]?.[key];
+    if (translated) return translated;
+  }
+  return text;
+}
 
 function localizeHref(href: string | URL | undefined | null, locale: string): string {
   const str = typeof href === 'string' ? href : href?.toString() || '';
@@ -107,7 +153,7 @@ const currentLocale = getLangFromUrl(Astro.url);
             <a
               href={localizeHref(link.href || '#', currentLocale)}
               class="hover:text-gray-300 transition-colors"
-            >{link.text}</a>
+            >{t(link.text, currentLocale)}</a>
           </>
         ))}
       </div>
@@ -173,7 +219,7 @@ const currentLocale = getLangFromUrl(Astro.url);
                     type="button"
                     class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap"
                   >
-                    {text}{' '}
+                    {t(text, currentLocale)}{' '}
                     <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
                   </button>
                   <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
@@ -187,7 +233,7 @@ const currentLocale = getLangFromUrl(Astro.url);
                       href={localizeHref(href2, currentLocale)}
                       data-entity={entityForHref(href2)}
                     >
-                      {text2}
+                      {t(text2, currentLocale)}
                     </a>
                       </li>
                     ))}
@@ -202,7 +248,7 @@ const currentLocale = getLangFromUrl(Astro.url);
                   href={localizeHref(href, currentLocale)}
                   data-entity={entityForHref(href)}
                 >
-                  {text}
+                  {t(text, currentLocale)}
                 </a>
               )}
             </li>

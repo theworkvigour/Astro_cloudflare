@@ -4,7 +4,7 @@ import branding from '~/data/site/branding.yaml';
 import { getHomePermalink } from '~/utils/permalinks';
 import { getSeoSettings } from '~/utils/seo-settings';
 import { getLangFromUrl } from '~/i18n/utils';
-import { defaultLang } from '~/i18n/config';
+import { defaultLang, ui } from '~/i18n/config';
 
 interface Link {
   text?: string;
@@ -62,6 +62,45 @@ const entityForHref = (href?: string): string => {
 const currentLocale = getLangFromUrl(Astro.url);
 
 const LOCALIZED_ROUTES = new Set(['/products', '/guides', '/faq', '/v2', '/use-cases', '/compare', '/geo-report']);
+
+const navTextMap: Record<string, string> = {
+  'Products': 'nav.products',
+  'Resources': 'nav.resources',
+  'Company': 'nav.company',
+  'Support': 'nav.support',
+  'All Products': 'nav.allProducts',
+  'RIB Boats': 'nav.ribBoats',
+  'Inflatable Boats': 'nav.inflatableBoats',
+  'Accessories': 'nav.accessories',
+  'Compare': 'nav.compare',
+  'Guides': 'nav.guides',
+  'Journal': 'nav.journal',
+  'Technology': 'nav.technology',
+  'Safety': 'nav.safety',
+  'Size Guide': 'nav.sizeGuide',
+  'News': 'nav.news',
+  'About': 'nav.about',
+  'Brand': 'nav.brand',
+  'R&D Center': 'nav.randd',
+  'Contact': 'nav.contact',
+  'Login': 'nav.login',
+  'Sign In': 'nav.signIn',
+  'Get a quote': 'cta.quote',
+  'Terms': 'nav.terms',
+  'Privacy Policy': 'nav.privacy',
+  'Medical Disclaimer': 'nav.disclaimer',
+  'FAQ': 'nav.faq',
+  'Bundles': 'nav.bundles',
+};
+
+function t(text: string, locale: string): string {
+  const key = navTextMap[text];
+  if (key) {
+    const translated = (ui as any)[locale]?.[key];
+    if (translated) return translated;
+  }
+  return text;
+}
 const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
 
 function localizeHref(href: string | undefined | null, locale: string): string {
@@ -101,7 +140,7 @@ const copyrightHtml = String(rawCopyright)
                 <a
                   class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out"
                   href={localizeHref(href, currentLocale)}
-                  set:html={text}
+                  set:html={t(text, currentLocale)}
                 />
               </>
             ))
@@ -111,7 +150,7 @@ const copyrightHtml = String(rawCopyright)
       {
         links.map(({ title, links }) => (
           <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <div class="dark:text-gray-300 font-medium mb-2">{title}</div>
+            <div class="dark:text-gray-300 font-medium mb-2">{t(title, currentLocale)}</div>
             {links && Array.isArray(links) && links.length > 0 && (
               <ul class="text-sm">
                 {links.map(({ text, href, ariaLabel }) => (
@@ -122,7 +161,7 @@ const copyrightHtml = String(rawCopyright)
                       aria-label={ariaLabel}
                       data-entity={entityForHref(href)}
                     >
-                      <Fragment set:html={text} />
+                      <Fragment set:html={t(text, currentLocale)} />
                     </a>
                   </li>
                 ))}
