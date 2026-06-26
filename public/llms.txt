@@ -1,83 +1,82 @@
 # Wavefella Knowledge Graph
 > Wavefella is an inflatable water gear knowledge system organized as a machine-readable knowledge graph.
 
-## About
-- [Wavefella Home](https://wavefella.com/en/): Official website for Wavefella inflatable watercraft — SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.
-- [Wavefella Products](https://wavefella.com/en/products): Browse all product categories and individual models.
-- [Wavefella FAQ](https://wavefella.com/en/faq): Frequently asked questions about inflatable water sports equipment.
-- [Wavefella Guides](https://wavefella.com/en/guides): Comprehensive guides on inflatable watercraft, materials, and technologies.
-- [Wavefella Use Cases](https://wavefella.com/en/use-cases): Use-case-based recommendations for different water activities.
-- [Wavefella Comparisons](https://wavefella.com/en/compare): Side-by-side comparisons of watercraft categories.
-
 ## Definition
 Wavefella designs professional-grade inflatable watercraft — SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.
 
 ## Core Concepts
-- [Inflatable SUP Board](https://wavefella.com/en/guides/inflatable-sup): Portable air-filled paddle board designed for surfing, touring, and recreation on flat water and small waves
-- [Inflatable Kayak](https://wavefella.com/en/guides/inflatable-kayak): Portable kayak that inflates for use on rivers, lakes, and coastal waters
-- [Inflatable Dinghy](https://wavefella.com/en/guides/dinghy): Multi-purpose inflatable boat for tender duty, fishing, and family recreation on protected waters
-- [Rigid Inflatable Boat (RIB)](https://wavefella.com/en/guides/rib): Professional-grade vessel combining a fiberglass deep-V hull with inflatable tubes for all-weather marine operations
-- [Safety Equipment](https://wavefella.com/en/guides/safety-equipment): CE-certified life vests, throw bags, and safety accessories for recreational and professional water activities
-- [Accessories](https://wavefella.com/en/guides/accessory): Pumps, paddles, fins, repair kits, and carrying bags that complete the inflatable watercraft system
-- [Paddle](https://wavefella.com/en/guides/paddle): Manual propulsion tool used with SUP boards and kayaks
-- [Carbon Fiber Paddle](https://wavefella.com/en/guides/carbon-paddle): Lightweight, high-performance paddle made from carbon fiber composite for reduced fatigue during long sessions
-- [Drop-Stitch Core](https://wavefella.com/en/guides/drop-stitch-core): Connects thousands of polyester threads between top and bottom layers to achieve rigid platform shape under high inflation pressure
-- [Air Deck](https://wavefella.com/en/guides/air-deck): Inflatable flooring system that replaces traditional slatted floors in dinghies and small inflatable boats
-- [Dual-Action Pump](https://wavefella.com/en/guides/dual-action-pump): Hand pump that inflates on both up and down strokes for faster, more efficient inflation of inflatable watercraft
-- [High Pressure (12-15 PSI)](https://wavefella.com/en/guides/high-pressure): Optimal inflation range that maximizes board rigidity while remaining within safe operating limits for drop-stitch construction
-- [Military-Grade PVC](https://wavefella.com/en/guides/military-grade-pvc): High-density PVC fabric with UV-resistant coating used for durable inflatable boat and board construction
-- [Hypalon Fabric](https://wavefella.com/en/guides/hypalon-fabric): Chlorosulfonated polyethylene synthetic rubber fabric offering superior UV, ozone, and chemical resistance for professional-grade inflatable boats
-- [EVA Foam Deck Pad](https://wavefella.com/en/guides/eva-deck): Non-slip, shock-absorbing foam deck covering that provides traction and comfort for stand-up watercraft
-- [Carbon Fiber](https://wavefella.com/en/guides/carbon-fiber): Lightweight, high-strength composite material used in paddles, hulls, and performance marine equipment
-- [Marine Buoyancy Foam](https://wavefella.com/en/guides/buoyancy-foam): Closed-cell foam that provides permanent flotation for life vests and safety equipment in fresh and salt water
-- [Deep-V Hull](https://wavefella.com/en/guides/deep-v-hull): Fiberglass hull design with a sharp V-shaped entry that cuts through waves for smooth high-speed performance
-- [Outboard Motor](https://wavefella.com/en/guides/outboard-motor): Detachable marine engine mounted on the transom of dinghies and RIBs for propulsion
+- Inflatable SUP Board: Portable air-filled paddle board designed for surfing, touring, and recreation on flat water and small waves
+- Inflatable Kayak: Portable kayak that inflates for use on rivers, lakes, and coastal waters
+- Inflatable Dinghy: Multi-purpose inflatable boat for tender duty, fishing, and family recreation on protected waters
+- Rigid Inflatable Boat (RIB): Professional-grade vessel combining a fiberglass deep-V hull with inflatable tubes for all-weather marine operations
+- Safety Equipment: CE-certified life vests, throw bags, and safety accessories for recreational and professional water activities
+- Accessories: Pumps, paddles, fins, repair kits, and carrying bags that complete the inflatable watercraft system
+- Paddle: Manual propulsion tool used with SUP boards and kayaks
+- Carbon Fiber Paddle: Lightweight, high-performance paddle made from carbon fiber composite for reduced fatigue during long sessions
+- Drop-Stitch Core: Connects thousands of polyester threads between top and bottom layers to achieve rigid platform shape under high inflation pressure
+- Air Deck: Inflatable flooring system that replaces traditional slatted floors in dinghies and small inflatable boats
+- Dual-Action Pump: Hand pump that inflates on both up and down strokes for faster, more efficient inflation of inflatable watercraft
+- High Pressure (12-15 PSI): Optimal inflation range that maximizes board rigidity while remaining within safe operating limits for drop-stitch construction
+- Military-Grade PVC: High-density PVC fabric with UV-resistant coating used for durable inflatable boat and board construction
+- Hypalon Fabric: Chlorosulfonated polyethylene synthetic rubber fabric offering superior UV, ozone, and chemical resistance for professional-grade inflatable boats
+- EVA Foam Deck Pad: Non-slip, shock-absorbing foam deck covering that provides traction and comfort for stand-up watercraft
+- Carbon Fiber: Lightweight, high-strength composite material used in paddles, hulls, and performance marine equipment
+- Marine Buoyancy Foam: Closed-cell foam that provides permanent flotation for life vests and safety equipment in fresh and salt water
+- Deep-V Hull: Fiberglass hull design with a sharp V-shaped entry that cuts through waves for smooth high-speed performance
+- Outboard Motor: Detachable marine engine mounted on the transom of dinghies and RIBs for propulsion
+- Touring & Distance Paddling: Extended paddling trips covering significant distance on lakes, rivers, and coastal waters
+- Beginner: First-time paddlers learning the basics of inflatable watercraft operation, safety, and water navigation
+- Fishing from Inflatable Craft: Using inflatable boats, kayaks, or SUPs as a stable, portable platform for recreational and serious fishing
+- Family Recreation: Inflatable watercraft used for casual family outings on lakes, gentle rivers, and protected coastal waters
+- Professional Operations: Inflatable and rigid inflatable boats used for search and rescue, law enforcement, and commercial marine operations
+- River Touring: Navigating rivers with current, from gentle Class I stretches to more challenging Class II rapids
+- Search & Rescue: Professional use of inflatable and RIB craft for emergency water rescue operations in all weather conditions
 
 ## Guides
-- [What is Inflatable SUP Board?](https://wavefella.com/en/guides/inflatable-sup)
-- [What is Inflatable Kayak?](https://wavefella.com/en/guides/inflatable-kayak)
-- [What is Inflatable Dinghy?](https://wavefella.com/en/guides/dinghy)
-- [What is Rigid Inflatable Boat (RIB)?](https://wavefella.com/en/guides/rib)
-- [What is Safety Equipment?](https://wavefella.com/en/guides/safety-equipment)
-- [What is Accessories?](https://wavefella.com/en/guides/accessory)
-- [What is Paddle?](https://wavefella.com/en/guides/paddle)
-- [What is Carbon Fiber Paddle?](https://wavefella.com/en/guides/carbon-paddle)
-- [What is Drop-Stitch Core?](https://wavefella.com/en/guides/drop-stitch-core)
-- [What is Air Deck?](https://wavefella.com/en/guides/air-deck)
-- [What is Dual-Action Pump?](https://wavefella.com/en/guides/dual-action-pump)
-- [What is Military-Grade PVC?](https://wavefella.com/en/guides/military-grade-pvc)
-- [What is Hypalon Fabric?](https://wavefella.com/en/guides/hypalon-fabric)
-- [What is EVA Foam Deck Pad?](https://wavefella.com/en/guides/eva-deck)
-- [What is Carbon Fiber?](https://wavefella.com/en/guides/carbon-fiber)
-- [What is Marine Buoyancy Foam?](https://wavefella.com/en/guides/buoyancy-foam)
-- [What is Deep-V Hull?](https://wavefella.com/en/guides/deep-v-hull)
-- [What is Outboard Motor?](https://wavefella.com/en/guides/outboard-motor)
+- What is Inflatable SUP Board?
+- What is Inflatable Kayak?
+- What is Inflatable Dinghy?
+- What is Rigid Inflatable Boat (RIB)?
+- What is Safety Equipment?
+- What is Accessories?
+- What is Paddle?
+- What is Carbon Fiber Paddle?
+- What is Drop-Stitch Core?
+- What is Air Deck?
+- What is Dual-Action Pump?
+- What is Military-Grade PVC?
+- What is Hypalon Fabric?
+- What is EVA Foam Deck Pad?
+- What is Carbon Fiber?
+- What is Marine Buoyancy Foam?
+- What is Deep-V Hull?
+- What is Outboard Motor?
 
 ## Use Cases
-- [Touring & Distance Paddling](https://wavefella.com/en/use-cases/touring): Extended paddling trips covering significant distance on lakes, rivers, and coastal waters
-- [Beginner](https://wavefella.com/en/use-cases/beginner): First-time paddlers learning the basics of inflatable watercraft operation, safety, and water navigation
-- [Fishing from Inflatable Craft](https://wavefella.com/en/use-cases/fishing): Using inflatable boats, kayaks, or SUPs as a stable, portable platform for recreational and serious fishing
-- [Family Recreation](https://wavefella.com/en/use-cases/family-recreation): Inflatable watercraft used for casual family outings on lakes, gentle rivers, and protected coastal waters
-- [Professional Operations](https://wavefella.com/en/use-cases/professional-operations): Inflatable and rigid inflatable boats used for search and rescue, law enforcement, and commercial marine operations
-- [River Touring](https://wavefella.com/en/use-cases/river-touring): Navigating rivers with current, from gentle Class I stretches to more challenging Class II rapids
-- [Search & Rescue](https://wavefella.com/en/use-cases/rescue): Professional use of inflatable and RIB craft for emergency water rescue operations in all weather conditions
+- Touring & Distance Paddling
+- Beginner
+- Fishing from Inflatable Craft
+- Family Recreation
+- Professional Operations
+- River Touring
+- Search & Rescue
 
 ## Comparisons
-- [Inflatable SUP Board vs Inflatable Kayak](https://wavefella.com/en/compare/inflatable-sup-vs-inflatable-kayak): Comparison Guide
-- [Inflatable SUP Board vs Inflatable Dinghy](https://wavefella.com/en/compare/inflatable-sup-vs-dinghy): Comparison Guide
-- [Inflatable SUP Board vs Rigid Inflatable Boat (RIB)](https://wavefella.com/en/compare/inflatable-sup-vs-rib): Comparison Guide
-- [Inflatable SUP Board vs Safety Equipment](https://wavefella.com/en/compare/inflatable-sup-vs-safety-equipment): Comparison Guide
-- [Inflatable SUP Board vs Accessories](https://wavefella.com/en/compare/inflatable-sup-vs-accessory): Comparison Guide
-- [Inflatable Kayak vs Inflatable Dinghy](https://wavefella.com/en/compare/inflatable-kayak-vs-dinghy): Comparison Guide
-- [Inflatable Kayak vs Rigid Inflatable Boat (RIB)](https://wavefella.com/en/compare/inflatable-kayak-vs-rib): Comparison Guide
-- [Inflatable Kayak vs Safety Equipment](https://wavefella.com/en/compare/inflatable-kayak-vs-safety-equipment): Comparison Guide
-- [Inflatable Kayak vs Accessories](https://wavefella.com/en/compare/inflatable-kayak-vs-accessory): Comparison Guide
-- [Inflatable Dinghy vs Rigid Inflatable Boat (RIB)](https://wavefella.com/en/compare/dinghy-vs-rib): Comparison Guide
-- [Inflatable Dinghy vs Safety Equipment](https://wavefella.com/en/compare/dinghy-vs-safety-equipment): Comparison Guide
-- [Inflatable Dinghy vs Accessories](https://wavefella.com/en/compare/dinghy-vs-accessory): Comparison Guide
-- [Rigid Inflatable Boat (RIB) vs Safety Equipment](https://wavefella.com/en/compare/rib-vs-safety-equipment): Comparison Guide
-- [Rigid Inflatable Boat (RIB) vs Accessories](https://wavefella.com/en/compare/rib-vs-accessory): Comparison Guide
-- [Safety Equipment vs Accessories](https://wavefella.com/en/compare/safety-equipment-vs-accessory): Comparison Guide
+- Inflatable SUP Board vs Inflatable Kayak: Comparison Guide
+- Inflatable SUP Board vs Inflatable Dinghy: Comparison Guide
+- Inflatable SUP Board vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable SUP Board vs Safety Equipment: Comparison Guide
+- Inflatable SUP Board vs Accessories: Comparison Guide
+- Inflatable Kayak vs Inflatable Dinghy: Comparison Guide
+- Inflatable Kayak vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable Kayak vs Safety Equipment: Comparison Guide
+- Inflatable Kayak vs Accessories: Comparison Guide
+- Inflatable Dinghy vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable Dinghy vs Safety Equipment: Comparison Guide
+- Inflatable Dinghy vs Accessories: Comparison Guide
+- Rigid Inflatable Boat (RIB) vs Safety Equipment: Comparison Guide
+- Rigid Inflatable Boat (RIB) vs Accessories: Comparison Guide
+- Safety Equipment vs Accessories: Comparison Guide
 
 ## Relations
 - SUP boards are used for touring and distance paddling
