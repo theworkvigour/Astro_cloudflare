@@ -96,7 +96,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 const configFile = locale === 'en' ? './src/config.yaml' : `./src/config.${locale}.yaml`;
 
 export default defineConfig({
-  output: 'static',
+  output: 'server',
 
   adapter: cloudflare({
     remoteBindings: process.env.CI ? false : undefined,

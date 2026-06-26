@@ -127,6 +127,14 @@ Admin can read submissions at `/keystatic/contact-submissions` (decryption happe
 
 **Security note:** `contact_submissions_pat` and `contact_resend_api_key` live in the public GitHub repo (bundled into the Cloudflare Worker). Use a separate Fine-grained PAT scoped to a single repo with Contents R/W only, and rotate the Resend key periodically.
 
+## Important: Subdomain Routing Requires `output: 'server'`
+
+With `output: 'static'`, Cloudflare Workers + Assets serves static files directly at the edge **without** calling the Worker's `w.fetch`. The subdomain routing injected by `scripts/patch-worker.mjs` never executes for static paths.
+
+With `output: 'server'`, ALL requests go through the Worker, allowing the injected `w.fetch` override in `dist/server/entry.mjs` to intercept subdomain URLs and rewrite them to path-based URLs before Astro's handler serves the correct localized content.
+
+Do NOT change back to `output: 'static'` unless you remove subdomain routing.
+
 ## Verification Checklist
 
 After changes, always verify:
