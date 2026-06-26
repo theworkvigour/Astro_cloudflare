@@ -47,8 +47,9 @@ jobs:
             delete c.configPath; delete c.userConfigPath;
             c.vectorize = [{ binding: 'VECTORIZE', index_name: 'ai-index' }];
             c.ai = { binding: 'AI' };
+            c.routes = [{ pattern: '*.alluredna.com/*', zone_name: 'alluredna.com' }];
             require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c, null, 2));
-            console.log('✓ Injected VECTORIZE + AI bindings');
+            console.log('✓ Injected VECTORIZE + AI bindings + subdomain routes');
           "
 
       - name: Ensure KV namespace exists

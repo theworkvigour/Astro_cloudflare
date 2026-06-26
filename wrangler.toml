@@ -17,14 +17,13 @@ binding = "ASSETS"
 # Manual deploy:
 #   npx wrangler deploy
 #
-# Required Cloudflare setup (one time only):
-#   ┌──────────────────────────────────────────────────────────────┐
-#   │ 1. DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)         │
-#   │ 2. Route: *.alluredna.com/* → wavefella Worker              │
-#   │    (Cloudflare Dashboard → Workers & Pages → wavefella      │
-#   │     → Triggers → Routes → Add Route)                       │
-#   └──────────────────────────────────────────────────────────────┘
+# Cloudflare Dashboard one-time setup:
+#   DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)
 # ----------------------------------------------------------------
+
+[[routes]]
+pattern = "*.alluredna.com/*"
+zone_name = "alluredna.com"
 
 # --- AI Infrastructure ---
 # Workers AI + Vectorize bindings
