@@ -29,9 +29,20 @@ const WORKERS_AI_EMBED = accountId =>
   CF_API(accountId, 'ai/run/@cf/baai/bge-base-en-v1.5');
 
 function stripHtml(html) {
-  return html
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+  let sanitized = html;
+  let previous;
+
+  do {
+    previous = sanitized;
+    sanitized = sanitized.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+  } while (sanitized !== previous);
+
+  do {
+    previous = sanitized;
+    sanitized = sanitized.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+  } while (sanitized !== previous);
+
+  return sanitized
     .replace(/<[^>]+>/g, ' ')
     .replace(/&[^;]+;/g, ' ')
     .replace(/\s+/g, ' ')
