@@ -70,9 +70,8 @@ export default {
         const pageRes = await fetch(`https://alluredna.com${pageMeta.url}`);
         if (!pageRes.ok) continue;
         const html = await pageRes.text();
-        const content = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-          .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-          .replace(/<[^>]+>/g, ' ')
+        const content = html
+          .replace(/<[^>]*>/g, ' ')
           .replace(/\s+/g, ' ').trim();
         const count = await ingestPage({ ...pageMeta, content }, env);
         total += count;
