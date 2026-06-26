@@ -433,30 +433,15 @@ Type a keyword to start searching
         try { localStorage.setItem('locale', locale); } catch (e) {}
         document.cookie = 'x-user-locale=' + locale + '; path=/; max-age=31536000; SameSite=Lax';
 
-        if (isLocalhost) {
-          // Local dev: use path-based routing
-          var newPath = path;
-          var langMatch = path.match(/^\/[a-z]{2}(\/|$)/);
-          if (langMatch) {
-            newPath = path.replace(/^\/[a-z]{2}(\/|$)/, '/' + locale + '$1');
-          } else {
-            newPath = '/' + locale + (path === '/' ? '' : path);
-          }
-          window.location.href = window.location.protocol + '//' + host + newPath;
-        } else if (/^wavefella-[a-z]{2}\./.test(host)) {
-          // CI preview: wavefella-fr.theworkvigo.workers.dev → wavefella-zh...
-          var base = host.replace(/^wavefella-[a-z]{2}\./, 'wavefella-' + locale + '.');
-          window.location.href = window.location.protocol + '//' + base + path;
+        // Path-based routing for all environments (no subdomain dependency)
+        var newPath = path;
+        var langMatch = path.match(/^\/[a-z]{2}(\/|$)/);
+        if (langMatch) {
+          newPath = path.replace(/^\/[a-z]{2}(\/|$)/, '/' + locale + '$1');
         } else {
-          // Production: fr.alluredna.com → zh.alluredna.com
-          var parts = host.split('.');
-          if (parts.length >= 3) {
-            parts[0] = locale;
-          } else if (parts.length >= 2) {
-            parts.unshift(locale);
-          }
-          window.location.href = window.location.protocol + '//' + parts.join('.') + path;
+          newPath = '/' + locale + (path === '/' ? '' : path);
         }
+        window.location.href = window.location.protocol + '//' + host + newPath;
       });
     }
 
