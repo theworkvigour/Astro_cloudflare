@@ -45,7 +45,7 @@ console.log(`Enabled locales: ${locales.join(', ')}`);
 console.log('');
 
 for (const locale of locales) {
-  console.log(`â–?Building ${locale}...`);
+  console.log(`ï¿½?Building ${locale}...`);
   const start = Date.now();
   try {
     execSync('yarn run build', {
@@ -54,9 +54,9 @@ for (const locale of locales) {
       stdio: 'inherit',
     });
     const elapsed = ((Date.now() - start) / 1000).toFixed(1);
-    console.log(`âœ?${locale} built in ${elapsed}s`);
+    console.log(`ï¿½?${locale} built in ${elapsed}s`);
   } catch (err) {
-    console.error(`âœ?${locale} build failed`);
+    console.error(`ï¿½?${locale} build failed`);
     process.exit(1);
   }
   console.log('');
