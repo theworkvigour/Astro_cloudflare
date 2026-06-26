@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import { products } from '~/data/products';
@@ -13,6 +15,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+const categoryKey = (cat: string) => ({ SUP: 'sups', KAYAK: 'kayaks', DINGHY: 'dinghies', RIB: 'ribs', SAFETY: 'safety', ACCESSORY: 'accessories' }[cat] || cat.toLowerCase());
 const localizedProducts = getLocalizedProducts(lang!);
 const metadata = {
   title: `Products — ${SITE.name}`,
@@ -35,14 +38,6 @@ const productVisuals: Record<string, string> = {
 };
 
 const categories = [...new Set(localizedProducts.map(p => p.category))];
-const categoryNames: Record<string, string> = {
-  SUP: 'SUP Boards',
-  KAYAK: 'Kayaks',
-  DINGHY: 'Dinghies',
-  RIB: 'RIBs',
-  SAFETY: 'Safety Equipment',
-  ACCESSORY: 'Accessories',
-};
 ---
 
 <Layout metadata={metadata}>
@@ -55,7 +50,7 @@ const categoryNames: Record<string, string> = {
 
     {categories.map(cat => (
       <section class="mb-16" id={cat.toLowerCase()}>
-        <h2 class="text-2xl font-semibold text-gray-900 mb-6">{categoryNames[cat] || cat}</h2>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">{t('home.category.' + categoryKey(cat)) || cat}</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {localizedProducts.filter(p => p.category === cat).map(p => (
             <a href={`/${lang}/products/${p.id}`} class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
@@ -63,14 +58,14 @@ const categoryNames: Record<string, string> = {
                 {productVisuals[p.id] ? (
                   <img src={productVisuals[p.id]} alt={p.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                 ) : (
-                  <div class="flex items-center justify-center h-full text-gray-400 text-sm">{p.category}</div>
+                  <div class="flex items-center justify-center h-full text-gray-400 text-sm">{t('home.category.' + categoryKey(p.category)) || p.category}</div>
                 )}
               </div>
               <div class="p-6">
                 <h3 class="font-semibold text-gray-900 text-lg">{p.name}</h3>
                 <p class="text-gray-500 mt-2 text-sm">{p.desc}</p>
                 <div class="mt-4 flex flex-wrap gap-2 text-xs">
-                  <span class="px-2 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">{p.category}</span>
+                  <span class="px-2 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">{t('home.category.' + categoryKey(p.category)) || p.category}</span>
                   <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{p.skill}</span>
                   <span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full">{p.safety_level}</span>
                 </div>

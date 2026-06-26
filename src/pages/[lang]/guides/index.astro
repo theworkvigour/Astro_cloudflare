@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import JsonLd from '~/components/common/JsonLd.astro';
@@ -19,15 +21,6 @@ const metadata = {
 };
 
 const categories = [...new Set(guides.map(g => g.category))];
-const catNames: Record<string, string> = {
-  'buying-guide': 'Buying Guides',
-  'tutorial': 'Tutorials',
-  'safety': 'Safety',
-  'maintenance': 'Maintenance',
-  'technical': 'Technical',
-  'lifestyle': 'Lifestyle & Fitness',
-  'planning': 'Trip Planning',
-};
 ---
 
 <Layout metadata={metadata}>
@@ -57,7 +50,7 @@ const catNames: Record<string, string> = {
 
   {categories.map(cat => (
     <section class="max-w-4xl mx-auto pb-16 px-6">
-      <h2 class="text-lg font-semibold text-gray-900 mb-6">{catNames[cat] || cat}</h2>
+      <h2 class="text-lg font-semibold text-gray-900 mb-6">{t('guides.category.' + cat.replace(/-/g, '_')) || cat}</h2>
       <div class="grid md:grid-cols-2 gap-6">
         {guides.filter(g => g.category === cat).map(g => (
           <div class="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow">

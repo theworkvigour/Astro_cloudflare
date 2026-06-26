@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const vector = await embedQuery(question, env);
-    const searchResults = await env.VECTORIZE.query(vector, { topK: 5 });
+    const searchResults = await (env as any).VECTORIZE.query(vector, { topK: 5 });
 
     const sources: Source[] = (searchResults.matches || [])
       .filter((m: any) => m.score > 0.25)

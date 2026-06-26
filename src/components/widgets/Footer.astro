@@ -93,13 +93,13 @@ const navTextMap: Record<string, string> = {
   'Bundles': 'nav.bundles',
 };
 
-function t(text: string, locale: string): string {
-  const key = navTextMap[text];
+function t(text: string | undefined, locale: string): string {
+  const key = text ? navTextMap[text] : undefined;
   if (key) {
     const translated = (ui as any)[locale]?.[key];
     if (translated) return translated;
   }
-  return text;
+  return text ?? '';
 }
 const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
 

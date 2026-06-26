@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import JsonLd from '~/components/common/JsonLd.astro';
@@ -21,13 +23,6 @@ const metadata = {
 };
 
 const categories = [...new Set(faqs.map(f => f.category))];
-const catNames: Record<string, string> = {
-  product: 'Products',
-  shipping: 'Shipping & Warranty',
-  safety: 'Safety',
-  maintenance: 'Maintenance & Repair',
-  general: 'General',
-};
 ---
 
 <Layout metadata={metadata}>
@@ -46,7 +41,7 @@ const catNames: Record<string, string> = {
 
   {categories.map(cat => (
     <section class="max-w-3xl mx-auto pb-16 px-6">
-      <h2 class="text-xl font-semibold text-gray-900 mb-6">{catNames[cat] || cat}</h2>
+      <h2 class="text-xl font-semibold text-gray-900 mb-6">{t('faq.category.' + cat) || cat}</h2>
       <div class="space-y-4">
         {faqs.filter(f => f.category === cat).map(item => (
           <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group">

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#2b6cb0"/>
+  <rect width="800" height="800" fill="rgba(0,0,0,0.3)"/>
+  <text x="400" y="390" fill="white" font-family="Arial,sans-serif" font-size="53.333333333333336" font-weight="bold" text-anchor="middle" dominant-baseline="middle">All-Round SUP</text>
+  <text x="400" y="420" fill="rgba(255,255,255,0.7)" font-family="Arial,sans-serif" font-size="36.36363636363637" text-anchor="middle" dominant-baseline="middle">sup-explorer-11</text>
+  <text x="400" y="785" fill="rgba(255,255,255,0.4)" font-family="Arial,sans-serif" font-size="32" text-anchor="middle">Wavefella</text>
+</svg>

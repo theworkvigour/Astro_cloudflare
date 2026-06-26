@@ -1,4 +1,3 @@
-import type { Ai } from '/.astro/ai';
 import { embed } from './embed';
 import { type FnVectorize } from './vector';
 import { consumeNeurons, estimateTokens } from './ai-quota';

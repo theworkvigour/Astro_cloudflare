@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const res = await env.AI.run(EMBED_MODEL, { text: [text] }) as { data: Array<number[]> };
+    const res = await (env as any).AI.run(EMBED_MODEL, { text: [text] }) as { data: Array<number[]> };
     const vector = res.data[0];
 
     return new Response(

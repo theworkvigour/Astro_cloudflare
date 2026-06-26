@@ -5,9 +5,13 @@ import ChatWidget from '~/components/ChatWidget.astro';
 import { footerData } from '~/navigation';
 import { getHomePermalink } from '~/utils/permalinks';
 import { SITE } from 'astrowind:config';
+import { getLangFromUrl } from '~/i18n/utils';
+import { defaultLang, ui } from '~/i18n/config';
 
-const title = `Page not found — ${SITE.name}`;
-const description = 'Sorry, the page you are looking for has drifted out to sea. Use the links below to find your way back.';
+const lang = getLangFromUrl(Astro.url);
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+const title = t('404.title').replace('{name}', SITE.name);
+const description = t('404.description');
 ---
 
 <Layout
@@ -21,15 +25,15 @@ const description = 'Sorry, the page you are looking for has drifted out to sea.
     <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8 text-center">
       <div class="max-w-md">
         <h1 class="mb-4 font-black text-9xl">
-          <span class="sr-only">Error</span>
+          <span class="sr-only">{t('404.label')}</span>
           <span class="text-primary dark:text-blue-400">404</span>
         </h1>
-        <p class="mb-2 text-2xl font-semibold md:text-3xl">Lost at sea.</p>
+        <p class="mb-2 text-2xl font-semibold md:text-3xl">{t('404.heading')}</p>
         <p class="mt-2 mb-8 text-lg text-muted dark:text-slate-400">{description}</p>
         <div class="flex flex-wrap justify-center gap-3">
-          <a class="btn btn-primary" href={getHomePermalink()}>Back to homepage</a>
-          <a class="btn" href="/products">Browse products</a>
-          <a class="btn" href="/news">Read the news</a>
+          <a class="btn btn-primary" href={getHomePermalink()}>{t('404.home')}</a>
+          <a class="btn" href="/products">{t('404.products')}</a>
+          <a class="btn" href="/news">{t('404.news')}</a>
         </div>
       </div>
     </div>

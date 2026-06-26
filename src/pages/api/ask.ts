@@ -38,9 +38,9 @@ export const POST: APIRoute = async ({ request }) => {
       const embedTokens = estimateTokens(question);
       const embedQuota = await consumeNeurons(EMBED_MODEL, embedTokens, 0, env as any);
       if (embedQuota.allowed) {
-        const aiRes = await env.AI.run(EMBED_MODEL, { text: [question] }) as { data: Array<number[]> };
+        const aiRes = await (env as any).AI.run(EMBED_MODEL, { text: [question] }) as { data: Array<number[]> };
         const vector = aiRes.data[0];
-        const searchResults = await env.VECTORIZE.query(vector, { topK: 5 });
+        const searchResults = await (env as any).VECTORIZE.query(vector, { topK: 5 });
         const sources = (searchResults.matches || [])
           .filter((m: any) => m.score > 0.25)
           .map((m: any) => ((m.metadata as any)?.text || '').slice(0, 600));
@@ -89,7 +89,7 @@ Warning:
       );
     }
 
-    const llmRes = await env.AI.run(LLM_MODEL, {
+    const llmRes = await (env as any).AI.run(LLM_MODEL, {
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt },

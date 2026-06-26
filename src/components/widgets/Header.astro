@@ -96,13 +96,13 @@ const navTextMap: Record<string, string> = {
   'V2 Library': 'nav.v2',
 };
 
-function t(text: string, locale: string): string {
-  const key = navTextMap[text];
+function t(text: string | undefined, locale: string): string {
+  const key = text ? navTextMap[text] : undefined;
   if (key) {
     const translated = (ui as any)[locale]?.[key];
     if (translated) return translated;
   }
-  return text;
+  return text ?? '';
 }
 
 function localizeHref(href: string | URL | undefined | null, locale: string): string {

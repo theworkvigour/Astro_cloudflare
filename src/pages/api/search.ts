@@ -39,10 +39,10 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const aiRes = await env.AI.run(EMBED_MODEL, { text: [query] }) as { data: Array<number[]> };
+    const aiRes = await (env as any).AI.run(EMBED_MODEL, { text: [query] }) as { data: Array<number[]> };
     const vector = aiRes.data[0];
 
-    const results = await env.VECTORIZE.query(vector, { topK });
+    const results = await (env as any).VECTORIZE.query(vector, { topK });
 
     const matches = (results.matches || [])
       .filter((m: any) => m.score > 0.25)
