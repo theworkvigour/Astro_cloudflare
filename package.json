@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/geo-build.mjs && astro build",
+    "build": "node scripts/geo-build.mjs && astro build && node scripts/patch-worker.mjs",
     "build:all": "node scripts/build-all.js",
     "seo:pipeline": "node scripts/seo-pipeline.mjs",
     "geo:build": "node scripts/geo-build.mjs",

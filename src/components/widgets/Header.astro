@@ -382,17 +382,35 @@ Type a keyword to start searching
         var locale = t.getAttribute('data-locale') || 'en';
         var path = window.location.pathname;
         var host = window.location.hostname;
-        var parts = host.split('.');
+        var isLocalhost = host === 'localhost' || host === '127.0.0.1';
 
         try { localStorage.setItem('locale', locale); } catch (e) {}
         document.cookie = 'x-user-locale=' + locale + '; path=/; max-age=31536000; SameSite=Lax';
 
-        if (parts.length >= 3) {
-          parts[0] = locale;
-        } else if (parts.length >= 2) {
-          parts.unshift(locale);
+        if (isLocalhost) {
+          // Local dev: use path-based routing
+          var newPath = path;
+          var langMatch = path.match(/^\/[a-z]{2}(\/|$)/);
+          if (langMatch) {
+            newPath = path.replace(/^\/[a-z]{2}(\/|$)/, '/' + locale + '$1');
+          } else {
+            newPath = '/' + locale + (path === '/' ? '' : path);
+          }
+          window.location.href = window.location.protocol + '//' + host + newPath;
+        } else if (/^wavefella-[a-z]{2}\./.test(host)) {
+          // CI preview: wavefella-fr.theworkvigo.workers.dev → wavefella-zh...
+          var base = host.replace(/^wavefella-[a-z]{2}\./, 'wavefella-' + locale + '.');
+          window.location.href = window.location.protocol + '//' + base + path;
+        } else {
+          // Production: fr.alluredna.com → zh.alluredna.com
+          var parts = host.split('.');
+          if (parts.length >= 3) {
+            parts[0] = locale;
+          } else if (parts.length >= 2) {
+            parts.unshift(locale);
+          }
+          window.location.href = window.location.protocol + '//' + parts.join('.') + path;
         }
-        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
       });
     }
 

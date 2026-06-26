@@ -1,6 +1,6 @@
 # AstroCloudflare — Wavefella Multilingual Platform
 
-Multilingual (12 languages) water sports equipment site for **Wavefella**, built on [Astro v6](https://astro.build) with hybrid SSG/SSR, deployed to **Cloudflare Workers**.
+Multilingual (12 languages) water sports equipment site for **Wavefella**, built on [Astro v6](https://astro.build) with hybrid SSG/SSR, deployed to a **single Cloudflare Worker**.
 
 **Domains:** `alluredna.com` (production), `wavefella-{locale}.theworkvigo.workers.dev` (CI preview)
 
@@ -9,29 +9,31 @@ Multilingual (12 languages) water sports equipment site for **Wavefella**, built
 ## 1. Architecture Overview
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                  Cloudflare Workers                  │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  subdomain-router (alluredna-subdomain-router)│   │
-│  │  {locale}.alluredna.com → alluredna.com      │   │
-│  └──────────┬───────────────────────────────────┘   │
-│             │ rewrite + X-Original-Lang header        │
-│             ▼                                        │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  wavefella Worker (Astro Cloudflare adapter)  │   │
-│  │  - SSG: /{lang}/products/* (pre-rendered)    │   │
-│  │  - SSR: /about, /contact, /news, /keystatic  │   │
-│  │  - API: /api/ask, /api/chat, /api/contact    │   │
-│  └──────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────┐
+│           Single Cloudflare Worker (wavefella)        │
+│                                                       │
+│  Request → subdomain routing (built into Worker)      │
+│              ↓                                        │
+│  {locale}.alluredna.com/{path}                        │
+│              ↓                                        │
+│  alluredna.com/{lang}/{path}  (internal rewrite)      │
+│  + X-Original-Lang header for SSR pages               │
+│              ↓                                        │
+│  Astro handler serves:                                │
+│    - SSG: /{lang}/products/* (pre-rendered HTML)      │
+│    - SSR: /about, /contact, /news, /keystatic         │
+│    - API: /api/ask, /api/chat, /api/contact           │
+└───────────────────────────────────────────────────────┘
 ```
+
+Subdomain routing logic is injected into the built Worker by `scripts/patch-worker.mjs` during the `npm run build` step. No separate subdomain-router Worker is needed.
 
 ### Build Modes
 
 | Output | Mode | Files |
 |--------|------|-------|
 | `dist/client/` | Static (SSG) | All `[lang]/` pages, assets |
-| `dist/server/` | Server (SSR) | Worker entrypoint (about, contact, news, API, keystatic) |
+| `dist/server/` | Server (SSR) | Worker entrypoint with subdomain routing injected |
 
 ---
 
@@ -80,9 +82,10 @@ Astro_cloudflare/
 │   ├── layouts/                      Layout.astro, PageLayout.astro
 │   ├── assets/                       Tailwind CSS, favicons
 │   └── config.yaml                   Site configuration
-├── workers/
-│   └── subdomain-router.js           {locale}.alluredna.com → alluredna.com
-├── scripts/                          Geo build pipeline
+├── scripts/
+│   ├── geo-build.mjs                 GEO/AI build pipeline
+│   ├── patch-worker.mjs              Injects subdomain routing into built Worker
+│   └── fix-favicons.ps1              Fixes favicon files for CI (Windows only)
 ├── astro.config.ts                   Astro config + Vite plugins
 ├── wrangler.toml                     Cloudflare Workers config (local dev)
 ├── middleware.ts                     See src/middleware.ts
@@ -105,9 +108,11 @@ Pages under `src/pages/[lang]/` auto-generate for all 12 languages at `/{lang}/.
 
 The `[lang]` directory is a dynamic Astro route parameter. Each page reads `Astro.params.lang` or calls `getLangFromUrl(Astro.url)` to determine the locale.
 
-### 3.2 Subdomain Router (production)
+### 3.2 Subdomain Router (production, built into Worker)
 
-File: `workers/subdomain-router.js`
+The subdomain routing logic is injected into the built Worker by `scripts/patch-worker.mjs` during `npm run build`. No separate Worker is needed.
+
+Logic (equivalent to the now-removed `workers/subdomain-router.js`):
 
 | Subdomain | Rewrite to | Header |
 |-----------|-----------|--------|
@@ -297,13 +302,12 @@ check-astro (ubuntu-latest)
   └── corepack → yarn install → yarn check:astro
 
 build-and-deploy (ubuntu-latest, if main + push)
-  ├── yarn build
+  ├── yarn build                    (includes geo-build + astro build + patch-worker)
   ├── Inject VECTORIZE + AI bindings into wrangler.ci.json
   ├── Create/ensure KV namespace (wavefella-session)
   ├── Inject KV namespace ID
-  ├── Deploy wavefella Worker
-  ├── Set SESSION_SECRET secret
-  └── Deploy subdomain-router → alluredna-subdomain-router
+  ├── Deploy wavefella Worker       (subdomain routing built-in)
+  └── Set SESSION_SECRET secret
 ```
 
 ### 6.2 Required GitHub Secrets
@@ -318,18 +322,17 @@ build-and-deploy (ubuntu-latest, if main + push)
 
 | Resource | Name | Purpose |
 |----------|------|---------|
-| **Worker** | `wavefella` | Main Astro site (SSG + SSR) |
-| **Worker** | `alluredna-subdomain-router` | Language subdomain routing |
+| **Worker** | `wavefella` | Astro site (SSG + SSR) with built-in subdomain routing |
 | **KV Namespace** | `wavefella-session` | Keystatic admin sessions |
 | **Vectorize Index** | `ai-index` | 768-dim cosine similarity for AI search |
 | **AI Binding** | `AI` | Workers AI (bge-base-en-v1.5, llama-3.1-8b-instruct) |
 
 ### 6.4 Route Configuration
 
-In Cloudflare Dashboard → Workers & Pages → `alluredna-subdomain-router` → **Triggers** → **Routes**:
+In Cloudflare Dashboard → Workers & Pages → `wavefella` → **Triggers** → **Routes**:
 
 ```
-*.alluredna.com/* → alluredna-subdomain-router
+*.alluredna.com/* → wavefella
 ```
 
 ### 6.5 DNS Configuration
@@ -462,7 +465,7 @@ If something is fundamentally broken, verify these in order:
 | `src/navigation.ts` | Nav structure from YAML | Header/footer show no links |
 | `src/components/widgets/Header.astro` | Navigation bar + lang switcher + search | Nav links missing `/{lang}/` prefix, broken active state |
 | `src/components/widgets/Footer.astro` | Footer links + social | Same as Header |
-| `workers/subdomain-router.js` | Language subdomain routing | `fr.alluredna.com` doesn't route correctly |
+| `scripts/patch-worker.mjs` | Injects subdomain routing into built Worker | Language subdomains (fr.alluredna.com) don't route |
 | `astro.config.ts` | Astro build config + Vite plugins | Build fails, YAML locale loading broken |
 | `wrangler.toml` | Local worker config | `wrangler dev` doesn't work |
 | `.github/workflows/actions.yaml` | CI/CD pipeline | No auto-deploy |

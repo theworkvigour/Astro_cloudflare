@@ -8,38 +8,22 @@ directory = "./dist/client"
 binding = "ASSETS"
 
 # ----------------------------------------------------------------
-# v3.6 — SEO Factory Production Deployment
+# Single Worker Deployment — Astro Site
 # ----------------------------------------------------------------
-# Two deployment modes:
+# Subdomain routing ({locale}.alluredna.com → alluredna.com/{lang}/)
+# is injected into the built Worker by scripts/patch-worker.mjs
+# during the build step.
 #
-# 1. Astro Site (this config):
-#    npx wrangler deploy
+# Manual deploy:
+#   npx wrangler deploy
 #
-# 2. Standalone SEO Factory Worker (seo-worker):
-#    npx wrangler deploy workers/cron.js --name seo-worker
-#    npx wrangler deploy workers/cron.js --name seo-worker --triggers cron
-#    npx wrangler kv:namespace create SEO_KV
-#    npx wrangler secret put GSC_TOKEN
-#    npx wrangler secret put GSC_SITE_URL
-#
-# The standalone Worker runs daily at 9:00 UTC via GitHub Actions:
-#   .github/workflows/seo-factory.yml
-#
-# Run pipeline locally:
-#    npm run seo:pipeline
-#    # output/ contains tasks.json, tasks.md, tasks.csv, geo.json
-# ----------------------------------------------------------------
-#
-# 3. Subdomain Router (subdomain-router):
-#    Auto-deployed via GitHub Actions. Manual deploy:
-#    npx wrangler deploy workers/subdomain-router.js --name alluredna-subdomain-router
-#
-#    Required setup (one time only):
-#    ┌─────────────────────────────────────────────────────────┐
-#    │ 1. DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)    │
-#    │ 2. Route: *.alluredna.com/* → alluredna-subdomain-router │
-#    │    (Cloudflare Dashboard → Workers → Triggers → Routes) │
-#    └─────────────────────────────────────────────────────────┘
+# Required Cloudflare setup (one time only):
+#   ┌──────────────────────────────────────────────────────────────┐
+#   │ 1. DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)         │
+#   │ 2. Route: *.alluredna.com/* → wavefella Worker              │
+#   │    (Cloudflare Dashboard → Workers & Pages → wavefella      │
+#   │     → Triggers → Routes → Add Route)                       │
+#   └──────────────────────────────────────────────────────────────┘
 # ----------------------------------------------------------------
 
 # --- AI Infrastructure ---
