@@ -102,24 +102,11 @@ ui:
 # ── Per-language site settings ─────────────────────────────────
 siteSettings:
   siteName: 'Wavefella'
-  siteTagline: 'Wavefella — TODO: translate tagline to Español'
-  siteDescription: 'TODO: translate site description to Español'
+  siteTagline: 'Wavefella — Premium Inflatable Boats, SUPs & Water Sports Gear'
+  siteDescription: 'Wavefella designs and manufactures premium inflatable boats, stand-up paddleboards, and water sports gear.'
   organization:
     name: 'Wavefella'
     logo: ''
     contactEmail: info@wavefella.com
     contactPhone: '+1 (213) 557-7888'
-    address: '5067 Saddleback St, Montclair, CA 91763, USA'  # TODO: translate address to Español if localized address exists
-  i18n:
-    language: es
-  socialLinks:
-    - platform: youtube
-      url: 'https://www.youtube.com/@Wavefella'
-    - platform: x
-      url: 'https://x.com/wavefella'
-    - platform: instagram
-      url: 'https://www.instagram.com/wavefellaco'
-    - platform: facebook
-      url: 'https://www.facebook.com/wavefella'
-    - platform: rss
-      url: /rss.xml
+    address: '5067 Saddleback St, Montclair, CA 91763, USA'

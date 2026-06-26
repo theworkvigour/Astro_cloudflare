@@ -14,7 +14,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'inflatable-sup',
     type: 'product-category',
-    name: {"en":"Inflatable SUP Board","ko":"인플레이터블 패들보드","ja":"インフレータブルSUPボード","zh":"充气站立式桨板"},
+    name: {
+  "en":"Inflatable SUP Board",
+  "ko":"인플레이터블 패들보드",
+  "ja":"インフレータブルSUPボード",
+  "zh":"充气站立式桨板",
+  "fr":"Inflatable SUP Board",
+  "de":"Inflatable SUP Board",
+  "es":"Inflatable SUP Board",
+  "pt":"Inflatable SUP Board",
+  "it":"Inflatable SUP Board",
+  "ru":"Inflatable SUP Board",
+  "pl":"Inflatable SUP Board",
+  "ar":"Inflatable SUP Board"
+},
     description: {"en":"Portable air-filled paddle board designed for surfing, touring, and recreation on flat water and small waves."},
     features: {
       en: ["Drop-stitch core for rigidity", "EVA foam deck pad for traction", "Removable fin system", "High-pressure inflation up to 15 PSI", "Packs into backpack for storage"],
@@ -40,7 +53,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'inflatable-kayak',
     type: 'product-category',
-    name: {"en":"Inflatable Kayak","ko":"인플레이터블 카약","ja":"インフレータブルカヤック","zh":"充气皮划艇"},
+    name: {
+  "en":"Inflatable Kayak",
+  "ko":"인플레이터블 카약",
+  "ja":"インフレータブルカヤック",
+  "zh":"充气皮划艇",
+  "fr":"Inflatable Kayak",
+  "de":"Inflatable Kayak",
+  "es":"Inflatable Kayak",
+  "pt":"Inflatable Kayak",
+  "it":"Inflatable Kayak",
+  "ru":"Inflatable Kayak",
+  "pl":"Inflatable Kayak",
+  "ar":"Inflatable Kayak"
+},
     description: {"en":"Portable kayak that inflates for use on rivers, lakes, and coastal waters. Offers storage and transport convenience."},
     features: {
       en: ["Inflatable drop-stitch or air deck construction", "Multiple air chambers for safety", "Portable backpack storage", "Suitable for flat water and class II rapids"],
@@ -65,7 +91,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'dinghy',
     type: 'product-category',
-    name: {"en":"Inflatable Dinghy","ko":"인플레이터블 딩기","ja":"インフレータブルディンギー","zh":"充气小艇"},
+    name: {
+  "en":"Inflatable Dinghy",
+  "ko":"인플레이터블 딩기",
+  "ja":"インフレータブルディンギー",
+  "zh":"充气小艇",
+  "fr":"Inflatable Dinghy",
+  "de":"Inflatable Dinghy",
+  "es":"Inflatable Dinghy",
+  "pt":"Inflatable Dinghy",
+  "it":"Inflatable Dinghy",
+  "ru":"Inflatable Dinghy",
+  "pl":"Inflatable Dinghy",
+  "ar":"Inflatable Dinghy"
+},
     description: {"en":"Multi-purpose inflatable boat for tender duty, fishing, and family recreation on protected waters."},
     features: {
       en: ["Multiple air chambers", "Transom for outboard motor", "Air deck or slatted floor options", "Carrying bag included"],
@@ -90,7 +129,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'rib',
     type: 'product-category',
-    name: {"en":"Rigid Inflatable Boat (RIB)","ko":"RIB(경질 고무보트)","ja":"RIB(硬質インフレータブルボート)","zh":"刚性充气艇"},
+    name: {
+  "en":"Rigid Inflatable Boat (RIB)",
+  "ko":"RIB(경질 고무보트)",
+  "ja":"RIB(硬質インフレータブルボート)",
+  "zh":"刚性充气艇",
+  "fr":"Rigid Inflatable Boat (RIB)",
+  "de":"Rigid Inflatable Boat (RIB)",
+  "es":"Rigid Inflatable Boat (RIB)",
+  "pt":"Rigid Inflatable Boat (RIB)",
+  "it":"Rigid Inflatable Boat (RIB)",
+  "ru":"Rigid Inflatable Boat (RIB)",
+  "pl":"Rigid Inflatable Boat (RIB)",
+  "ar":"Rigid Inflatable Boat (RIB)"
+},
     description: {"en":"Professional-grade vessel combining a fiberglass deep-V hull with inflatable tubes for all-weather marine operations."},
     features: {
       en: ["Fiberglass deep-V hull", "Hypalon inflatable tubes", "High load capacity", "Planing hull design"],
@@ -115,7 +167,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'safety-equipment',
     type: 'product-category',
-    name: {"en":"Safety Equipment","ko":"안전 장비","ja":"安全装備","zh":"安全装备"},
+    name: {
+  "en":"Safety Equipment",
+  "ko":"안전 장비",
+  "ja":"安全装備",
+  "zh":"安全装备",
+  "fr":"Safety Equipment",
+  "de":"Safety Equipment",
+  "es":"Safety Equipment",
+  "pt":"Safety Equipment",
+  "it":"Safety Equipment",
+  "ru":"Safety Equipment",
+  "pl":"Safety Equipment",
+  "ar":"Safety Equipment"
+},
     description: {"en":"CE-certified life vests, throw bags, and safety accessories for recreational and professional water activities."},
     features: {
       en: ["CE certified flotation", "Marine-grade buoyancy foam", "Adjustable fit", "Reflective trim for visibility"],
@@ -140,7 +205,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'accessory',
     type: 'product-category',
-    name: {"en":"Accessories","ko":"액세서리","ja":"アクセサリー","zh":"配件"},
+    name: {
+  "en":"Accessories",
+  "ko":"액세서리",
+  "ja":"アクセサリー",
+  "zh":"配件",
+  "fr":"Accessories",
+  "de":"Accessories",
+  "es":"Accessories",
+  "pt":"Accessories",
+  "it":"Accessories",
+  "ru":"Accessories",
+  "pl":"Accessories",
+  "ar":"Accessories"
+},
     description: {"en":"Pumps, paddles, fins, repair kits, and carrying bags that complete the inflatable watercraft system."},
     features: {
       en: ["Dual-action hand pumps", "Adjustable aluminum and carbon paddles", "Slide-in and snap-in fin systems", "Repair kits with PVC patches and valve tools"],
@@ -165,7 +243,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'paddle',
     type: 'component',
-    name: {"en":"Paddle","ko":"패들","ja":"パドル","zh":"桨"},
+    name: {
+  "en":"Paddle",
+  "ko":"패들",
+  "ja":"パドル",
+  "zh":"桨",
+  "fr":"Paddle",
+  "de":"Paddle",
+  "es":"Paddle",
+  "pt":"Paddle",
+  "it":"Paddle",
+  "ru":"Paddle",
+  "pl":"Paddle",
+  "ar":"Paddle"
+},
     description: {"en":"Manual propulsion tool used with SUP boards and kayaks. Available in adjustable aluminum and lightweight carbon fiber."},
     features: {
       en: ["Adjustable shaft length", "Aluminum or carbon fiber shaft", "Nylon or carbon blade", "Ergonomic handle grip"],
@@ -190,7 +281,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'carbon-paddle',
     type: 'component',
-    name: {"en":"Carbon Fiber Paddle","ko":"카본 패들","ja":"カーボンパドル","zh":"碳纤维桨"},
+    name: {
+  "en":"Carbon Fiber Paddle",
+  "ko":"카본 패들",
+  "ja":"カーボンパドル",
+  "zh":"碳纤维桨",
+  "fr":"Carbon Fiber Paddle",
+  "de":"Carbon Fiber Paddle",
+  "es":"Carbon Fiber Paddle",
+  "pt":"Carbon Fiber Paddle",
+  "it":"Carbon Fiber Paddle",
+  "ru":"Carbon Fiber Paddle",
+  "pl":"Carbon Fiber Paddle",
+  "ar":"Carbon Fiber Paddle"
+},
     description: {"en":"Lightweight, high-performance paddle made from carbon fiber composite for reduced fatigue during long sessions."},
     features: {
       en: ["Ultra-lightweight carbon shaft", "Stiff blade for maximum power transfer", "Reduced arm fatigue", "Premium finish"],
@@ -215,7 +319,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'drop-stitch-core',
     type: 'technology',
-    name: {"en":"Drop-Stitch Core","ko":"드롭 스티치 코어","ja":"ドロップステッチコア","zh":"拉丝气垫技术"},
+    name: {
+  "en":"Drop-Stitch Core",
+  "ko":"드롭 스티치 코어",
+  "ja":"ドロップステッチコア",
+  "zh":"拉丝气垫技术",
+  "fr":"Drop-Stitch Core",
+  "de":"Drop-Stitch Core",
+  "es":"Drop-Stitch Core",
+  "pt":"Drop-Stitch Core",
+  "it":"Drop-Stitch Core",
+  "ru":"Drop-Stitch Core",
+  "pl":"Drop-Stitch Core",
+  "ar":"Drop-Stitch Core"
+},
     description: {"en":"Connects thousands of polyester threads between top and bottom layers to achieve rigid platform shape under high inflation pressure."},
     features: {
       en: ["Thousands of polyester threads", "Fused or woven construction", "Withstands 12-15 PSI pressure", "Creates rigid flat platform"],
@@ -240,7 +357,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'air-deck',
     type: 'technology',
-    name: {"en":"Air Deck","ko":"에어 데크","ja":"エアデッキ","zh":"气垫地板"},
+    name: {
+  "en":"Air Deck",
+  "ko":"에어 데크",
+  "ja":"エアデッキ",
+  "zh":"气垫地板",
+  "fr":"Air Deck",
+  "de":"Air Deck",
+  "es":"Air Deck",
+  "pt":"Air Deck",
+  "it":"Air Deck",
+  "ru":"Air Deck",
+  "pl":"Air Deck",
+  "ar":"Air Deck"
+},
     description: {"en":"Inflatable flooring system that replaces traditional slatted floors in dinghies and small inflatable boats."},
     features: {
       en: ["High-pressure air chambers", "Reinforced fabric construction", "Flat surface when inflated", "Full deflation for compact storage"],
@@ -265,7 +395,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'dual-action-pump',
     type: 'component',
-    name: {"en":"Dual-Action Pump","ko":"듀얼 액션 펌프","ja":"デュアルアクションポンプ","zh":"双向气泵"},
+    name: {
+  "en":"Dual-Action Pump",
+  "ko":"듀얼 액션 펌프",
+  "ja":"デュアルアクションポンプ",
+  "zh":"双向气泵",
+  "fr":"Dual-Action Pump",
+  "de":"Dual-Action Pump",
+  "es":"Dual-Action Pump",
+  "pt":"Dual-Action Pump",
+  "it":"Dual-Action Pump",
+  "ru":"Dual-Action Pump",
+  "pl":"Dual-Action Pump",
+  "ar":"Dual-Action Pump"
+},
     description: {"en":"Hand pump that inflates on both up and down strokes for faster, more efficient inflation of inflatable watercraft."},
     features: {
       en: ["Pumps on both up and down strokes", "Pressure gauge included", "Hose and valve adapters", "Ergonomic handle"],
@@ -290,7 +433,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'high-pressure',
     type: 'concept',
-    name: {"en":"High Pressure (12-15 PSI)","ko":"고압(12-15 PSI)","ja":"高圧(12-15 PSI)","zh":"高压（12-15 PSI）"},
+    name: {
+  "en":"High Pressure (12-15 PSI)",
+  "ko":"고압(12-15 PSI)",
+  "ja":"高圧(12-15 PSI)",
+  "zh":"高压（12-15 PSI）",
+  "fr":"High Pressure (12-15 PSI)",
+  "de":"High Pressure (12-15 PSI)",
+  "es":"High Pressure (12-15 PSI)",
+  "pt":"High Pressure (12-15 PSI)",
+  "it":"High Pressure (12-15 PSI)",
+  "ru":"High Pressure (12-15 PSI)",
+  "pl":"High Pressure (12-15 PSI)",
+  "ar":"High Pressure (12-15 PSI)"
+},
     description: {"en":"Optimal inflation range that maximizes board rigidity while remaining within safe operating limits for drop-stitch construction."},
     features: {
       en: ["Optimal 12-15 PSI range", "Maximizes board rigidity", "Drop-stitch compatible", "Requires compatible pump"],
@@ -315,7 +471,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'military-grade-pvc',
     type: 'material',
-    name: {"en":"Military-Grade PVC","ko":"군용 등급 PVC","ja":"ミリタリーグレードPVC","zh":"军用级PVC"},
+    name: {
+  "en":"Military-Grade PVC",
+  "ko":"군용 등급 PVC",
+  "ja":"ミリタリーグレードPVC",
+  "zh":"军用级PVC",
+  "fr":"Military-Grade PVC",
+  "de":"Military-Grade PVC",
+  "es":"Military-Grade PVC",
+  "pt":"Military-Grade PVC",
+  "it":"Military-Grade PVC",
+  "ru":"Military-Grade PVC",
+  "pl":"Military-Grade PVC",
+  "ar":"Military-Grade PVC"
+},
     description: {"en":"High-density PVC fabric with UV-resistant coating used for durable inflatable boat and board construction."},
     features: {
       en: ["High-density PVC fabric", "UV resistant coating", "Abrasion resistant surface", "Marine-grade certification"],
@@ -340,7 +509,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'hypalon-fabric',
     type: 'material',
-    name: {"en":"Hypalon Fabric","ko":"하이팔론 원단","ja":"ハイパロン素材","zh":"海帕伦面料"},
+    name: {
+  "en":"Hypalon Fabric",
+  "ko":"하이팔론 원단",
+  "ja":"ハイパロン素材",
+  "zh":"海帕伦面料",
+  "fr":"Hypalon Fabric",
+  "de":"Hypalon Fabric",
+  "es":"Hypalon Fabric",
+  "pt":"Hypalon Fabric",
+  "it":"Hypalon Fabric",
+  "ru":"Hypalon Fabric",
+  "pl":"Hypalon Fabric",
+  "ar":"Hypalon Fabric"
+},
     description: {"en":"Chlorosulfonated polyethylene synthetic rubber fabric offering superior UV, ozone, and chemical resistance for professional-grade inflatable boats."},
     features: {
       en: ["Chlorosulfonated polyethylene", "Superior UV resistance", "Chemical and ozone resistant", "Professional marine grade"],
@@ -365,7 +547,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'eva-deck',
     type: 'material',
-    name: {"en":"EVA Foam Deck Pad","ko":"EVA 폼 데크 패드","ja":"EVAフォームデッキパッド","zh":"EVA甲板垫"},
+    name: {
+  "en":"EVA Foam Deck Pad",
+  "ko":"EVA 폼 데크 패드",
+  "ja":"EVAフォームデッキパッド",
+  "zh":"EVA甲板垫",
+  "fr":"EVA Foam Deck Pad",
+  "de":"EVA Foam Deck Pad",
+  "es":"EVA Foam Deck Pad",
+  "pt":"EVA Foam Deck Pad",
+  "it":"EVA Foam Deck Pad",
+  "ru":"EVA Foam Deck Pad",
+  "pl":"EVA Foam Deck Pad",
+  "ar":"EVA Foam Deck Pad"
+},
     description: {"en":"Non-slip, shock-absorbing foam deck covering that provides traction and comfort for stand-up watercraft."},
     features: {
       en: ["Non-slip textured surface", "Shock absorbing foam", "UV stable", "Full-length deck coverage"],
@@ -390,7 +585,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'carbon-fiber',
     type: 'material',
-    name: {"en":"Carbon Fiber","ko":"카본 파이버","ja":"カーボンファイバー","zh":"碳纤维"},
+    name: {
+  "en":"Carbon Fiber",
+  "ko":"카본 파이버",
+  "ja":"カーボンファイバー",
+  "zh":"碳纤维",
+  "fr":"Carbon Fiber",
+  "de":"Carbon Fiber",
+  "es":"Carbon Fiber",
+  "pt":"Carbon Fiber",
+  "it":"Carbon Fiber",
+  "ru":"Carbon Fiber",
+  "pl":"Carbon Fiber",
+  "ar":"Carbon Fiber"
+},
     description: {"en":"Lightweight, high-strength composite material used in paddles, hulls, and performance marine equipment."},
     features: {
       en: ["High strength-to-weight ratio", "Stiff and responsive", "Fatigue resistant", "Premium appearance"],
@@ -415,7 +623,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'buoyancy-foam',
     type: 'material',
-    name: {"en":"Marine Buoyancy Foam","ko":"해양용 부력 폼","ja":"海洋浮力フォーム","zh":"船用浮力泡沫"},
+    name: {
+  "en":"Marine Buoyancy Foam",
+  "ko":"해양용 부력 폼",
+  "ja":"海洋浮力フォーム",
+  "zh":"船用浮力泡沫",
+  "fr":"Marine Buoyancy Foam",
+  "de":"Marine Buoyancy Foam",
+  "es":"Marine Buoyancy Foam",
+  "pt":"Marine Buoyancy Foam",
+  "it":"Marine Buoyancy Foam",
+  "ru":"Marine Buoyancy Foam",
+  "pl":"Marine Buoyancy Foam",
+  "ar":"Marine Buoyancy Foam"
+},
     description: {"en":"Closed-cell foam that provides permanent flotation for life vests and safety equipment in fresh and salt water."},
     features: {
       en: ["Closed-cell construction", "Fresh and salt water rated", "Lightweight and durable", "CE certified"],
@@ -440,7 +661,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'deep-v-hull',
     type: 'component',
-    name: {"en":"Deep-V Hull","ko":"딥 V 선체","ja":"ディープVハル","zh":"深V型船体"},
+    name: {
+  "en":"Deep-V Hull",
+  "ko":"딥 V 선체",
+  "ja":"ディープVハル",
+  "zh":"深V型船体",
+  "fr":"Deep-V Hull",
+  "de":"Deep-V Hull",
+  "es":"Deep-V Hull",
+  "pt":"Deep-V Hull",
+  "it":"Deep-V Hull",
+  "ru":"Deep-V Hull",
+  "pl":"Deep-V Hull",
+  "ar":"Deep-V Hull"
+},
     description: {"en":"Fiberglass hull design with a sharp V-shaped entry that cuts through waves for smooth high-speed performance."},
     features: {
       en: ["Fiberglass construction", "Deep-V entry angle", "Planing hull design", "Wave-cutting bow shape"],
@@ -465,7 +699,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'outboard-motor',
     type: 'component',
-    name: {"en":"Outboard Motor","ko":"선외 모터","ja":"船外機","zh":"舷外发动机"},
+    name: {
+  "en":"Outboard Motor",
+  "ko":"선외 모터",
+  "ja":"船外機",
+  "zh":"舷外发动机",
+  "fr":"Outboard Motor",
+  "de":"Outboard Motor",
+  "es":"Outboard Motor",
+  "pt":"Outboard Motor",
+  "it":"Outboard Motor",
+  "ru":"Outboard Motor",
+  "pl":"Outboard Motor",
+  "ar":"Outboard Motor"
+},
     description: {"en":"Detachable marine engine mounted on the transom of dinghies and RIBs for propulsion."},
     features: {
       en: ["Detachable mounting system", "Transom bracket compatible", "Various horsepower options", "Tiller or remote steering"],
@@ -490,7 +737,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'touring',
     type: 'use-case',
-    name: {"en":"Touring & Distance Paddling","ko":"투어링 및 장거리 패들링","ja":"ツーリング＆長距離パドリング","zh":"旅行与长途划桨"},
+    name: {
+  "en":"Touring & Distance Paddling",
+  "ko":"투어링 및 장거리 패들링",
+  "ja":"ツーリング＆長距離パドリング",
+  "zh":"旅行与长途划桨",
+  "fr":"Touring & Distance Paddling",
+  "de":"Touring & Distance Paddling",
+  "es":"Touring & Distance Paddling",
+  "pt":"Touring & Distance Paddling",
+  "it":"Touring & Distance Paddling",
+  "ru":"Touring & Distance Paddling",
+  "pl":"Touring & Distance Paddling",
+  "ar":"Touring & Distance Paddling"
+},
     description: {"en":"Extended paddling trips covering significant distance on lakes, rivers, and coastal waters."},
     features: {
       en: ["Long-distance board design", "Efficient hull shape", "Lightweight paddle", "Storage for gear"],
@@ -515,7 +775,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'beginner',
     type: 'use-case',
-    name: {"en":"Beginner","ko":"초보자","ja":"初心者","zh":"初学者"},
+    name: {
+  "en":"Beginner",
+  "ko":"초보자",
+  "ja":"初心者",
+  "zh":"初学者",
+  "fr":"Beginner",
+  "de":"Beginner",
+  "es":"Beginner",
+  "pt":"Beginner",
+  "it":"Beginner",
+  "ru":"Beginner",
+  "pl":"Beginner",
+  "ar":"Beginner"
+},
     description: {"en":"First-time paddlers learning the basics of inflatable watercraft operation, safety, and water navigation."},
     features: {
       en: ["Stable platform", "Easy inflate and setup", "Forgiving handling", "All-in-one kit available"],
@@ -540,7 +813,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'fishing',
     type: 'use-case',
-    name: {"en":"Fishing from Inflatable Craft","ko":"낚시용 인플레이터블","ja":"釣り用インフレータブル","zh":"充气艇钓鱼"},
+    name: {
+  "en":"Fishing from Inflatable Craft",
+  "ko":"낚시용 인플레이터블",
+  "ja":"釣り用インフレータブル",
+  "zh":"充气艇钓鱼",
+  "fr":"Fishing from Inflatable Craft",
+  "de":"Fishing from Inflatable Craft",
+  "es":"Fishing from Inflatable Craft",
+  "pt":"Fishing from Inflatable Craft",
+  "it":"Fishing from Inflatable Craft",
+  "ru":"Fishing from Inflatable Craft",
+  "pl":"Fishing from Inflatable Craft",
+  "ar":"Fishing from Inflatable Craft"
+},
     description: {"en":"Using inflatable boats, kayaks, or SUPs as a stable, portable platform for recreational and serious fishing."},
     features: {
       en: ["Stable fishing platform", "Quiet approach", "Shallow water access", "Hands-free trolling"],
@@ -565,7 +851,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'family-recreation',
     type: 'use-case',
-    name: {"en":"Family Recreation","ko":"가족 레크리에이션","ja":"ファミリーレクリエーション","zh":"家庭休闲"},
+    name: {
+  "en":"Family Recreation",
+  "ko":"가족 레크리에이션",
+  "ja":"ファミリーレクリエーション",
+  "zh":"家庭休闲",
+  "fr":"Family Recreation",
+  "de":"Family Recreation",
+  "es":"Family Recreation",
+  "pt":"Family Recreation",
+  "it":"Family Recreation",
+  "ru":"Family Recreation",
+  "pl":"Family Recreation",
+  "ar":"Family Recreation"
+},
     description: {"en":"Inflatable watercraft used for casual family outings on lakes, gentle rivers, and protected coastal waters."},
     features: {
       en: ["Large weight capacity", "Stable multi-person design", "Easy transport", "Multiple air chambers for safety"],
@@ -590,7 +889,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'professional-operations',
     type: 'use-case',
-    name: {"en":"Professional Operations","ko":"전문 작업","ja":"プロフェッショナル運用","zh":"专业作业"},
+    name: {
+  "en":"Professional Operations",
+  "ko":"전문 작업",
+  "ja":"プロフェッショナル運用",
+  "zh":"专业作业",
+  "fr":"Professional Operations",
+  "de":"Professional Operations",
+  "es":"Professional Operations",
+  "pt":"Professional Operations",
+  "it":"Professional Operations",
+  "ru":"Professional Operations",
+  "pl":"Professional Operations",
+  "ar":"Professional Operations"
+},
     description: {"en":"Inflatable and rigid inflatable boats used for search and rescue, law enforcement, and commercial marine operations."},
     features: {
       en: ["All-weather capability", "High load capacity", "Rapid deployment", "Consistent multi-unit performance"],
@@ -615,7 +927,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'river-touring',
     type: 'use-case',
-    name: {"en":"River Touring","ko":"강 투어링","ja":"リバーツーリング","zh":"河流旅行"},
+    name: {
+  "en":"River Touring",
+  "ko":"강 투어링",
+  "ja":"リバーツーリング",
+  "zh":"河流旅行",
+  "fr":"River Touring",
+  "de":"River Touring",
+  "es":"River Touring",
+  "pt":"River Touring",
+  "it":"River Touring",
+  "ru":"River Touring",
+  "pl":"River Touring",
+  "ar":"River Touring"
+},
     description: {"en":"Navigating rivers with current, from gentle Class I stretches to more challenging Class II rapids."},
     features: {
       en: ["Maneuverable hull", "Impact resistant", "Quick drainage", "Whitewater capable"],
@@ -640,7 +965,20 @@ export const nodes: GraphNode[] = [
   {
     id: 'rescue',
     type: 'use-case',
-    name: {"en":"Search & Rescue","ko":"수색 및 구조","ja":"捜索救助","zh":"搜索与救援"},
+    name: {
+  "en":"Search & Rescue",
+  "ko":"수색 및 구조",
+  "ja":"捜索救助",
+  "zh":"搜索与救援",
+  "fr":"Search & Rescue",
+  "de":"Search & Rescue",
+  "es":"Search & Rescue",
+  "pt":"Search & Rescue",
+  "it":"Search & Rescue",
+  "ru":"Search & Rescue",
+  "pl":"Search & Rescue",
+  "ar":"Search & Rescue"
+},
     description: {"en":"Professional use of inflatable and RIB craft for emergency water rescue operations in all weather conditions."},
     features: {
       en: ["Rapid deployment", "High stability at rest", "Excellent load capacity", "All-weather construction"],
