@@ -41,8 +41,6 @@ const siteUrlTrimmed = seo.siteUrl.replace(/\/+$/, '');
 
 const enabledLangs = (Array.isArray(langData) ? langData : []).filter((l: any) => l.enabled !== false);
 
-const hostname = Astro.url.hostname;
-const isSubdomain = hostname.split('.').length >= 3 && hostname !== 'localhost';
 const pathname = Astro.url.pathname;
 const pathWithoutLang = removeLang(pathname);
 const currentLang = getLangFromUrl(Astro.url);
@@ -69,20 +67,14 @@ const textDirection = language === 'ar' ? 'rtl' : (defaultTextDir || 'ltr');
         <link
           rel="alternate"
           hreflang={l.locale}
-          href={isSubdomain
-            ? `${Astro.url.protocol}//${l.locale}.${hostname.split('.').slice(1).join('.')}${pathWithoutLang}`
-            : `${siteUrlTrimmed}${localizePath(pathWithoutLang, l.locale)}`
-          }
+          href={`${siteUrlTrimmed}${localizePath(pathWithoutLang, l.locale)}`}
         />
       ))
     }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={isSubdomain
-        ? `${Astro.url.protocol}//en.${hostname.split('.').slice(1).join('.')}${pathWithoutLang}`
-        : `${siteUrlTrimmed}${localizePath(pathWithoutLang, defaultLang)}`
-      }
+      href={`${siteUrlTrimmed}${localizePath(pathWithoutLang, defaultLang)}`}
     />
 
     <JsonLd type="Organization" data={{

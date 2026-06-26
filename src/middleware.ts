@@ -86,17 +86,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
       const detected = detectLocale(context.request);
 
       if (detected !== defaultLang) {
-        const hostname = context.url.hostname;
-        const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0';
-
-        if (isLocalhost) {
-          const dest = url === '/' || url === '' ? `/${detected}/` : `/${detected}${url}`;
-          return context.redirect(dest, 302);
-        }
-
-        const domain = hostname.replace(/^www\./, '');
-        const dest = url === '/' || url === '' ? '/' : url;
-        return context.redirect(`https://${detected}.${domain}${dest}`, 302);
+        const dest = url === '/' || url === '' ? `/${detected}/` : `/${detected}${url}`;
+        return context.redirect(dest, 302);
       }
     }
 
