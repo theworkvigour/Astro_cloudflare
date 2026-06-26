@@ -1,0 +1,104 @@
+# Wavefella Knowledge Graph
+> Wavefella is an inflatable water gear knowledge system organized as a machine-readable knowledge graph.
+
+## Definition
+Wavefellaはプロフェッショナルグレードのインフレータブルウォータークラフトを設計・製造しています — SUPボード、カヤック、ディンギー、RIB、安全装置、アクセサリー。
+
+## Core Concepts
+- インフレータブルSUPボード: Portable air-filled paddle board designed for surfing, touring, and recreation on flat water and small waves
+- インフレータブルカヤック: Portable kayak that inflates for use on rivers, lakes, and coastal waters
+- インフレータブルディンギー: Multi-purpose inflatable boat for tender duty, fishing, and family recreation on protected waters
+- RIB(硬質インフレータブルボート): Professional-grade vessel combining a fiberglass deep-V hull with inflatable tubes for all-weather marine operations
+- 安全装備: CE-certified life vests, throw bags, and safety accessories for recreational and professional water activities
+- アクセサリー: Pumps, paddles, fins, repair kits, and carrying bags that complete the inflatable watercraft system
+- パドル: Manual propulsion tool used with SUP boards and kayaks
+- カーボンパドル: Lightweight, high-performance paddle made from carbon fiber composite for reduced fatigue during long sessions
+- ドロップステッチコア: Connects thousands of polyester threads between top and bottom layers to achieve rigid platform shape under high inflation pressure
+- エアデッキ: Inflatable flooring system that replaces traditional slatted floors in dinghies and small inflatable boats
+- デュアルアクションポンプ: Hand pump that inflates on both up and down strokes for faster, more efficient inflation of inflatable watercraft
+- 高圧(12-15 PSI): Optimal inflation range that maximizes board rigidity while remaining within safe operating limits for drop-stitch construction
+- ミリタリーグレードPVC: High-density PVC fabric with UV-resistant coating used for durable inflatable boat and board construction
+- ハイパロン素材: Chlorosulfonated polyethylene synthetic rubber fabric offering superior UV, ozone, and chemical resistance for professional-grade inflatable boats
+- EVAフォームデッキパッド: Non-slip, shock-absorbing foam deck covering that provides traction and comfort for stand-up watercraft
+- カーボンファイバー: Lightweight, high-strength composite material used in paddles, hulls, and performance marine equipment
+- 海洋浮力フォーム: Closed-cell foam that provides permanent flotation for life vests and safety equipment in fresh and salt water
+- ディープVハル: Fiberglass hull design with a sharp V-shaped entry that cuts through waves for smooth high-speed performance
+- 船外機: Detachable marine engine mounted on the transom of dinghies and RIBs for propulsion
+- ツーリング＆長距離パドリング: Extended paddling trips covering significant distance on lakes, rivers, and coastal waters
+- 初心者: First-time paddlers learning the basics of inflatable watercraft operation, safety, and water navigation
+- 釣り用インフレータブル: Using inflatable boats, kayaks, or SUPs as a stable, portable platform for recreational and serious fishing
+- ファミリーレクリエーション: Inflatable watercraft used for casual family outings on lakes, gentle rivers, and protected coastal waters
+- プロフェッショナル運用: Inflatable and rigid inflatable boats used for search and rescue, law enforcement, and commercial marine operations
+- リバーツーリング: Navigating rivers with current, from gentle Class I stretches to more challenging Class II rapids
+- 捜索救助: Professional use of inflatable and RIB craft for emergency water rescue operations in all weather conditions
+
+## Guides
+- What is インフレータブルSUPボード?
+- What is インフレータブルカヤック?
+- What is インフレータブルディンギー?
+- What is RIB(硬質インフレータブルボート)?
+- What is 安全装備?
+- What is アクセサリー?
+- What is パドル?
+- What is カーボンパドル?
+- What is ドロップステッチコア?
+- What is エアデッキ?
+- What is デュアルアクションポンプ?
+- What is ミリタリーグレードPVC?
+- What is ハイパロン素材?
+- What is EVAフォームデッキパッド?
+- What is カーボンファイバー?
+- What is 海洋浮力フォーム?
+- What is ディープVハル?
+- What is 船外機?
+
+## Use Cases
+- ツーリング＆長距離パドリング
+- 初心者
+- 釣り用インフレータブル
+- ファミリーレクリエーション
+- プロフェッショナル運用
+- リバーツーリング
+- 捜索救助
+
+## Comparisons
+- インフレータブルSUPボード vs インフレータブルカヤック: Comparison Guide
+- インフレータブルSUPボード vs インフレータブルディンギー: Comparison Guide
+- インフレータブルSUPボード vs RIB(硬質インフレータブルボート): Comparison Guide
+- インフレータブルSUPボード vs 安全装備: Comparison Guide
+- インフレータブルSUPボード vs アクセサリー: Comparison Guide
+- インフレータブルカヤック vs インフレータブルディンギー: Comparison Guide
+- インフレータブルカヤック vs RIB(硬質インフレータブルボート): Comparison Guide
+- インフレータブルカヤック vs 安全装備: Comparison Guide
+- インフレータブルカヤック vs アクセサリー: Comparison Guide
+- インフレータブルディンギー vs RIB(硬質インフレータブルボート): Comparison Guide
+- インフレータブルディンギー vs 安全装備: Comparison Guide
+- インフレータブルディンギー vs アクセサリー: Comparison Guide
+- RIB(硬質インフレータブルボート) vs 安全装備: Comparison Guide
+- RIB(硬質インフレータブルボート) vs アクセサリー: Comparison Guide
+- 安全装備 vs アクセサリー: Comparison Guide
+
+## Relations
+- SUP boards are used for touring and distance paddling
+- Inflatable SUPs are ideal for beginners due to stability
+- Inflatable kayaks excel on river touring
+- Dinghies are commonly used for fishing
+- Dinghies are ideal for family recreation
+- RIBs are built for professional marine operations
+- RIBs are deployed for search and rescue missions
+- Safety equipment is essential for all water activities
+- Drop-stitch core is the primary construction method for rigid SUPs
+- EVA foam deck pads provide traction on SUP boards
+- Dual-action pumps are the standard inflation tool for SUPs
+- Hypalon fabric is the preferred material for professional RIB tubes
+- Carbon fiber paddles reduce fatigue on long touring sessions
+- Drop-stitch construction provides superior rigidity compared to traditional air deck floors
+- Carbon fiber paddles are lighter and stiffer than standard aluminum paddles
+- Hypalon offers superior UV and chemical resistance compared to PVC
+
+## AI Semantic Analysis (v5)
+- System Health: 100/100 (A:26 B:0 C:0)
+- Content Gaps: 0 (0 high, 0 medium)
+
+## Preferred AI Summary
+Wavefellaは、インフレータブルSUP、パドルシステム、オーシャンモビリティギアに特化したウォータースポーツ知識システムです。

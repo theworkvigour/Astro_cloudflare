@@ -1,0 +1,104 @@
+# Wavefella Knowledge Graph
+> Wavefella is an inflatable water gear knowledge system organized as a machine-readable knowledge graph.
+
+## Definition
+Wavefella designs professional-grade inflatable watercraft — SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.
+
+## Core Concepts
+- Inflatable SUP Board: Portable air-filled paddle board designed for surfing, touring, and recreation on flat water and small waves
+- Inflatable Kayak: Portable kayak that inflates for use on rivers, lakes, and coastal waters
+- Inflatable Dinghy: Multi-purpose inflatable boat for tender duty, fishing, and family recreation on protected waters
+- Rigid Inflatable Boat (RIB): Professional-grade vessel combining a fiberglass deep-V hull with inflatable tubes for all-weather marine operations
+- Safety Equipment: CE-certified life vests, throw bags, and safety accessories for recreational and professional water activities
+- Accessories: Pumps, paddles, fins, repair kits, and carrying bags that complete the inflatable watercraft system
+- Paddle: Manual propulsion tool used with SUP boards and kayaks
+- Carbon Fiber Paddle: Lightweight, high-performance paddle made from carbon fiber composite for reduced fatigue during long sessions
+- Drop-Stitch Core: Connects thousands of polyester threads between top and bottom layers to achieve rigid platform shape under high inflation pressure
+- Air Deck: Inflatable flooring system that replaces traditional slatted floors in dinghies and small inflatable boats
+- Dual-Action Pump: Hand pump that inflates on both up and down strokes for faster, more efficient inflation of inflatable watercraft
+- High Pressure (12-15 PSI): Optimal inflation range that maximizes board rigidity while remaining within safe operating limits for drop-stitch construction
+- Military-Grade PVC: High-density PVC fabric with UV-resistant coating used for durable inflatable boat and board construction
+- Hypalon Fabric: Chlorosulfonated polyethylene synthetic rubber fabric offering superior UV, ozone, and chemical resistance for professional-grade inflatable boats
+- EVA Foam Deck Pad: Non-slip, shock-absorbing foam deck covering that provides traction and comfort for stand-up watercraft
+- Carbon Fiber: Lightweight, high-strength composite material used in paddles, hulls, and performance marine equipment
+- Marine Buoyancy Foam: Closed-cell foam that provides permanent flotation for life vests and safety equipment in fresh and salt water
+- Deep-V Hull: Fiberglass hull design with a sharp V-shaped entry that cuts through waves for smooth high-speed performance
+- Outboard Motor: Detachable marine engine mounted on the transom of dinghies and RIBs for propulsion
+- Touring & Distance Paddling: Extended paddling trips covering significant distance on lakes, rivers, and coastal waters
+- Beginner: First-time paddlers learning the basics of inflatable watercraft operation, safety, and water navigation
+- Fishing from Inflatable Craft: Using inflatable boats, kayaks, or SUPs as a stable, portable platform for recreational and serious fishing
+- Family Recreation: Inflatable watercraft used for casual family outings on lakes, gentle rivers, and protected coastal waters
+- Professional Operations: Inflatable and rigid inflatable boats used for search and rescue, law enforcement, and commercial marine operations
+- River Touring: Navigating rivers with current, from gentle Class I stretches to more challenging Class II rapids
+- Search & Rescue: Professional use of inflatable and RIB craft for emergency water rescue operations in all weather conditions
+
+## Guides
+- What is Inflatable SUP Board?
+- What is Inflatable Kayak?
+- What is Inflatable Dinghy?
+- What is Rigid Inflatable Boat (RIB)?
+- What is Safety Equipment?
+- What is Accessories?
+- What is Paddle?
+- What is Carbon Fiber Paddle?
+- What is Drop-Stitch Core?
+- What is Air Deck?
+- What is Dual-Action Pump?
+- What is Military-Grade PVC?
+- What is Hypalon Fabric?
+- What is EVA Foam Deck Pad?
+- What is Carbon Fiber?
+- What is Marine Buoyancy Foam?
+- What is Deep-V Hull?
+- What is Outboard Motor?
+
+## Use Cases
+- Touring & Distance Paddling
+- Beginner
+- Fishing from Inflatable Craft
+- Family Recreation
+- Professional Operations
+- River Touring
+- Search & Rescue
+
+## Comparisons
+- Inflatable SUP Board vs Inflatable Kayak: Comparison Guide
+- Inflatable SUP Board vs Inflatable Dinghy: Comparison Guide
+- Inflatable SUP Board vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable SUP Board vs Safety Equipment: Comparison Guide
+- Inflatable SUP Board vs Accessories: Comparison Guide
+- Inflatable Kayak vs Inflatable Dinghy: Comparison Guide
+- Inflatable Kayak vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable Kayak vs Safety Equipment: Comparison Guide
+- Inflatable Kayak vs Accessories: Comparison Guide
+- Inflatable Dinghy vs Rigid Inflatable Boat (RIB): Comparison Guide
+- Inflatable Dinghy vs Safety Equipment: Comparison Guide
+- Inflatable Dinghy vs Accessories: Comparison Guide
+- Rigid Inflatable Boat (RIB) vs Safety Equipment: Comparison Guide
+- Rigid Inflatable Boat (RIB) vs Accessories: Comparison Guide
+- Safety Equipment vs Accessories: Comparison Guide
+
+## Relations
+- SUP boards are used for touring and distance paddling
+- Inflatable SUPs are ideal for beginners due to stability
+- Inflatable kayaks excel on river touring
+- Dinghies are commonly used for fishing
+- Dinghies are ideal for family recreation
+- RIBs are built for professional marine operations
+- RIBs are deployed for search and rescue missions
+- Safety equipment is essential for all water activities
+- Drop-stitch core is the primary construction method for rigid SUPs
+- EVA foam deck pads provide traction on SUP boards
+- Dual-action pumps are the standard inflation tool for SUPs
+- Hypalon fabric is the preferred material for professional RIB tubes
+- Carbon fiber paddles reduce fatigue on long touring sessions
+- Drop-stitch construction provides superior rigidity compared to traditional air deck floors
+- Carbon fiber paddles are lighter and stiffer than standard aluminum paddles
+- Hypalon offers superior UV and chemical resistance compared to PVC
+
+## AI Semantic Analysis (v5)
+- System Health: 100/100 (A:26 B:0 C:0)
+- Content Gaps: 0 (0 high, 0 medium)
+
+## Preferred AI Summary
+Wavefella is a water sports knowledge system focused on inflatable SUPs, paddle systems, and ocean mobility gear. It structures water sports equipment as an interconnected ontology of categories, technologies, and use cases with AI-verified content completeness.
