@@ -7,6 +7,7 @@ import TrustBadges from '~/components/common/TrustBadges.astro';
 import { products } from '~/data/products';
 import { guides } from '~/data/guides';
 import { languages, defaultLang, ui } from '~/i18n/config';
+import { localizeProduct } from '~/utils/product-i18n';
 
 export async function getStaticPaths() {
   const paths: Array<{ params: { lang: string; slug: string }; props: { rec: typeof products[number] } }> = [];
@@ -21,21 +22,22 @@ export async function getStaticPaths() {
 const { rec } = Astro.props;
 const { lang } = Astro.params;
 const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+const product = localizeProduct(rec, lang!);
 
-const relatedGuides = guides.filter(g => g.relatedProducts.includes(rec.id)).slice(0, 3);
+const relatedGuides = guides.filter(g => g.relatedProducts.includes(product.id)).slice(0, 3);
 const metadata = {
-  title: `${rec.name} — ${SITE.name}`,
-  description: rec.desc,
+  title: `${product.name} — ${SITE.name}`,
+  description: product.desc,
 };
 ---
 
 <Layout metadata={metadata}>
-  <meta name="ai-intent" content={`${rec.skill},${rec.environment.join(',')},${rec.category}`} />
+  <meta name="ai-intent" content={`${product.skill},${product.environment.join(',')},${product.category}`} />
 
   <JsonLd type="Product" product={{
-    name: rec.name,
-    description: rec.desc,
-    category: rec.category,
+    name: product.name,
+    description: product.desc,
+    category: product.category,
     brandName: SITE.name,
   }} />
 
@@ -44,15 +46,15 @@ const metadata = {
     <div class="relative z-10 max-w-6xl mx-auto px-6 pb-16 md:pb-20 w-full">
       <div class="max-w-2xl">
         <div class="flex items-center gap-3 text-sm text-white/60 mb-4">
-          <span class="font-medium tracking-wider uppercase">{rec.category}</span>
+          <span class="font-medium tracking-wider uppercase">{product.category}</span>
           <span aria-hidden="true">·</span>
-          <span class="capitalize">{rec.skill}</span>
+          <span class="capitalize">{product.skill}</span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">{rec.name}</h1>
-        <p class="mt-4 text-lg text-white/80 max-w-xl leading-relaxed">{rec.desc}</p>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">{product.name}</h1>
+        <p class="mt-4 text-lg text-white/80 max-w-xl leading-relaxed">{product.desc}</p>
         <div class="mt-6 flex flex-wrap gap-2">
-          {rec.environment.map(e => <span class="px-3 py-1 bg-white/10 text-white/80 text-xs rounded-full">{e}</span>)}
-          {rec.water_condition.map(w => <span class="px-3 py-1 bg-white/10 text-white/80 text-xs rounded-full">{w}</span>)}
+          {product.environment.map(e => <span class="px-3 py-1 bg-white/10 text-white/80 text-xs rounded-full">{e}</span>)}
+          {product.water_condition.map(w => <span class="px-3 py-1 bg-white/10 text-white/80 text-xs rounded-full">{w}</span>)}
         </div>
       </div>
     </div>
@@ -61,8 +63,8 @@ const metadata = {
   <!-- TLDR -->
   <section class="max-w-6xl mx-auto px-6 -mt-8 relative z-20">
     <Tldr
-      summary={rec.definition}
-      points={[`${rec.audience}`, `Use cases: ${rec.ai_use_cases.slice(0, 3).join(', ')}`]}
+      summary={product.definition}
+      points={[`${product.audience}`, `Use cases: ${product.ai_use_cases.slice(0, 3).join(', ')}`]}
     />
   </section>
 
@@ -72,19 +74,19 @@ const metadata = {
       <div class="max-w-3xl mx-auto">
         <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">{t('product.whyExists')}</span>
         <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">{t('product.problem')}</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">{rec.problem}</p>
+        <p class="text-lg text-gray-600 leading-relaxed">{product.problem}</p>
       </div>
     </div>
   </section>
 
   <!-- Use Cases -->
-  {rec.ai_use_cases.length > 0 && (
+  {product.ai_use_cases.length > 0 && (
     <section class="section-premium bg-gray-50/50" data-ai-block="use-case">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.useCases')}</h2>
           <div class="grid md:grid-cols-2 gap-4">
-            {rec.ai_use_cases.map(uc => (
+            {product.ai_use_cases.map(uc => (
               <div class="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-100">
                 <span class="w-2 h-2 mt-2 rounded-full bg-sky-500 flex-shrink-0"></span>
                 <p class="text-sm text-gray-700">{uc}</p>
@@ -97,13 +99,13 @@ const metadata = {
   )}
 
   <!-- Specs -->
-  {Object.keys(rec.ai_specs).length > 0 && (
+  {Object.keys(product.ai_specs).length > 0 && (
     <section class="section-premium bg-white">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.specifications')}</h2>
           <div class="grid md:grid-cols-2 gap-4">
-            {Object.entries(rec.ai_specs).map(([k, v]) => (
+            {Object.entries(product.ai_specs).map(([k, v]) => (
               <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100">
                 <span class="text-sm font-semibold text-gray-700 capitalize">{k.replace(/_/g, ' ')}</span>
                 <span class="text-sm text-gray-500">{v}</span>
@@ -116,13 +118,13 @@ const metadata = {
   )}
 
   <!-- Comparison -->
-  {rec.ai_comparison && (
+  {product.ai_comparison && (
     <section class="section-premium bg-gray-50/50" data-ai-block="comparison">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
           <span class="text-sm font-semibold uppercase tracking-wider text-sky-600 mb-2 block">{t('product.comparison')}</span>
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">{t('product.howCompares')}</h2>
-          <p class="text-lg text-gray-600 leading-relaxed">{rec.ai_comparison}</p>
+          <p class="text-lg text-gray-600 leading-relaxed">{product.ai_comparison}</p>
         </div>
       </div>
     </section>
@@ -131,13 +133,13 @@ const metadata = {
   <TrustBadges layout="row" />
 
   <!-- FAQ -->
-  {rec.ai_faq.length > 0 && (
+  {product.ai_faq.length > 0 && (
     <section class="section-premium bg-white" data-ai-block="faq">
       <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-8 text-center">{t('product.faq')}</h2>
           <div class="space-y-4">
-            {rec.ai_faq.map(f => (
+            {product.ai_faq.map(f => (
               <details class="group rounded-xl border border-gray-200 bg-gray-50 open:bg-white transition-colors">
                 <summary class="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-semibold text-gray-900 list-none">
                   {f.q}
@@ -152,7 +154,7 @@ const metadata = {
     </section>
   )}
 
-  <JsonLd type="FAQPage" faqs={rec.ai_faq} />
+  <JsonLd type="FAQPage" faqs={product.ai_faq} />
 
   <!-- Related Guides -->
   {relatedGuides.length > 0 && (
@@ -175,17 +177,17 @@ const metadata = {
   <!-- Hidden AI data -->
   <section class="sr-only" aria-hidden="true">
     <div data-ai-block="definition">
-      <p>{rec.definition}</p>
-      <p>Problem it solves: {rec.problem}</p>
-      <p>How it works: {rec.howItWorks}</p>
+      <p>{product.definition}</p>
+      <p>Problem it solves: {product.problem}</p>
+      <p>How it works: {product.howItWorks}</p>
     </div>
     <div data-ai-block="specification">
-      {Object.entries(rec.ai_specs).map(([k, v]) => (<p data-spec={k}>{k}: {v}</p>))}
+      {Object.entries(product.ai_specs).map(([k, v]) => (<p data-spec={k}>{k}: {v}</p>))}
     </div>
-    <div data-ai-block="comparison"><p>{rec.ai_comparison}</p></div>
+    <div data-ai-block="comparison"><p>{product.ai_comparison}</p></div>
     <div data-ai-block="constraint">
-      <p>Safety rules: {rec.safety_rules.join('; ')}</p>
-      <p>Regions: {rec.region.join(', ')}</p>
+      <p>Safety rules: {product.safety_rules.join('; ')}</p>
+      <p>Regions: {product.region.join(', ')}</p>
     </div>
   </section>
 </Layout>

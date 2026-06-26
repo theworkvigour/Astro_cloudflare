@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import { SITE } from 'astrowind:config';
 import { products } from '~/data/products';
 import { languages, defaultLang, ui } from '~/i18n/config';
+import { getLocalizedProducts } from '~/utils/product-i18n';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
+const localizedProducts = getLocalizedProducts(lang!);
 const metadata = {
   title: `Products — ${SITE.name}`,
   description: `Browse the full Wavefella product catalog. Inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.`,
@@ -32,7 +34,7 @@ const productVisuals: Record<string, string> = {
   'pump-dual': '/images/wavefella/products/electric-pump.jpg',
 };
 
-const categories = [...new Set(products.map(p => p.category))];
+const categories = [...new Set(localizedProducts.map(p => p.category))];
 const categoryNames: Record<string, string> = {
   SUP: 'SUP Boards',
   KAYAK: 'Kayaks',
@@ -55,7 +57,7 @@ const categoryNames: Record<string, string> = {
       <section class="mb-16" id={cat.toLowerCase()}>
         <h2 class="text-2xl font-semibold text-gray-900 mb-6">{categoryNames[cat] || cat}</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.filter(p => p.category === cat).map(p => (
+          {localizedProducts.filter(p => p.category === cat).map(p => (
             <a href={`/${lang}/products/${p.id}`} class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
               <div class="h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                 {productVisuals[p.id] ? (
