@@ -1,7 +1,15 @@
 export function stripHtmlTags(html: string): string {
-  return html
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, '')
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, '')
+  let sanitized = html;
+  let previous: string;
+
+  do {
+    previous = sanitized;
+    sanitized = sanitized
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, '')
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, '');
+  } while (sanitized !== previous);
+
+  return sanitized
     .replace(/<[^>]+>/g, '')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
