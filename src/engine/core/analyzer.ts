@@ -118,13 +118,21 @@ function hasAttribute(html: string, attr: string): boolean {
 }
 
 export function stripHtml(text: string): string {
-  return text
+  let sanitized = text
     .replace(/<[^>]*>/g, '')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&amp;/g, '&');
+
+  let previous: string;
+  do {
+    previous = sanitized;
+    sanitized = sanitized.replace(/<[^>]*>/g, '');
+  } while (sanitized !== previous);
+
+  return sanitized;
 }
 
 function countWords(text: string): number {
