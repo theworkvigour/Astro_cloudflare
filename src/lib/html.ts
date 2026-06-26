@@ -10,13 +10,13 @@ export function stripHtmlTags(html: string): string {
   } while (sanitized !== previous);
 
   return sanitized
-    .replace(/<[^>]+>/g, '')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'")
-    .replace(/&amp;/g, '&');
+    .replace(/&amp;/g, '&')
+    .replace(/<[^>]+>/g, '');
 }
 
 export function extractTextContent(html: string): string {
