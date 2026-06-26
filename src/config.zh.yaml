@@ -98,3 +98,28 @@ analytics:
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+
+# ── Per-language site settings ─────────────────────────────────
+siteSettings:
+  siteName: 'Wavefella 威弗拉'
+  siteTagline: 'Wavefella 威弗拉 — TODO: translate tagline to 中文'
+  siteDescription: 'TODO: translate site description to 中文'
+  organization:
+    name: 'Wavefella 威弗拉'
+    logo: ''
+    contactEmail: info@wavefella.com
+    contactPhone: '+1 (213) 557-7888'
+    address: '5067 Saddleback St, Montclair, CA 91763, USA'  # TODO: translate address to 中文 if localized address exists
+  i18n:
+    language: zh
+  socialLinks:
+    - platform: youtube
+      url: 'https://www.youtube.com/@Wavefella'
+    - platform: x
+      url: 'https://x.com/wavefella'
+    - platform: instagram
+      url: 'https://www.instagram.com/wavefellaco'
+    - platform: facebook
+      url: 'https://www.facebook.com/wavefella'
+    - platform: rss
+      url: /rss.xml

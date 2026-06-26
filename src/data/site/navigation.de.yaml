@@ -1,0 +1,109 @@
+# Navigation for de locale (Deutsch)
+# AUTO-GENERATED from English template — TODO: translate text values below
+header:
+  topBar:
+    - text: Sign In
+      href: /login
+  links:
+    - text: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+        - text: Compare
+          href: /products/compare
+    - text: Resources
+      links:
+        - text: Guides
+          href: /guides
+        - text: Journal
+          href: /journal
+        - text: Technology
+          href: /technology
+        - text: Safety
+          href: /safety
+        - text: Size Guide
+          href: /size-guide
+        - text: News
+          href: /news
+    - text: Company
+      links:
+        - text: About
+          href: /about
+        - text: R&D Center
+          href: /randdcenter
+        - text: Contact
+          href: /contact
+  actions:
+    - text: Get a quote
+      href: /contact
+      variant: primary
+footer:
+  links:
+    - title: Products
+      links:
+        - text: All Products
+          href: /products
+        - text: RIB Boats
+          href: /products?category=rib
+        - text: Inflatable Boats
+          href: /products?category=inflatable
+        - text: Accessories
+          href: /products?category=accessory
+        - text: Compare
+          href: /products/compare
+    - title: Resources
+      links:
+        - text: Guides
+          href: /guides
+        - text: Journal
+          href: /journal
+        - text: Technology
+          href: /technology
+        - text: Safety
+          href: /safety
+        - text: Size Guide
+          href: /size-guide
+        - text: News
+          href: /news
+    - title: Company
+      links:
+        - text: About
+          href: /about
+        - text: Brand
+          href: /brand
+        - text: R&D Center
+          href: /randdcenter
+        - text: Contact
+          href: /contact
+    - title: Support
+      links:
+        - text: Contact
+          href: /contact
+        - text: About
+          href: /about
+        - text: Login
+          href: /login
+  secondaryLinks:
+    - text: Terms
+      href: /terms
+    - text: Privacy Policy
+      href: /privacy
+    - text: Medical Disclaimer
+      href: /disclaimer
+  socialLinks:
+    - text: YouTube
+      href: https://www.youtube.com/@Wavefella
+    - text: X
+      href: https://x.com/Wavefella
+    - text: Instagram
+      href: https://www.instagram.com/wavefella_watersports/
+    - text: Facebook
+      href: https://www.facebook.com/profile.php?id=61572404318679
+    - text: RSS
+      href: /rss.xml
