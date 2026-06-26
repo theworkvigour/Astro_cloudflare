@@ -1,167 +1,217 @@
-# AstroCloudflare — Wavefella Multilingual Platform
+# Wavefella — Astro v6 Multilingual Platform
 
 Multilingual (12 languages) water sports equipment site for **Wavefella**, built on [Astro v6](https://astro.build) with hybrid SSG/SSR, deployed to a **single Cloudflare Worker**.
 
-**Domains:** `alluredna.com` (production), `wavefella-{locale}.theworkvigo.workers.dev` (CI preview)
+**Domains:** `alluredna.com` (production), preview via `wrangler dev` (local) or CI preview URLs.
 
 ---
 
 ## 1. Architecture Overview
 
 ```
-┌───────────────────────────────────────────────────────┐
-│           Single Cloudflare Worker (wavefella)        │
-│                                                       │
-│  Request → subdomain routing (built into Worker)      │
-│              ↓                                        │
-│  {locale}.alluredna.com/{path}                        │
-│              ↓                                        │
-│  alluredna.com/{lang}/{path}  (internal rewrite)      │
-│  + X-Original-Lang header for SSR pages               │
-│              ↓                                        │
-│  Astro handler serves:                                │
-│    - SSG: /{lang}/products/* (pre-rendered HTML)      │
-│    - SSR: /about, /contact, /news, /keystatic         │
-│    - API: /api/ask, /api/chat, /api/contact           │
-└───────────────────────────────────────────────────────┘
+Request → alluredna.com/{lang}/{path}
+              ↓
+         Astro handler
+              ↓
+    ┌──────────────────┐
+    │  SSG (prerender)  │  →  [lang]/products/*, [lang]/guides/*, [lang]/faq, etc.
+    │  SSR (server)     │  →  /about, /contact, /news, /keystatic, /api/*
+    │  API routes       │  →  /api/ask, /api/chat, /api/contact, etc.
+    └──────────────────┘
 ```
 
-Subdomain routing logic is injected into the built Worker by `scripts/patch-worker.mjs` during the `npm run build` step. No separate subdomain-router Worker is needed.
-
-### Build Modes
-
-| Output | Mode | Files |
-|--------|------|-------|
-| `dist/client/` | Static (SSG) | All `[lang]/` pages, assets |
-| `dist/server/` | Server (SSR) | Worker entrypoint with subdomain routing injected |
+All locale URLs use **path-based** format: `alluredna.com/fr/products`, `alluredna.com/de/guides`.
 
 ---
 
-## 2. Directory Structure
+## 2. Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Astro v6 |
+| Styling | Tailwind CSS v4 |
+| Icons | tabler (via astro-icon) |
+| Fonts | Inter Variable (fontsource) |
+| AI | Workers AI (bge-base-en-v1.5, llama-3.1-8b-instruct) |
+| Vector DB | Cloudflare Vectorize (768-dim cosine) |
+| Session | Cloudflare KV (`wavefella-session`) |
+| Admin CMS | Keystatic (GitHub API-backed) |
+| Contact | AES-256-GCM encryption + Resend email |
+| Deployment | Cloudflare Workers (`output:'server'`) |
+| CI/CD | GitHub Actions |
+| SEO | astro-seo, @astrojs/sitemap, JSON-LD |
+| Compression | astro-compress |
+| MDX | @astrojs/mdx |
+
+---
+
+## 3. Directory Structure
 
 ```
 Astro_cloudflare/
 ├── src/
 │   ├── pages/
-│   │   ├── [lang]/                  Localized pages (12 languages)
-│   │   │   ├── index.astro           Homepage
-│   │   │   ├── faq.astro
-│   │   │   ├── geo-report.astro
-│   │   │   ├── products/index.astro  Product catalog
-│   │   │   ├── products/[slug].astro Product detail
-│   │   │   ├── v2/index.astro        V2 library
-│   │   │   ├── v2/[slug].astro       V2 article
-│   │   │   ├── guides/index.astro    Guides listing
-│   │   │   ├── guides/[slug].astro   Guide detail
-│   │   │   ├── guides/*.astro        Static guides
-│   │   │   ├── use-cases/[slug].astro
-│   │   │   ├── compare/[slug].astro
-│   │   │   └── ... (static articles)
-│   │   ├── about.astro               SSR — uses X-Original-Lang
-│   │   ├── contact.astro             SSR — uses X-Original-Lang
-│   │   ├── news/                     SSR — uses X-Original-Lang
-│   │   ├── keystatic/                Admin panel (protected)
-│   │   ├── api/                      API routes
-│   │   └── ... (brand, safety, technology, etc.)
-│   ├── i18n/
-│   │   ├── config.ts                 Translation keys (12 languages)
-│   │   ├── utils.ts                  getLangFromUrl, removeLang, localizePath
-│   │   └── page-content.ts           getPageContent() for YAML data
-│   ├── middleware.ts                 Auth, locale detection, geo API protection
-│   ├── navigation.ts                 Header/footer nav structure
+│   │   ├── [lang]/                   # Localized pages (12 languages)
+│   │   │   ├── index.astro           # Homepage (SSG)
+│   │   │   ├── faq.astro             # FAQ page with FAQPage schema
+│   │   │   ├── geo-report.astro      # GEO audit report
+│   │   │   ├── products/
+│   │   │   │   ├── index.astro       # Product catalog
+│   │   │   │   └── [slug].astro      # Product detail (+ Product/FAQPage/Breadcrumb schema)
+│   │   │   ├── guides/
+│   │   │   │   ├── index.astro       # Guides listing
+│   │   │   │   └── [slug].astro      # Auto-generated guide (Article + FAQPage + Breadcrumb)
+│   │   │   ├── use-cases/
+│   │   │   │   └── [slug].astro      # Use-case page (Article + FAQPage + Breadcrumb)
+│   │   │   ├── compare/
+│   │   │   │   └── [slug].astro      # Product comparison (Article + Breadcrumb)
+│   │   │   ├── v2/
+│   │   │   │   ├── index.astro
+│   │   │   │   └── [slug].astro      # V2 library articles
+│   │   │   ├── sitemap.xml.ts        # Per-locale sitemap
+│   │   │   └── llms.txt.ts           # Per-locale AI knowledge graph
+│   │   ├── api/                      # API routes (24 endpoints)
+│   │   │   ├── admin/                # Keystatic admin CRUD
+│   │   │   ├── ai/                   # AI quota & sitemap
+│   │   │   ├── auth/                 # Login/logout/change-password
+│   │   │   ├── ask.ts                # AI Q&A
+│   │   │   ├── chat.ts               # AI chat
+│   │   │   ├── contact.ts            # Encrypted contact form
+│   │   │   ├── search.ts             # Full-text search
+│   │   │   ├── embed.ts              # Embeddings
+│   │   │   ├── geo-score.ts          # GEO scoring
+│   │   │   ├── page-inspect.ts       # Page inspection
+│   │   │   └── seo/                  # SEO analysis & execution
+│   │   ├── about.astro               # SSR (prerender=false)
+│   │   ├── contact.astro             # SSR + captcha + encrypted
+│   │   ├── news/                     # Blog (SSR)
+│   │   ├── keystatic/                # Admin panel (protected)
+│   │   ├── internal/                 # GEO/SEO dashboards
+│   │   ├── brand/, wavefella/        # Brand pages
+│   │   ├── randdcenter/              # R&D center pages
+│   │   ├── products/, guides/        # Non-localized versions
+│   │   ├── search.astro              # Search page
+│   │   └── ...                       # 404, login, privacy, terms, etc.
 │   ├── components/
-│   │   └── widgets/
-│   │       ├── Header.astro          Nav bar with i18n link localization
-│   │       └── Footer.astro          Footer with i18n link localization
+│   │   ├── widgets/                  # 28 page sections (Header, Footer, Hero, Features, etc.)
+│   │   ├── common/                   # Shared (JsonLd, Breadcrumbs, Image, Metadata, etc.)
+│   │   ├── blog/                     # Blog UI (SinglePost, Grid, Pagination, etc.)
+│   │   ├── admin/                    # Keystatic admin form components (20 section forms)
+│   │   ├── ui/                       # Primitives (Button, Form, Headline, etc.)
+│   │   ├── seo/                      # OrganizationSchema, SEO meta
+│   │   └── blocks/                   # Section wrapper, story block
+│   ├── layouts/                      # 8 layouts
+│   │   ├── Layout.astro              # Base layout (hreflang, Organization/WebSite schema)
+│   │   ├── PageLayout.astro          # Breadcrumbs + Header + Footer
+│   │   ├── ProductLayout.astro       # Product page layout
+│   │   ├── NewsLayout.astro          # News/blog layout
+│   │   ├── MarkdownLayout.astro      # Markdown pages
+│   │   ├── AdminLayout.astro         # Keystatic admin
+│   │   └── LandingLayout.astro       # Landing pages
+│   ├── lib/
+│   │   ├── seo/                      # SEO engine (17 modules: brand, GSC, CTR, geo, rules, tasks)
+│   │   ├── geo-v4/                   # GEO content v4 (generator, graph, templates)
+│   │   ├── geo-v5/                   # GEO content v5 (semantic engine, topic clusters, gaps)
+│   │   ├── geo/                      # Locale resolver
+│   │   ├── ai-gateway.ts             # Cloudflare AI gateway
+│   │   ├── rag.ts                    # RAG pipeline
+│   │   ├── vector.ts                 # Vector operations
+│   │   ├── auth.ts                   # Session auth
+│   │   ├── contact-captcha.ts        # HMAC captcha
+│   │   ├── contact-crypto.ts         # AES-256-GCM encryption
+│   │   ├── rate-limit.ts             # Sliding window rate limiter
+│   │   ├── github.ts                 # GitHub API client
+│   │   ├── markdown.ts               # Markdown utilities
+│   │   ├── productGraph.ts           # Product knowledge graph
+│   │   └── ...                       # link-refactor, query-bank, token-store, etc.
+│   ├── i18n/
+│   │   ├── config.ts                 # Translation keys (12 langs, ~2000 lines)
+│   │   ├── utils.ts                  # getLangFromUrl, removeLang, localizePath
+│   │   └── page-content.ts           # YAML page content loader
 │   ├── data/
-│   │   ├── site/                     YAML: navigation, branding, languages
-│   │   ├── pages/                    YAML: home, about, news, contact per locale
-│   │   ├── products.ts               SSOT product definitions
-│   │   └── post/                     Blog posts (.md/.mdx)
-│   ├── lib/                          Utilities (auth, geo, SEO, contact, etc.)
-│   ├── layouts/                      Layout.astro, PageLayout.astro
-│   ├── assets/                       Tailwind CSS, favicons
-│   └── config.yaml                   Site configuration
+│   │   ├── pages/                    # YAML: home/about/news/contact per locale (52 files)
+│   │   ├── site/                     # YAML: navigation, branding, languages, etc.
+│   │   ├── products.ts               # Product SSOT (12 products, 6 categories)
+│   │   ├── guides.ts                 # Guide records
+│   │   ├── faq.ts                    # FAQ data
+│   │   ├── content-v2.ts             # V2 library content
+│   │   └── seo/                      # SEO types & sample data
+│   ├── content/
+│   │   ├── graph/                    # Knowledge graph (nodes, relations, index)
+│   │   ├── news/                     # 15 blog posts (MDX)
+│   │   └── products/                 # 13 product pages (MDX)
+│   ├── middleware.ts                 # Locale detection, auth, geo API protection
+│   ├── navigation.ts                 # YAML-driven nav structure
+│   ├── config.yaml                   # Site configuration (brand, SEO, blog, analytics)
+│   └── assets/styles/tailwind.css    # Tailwind CSS v4 config
 ├── scripts/
-│   ├── geo-build.mjs                 GEO/AI build pipeline
-│   ├── patch-worker.mjs              Injects subdomain routing into built Worker
-│   └── fix-favicons.ps1              Fixes favicon files for CI (Windows only)
-├── astro.config.ts                   Astro config + Vite plugins
-├── wrangler.toml                     Cloudflare Workers config (local dev)
-├── middleware.ts                     See src/middleware.ts
-├── keystatic.config.ts               Keystatic admin config
-└── .github/workflows/actions.yaml    CI/CD pipeline
+│   ├── geo-build.mjs                 # GEO/AI build pipeline
+│   ├── patch-worker.mjs              # No-op (subdomain routing removed)
+│   ├── build-all.js                  # Multi-build script
+│   ├── seo-pipeline.mjs              # SEO pipeline
+│   ├── seed-vectorize.cjs            # Vectorize seeding
+│   └── fix-favicons.ps1              # CI favicon fix
+├── workers/                          # Synthetic Cloudflare Workers
+│   ├── cron.js                       # Scheduled tasks
+│   ├── geo-generator.js              # GEO content generation
+│   ├── gsc-fetch.js                  # Google Search Console fetch
+│   ├── rule-engine.js                # SEO rule engine
+│   └── task-export.js                # SEO task export
+├── astro.config.ts                   # Astro build config + Vite plugins
+├── wrangler.toml                     # Cloudflare Workers config
+├── keystatic.config.ts               # Keystatic CMS config
+├── .github/workflows/actions.yaml    # CI/CD pipeline
+├── AGENTS.md                         # AstroWind project instructions
+├── WAVEFELLA-PROJECT-DOCS.md         # Project documentation (Chinese)
+└── SEO-GEO-OPTIMIZATION.md           # SEO/GEO optimization guide (Chinese)
 ```
 
 ---
 
-## 3. Routing System
+## 4. Routing System
 
-### 3.1 Path-based i18n (SSG pages)
+### 4.1 Path-based i18n
 
 Pages under `src/pages/[lang]/` auto-generate for all 12 languages at `/{lang}/...`.
 
-**Example routes:**
-- `/fr/products/sup-explorer-11`
-- `/de/guides`
-- `/ja/faq`
-
-The `[lang]` directory is a dynamic Astro route parameter. Each page reads `Astro.params.lang` or calls `getLangFromUrl(Astro.url)` to determine the locale.
-
-### 3.2 Subdomain Router (production, built into Worker)
-
-The subdomain routing logic is injected into the built Worker by `scripts/patch-worker.mjs` during `npm run build`. No separate Worker is needed.
-
-Logic (equivalent to the now-removed `workers/subdomain-router.js`):
-
-| Subdomain | Rewrite to | Header |
-|-----------|-----------|--------|
-| `fr.alluredna.com/products` | `alluredna.com/fr/products` | `X-Original-Lang: fr` |
-| `de.alluredna.com/` | `alluredna.com/de/` | `X-Original-Lang: de` |
-| `de.alluredna.com/about` | `alluredna.com/about` | `X-Original-Lang: de` |
-| `www.alluredna.com/*` | `alluredna.com/*` (301) | — |
-
-**Route matching logic:**
 ```
-if (first segment matches LANG_PREFIX_ROUTES) → add /{lang}/ prefix
-else → proxy as-is (SSR pages handle via X-Original-Lang header)
+/en/products/sup-explorer-11
+/fr/guides/inflatable-sup
+/de/use-cases/touring
+/ja/compare/inflatable-sup-vs-inflatable-kayak
+/ar/faq
 ```
 
-**LANG_PREFIX_ROUTES:** `['', 'faq', 'guides', 'use-cases', 'products', 'compare', 'geo-report', 'llms.txt', 'sitemap.xml', 'v2']`
+The `[lang]` directory is a dynamic Astro route parameter. Each page reads `Astro.params.lang` or calls `getLangFromUrl(Astro.url)` for locale detection.
 
-The router also strips duplicate `/{lang}/` prefixes (e.g. if a nav link already has `/de/products/`, it normalizes to `/products/` before re-adding `/de/`).
-
-### 3.3 Middleware (localhost)
+### 4.2 Middleware (Locale Detection)
 
 File: `src/middleware.ts`
 
-On localhost (`localhost:4321`), the middleware performs locale detection and redirects:
+| Priority | Method | Source |
+|----------|--------|--------|
+| 1 | Cookie | `x-user-locale` (set by language switcher) |
+| 2 | Geo-IP | `cf-ipcountry` header (Cloudflare) |
+| 3 | Accept-Language | Browser header |
+| 4 | Default | English (`en`) |
 
-```
-Visitor at /products
-  ├── Cookie "x-user-locale=fr" exists → redirect /fr/products
-  ├── Geo-IP + Accept-Language → de   → redirect /de/products
-  └── Default (en)                     → serve /products (English)
-```
+When a visitor hits `alluredna.com/products` without a language prefix:
+- Cookie exists → redirect `/{lang}/products`
+- Geo-IP detected → redirect `/{lang}/products`
+- Default → serve English
 
-**Locale priority:** `Cookie → Geo-IP + Accept-Language → English (default)`
+**Excluded from i18n redirect:** `/api`, `/keystatic`, `/admin`, `/login`, `/internal`, `/images`, `/assets`, `/favicon`, and URLs with file extensions.
 
-**Excluded from i18n:** `/api`, `/keystatic`, `/admin`, `/login`, `/internal`, `/images`, `/assets`, `/favicon`, and any URL with a file extension.
+### 4.3 SSR Pages
 
-### 3.4 SSR Pages (About, Contact, News, Keystatic)
+These pages have `prerender = false`:
+- `/about`, `/contact`, `/news/*`, `/keystatic/*`
 
-These pages have `prerender = false`. They detect language via:
+They detect language via `Accept-Language` header (no `X-Original-Lang` — subdomain routing was removed).
 
-```typescript
-const xLang = Astro.request.headers.get('X-Original-Lang') || '';
-const lang = xLang || detectFromAcceptLanguage() || 'en';
-```
+### 4.4 Navigation Link Localization
 
-In production, the subdomain router sets `X-Original-Lang`. On localhost, the header is absent, so they fall back to `Accept-Language` header.
-
-### 3.5 Navigation Link Localization
-
-`Header.astro` and `Footer.astro` auto-localize nav links via `localizeHref()`:
+`Header.astro` and `Footer.astro` auto-localize nav links:
 
 ```typescript
 const LOCALIZED_ROUTES = new Set([
@@ -169,49 +219,42 @@ const LOCALIZED_ROUTES = new Set([
   '/use-cases', '/compare', '/geo-report'
 ]);
 const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
-
-function localizeHref(href, locale) {
-  if (locale === 'en' || !href.startsWith('/')) return href;
-  const base = href.split('?')[0];
-  if (base === '/' || NON_LOCALIZED_ROUTES.has(base)) return href;
-  if (LOCALIZED_ROUTES.some(r => base === r || base.startsWith(r + '/'))) {
-    return '/' + locale + href;
-  }
-  return href;
-}
 ```
 
-- English users: links stay as-is (`/products`)
-- Non-English users with known routes: prefixed (`/fr/products`)
-- Non-localized routes (About, Contact, etc.): kept at root
+- English: links stay as-is (`/products`)
+- Non-English: prefixed (`/fr/products`)
+- Non-localized routes: kept at root
+
+### 4.5 Language Switcher
+
+Embedded in `Header.astro` — uses path-based URL construction:
+- Reads `data-locale` from clicked language
+- Replaces or prepends `/{lang}/` in path
+- Saves selection to cookie + localStorage
+- Navigates to `alluredna.com/{locale}/...`
 
 ---
 
-## 4. i18n System
+## 5. i18n System
 
-### 4.1 Translation Keys
+### 5.1 Supported Languages (12)
 
-File: `src/i18n/config.ts`
+| Code | Language | Direction |
+|------|----------|-----------|
+| `en` | English | LTR |
+| `zh` | 中文 | LTR |
+| `fr` | Français | LTR |
+| `de` | Deutsch | LTR |
+| `es` | Español | LTR |
+| `pt` | Português | LTR |
+| `ar` | العربية | RTL |
+| `it` | Italiano | LTR |
+| `ja` | 日本語 | LTR |
+| `ko` | 한국어 | LTR |
+| `ru` | Русский | LTR |
+| `pl` | Polski | LTR |
 
-```typescript
-export const languages = {
-  en: 'English', zh: '中文', fr: 'Français', de: 'Deutsch',
-  es: 'Español', pt: 'Português', ar: 'العربية',
-  it: 'Italiano', ja: '日本語', ko: '한국어', ru: 'Русский', pl: 'Polski',
-};
-export const defaultLang = 'en';
-export const showDefaultLang = true;
-
-export const ui = {
-  en: { 'home.title': '...', ... },
-  fr: { 'home.title': '...', ... },
-  // ...
-};
-```
-
-### 4.2 The `t()` Function
-
-Defined in each `[lang]/` page:
+### 5.2 Translation System
 
 ```typescript
 const t = (key: string) =>
@@ -220,286 +263,279 @@ const t = (key: string) =>
 
 **Fallback chain:** `current language key` → `English key` → `raw key string`
 
-### 4.3 Utility Functions
-
-File: `src/i18n/utils.ts`
+### 5.3 Key Utilities
 
 | Function | Purpose |
 |----------|---------|
-| `getLangFromUrl(url)` | Extract `{lang}` from URL path, or return `defaultLang` |
-| `removeLang(path)` | Strip `/{lang}/` prefix from path |
-| `localizePath(path, lang)` | Add `/{lang}/` prefix to path |
+| `getLangFromUrl(url)` | Extract `{lang}` from URL path |
+| `removeLang(path)` | Strip `/{lang}/` prefix |
+| `localizePath(path, lang)` | Add `/{lang}/` prefix |
 
-### 4.4 Page Content (YAML)
+### 5.4 Page Content (YAML)
 
-File: `src/i18n/page-content.ts`
-
-Build-time virtual module `astro:page-content` pre-loads all 12 languages × 4 page types (home, about, news, contact) from `src/data/pages/`. Accessed via `getPageContent(lang, page)`.
-
-**Fallback chain:** `lang/page content` → `en/page content` → `{}`
-
-### 4.5 Adding a New Language
-
-1. Add to `languages` in `src/i18n/config.ts`
-2. Add all translation keys under a new block in `ui`
-3. Add to `PAGE_LANGS` in `astro.config.ts` (line 60)
-4. Create `src/data/pages/{lang}/` YAML files
-5. Create `src/data/site/navigation.{lang}.yaml` (optional, falls back to English)
-6. Add to subdomain router `LANG_MAP` in `workers/subdomain-router.js`
-7. Add to `hreflang` alternate links in `Layout.astro`
+Build-time virtual module `astro:page-content` pre-loads all 12 languages × 4 page types (home, about, news, contact) from `src/data/pages/`. 52 YAML files total.
 
 ---
 
-## 5. Build Pipeline
+## 6. Structured Data (JSON-LD)
 
-### 5.1 Commands
+All schema types generated via `src/components/common/JsonLd.astro`:
+
+| Schema Type | Applied To |
+|-------------|-----------|
+| `Organization` | All pages (via `Layout.astro`) |
+| `WebSite` | All pages (via `Layout.astro`) |
+| `BreadcrumbList` | Product pages, guide pages, use-case pages, comparison pages (RDFa via `Breadcrumbs` component) |
+| `Product` | Product detail pages |
+| `FAQPage` | FAQ page, product detail pages, guide pages, use-case pages |
+| `Article` | Guide pages, use-case pages, comparison pages, news articles |
+| `HowTo` | Available via `JsonLd` component |
+
+AI knowledge graph at `/llms.txt` provides ontology definitions with URLs for AI crawlers.
+
+---
+
+## 7. GEO / SEO Engine
+
+### 7.1 GEO Content v4 (`src/lib/geo-v4/`)
+- Knowledge graph (nodes + relations)
+- Auto-generated guides, use-cases, comparisons
+- Template system for content generation
+
+### 7.2 GEO Content v5 (`src/lib/geo-v5/`)
+- Semantic engine for content analysis
+- Topic clustering
+- Content gap detection
+- Scoring & reporting
+- Link optimization
+
+### 7.3 SEO Suite (`src/lib/seo/`)
+- Brand layer management
+- Google Search Console data extraction
+- Click-through rate analysis
+- Internal link optimization
+- Position/ranking engine
+- Rule engine for SEO audits
+- Health score calculation
+- Task management & export
+- Social media optimization
+- GEO monitoring & generation
+
+### 7.4 AI Integration
+- **Workers AI:** `bge-base-en-v1.5` (embeddings), `llama-3.1-8b-instruct` (chat/Q&A)
+- **Vectorize:** 768-dim cosine similarity search
+- **RAG pipeline:** Product → embeddings → similarity search → context → AI response
+- **AI Chat:** `/api/chat` with product-aware context
+- **AI Q&A:** `/api/ask` for structured product recommendations
+
+### 7.5 llms.txt
+AI entry point at `/{lang}/llms.txt` with knowledge graph definitions linking to actual pages.
+
+---
+
+## 8. Contact Form
+
+| Feature | Implementation |
+|---------|---------------|
+| Encryption | AES-256-GCM (key from `SESSION_SECRET`) |
+| Captcha | HMAC-signed math captcha |
+| Rate Limit | 5/hr per IP (in-memory sliding window) |
+| Honeypot | Hidden `email_confirm` field |
+| Storage | GitHub API → `src/data/contact/submissions.enc.json` |
+| Email | Resend API (optional) |
+
+Form: `/contact`
+API: `POST /api/contact`
+Admin: `/keystatic/contact-submissions`
+
+---
+
+## 9. Admin Panel
+
+Keystatic CMS at `/keystatic/` (GitHub API-backed):
+
+- **Pages:** Create/edit homepage, about, sections
+- **Posts:** Blog/news article management (MDX)
+- **Products:** Product content management (MDX)
+- **Navigation:** Visual navigation editor with auto-link-refactor detection
+- **Branding:** Brand colors, logos, API keys
+- **Languages:** Enable/disable supported languages
+- **SEO:** Meta tags, social previews
+- **Contact:** View encrypted submissions
+- **Link Refactor:** Bulk URL rename tool
+- **Validate Links:** Internal link validation
+
+---
+
+## 10. Build Pipeline
+
+### 10.1 Commands
 
 | Command | Purpose |
 |---------|---------|
-| `yarn dev` | `astro dev` — local server at `localhost:4321` |
-| `yarn build` | `geo-build.mjs → astro build` — full production build |
-| `yarn preview` | Preview built site |
-| `yarn check` | `astro check → eslint → prettier` |
-| `yarn fix` | Auto-fix ESLint + Prettier |
+| `npm run dev` / `yarn dev` | Astro dev server at `localhost:4321` |
+| `npm run build` / `yarn build` | Full production build |
+| `npm run preview` / `yarn preview` | Preview production build |
+| `npm run check` / `yarn check` | `astro check → eslint → prettier` |
+| `npm run fix` / `yarn fix` | Auto-fix ESLint + Prettier |
 
-### 5.2 Build Process
+### 10.2 Build Process
 
 ```
-1. scripts/geo-build.mjs        ← GEO/AI analysis + llms.txt + sitemap-entity.xml
-2. astro build                  ← Astro SSG build
-   ├── YAML Plugin              ← Loads locale-specific YAML via SITE_LOCALE env
-   ├── Page Content Plugin      ← Pre-loads all page YAML data
-   ├── astro:content            ← Content collections (posts, products)
-   ├── SSG pages               ← dist/client/
-   └── SSR entrypoints         ← dist/server/
+1. scripts/geo-build.mjs      ← GEO/AI analysis + llms.txt + sitemap-entity.xml
+2. astro build                ← Astro hybrid build
+   ├── YAML Plugin            ← Locale-specific YAML loading
+   ├── Page Content Plugin    ← Pre-loads all page YAML
+   ├── SSG pages              → dist/client/
+   └── SSR entrypoints        → dist/server/
+3. scripts/patch-worker.mjs   ← No-op (subdomain routing removed)
 ```
 
-### 5.3 YAML Plugin (`yamlPlugin` in `astro.config.ts`)
+### 10.3 Output
 
-- Reads `SITE_LOCALE` env var (unset in CI builds → defaults to `'en'`)
-- For locale-specific page YAML: `src/data/pages/{locale}/{page}.yaml`
-- For navigation: `src/data/site/navigation.{locale}.yaml` (via vite alias)
-- Falls back to English if locale file not found
-
-### 5.4 Page Content Plugin (`pageContentPlugin` in `astro.config.ts`)
-
-Virtual module `astro:page-content` exports a JSON map of all `{lang}/{pageName}` → parsed YAML content. Pre-loaded at build time so all 48 combinations (12 langs × 4 pages) are available instantly.
+| Directory | Content |
+|-----------|---------|
+| `dist/client/` | Static HTML, assets, sitemaps, llms.txt |
+| `dist/server/` | Cloudflare Worker entrypoint + wrangler.json |
 
 ---
 
-## 6. Deployment
+## 11. Deployment
 
-### 6.1 GitHub Actions CI/CD
-
-File: `.github/workflows/actions.yaml`
+### 11.1 CI/CD (GitHub Actions)
 
 **Trigger:** Push to `main`
 
-**Jobs:**
+| Job | Runs On | Steps |
+|-----|---------|-------|
+| `check-astro` | ubuntu-latest | `yarn install → astro check` |
+| `build-and-deploy` | ubuntu-latest | Build → inject AI/KV bindings → `wrangler deploy` |
 
-```
-check-astro (ubuntu-latest)
-  └── corepack → yarn install → yarn check:astro
+### 11.2 Required Secrets
 
-build-and-deploy (ubuntu-latest, if main + push)
-  ├── yarn build                    (includes geo-build + astro build + patch-worker)
-  ├── Inject VECTORIZE + AI bindings into wrangler.ci.json
-  ├── Create/ensure KV namespace (wavefella-session)
-  ├── Inject KV namespace ID
-  ├── Deploy wavefella Worker       (subdomain routing built-in)
-  └── Set SESSION_SECRET secret
-```
+| Secret | Purpose |
+|--------|---------|
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account |
+| `CLOUDFLARE_API_TOKEN` | Workers + Vectorize + KV permissions |
+| `SESSION_SECRET` | Session encryption + contact form key |
 
-### 6.2 Required GitHub Secrets
-
-| Secret | Where Used | Purpose |
-|--------|-----------|---------|
-| `CLOUDFLARE_ACCOUNT_ID` | CI deploy step | Cloudflare account ID |
-| `CLOUDFLARE_API_TOKEN` | CI deploy step | Workers + Vectorize + KV permissions |
-| `SESSION_SECRET` | CI set on Worker | Session encryption for Keystatic |
-
-### 6.3 Required Cloudflare Resources
+### 11.3 Required Cloudflare Resources
 
 | Resource | Name | Purpose |
 |----------|------|---------|
-| **Worker** | `wavefella` | Astro site (SSG + SSR) with built-in subdomain routing |
-| **KV Namespace** | `wavefella-session` | Keystatic admin sessions |
-| **Vectorize Index** | `ai-index` | 768-dim cosine similarity for AI search |
-| **AI Binding** | `AI` | Workers AI (bge-base-en-v1.5, llama-3.1-8b-instruct) |
+| Worker | `wavefella` | Astro site (SSG + SSR) |
+| KV Namespace | `wavefella-session` | Keystatic sessions |
+| Vectorize Index | `ai-index` | 768-dim cosine similarity |
+| AI Binding | `AI` | Workers AI |
 
-### 6.4 Route Configuration
+### 11.4 DNS
+
+```
+alluredna.com  A  (Cloudflare proxied)
+*.alluredna.com  CNAME  alluredna.com  (Cloudflare proxied)
+```
+
+### 11.5 Route Configuration
 
 In Cloudflare Dashboard → Workers & Pages → `wavefella` → **Triggers** → **Routes**:
-
 ```
 *.alluredna.com/* → wavefella
 ```
 
-### 6.5 DNS Configuration
-
-```
-Record  Type   Target           Proxied
-*       CNAME  alluredna.com    Yes (橙色云)
-```
-
-### 6.6`.dev.vars` (Local Development)
-
-```
-SESSION_SECRET=your-random-secret-here
-```
-
 ---
 
-## 7. Data Flow
+## 12. Data Flow
 
-### 7.1 Product Data
+### Product Data
 
 ```
 src/data/products.ts  →  SSOT (12 products, 6 categories)
        │
-       ├── UI (product cards, category grid, filters)
-       ├── AI (/api/ask — structured recommendation engine)
-       ├── SEO (JSON-LD, llms.txt, AI Summary, FAQ)
-       └── Product Graph (category intelligence, safety rules)
+       ├── Product detail pages (SSG)
+       ├── Product catalog (SSG with filters)
+       ├── AI recommendation engine
+       ├── JSON-LD structured data
+       ├── Knowledge graph nodes
+       └── llms.txt generation
 ```
 
-### 7.2 Page Content Flow
+### Content Collections
 
 ```
-src/data/pages/{lang}/*.yaml  ──→  astro:page-content (build-time JSON)
-                                          │
-                                    getPageContent(lang, page)
-                                          │
-                              ┌───────────┴───────────┐
-                              ▼                       ▼
-                       SSG pages               SSR pages
-                   (pre-rendered HTML)    (server-rendered HTML)
+src/content/
+  news/{slug}.mdx    →  15 news articles
+  products/{slug}.mdx  →  13 product MDX pages
+  graph/              →  Knowledge graph (nodes + relations)
 ```
 
-### 7.3 Navigation Flow
+### Page Content
 
 ```
-src/data/site/navigation.yaml  ──→  src/navigation.ts  ──→  headerData / footerData
-                                          │
-                          ┌───────────────┴───────────────┐
-                          ▼                               ▼
-                   Header.astro                      Footer.astro
-                   (localizeHref)                    (localizeHref)
-                          │                               │
-                          ▼                               ▼
-              <a href="/fr/products">              <a href="/fr/products">
+src/data/pages/{lang}/*.yaml  →  astro:page-content (build-time JSON)
+                                       ↓
+                                getPageContent(lang, page)
+                                       ↓
+                            SSG pages / SSR pages
 ```
 
 ---
 
-## 8. Error Diagnostics Guide
+## 13. Key Files Reference
 
-Use this section to determine whether a bug is a **logic error** (business/flow issue), a **structural error** (build/config issue), or a **deployment error** (CI/infra issue).
-
-### 8.1 Build Failures
-
-| Error | Likely Cause | Check |
-|-------|-------------|-------|
-| `Rollup failed to resolve import "~/assets/..."` | Missing file or case mismatch on Linux CI | `src/assets/` file exists? Filename case matches? Git-tracked? |
-| `Cannot find module '/.astro/ai'` | Cloudflare AI types not generated (pre-existing on Windows) | Build on Linux CI (GitHub Actions) — passes there |
-| `[ERROR] [vite] ✗ Build failed` with Vite error | Check the specific import that failed | `yarn build` locally first |
-| `[ERROR] [content] [Error]` | Content collection schema mismatch | Check `src/content.config.ts` + data files |
-| `Generated an empty chunk` | Warning only, not blocking | Usually harmless |
-
-### 8.2 Locale/Routing Errors
-
-| Symptom | Likely Cause | Check |
-|---------|-------------|-------|
-| Non-English page shows English content | Missing translation key in `src/i18n/config.ts` | Add key for the language |
-| Nav link jumps to English | `localizeHref()` not matching the route | Is the route in `LOCALIZED_ROUTES` in Header.astro / Footer.astro? |
-| `/{lang}/about` returns 404 | No `[lang]/about.astro` page (SSR pages don't have lang variants) | Expected — about is SSR, accessed via subdomain |
-| Subdomain not routing correctly | DNS/subdomain-router config | Check `LANG_MAP` in `workers/subdomain-router.js`. Check Cloudflare Routes. |
-| Active nav link not highlighted | `cleanPath` vs `href` mismatch | Check `cleanPath = removeLang(Astro.url.pathname)` in Header.astro |
-| Language switcher not working | Cookie or subdomain logic | Check `data-locale` attributes and `window.location` logic in Header.astro |
-
-### 8.3 Deployment Errors
-
-| Error | Likely Cause | Check |
-|-------|-------------|-------|
-| `✗ Deploy to Cloudflare Workers` fails | Missing secrets or wrong config | Check GitHub Secrets (`CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`). Check `wrangler.ci.json` injection. |
-| `✗ Ensure KV namespace exists` fails | Wrangler not authenticated | Check API token has Workers + KV permissions |
-| `ERROR: could not find KV namespace ID` | KV namespace not created | Manually create: `npx wrangler kv namespace create wavefella-session` |
-| `✗ Set SESSION_SECRET` fails | Secret was already set (non-fatal) | Verify via Dashboard → Worker → Settings → Variables |
-| Subdomain router deploy fails | Already exists or name conflict | Check worker name `alluredna-subdomain-router` is unique |
-| `✗ Subdomain Router` deploy fails | `workers/subdomain-router.js` has syntax error | Test locally: `node -c workers/subdomain-router.js` |
-
-### 8.4 Runtime (SSR/API) Errors
-
-| Symptom | Likely Cause | Check |
-|---------|-------------|-------|
-| `/api/ask` returns 500 | AI binding not available or model name wrong | Check `AI` binding in wrangler. CI injects it. |
-| `/api/contact` returns 429 | Rate limit hit (5/hr per IP) | Wait or check `src/lib/rate-limit.ts` |
-| Keystatic `/keystatic` returns 404 | Protected page, not logged in | Check `SESSION_SECRET` is set. Visit `/login` first. |
-| Search shows no results | No search index or CORS issue | Check `fetch('/search-index.json')` returns data |
-| Email not sending | Resend API key missing or invalid | Check `contact_resend_api_key` in branding.yaml |
-
-### 8.5 Structural Checklist
-
-If something is fundamentally broken, verify these in order:
-
-1. **`yarn build` succeeds locally?** → If no, fix build errors first
-2. **`yarn dev` shows correct content?** → Check routes, i18n keys, data files
-3. **`git push` triggers CI?** → Check GitHub Actions tab
-4. **CI `check-astro` passes?** → Fails = type/lint error
-5. **CI `build-and-deploy` succeeds?** → Check deploy logs
-6. **Cloudflare Worker deployed?** → Check Dashboard → Workers
-7. **Subdomain router deployed?** → Check `alluredna-subdomain-router`
-8. **DNS proxied through Cloudflare?** → `dig A alluredna.com` shows Cloudflare IPs
-9. **Routes configured?** → `*.alluredna.com/*` → subdomain-router
-10. **Secrets set on Worker?** → `SESSION_SECRET`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`
+| File | Role |
+|------|------|
+| `src/i18n/config.ts` | Translation keys + language list |
+| `src/i18n/utils.ts` | URL language utilities |
+| `src/middleware.ts` | Locale detection, auth, geo API protection |
+| `src/navigation.ts` | Nav structure from YAML |
+| `src/config.yaml` | Site config (brand, SEO, URLs, blog settings) |
+| `src/components/widgets/Header.astro` | Nav bar + language switcher + search |
+| `src/components/common/JsonLd.astro` | JSON-LD schema generator (7 types) |
+| `src/components/common/Breadcrumbs.astro` | Visual breadcrumbs with RDFa |
+| `astro.config.ts` | Astro build config + Vite plugins |
+| `wrangler.toml` | Cloudflare Workers config |
+| `keystatic.config.ts` | Keystatic CMS config |
+| `.github/workflows/actions.yaml` | CI/CD pipeline |
+| `public/llms.txt` | AI knowledge graph entry point |
 
 ---
 
-## 9. Key Files Reference
+## 14. Adding a New Language
 
-| File | Role | What Breaks If Missing/Wrong |
-|------|------|------------------------------|
-| `src/i18n/config.ts` | Translation keys + language list | All non-English pages show English or broken keys |
-| `src/i18n/utils.ts` | URL language utilities | `getLangFromUrl` returns wrong lang, nav links wrong |
-| `src/middleware.ts` | Auth + locale detection + geo API | No locale redirects on localhost, no admin auth |
-| `src/navigation.ts` | Nav structure from YAML | Header/footer show no links |
-| `src/components/widgets/Header.astro` | Navigation bar + lang switcher + search | Nav links missing `/{lang}/` prefix, broken active state |
-| `src/components/widgets/Footer.astro` | Footer links + social | Same as Header |
-| `scripts/patch-worker.mjs` | Injects subdomain routing into built Worker | Language subdomains (fr.alluredna.com) don't route |
-| `astro.config.ts` | Astro build config + Vite plugins | Build fails, YAML locale loading broken |
-| `wrangler.toml` | Local worker config | `wrangler dev` doesn't work |
-| `.github/workflows/actions.yaml` | CI/CD pipeline | No auto-deploy |
-| `src/data/products.ts` | Product SSOT | Product pages wrong, AI recommendations broken |
-| `src/config.yaml` | Site config (brand, SEO, URLs) | Site metadata wrong |
+1. Add to `languages` in `src/i18n/config.ts`
+2. Add all translation keys under a new block in `ui`
+3. Add to `PAGE_LANGS` in `astro.config.ts`
+4. Create `src/data/pages/{lang}/` YAML files (home, about, news, contact)
+5. Enable in `src/data/site/languages.yaml`
 
 ---
 
-## 10. Tech Stack
+## 15. Error Diagnostics
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Astro v6 |
-| Styling | Tailwind CSS v4 |
-| Icons | tabler (astronomy) via astro-icon |
-| Fonts | Inter Variable (fontsource) |
-| AI | Workers AI (bge-base-en-v1.5, llama-3.1-8b-instruct) |
-| Vector DB | Cloudflare Vectorize (768-dim cosine) |
-| Session | Cloudflare KV |
-| Admin | Keystatic (GitHub API-backed) |
-| Contact | AES-256-GCM + Resend |
-| Deployment | Cloudflare Workers |
-| CI/CD | GitHub Actions |
-| SEO | astro-seo, @astrojs/sitemap, JSON-LD |
-| Compression | astro-compress |
-| MDX | @astrojs/mdx |
+### Build Failures
+
+| Error | Check |
+|-------|-------|
+| `Rollup failed to resolve import` | File exists? Case mismatch on Linux? |
+| `[ERROR] [content]` | Content collection schema + data mismatch |
+| Build succeeds locally but fails in CI | Case sensitivity, platform-specific paths |
+
+### Routing Issues
+
+| Symptom | Check |
+|---------|-------|
+| Non-English page shows English | Missing translation key in `src/i18n/config.ts` |
+| Nav link wrong locale | Is route in `LOCALIZED_ROUTES`? |
+| 404 on locale page | Does `[lang]/` page template exist? |
+
+### Deployment
+
+| Issue | Check |
+|-------|-------|
+| Deploy fails | GitHub Secrets (`CLOUDFLARE_*`) correct? |
+| KV namespace error | Manually create: `npx wrangler kv namespace create wavefella-session` |
+| Worker not responding | Routes configured in Cloudflare Dashboard? DNS proxied? |
 
 ---
 
-## 11. Contact
-
-**Wavefella**  
-5067 Saddleback St, Montclair, CA 91763, USA  
-213-557-7888  
-info@wavefella.com
-
-[YouTube](https://www.youtube.com/@Wavefella) · [X](https://x.com/wavefella) · [Instagram](https://www.instagram.com/wavefellaco) · [Facebook](https://www.facebook.com/wavefella)
+*Built with [Astro](https://astro.build) v6 · Deployed on [Cloudflare Workers](https://workers.cloudflare.com)*
