@@ -21,10 +21,6 @@ binding = "ASSETS"
 #   DNS:  *  CNAME  alluredna.com  (橙色云/Proxied)
 # ----------------------------------------------------------------
 
-[[routes]]
-pattern = "*.alluredna.com/*"
-zone_name = "alluredna.com"
-
 # --- AI Infrastructure ---
 # Workers AI + Vectorize bindings
 #   npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
