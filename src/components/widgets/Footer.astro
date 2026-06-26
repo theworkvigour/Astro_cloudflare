@@ -3,6 +3,8 @@ import { Icon } from 'astro-icon/components';
 import branding from '~/data/site/branding.yaml';
 import { getHomePermalink } from '~/utils/permalinks';
 import { getSeoSettings } from '~/utils/seo-settings';
+import { getLangFromUrl } from '~/i18n/utils';
+import { defaultLang } from '~/i18n/config';
 
 interface Link {
   text?: string;
@@ -57,6 +59,22 @@ const entityForHref = (href?: string): string => {
   return 'page';
 };
 
+const currentLocale = getLangFromUrl(Astro.url);
+
+const LOCALIZED_ROUTES = new Set(['/products', '/guides', '/faq', '/v2', '/use-cases', '/compare', '/geo-report']);
+const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
+
+function localizeHref(href: string | undefined | null, locale: string): string {
+  const str = href || '';
+  if (locale === defaultLang || !str || !str.startsWith('/') || str.startsWith('//')) return str;
+  const base = str.split('?')[0].split('#')[0];
+  if (base === '/' || NON_LOCALIZED_ROUTES.has(base)) return str;
+  if ([...LOCALIZED_ROUTES].some(r => base === r || base.startsWith(r + '/'))) {
+    return '/' + locale + str;
+  }
+  return str;
+}
+
 const siteName = branding?.site_name?.trim() || 'Wavefella';
 const year = new Date().getFullYear();
 const rawCopyright = footNote ?? branding?.copyright ?? `© ${year} ${siteName} · All rights reserved.`;
@@ -73,7 +91,7 @@ const copyrightHtml = String(rawCopyright)
     <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12">
       <div class="col-span-12 lg:col-span-4">
         <div class="mb-2">
-          <a class="inline-block font-bold text-xl" href={getHomePermalink()}>{siteName}</a>
+          <a class="inline-block font-bold text-xl" href={localizeHref(getHomePermalink(), currentLocale)}>{siteName}</a>
         </div>
         <div class="text-sm text-muted flex gap-1">
           {
@@ -82,7 +100,7 @@ const copyrightHtml = String(rawCopyright)
                 {index !== 0 ? ' · ' : ''}
                 <a
                   class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out"
-                  href={href}
+                  href={localizeHref(href, currentLocale)}
                   set:html={text}
                 />
               </>
@@ -100,7 +118,7 @@ const copyrightHtml = String(rawCopyright)
                   <li class="mb-2">
                     <a
                       class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out"
-                      href={href}
+                      href={localizeHref(href, currentLocale)}
                       aria-label={ariaLabel}
                       data-entity={entityForHref(href)}
                     >

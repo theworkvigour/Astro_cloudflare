@@ -6,11 +6,12 @@ import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import Button from '~/components/ui/Button.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
-import { trimSlash, getAsset } from '~/utils/permalinks';
+import { getAsset } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
 
-import { getLangFromUrl } from '~/i18n/utils';
+import { getLangFromUrl, removeLang } from '~/i18n/utils';
 import langData from '~/data/site/languages.yaml';
+import { defaultLang } from '~/i18n/config';
 
 interface Link {
   text?: string;
@@ -53,7 +54,21 @@ const {
   position = 'center',
 } = Astro.props;
 
-const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
+const cleanPath = removeLang(new URL(Astro.url).pathname);
+
+const LOCALIZED_ROUTES = new Set(['/products', '/guides', '/faq', '/v2', '/use-cases', '/compare', '/geo-report']);
+const NON_LOCALIZED_ROUTES = new Set(['/products/compare']);
+
+function localizeHref(href: string | URL | undefined | null, locale: string): string {
+  const str = typeof href === 'string' ? href : href?.toString() || '';
+  if (locale === defaultLang || !str || !str.startsWith('/') || str.startsWith('//')) return str || '';
+  const base = str.split('?')[0].split('#')[0];
+  if (base === '/' || NON_LOCALIZED_ROUTES.has(base)) return str;
+  if ([...LOCALIZED_ROUTES].some(r => base === r || base.startsWith(r + '/'))) {
+    return '/' + locale + str;
+  }
+  return str;
+}
 
 const entityForHref = (href?: string): string => {
   if (!href) return 'page';
@@ -90,7 +105,7 @@ const currentLocale = getLangFromUrl(Astro.url);
           <>
             {i > 0 && <span class="text-gray-500 mx-2 select-none">|</span>}
             <a
-              href={link.href || '#'}
+              href={localizeHref(link.href || '#', currentLocale)}
               class="hover:text-gray-300 transition-colors"
             >{link.text}</a>
           </>
@@ -118,7 +133,7 @@ const currentLocale = getLangFromUrl(Astro.url);
         <div class="flex items-center md:hidden">
           <ToggleMenu />
         </div>
-        <a class="flex items-center" href={getHomePermalink()}>
+        <a class="flex items-center" href={localizeHref(getHomePermalink(), currentLocale)}>
           <Logo />
         </a>
       </div>
@@ -167,9 +182,9 @@ const currentLocale = getLangFromUrl(Astro.url);
                     <a
                       class:list={[
                         'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
-                        { 'aw-link-active': href2 === currentPath },
+                        { 'aw-link-active': href2 === cleanPath },
                       ]}
-                      href={href2}
+                      href={localizeHref(href2, currentLocale)}
                       data-entity={entityForHref(href2)}
                     >
                       {text2}
@@ -182,9 +197,9 @@ const currentLocale = getLangFromUrl(Astro.url);
                 <a
                   class:list={[
                     'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-                    { 'aw-link-active': href === currentPath },
+                    { 'aw-link-active': href === cleanPath },
                   ]}
-                  href={href}
+                  href={localizeHref(href, currentLocale)}
                   data-entity={entityForHref(href)}
                 >
                   {text}
@@ -241,7 +256,7 @@ const currentLocale = getLangFromUrl(Astro.url);
           actions?.length ? (
             <span class="ml-1 rtl:ml-0 rtl:mr-1">
               {actions.map((btnProps) => (
-                <Button {...btnProps} class="ml-1 py-2 px-4 md:px-5 font-semibold shadow-none text-sm w-auto" />
+                <Button {...btnProps} href={localizeHref(btnProps.href || '', currentLocale)} class="ml-1 py-2 px-4 md:px-5 font-semibold shadow-none text-sm w-auto" />
               ))}
             </span>
           ) : (
