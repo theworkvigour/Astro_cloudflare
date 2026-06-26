@@ -16,6 +16,7 @@ import compress from 'astro-compress';
 import cloudflare from '@astrojs/cloudflare';
 import type { AstroIntegration } from 'astro';
 import astrowind from './vendor/integration';
+import imageOptimizer from './vendor/integration/image-optimizer';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
@@ -130,6 +131,8 @@ export default defineConfig({
         config: { forward: ['dataLayer.push'] },
       })
     ),
+
+    imageOptimizer(),
 
     compress({
       CSS: true,
