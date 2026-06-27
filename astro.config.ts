@@ -59,7 +59,7 @@ function yamlPlugin(): Plugin {
 }
 
 const PAGE_LANGS = ['en', 'zh', 'fr', 'de', 'es', 'pt', 'ar', 'it', 'ja', 'ko', 'ru', 'pl'];
-const PAGE_NAMES = ['home', 'about', 'news', 'contact'];
+const PAGE_NAMES = ['home', 'about', 'news', 'contact', 'what-is-sup', 'inflatable-vs-hardboard', 'fishing'];
 
 function pageContentPlugin(): Plugin {
   return {

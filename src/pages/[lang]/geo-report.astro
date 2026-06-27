@@ -2,54 +2,57 @@
 export const prerender = true;
 
 import PageLayout from '~/layouts/PageLayout.astro';
-import { languages } from '~/i18n/config';
+import { languages, defaultLang, ui } from '~/i18n/config';
+import { getLangFromUrl } from '~/i18n/utils';
 import { generateReport } from '../../lib/geo-v5/report';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({ params: { lang } }));
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any)[defaultLang]?.[key] || key;
 const report = generateReport();
 ---
 
 <PageLayout>
   <section class="mx-auto max-w-6xl px-6 py-16">
-    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">GEO v5 Report</span>
-    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">Knowledge System Health</h1>
-    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">AI semantic analysis of all {report.summary.totalNodes} knowledge graph nodes.</p>
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">{t('geo.reportLabel')}</span>
+    <h1 class="font-semibold text-gray-900 dark:text-gray-100 mt-4 text-4xl">{t('geo.title')}</h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 mt-3">{t('geo.aiAnalysis').replace('{count}', String(report.summary.totalNodes))}</p>
 
     <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{report.summary.totalNodes}</div>
-        <div class="text-sm text-gray-500">Nodes</div>
+        <div class="text-sm text-gray-500">{t('geo.nodes')}</div>
       </div>
       <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{report.summary.totalRelations}</div>
-        <div class="text-sm text-gray-500">Relations</div>
+        <div class="text-sm text-gray-500">{t('geo.relations')}</div>
       </div>
       <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
         <div class="text-2xl font-bold {report.healthScore >= 80 ? 'text-green-600' : report.healthScore >= 60 ? 'text-yellow-600' : 'text-red-600'}">{report.healthScore}%</div>
-        <div class="text-sm text-gray-500">System Health</div>
+        <div class="text-sm text-gray-500">{t('geo.systemHealth')}</div>
       </div>
       <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
         <div class="text-2xl font-bold {report.health.averageTotal}">
           <span class="text-lg ml-1">{report.health.aCount}A / {report.health.bCount}B / {report.health.cCount}C</span>
         </div>
-        <div class="text-sm text-gray-500">Grade Distribution</div>
+        <div class="text-sm text-gray-500">{t('geo.gradeDistribution')}</div>
       </div>
     </div>
 
-    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Node Scores</h2>
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">{t('geo.nodeScores')}</h2>
     <div class="mt-4 overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
           <tr class="text-left border-b border-gray-200 dark:border-gray-700">
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Node</th>
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">SEO</th>
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">AI Readability</th>
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Structure</th>
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Total</th>
-            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">Grade</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.node')}</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.seo')}</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.aiReadability')}</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.structure')}</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.total')}</th>
+            <th class="pb-2 font-medium text-gray-900 dark:text-gray-100">{t('geo.grade')}</th>
           </tr>
         </thead>
         <tbody>
@@ -67,11 +70,11 @@ const report = generateReport();
       </table>
     </div>
 
-    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Content Gaps</h2>
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">{t('geo.contentGaps')}</h2>
     <div class="mt-4 space-y-4">
       {report.gapsBySeverity.high.length > 0 && (
         <div>
-          <h3 class="text-lg font-medium text-red-600 mb-2">High Severity ({report.gapsBySeverity.high.length})</h3>
+          <h3 class="text-lg font-medium text-red-600 mb-2">{t('geo.highSeverity').replace('{count}', String(report.gapsBySeverity.high.length))}</h3>
           <ul class="space-y-1">
             {report.gapsBySeverity.high.map(g => (
               <li class="text-sm text-gray-600 dark:text-gray-400"><span class="font-mono text-xs">{g.node}</span> — {g.issue}</li>
@@ -81,7 +84,7 @@ const report = generateReport();
       )}
       {report.gapsBySeverity.medium.length > 0 && (
         <div>
-          <h3 class="text-lg font-medium text-yellow-600 mb-2">Medium Severity ({report.gapsBySeverity.medium.length})</h3>
+          <h3 class="text-lg font-medium text-yellow-600 mb-2">{t('geo.mediumSeverity').replace('{count}', String(report.gapsBySeverity.medium.length))}</h3>
           <ul class="space-y-1">
             {report.gapsBySeverity.medium.map(g => (
               <li class="text-sm text-gray-600 dark:text-gray-400"><span class="font-mono text-xs">{g.node}</span> — {g.issue}</li>
@@ -91,12 +94,12 @@ const report = generateReport();
       )}
     </div>
 
-    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">Topic Clusters</h2>
+    <h2 class="mt-12 text-2xl font-semibold text-gray-900 dark:text-gray-100">{t('geo.topicClusters')}</h2>
     <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
       {Object.entries(report.clusters).map(([name, clusterNodes]) => (
         <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
           <div class="text-lg font-medium text-gray-900 dark:text-gray-100">{name}</div>
-          <div class="text-sm text-gray-500">{clusterNodes.length} nodes</div>
+          <div class="text-sm text-gray-500">{t('geo.nodesCount').replace('{count}', String(clusterNodes.length))}</div>
           <ul class="mt-2 space-y-1">
             {clusterNodes.map(n => (
               <li class="text-xs text-gray-600 dark:text-gray-400">{n.name.en}</li>
@@ -107,7 +110,7 @@ const report = generateReport();
     </div>
 
     <div class="mt-12 text-xs text-gray-400 dark:text-gray-600">
-      Report generated: {report.generatedAt}
+      {t('geo.reportGenerated').replace('{date}', report.generatedAt)}
     </div>
   </section>
 </PageLayout>
