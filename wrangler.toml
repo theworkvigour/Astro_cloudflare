@@ -1,4 +1,4 @@
-name = "wavefella"
+name = "astrocloudflare"
 compatibility_date = "2026-06-05"
 compatibility_flags = ["nodejs_compat"]
 main = "@astrojs/cloudflare/entrypoints/server"
